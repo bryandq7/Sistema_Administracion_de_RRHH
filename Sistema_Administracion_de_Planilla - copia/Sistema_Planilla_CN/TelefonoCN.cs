@@ -15,5 +15,30 @@ namespace Sistema_Planilla_CN
         {
             return obj.ObtenerListaTelefonosPersona(FKId_Persona_Telefono);
         }
+
+        public static TelefonoCE Crear(int idPersona)
+        {
+            return obj.Crear(idPersona);
+        }
+
+        public static void Crear(TelefonoCE telefono)
+        {
+            obj.Crear(telefono);
+        }
+
+        public static TelefonoCE Editar(int idTelefono)
+        {
+            return obj.Editar(idTelefono);
+        }
+
+        public static void Editar(TelefonoCE telefono)
+        {
+            obj.Editar(telefono);
+        }
+
+            public static void Eliminar(int id_telefono)
+        {
+            obj.Eliminar(id_telefono);
+        }
     }
 }

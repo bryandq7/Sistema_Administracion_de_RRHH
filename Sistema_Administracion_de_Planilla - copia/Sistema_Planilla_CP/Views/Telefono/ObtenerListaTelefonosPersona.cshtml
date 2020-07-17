@@ -19,7 +19,9 @@
 <h2 class="tituloCss">Lista de Telefonos </h2>
 
 <p>
-    <a class="btn btn-info" href="@Url.Action("Crear", "Telefono")"><i class="glyphicon glyphicon-plus"></i> Crear Nuevo</a>
+    @*<a class="btn btn-info" href="@Url.Action("Crear", "Telefono")"><i class="glyphicon glyphicon-plus"></i> Crear Nuevo</a>*@
+    <a class="btn btn-info" title="Crear" href="@Url.Action("Crear", "Telefono",new { Id_Persona = @Model.First().FKId_Persona_Telefono})"><i class="glyphicon glyphicon-pencil"></i></a>
+
 </p>
 <table class="table" id="tablaTelefono">
     <thead>
@@ -51,7 +53,7 @@
                         @Html.DisplayFor(modelItem => item.FKId_Persona_Telefono)
                     </td>*@
                 <td>
-                    <a class="btn btn-success btn-xm" title="Editar" href="@Url.Action("Editar", "Telefono",new { id=item.Id_Telefono  })"><i class="glyphicon glyphicon-pencil"></i></a>
+                    <a class="btn btn-success btn-xm" title="Editar" href="@Url.Action("Editar", "Telefono",new { Id_Telefono=item.Id_Telefono  })"><i class="glyphicon glyphicon-pencil"></i></a>
                     <a class="btn btn-danger btn-xm" onclick="EliminarTelefono(@item.Id_Telefono)" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
                     @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                     @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
@@ -105,7 +107,7 @@
                         $.ajax({
                             url: "/telefono/eliminartelefono",
                             type: "post",
-                            data: { id_telefono: idtelefono }
+                            data: { id_telefono: idtelefono, id_persona : @Model.First().FKId_Persona_Telefono}
                         }).done(function (response) {
                             console.log(response);//
                             LoadingOverlayHide("#tablaTelefono");
