@@ -34,7 +34,6 @@ namespace Sistema_Planilla_CE
         public virtual DbSet<Direccion> Direccion { get; set; }
         public virtual DbSet<Distrito> Distrito { get; set; }
         public virtual DbSet<Email> Email { get; set; }
-        public virtual DbSet<Empleado> Empleado { get; set; }
         public virtual DbSet<Planilla> Planilla { get; set; }
         public virtual DbSet<PlanillaEmpleado> PlanillaEmpleado { get; set; }
         public virtual DbSet<Provincia> Provincia { get; set; }
@@ -46,7 +45,6 @@ namespace Sistema_Planilla_CE
         public virtual DbSet<Persona> Persona { get; set; }
         public virtual DbSet<Telefono> Telefono { get; set; }
         public virtual DbSet<Cargo> Cargo { get; set; }
-        public virtual DbSet<Contrato> Contrato { get; set; }
         public virtual DbSet<Curso> Curso { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
@@ -55,5 +53,7 @@ namespace Sistema_Planilla_CE
         public virtual DbSet<StatusSolicitud> StatusSolicitud { get; set; }
         public virtual DbSet<TipoSolicitud> TipoSolicitud { get; set; }
         public virtual DbSet<TipoContrato> TipoContrato { get; set; }
+        public virtual DbSet<Contrato> Contrato { get; set; }
+        public virtual DbSet<Empleado> Empleado { get; set; }
     }
 }

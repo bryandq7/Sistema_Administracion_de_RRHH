@@ -14,21 +14,15 @@ namespace Sistema_Planilla_CE
     
     public partial class Contrato
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Contrato()
-        {
-            this.Empleado = new HashSet<Empleado>();
-        }
-    
         public int Id_Contrato { get; set; }
         public decimal SalarioBruto_Contrato { get; set; }
         public System.DateTime FechaInicio_Contrato { get; set; }
         public Nullable<System.DateTime> FechaFin_Contrato { get; set; }
         public int FKId_TipoContrato_Contrato { get; set; }
         public string Nombre_Contrato { get; set; }
+        public int FKId_Empleado_Contrato { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Empleado> Empleado { get; set; }
+        public virtual Empleado Empleado { get; set; }
         public virtual TipoContrato TipoContrato { get; set; }
     }
 }
