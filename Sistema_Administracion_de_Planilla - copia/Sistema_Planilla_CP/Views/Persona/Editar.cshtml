@@ -1,0 +1,398 @@
+﻿@model Sistema_Planilla_CE.PersonaCE
+
+@{
+    ViewBag.Title = "Editar";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<h2>Editar</h2>
+
+<form id="frmPersona" action="@Url.Action("Editar", "Persona")" method="post">
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>PersonaCE</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.Id_Persona)
+            @*@Html.HiddenFor(model => model.Id_Provincia)
+            @Html.HiddenFor(model => model.Id_Canton)
+            @Html.HiddenFor(model => model.Id_Distrito)*@
+            @Html.HiddenFor(model => model.Id_Direccion)
+            @Html.HiddenFor(model => model.Id_Email)
+        @Html.HiddenFor(model => model.FKId_Direccion_Persona)
+        @Html.HiddenFor(model => model.FKId_Email_Persona)
+
+
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Id_Persona, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Id_Persona, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Id_Persona, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Número de Identidad</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="NumeroIdentidad_Persona"
+                       value="@Model.NumeroIdentidad_Persona" placeholder="Ingrese Número de Identidad" />
+                @*@Html.EditorFor(model => model.NumeroIdentidad_Persona, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.NumeroIdentidad_Persona, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Nombre</label>
+
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="Nombre_Persona"
+                       value="@Model.Nombre_Persona" placeholder="Ingrese nombres de la Persona" />
+                @*@Html.EditorFor(model => model.Nombre_Persona, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Nombre_Persona, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Primer Apellido</label>
+
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="Apellido1_Persona"
+                       value="@Model.Apellido1_Persona" placeholder="Ingrese Primer Apellido" />
+                @*@Html.EditorFor(model => model.Apellido1_Persona, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Apellido1_Persona, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Segundo Apellido</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="Apellido2_Persona"
+                       value="@Model.Apellido2_Persona" placeholder="Ingrese Segundo Apellido" />
+                @*@Html.EditorFor(model => model.Apellido2_Persona, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Apellido2_Persona, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Fecha de Nacimiento</label>
+            <div class="col-md-10">
+                <input type="date" class="form-control" name="FechaNacimiento_Persona"
+                       value="@Model.FechaNacimiento_Persona.ToString("yyyy-MM-dd")" />
+                @*@Html.EditorFor(model => model.FechaNacimiento_Persona, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.FechaNacimiento_Persona, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Id_Direccion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Id_Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Id_Direccion, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Detalle de Dirección</label>
+
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="Detalle_Direccion"
+                       value="@Model.Detalle_Direccion" placeholder="Ingrese Detalles sobre la Dirección" />
+                @*@Html.EditorFor(model => model.Detalle_Direccion, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Detalle_Direccion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Provincia</label>
+            <div class="col-md-10">
+                <select class="form-control" id="Id_Provincia" name="Id_Provincia">
+                    <option value="">Seleccione...</option>
+                </select>
+                @*@Html.EditorFor(model => model.Id_Provincia, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Id_Provincia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                <label class="control-label col-md-2">Provincia</label>
+
+                <div class="col-md-10">
+                    <select class="form-control" id="Id_Provincia" name="Id_Provincia">
+                        <option value="">Seleccione...</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.Nombre_Provincia, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Canton</label>
+            <div class="col-md-10">
+                <select class="form-control" id="Id_Canton" name="Id_Canton">
+                    <option value="">Seleccione...</option>
+                </select>
+                @*@Html.EditorFor(model => model.Id_Canton, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Id_Canton, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                <label class="control-label col-md-2">Canton</label>
+
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Nombre_Canton, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Nombre_Canton, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Distrito</label>
+                <div class="col-md-10">
+                    <select class="form-control" id="Id_Distrito" name="Id_Distrito">
+                        <option value="">Seleccione...</option>
+                    </select>
+                    @*@Html.EditorFor(model => model.Id_Distrito, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.ValidationMessageFor(model => model.Id_Distrito, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        @*<div class="form-group">
+            <label class="control-label col-md-2">Distrito</label>
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nombre_Distrito, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nombre_Distrito, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Id_Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Id_Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Id_Email, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Correo</label>
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Correo_Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Correo_Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.FKId_Direccion_Persona, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FKId_Direccion_Persona, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FKId_Direccion_Persona, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.FKId_Email_Persona, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FKId_Email_Persona, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FKId_Email_Persona, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        
+        GetProvincias(function (result) {
+            jQuery.ajaxSetup({ async: false });
+            var canton = @Model.Id_Canton;
+            
+            $("#Id_Provincia").val(@Model.Id_Provincia).change();
+
+            $("#Id_Canton").val(canton).change();
+            $("#Id_Distrito").val(@Model.Id_Distrito);
+
+            jQuery.ajaxSetup({ async: false });
+        });
+
+
+
+        $("#Id_Provincia").on("change", function () {
+
+            GetCantones($(this).val());
+        });
+
+
+        function GetCantones(val) {
+
+            if (val == "") {
+                //alert("Debe escoger un Provincia");
+                $("#Id_Canton").empty();
+                var newOption = $('<option value="">Seleccione...</option>');
+                $('#Id_Canton').append(newOption);
+
+                $("#Id_Distrito").empty();
+                var newOption = $('<option value="">Seleccione...</option>');
+                $('#Id_Distrito').append(newOption);
+                return;
+            }
+
+            $("#Id_Distrito").empty();
+            var newOption = $('<option value="">Seleccione...</option>');
+            $('#Id_Distrito').append(newOption);
+
+            $.ajax({
+                type: "GET",
+                url: '/canton/getcantones',
+                dataType: "json",
+                data: { Id_Provincia: val },
+                success: function (result) {
+                    $("#Id_Canton").html("");
+                    $.each(result.data, function (key, item) {
+                        $("#Id_Canton").append('<option value=' + item.Id_Canton + '>' + item.Nombre_Canton + '</option>');
+                    });
+                },
+                error: function (data) {
+                    alert('error');
+                }
+            });
+        }
+
+        $("#Id_Canton").on("change", function () {
+
+            GetDistritos($(this).val());
+        })
+
+
+        function GetDistritos(val) {
+
+            if (val == "") {
+                //alert("Debe escoger un Provincia");
+                $("#Id_Distrito").empty();
+                var newOption = $('<option value="">Seleccione...</option>');
+                $('#Id_Distrito').append(newOption);
+
+                return;
+            }
+
+            $.ajax({
+                type: "GET",
+                url: '/distrito/getdistritos',
+                dataType: "json",
+                data: { Id_Canton: val },
+                success: function (result) {
+                    $("#Id_Distrito").html("");
+                    $.each(result.data, function (key, item) {
+                        $("#Id_Distrito").append('<option value=' + item.Id_Distrito + '>' + item.Nombre_Distrito + '</option>');
+                    });
+                },
+                error: function (data) {
+                    alert('error');
+                }
+            });
+        }
+
+
+        $("#frmPersona").submit(function (event) {
+            event.preventDefault(); //prevent default action
+            var dptoId = $("#Id_Distrito").val();
+            if (dptoId == "") {
+                alert("Debe escoger un Distrito");
+                return;
+            }
+            var post_url = $(this).attr("action"); //get form action url
+            var request_method = $(this).attr("method"); //get form GET/POST method
+            var form_data = $(this).serializeArray(); //Encode form elements for submission
+            console.log(form_data);
+
+            LoadingOverlayShow("#frmPersona");
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) { //
+                console.log(response);
+                LoadingOverlayHide("#frmPersona");
+                if (response.ok) {
+                    alert("Persona editada correctamente.");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    alert(response.msg);
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmPersona");
+            });
+        });
+
+
+
+        //GetCantones();
+
+
+
+        $(window).load(function () {
+
+            //GetCantones($("#Id_Provincia").val());
+
+            @*$("#Id_Canton").val(@Model.Id_Canton).change();*@
+
+            @*$("#Id_Canton").val(@Model.Id_Canton);*@
+            @*$("#Id_Canton").val(@Model.Id_Canton).change();*@
+            @*alert(@Model.Id_Canton);*@
+            //GetDistritos($("#Id_Canton").val());
+        });
+
+        //$(window).load(function () {
+
+        //    GetDistritos($("#Id_Canton").val())
+        //});
+
+
+
+        //$("#Id_Provincia").on("load", function () {
+
+        //    GetCantones($(this).val());
+        //});
+
+
+        //function GetCantones(myCallback) {
+
+        //    var provincia = $("#Id_Provincia").val();
+
+        //    $.ajax({
+        //        type: "GET",
+        //        url: '/canton/getcantones',
+        //        dataType: "json",
+        //        data: { Id_Provincia: $("#Id_Provincia").val() },
+        //        success: function (result) {
+        //            $("#Id_Canton").html("");
+        //            $.each(result.data, function (key, item) {
+        //                $("#Id_Canton").append('<option value=' + item.Id_Canton + '>' + item.Nombre_Canton + '</option>');
+        //            });
+        //        },
+        //        error: function (data) {
+        //            alert('error');
+        //        }
+        //    });
+        //}
+
+    </script>
+}

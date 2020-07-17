@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9F6161EE-0BAB-4183-9CD6-6EC68EA3A2AD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Sistema_Planilla_CE</RootNamespace>
+    <AssemblyName>Sistema_Planilla_CE</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AspNetRoles.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserClaims.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserLogins.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserRoles.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserRolesCE.cs" />
+    <Compile Include="AspNetUsers.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BoletaCurso.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Canton.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CantonCE.cs" />
+    <Compile Include="Cargo.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Contrato.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Curso.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="C__MigrationHistory.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Deduccion.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Departamento.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Direccion.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DireccionCE.cs" />
+    <Compile Include="Distrito.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DistritoCE.cs" />
+    <Compile Include="Email.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Empleado.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelRecursosHumanos.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persona.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PersonaCE.cs" />
+    <Compile Include="Planilla.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PlanillaDeduccion.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PlanillaEmpleado.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provincia.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Solicitud.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StatusSolicitud.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Telefono.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TelefonoCE.cs" />
+    <Compile Include="TipoContrato.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoDeduccion.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoSolicitud.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vacaciones.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ModelRecursosHumanos.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelRecursosHumanos.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

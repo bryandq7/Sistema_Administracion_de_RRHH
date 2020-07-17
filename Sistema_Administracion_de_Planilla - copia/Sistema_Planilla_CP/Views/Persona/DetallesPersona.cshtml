@@ -1,0 +1,183 @@
+﻿@model Sistema_Planilla_CE.PersonaCE
+
+@{
+    ViewBag.Title = "DetallesPersona";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<h2>DetallesPersona</h2>
+
+<div>
+    <h4>Detalles</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Id_Persona)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id_Persona)
+        </dd>*@
+
+        <dt>
+            Número de Identidad
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroIdentidad_Persona)
+        </dd>
+
+        <dt>
+            Nombre
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre_Persona)
+        </dd>
+
+        <dt>
+            Primer Apellido
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Apellido1_Persona)
+        </dd>
+
+        <dt>
+            Segundo Apellido
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Apellido2_Persona)
+        </dd>
+
+        <dt>
+            Fecha de Nacimiento
+        </dt>
+
+        <dd>
+            @Model.FechaNacimiento_Persona.ToShortDateString()
+            @*@Html.DisplayFor(model => model.FechaNacimiento_Persona)*@
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Id_Direccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id_Direccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Detalle_Direccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Detalle_Direccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Id_Provincia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id_Provincia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre_Provincia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre_Provincia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Id_Canton)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id_Canton)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre_Canton)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre_Canton)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Id_Distrito)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id_Distrito)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre_Distrito)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre_Distrito)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Id_Email)
+        </dt>*@
+
+        @*<dd>
+            @Html.DisplayFor(model => model.Id_Email)
+        </dd>*@
+
+        <dt>
+            Correo Electrónico
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Correo_Email)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.FKId_Direccion_Persona)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FKId_Direccion_Persona)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FKId_Email_Persona)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FKId_Email_Persona)
+        </dd>*@
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.NombreCompleto_Persona)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreCompleto_Persona)
+        </dd>*@
+
+        <dt>
+            Dirección Física
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DetalleCompleto_Direccion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a class="btn btn-primary" href="@Url.Action("Editar", "Persona", new { id = Model.Id_Persona })">Editar</a>
+    <a class="btn btn-default" href="@Url.Action("Index", "Persona")">Regresar</a>
+
+    @*@Html.ActionLink("Editar", "Editar", new { id = Model.Id_Persona }) |
+    @Html.ActionLink("Regresar", "Index")*@
+</p>

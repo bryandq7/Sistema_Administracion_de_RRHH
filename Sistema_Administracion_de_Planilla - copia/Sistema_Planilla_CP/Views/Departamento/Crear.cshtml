@@ -1,0 +1,99 @@
+﻿@model Sistema_Planilla_CE.Departamento
+
+@{
+    ViewBag.Title = "Crear";
+}
+
+<h2>Crear</h2>
+
+<form action="@Url.Action("Crear", "Departamento")" method="post" id="frmDepartamento">
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Crear Departamento</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Id_Departamento, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Id_Departamento, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Id_Departamento, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-3"> Nombre del Departamento</label>
+            @*@Html.LabelFor(model => model.Nombre_Departamento, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-6">
+                <input type="text" class="form-control" id="Nombre_Departamento" name="Nombre_Departamento" placeholder="Ingrese nombre del Departamento" />
+                @*@Html.EditorFor(model => model.Nombre_Departamento, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Nombre_Departamento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                <label class="control-label col-md-2"> Fecha de Actualziacion</label>
+                @Html.LabelFor(model => model.FechaActualizacion_Departamento, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FechaActualizacion_Departamento, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FechaActualizacion_Departamento, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Crear Departamento" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+<div>
+    @Html.ActionLink("Regresar", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#frmDepartamento").submit(function (event) {
+            event.preventDefault(); //prevent default action
+            var nombre = $("#Nombre_Departamento").val();
+            if ($.trim(nombre) == "") {
+                alert("Debe ingresar el nombre del departamento");
+                return;
+            }
+            var post_url = $(this).attr("action"); //get form action url
+            var request_method = $(this).attr("method"); //get form GET/POST method
+            var form_data = $(this).serializeArray(); //Encode form elements for submission
+            console.log(form_data);
+            //return;
+            LoadingOverlayShow("#frmDepartamento");
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) { //
+                console.log(response);
+                LoadingOverlayHide("#frmDepartamento");
+                if (response.ok) {
+                    alert("Departamento creado correctamente.");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    alert(response.msg);
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmDepartamento");
+                //object jqXHR: es un objeto jqXHR que contiene todos los datos de la solicitud Ajax realizada,
+                //    incluyendo la propiedad jqXHR.status que contiene, entre otros posibles, el código de estado HTTP de la respuesta.
+                //string textStatus: texto que describe el tipo de error, que puede ser, además de null,
+                //        «abort», «timeout», «No Transport» o «parseerror».
+                //string errorThrown: si hay un error HTTP, errorThrown contiene el texto de la cabecera HTTP de estado.
+                //    Por ejemplo, para un error HTTP 404, errorThrown es «Not found»; para error un HTTP 500 es «Internal Server Error».
+            });
+        });
+    </script>
+}

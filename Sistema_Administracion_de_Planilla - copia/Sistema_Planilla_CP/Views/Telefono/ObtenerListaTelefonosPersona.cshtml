@@ -1,0 +1,134 @@
+﻿@model IEnumerable<Sistema_Planilla_CE.TelefonoCE>
+
+@{
+    ViewBag.Title = "ObtenerListaTelefonosPersona";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@section styles{
+
+    <style>
+        .tituloCss {
+            color: #3d3d29;
+        }
+    </style>
+
+
+}
+
+<h2 class="tituloCss">Lista de Telefonos </h2>
+
+<p>
+    <a class="btn btn-info" href="@Url.Action("Crear", "Telefono")"><i class="glyphicon glyphicon-plus"></i> Crear Nuevo</a>
+</p>
+<table class="table" id="tablaTelefono">
+    <thead>
+        <tr>
+            <th>
+                Nombre Completo
+            </th>
+            <th>
+                Número de Teléfono
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.FKId_Persona_Telefono)
+                </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreCompleto_Persona)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Numero_Telefono)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.FKId_Persona_Telefono)
+                    </td>*@
+                <td>
+                    <a class="btn btn-success btn-xm" title="Editar" href="@Url.Action("Editar", "Telefono",new { id=item.Id_Telefono  })"><i class="glyphicon glyphicon-pencil"></i></a>
+                    <a class="btn btn-danger btn-xm" onclick="EliminarTelefono(@item.Id_Telefono)" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    @Html.ActionLink("Regresar a Lista de Personas", "Index","Persona")
+</div>
+
+@section scripts {
+    <script>
+
+        $('#tablaTelefono').DataTable({
+            "pageLength": 5,
+            lengthMenu: [5, 10, 20, 50, 100, 200, 500],
+            language: {
+                search: "Buscar en tabla: ",
+                lengthMenu: "Mostrar  _MENU_  entradas",
+                info: "Mostrando de la entrada _START_ a la _END_ de _TOTAL_ entradas",
+                infoEmpty: "Mostrando de la entrada 0 a la 0 de 0  entradas",
+                infoFiltered: "(filtrando de  _MAX_ entradas totales)",
+                infoPostFix: "",
+                loadingRecords: "Agregando entradas",
+                zeroRecords: "No existen entradas disponibles para esta búsqueda",
+                emptyTable: "No existe data disponible para esta tabla",
+
+                paginate: {
+                    first: "Primera",
+                    previous: "Anterior",
+                    next: "Siguiente",
+                    last: "Ultima"
+                }
+            }
+
+        });
+
+
+
+        function EliminarTelefono(idtelefono) {
+            $.confirm({
+                title: 'Eliminar Número Telefónico',
+                content: '¿Desea Eliminar este Número Telefónico?',
+                buttons: {
+                    Eliminar: function () {
+                        LoadingOverlayShow("#tablaTelefono");
+                        $.ajax({
+                            url: "/telefono/eliminartelefono",
+                            type: "post",
+                            data: { id_telefono: idtelefono }
+                        }).done(function (response) {
+                            console.log(response);//
+                            LoadingOverlayHide("#tablaTelefono");
+                            if (response.ok) {
+                                alert("Número Telefónico eliminado correctamente.");
+                                window.location = response.toRedirect;
+                            }
+                            else {
+                                alert(response.msg);
+                            }
+                        }).fail(function (jqXHR, textStatus, errorThrown) {
+                            LoadingOverlayHide("#tablaTelefono");
+                            alert(textStatus);
+                        });
+                    },
+                    Cancelar: function () {
+                        //$.alert('Canceled!');
+                    },
+                }
+            });
+        }
+
+    </script>
+
+
+}

@@ -1,0 +1,97 @@
+﻿@model Sistema_Planilla_CE.Departamento
+
+@{
+    ViewBag.Title = "Editar";
+}
+
+<h2>Editar</h2>
+
+
+<form action="@Url.Action("Editar", "Departamento")" method="post" id="frmDepartamento">
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Departamento</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id_Departamento)
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Id_Departamento, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Id_Departamento, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Id_Departamento, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.Nombre_Departamento, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <label class="control-label col-md-2"> Nombre del Departamento</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="Nombre_Departamento" name="Nombre_Departamento"
+                       value= "@Model.Nombre_Departamento" placeholder="Ingrese nombre del Departamento" />
+                @*@Html.EditorFor(model => model.Nombre_Departamento, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Nombre_Departamento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.FechaActualizacion_Departamento, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FechaActualizacion_Departamento, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FechaActualizacion_Departamento, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+
+</form>
+
+    <div>
+        @Html.ActionLink("Regresar", "Index")
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+
+        <script>
+            $("#frmDepartamento").submit(function (event) {
+                event.preventDefault(); //prevent default action
+                var nombre = $("#Nombre_Departamento").val();
+                if ($.trim(nombre) == "") {
+                    alert("Debe ingresar el nombre del departamento");
+                    return;
+                }
+                var post_url = $(this).attr("action"); //get form action url
+                var request_method = $(this).attr("method"); //get form GET/POST method
+                var form_data = $(this).serializeArray(); //Encode form elements for submission
+                console.log(form_data);
+                //return;
+                LoadingOverlayShow("#frmDepartamento");
+                $.ajax({
+                    url: post_url,
+                    type: request_method,
+                    data: form_data
+                }).done(function (response) { //
+                    console.log(response);
+                    LoadingOverlayHide("#frmDepartamento");
+                    if (response.ok) {
+                        alert("Departamento actualizado correctamente.");
+                        window.location = response.toRedirect;
+                    }
+                    else {
+                        alert(response.msg);
+                    }
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    LoadingOverlayHide("#frmDepartamento");
+                    alert(textStatus);
+                });
+            });
+        </script>
+    }

@@ -1,0 +1,93 @@
+﻿@model Sistema_Planilla_CE.TipoSolicitud
+
+@{
+    ViewBag.Title = "Crear";
+}
+
+<h2>Crear</h2>
+
+
+<form action="@Url.Action("Crear", "TipoSolicitud")" method="post" id="frmTipoSolicitud">
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Tipo de Solicitud</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Id_Cargo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Id_Cargo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Id_Cargo, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2"> Nombre del Tipo de Solictud</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="Detalle_TipoSolicitud" name="Detalle_TipoSolicitud" placeholder="Ingrese detalle sobre el tipo de solicitud" />
+                @*@Html.EditorFor(model => model.Nombre_Cargo, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Detalle_TipoSolicitud, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.FechaActualizacion_Cargo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FechaActualizacion_Cargo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FechaActualizacion_Cargo, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    @Html.ActionLink("Regresar", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#frmTipoSolicitud").submit(function (event) {
+            event.preventDefault(); //prevent default action
+            var detalle = $("#Detalle_TipoSolicitud").val();
+            if ($.trim(detalle) == "") {
+                alert("Debe ingresar el detalle del tipo de solicitud");
+                return;
+            }
+            var post_url = $(this).attr("action"); //get form action url
+            var request_method = $(this).attr("method"); //get form GET/POST method
+            var form_data = $(this).serializeArray(); //Encode form elements for submission
+            console.log(form_data);
+            //return;
+            LoadingOverlayShow("#frmTipoSolicitud");
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) { //
+                console.log(response);
+                LoadingOverlayHide("#frmTipoSolicitud");
+                if (response.ok) {
+                    alert("Detalle del tipo de solictud creado correctamente.");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    alert(response.msg);
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmTipoSolicitud");
+
+            });
+        });
+    </script>
+}
+
+

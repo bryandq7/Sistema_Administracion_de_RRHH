@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Sistema_Planilla_CE.AspNetRoles>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section styles{
+
+    <style>
+        .tituloCss {
+            color: #3d3d29;
+        }
+    </style>
+
+}
+
+<h2 class="tituloCss">Lista de Roles de Usuario</h2>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+
+<table class="table" id="tablaRoles">
+
+    <thead>
+        <tr>
+            <th>
+                Nombre del Rol de Usuario
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>*@
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts {
+
+    <script>
+
+        $('#tablaRoles').DataTable({
+            "pageLength": 5,
+            lengthMenu: [5, 10, 20, 50, 100, 200, 500],
+            language: {
+                search: "Buscar en tabla: ",
+                lengthMenu: "Mostrar  _MENU_  entradas",
+                info: "Mostrando de la entrada _START_ a la _END_ de _TOTAL_ entradas",
+                infoEmpty: "Mostrando de la entrada 0 a la 0 de 0  entradas",
+                infoFiltered: "(filtrando de  _MAX_ entradas totales)",
+                infoPostFix: "",
+                loadingRecords: "Agregando entradas",
+                zeroRecords: "No existen entradas disponibles para esta búsqueda",
+                emptyTable: "No existe data disponible para esta tabla",
+
+                paginate: {
+                    first: "Primera",
+                    previous: "Anterior",
+                    next: "Siguiente",
+                    last: "Ultima"
+                }
+            }
+
+        });
+    </script>
+}

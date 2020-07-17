@@ -1,0 +1,135 @@
+﻿@model IEnumerable<Sistema_Planilla_CE.Cargo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section styles{
+
+    <style>
+        .tituloCss {
+            color: #3d3d29;
+        }
+    </style>
+
+
+}
+
+<h2 class="tituloCss">Lista de Cargos</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+    <a class="btn btn-info" href="@Url.Action("Crear", "Cargo")"><i class="glyphicon glyphicon-plus"></i> Crear Nuevo</a>
+</p>
+<table class="table" id="tablaCargo">
+
+    <thead>
+        <tr>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Id_Cargo)
+                </th>*@
+            <th>
+                Nombre Cargo
+                @*@Html.DisplayNameFor(model => model.Nombre_Cargo)*@
+            </th>
+            <th>
+                Fecha de Actualización
+                @*@Html.DisplayNameFor(model => model.FechaActualizacion_Cargo)*@
+            </th>
+            <th></th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Id_Cargo)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre_Cargo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaActualizacion_Cargo)
+                </td>
+                <td>
+                    <a class="btn btn-success" title="Editar" href="@Url.Action("Editar", "Cargo",new { id=item.Id_Cargo  })"><i class="glyphicon glyphicon-pencil"></i></a>
+                    <a class="btn btn-danger" onclick="EliminarCargo(@item.Id_Cargo)" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>
+
+@section scripts {
+
+    <script>
+
+        $('#tablaCargo').DataTable({
+            "pageLength": 5,
+            lengthMenu: [5, 10, 20, 50, 100, 200, 500],
+            language: {
+                search: "Buscar en tabla: ",
+                lengthMenu: "Mostrar  _MENU_  entradas",
+                info: "Mostrando de la entrada _START_ a la _END_ de _TOTAL_ entradas",
+                infoEmpty: "Mostrando de la entrada 0 a la 0 de 0  entradas",
+                infoFiltered: "(filtrando de  _MAX_ entradas totales)",
+                infoPostFix: "",
+                loadingRecords: "Agregando entradas",
+                zeroRecords: "No existen entradas disponibles para esta búsqueda",
+                emptyTable: "No existe data disponible para esta tabla",
+
+                paginate: {
+                    first: "Primera",
+                    previous: "Anterior",
+                    next: "Siguiente",
+                    last: "Ultima"
+                }
+            }
+
+        });
+
+
+
+        function EliminarCargo(id) {
+            $.confirm({
+                title: 'Eliminar Cargo',
+                content: '¿Desea Eliminar el Cargo?',
+                buttons: {
+                    Eliminar: function () {
+                        LoadingOverlayShow("#tablaCargo");
+                        $.ajax({
+                            url: "/Cargo/Eliminar",
+                            type: "post",
+                            data: { identificador: id}
+                        }).done(function (response) {
+                            console.log(response);//
+                            LoadingOverlayHide("#tablaCargo");
+                            if (response.ok) {
+                                alert("Cargo eliminado correctamente.");
+                                window.location = response.toRedirect;
+                            }
+                            else {
+                                alert(response.msg);
+                            }
+                        }).fail(function (jqXHR, textStatus, errorThrown) {
+                            LoadingOverlayHide("#tablaCargo");
+                            alert(textStatus);
+                        });
+                    },
+                    Cancelar: function () {
+                        //$.alert('Canceled!');
+                    },
+                }
+            });
+        }
+
+    </script>
+}

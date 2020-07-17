@@ -1,0 +1,142 @@
+﻿@model IEnumerable<Sistema_Planilla_CE.Departamento>
+
+@{
+    ViewBag.Title = "Index";
+
+}
+
+@section styles{
+
+    <style>
+        .tituloCss {
+            color: #3d3d29;
+        }
+    </style>
+
+
+}
+
+
+<h2 class="tituloCss">Lista de Departamentos</h2>
+
+<p>
+    @*@Html.ActionLink("Crear Nuevo", "Crear", new { }, new {@class = "btn btn-primary"})*@
+    <a class="btn btn-info" href="@Url.Action("Crear", "Departamento")"><i class="glyphicon glyphicon-plus"></i> Crear Nuevo</a>
+</p>
+
+
+<table class="table" id="tablaDepartamento">
+    <thead>
+
+        <tr>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Id_Departamento)
+
+                    </th>*@
+            <th>
+                Nombre del Departamento
+                @*@Html.DisplayNameFor(model => model.Nombre_Departamento)*@
+            </th>
+            <th>
+                Fecha de Actualización
+
+                @*@Html.DisplayNameFor(model => model.FechaActualizacion_Departamento)*@
+            </th>
+            <th></th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Id_Departamento)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre_Departamento)
+                </td>
+                <td>
+                    @*@item.FechaActualizacion_Departamento.ToShortDateString()*@
+                    @Html.DisplayFor(modelItem => item.FechaActualizacion_Departamento)
+                </td>
+                <td>
+                    <a class="btn btn-success" title="Editar" href="@Url.Action("Editar", "Departamento",new { id=item.Id_Departamento  })"><i class="glyphicon glyphicon-pencil"></i></a>
+                    <a class="btn btn-danger" onclick="EliminarDepartamento(@item.Id_Departamento)" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+                    @*@Html.ActionLink("Edit", "Edit", new { id=item.Id_Departamento  }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.Id_Departamento  }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.Id_Departamento  })*@
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>
+
+@section scripts {
+
+    <script>
+
+        $('#tablaDepartamento').DataTable({
+            "pageLength": 5,
+            lengthMenu: [5, 10, 20, 50, 100, 200, 500],
+            language: {
+                search: "Buscar en tabla: ",
+                lengthMenu: "Mostrar  _MENU_  entradas",
+                info: "Mostrando de la entrada _START_ a la _END_ de _TOTAL_ entradas",
+                infoEmpty: "Mostrando de la entrada 0 a la 0 de 0  entradas",
+                infoFiltered: "(filtrando de  _MAX_ entradas totales)",
+                infoPostFix: "",
+                loadingRecords: "Agregando entradas",
+                zeroRecords: "No existen entradas disponibles para esta búsqueda",
+                emptyTable: "No existe data disponible para esta tabla",
+
+                paginate: {
+                    first: "Primera",
+                    previous: "Anterior",
+                    next: "Siguiente",
+                    last: "Ultima"
+                }
+            }
+
+        });
+
+
+
+        function EliminarDepartamento(id) {
+            $.confirm({
+                title: 'Eliminar Departamento',
+                content: '¿Desea Eliminar el Departamento?',
+                buttons: {
+                    Eliminar: function () {
+                        LoadingOverlayShow("#tablaDepartamento");
+                        $.ajax({
+                            url: "/Departamento/Eliminar",
+                            type: "post",
+                            data: { identificador: id}
+                        }).done(function (response) {
+                            console.log(response);//
+                            LoadingOverlayHide("#tablaDepartamento");
+                            if (response.ok) {
+                                alert("Departamento eliminado correctamente.");
+                                window.location = response.toRedirect;
+                            }
+                            else {
+                                alert(response.msg);
+                            }
+                        }).fail(function (jqXHR, textStatus, errorThrown) {
+                            LoadingOverlayHide("#tablaDepartamento");
+                            alert(textStatus);
+                        });
+                    },
+                    Cancelar: function () {
+                        //$.alert('Canceled!');
+                    },
+                }
+            });
+        }
+
+    </script>
+}

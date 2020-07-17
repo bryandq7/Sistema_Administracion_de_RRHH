@@ -1,0 +1,146 @@
+﻿@model IEnumerable<Sistema_Planilla_CE.AspNetUserRolesCE>
+@{
+    ViewBag.Title = "AsignarRolUsuario";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@section styles{
+
+    <style>
+        .tituloCss {
+            color: #3d3d29;
+        }
+    </style>
+
+
+}
+
+<h2 class="tituloCss">Asignar Rol a Usuario</h2>
+<hr />
+<div class="form-horizontal" id="divAsignar">
+    <div class="form-group">
+        <label class="control-label col-md-2">Usuario</label>
+        <div class="col-md-4">
+            <select class="form-control" id="UsuarioId" name="UsuarioId">
+                <option value="">Seleccione</option>
+            </select>
+        </div>
+
+        <label class="control-label col-md-1">Rol</label>
+        <div class="col-md-4">
+            <select class="form-control" id="RolId" name="RolId">
+                <option value="">Seleccione...</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-4 col-md-4">
+            <br />
+            <button type="button" class="btn btn-primary btn-block" onclick="AsignarRolUsuario()">
+                <i class="glyphicon glyphicon-plus"></i>    Asignar Rol
+            </button>
+        </div>
+    </div>
+    <hr />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-6">
+            <table class="table table-bordered table-condensed table-striped">
+                <thead>
+                    <tr>
+                        <th>Usuarios</th>
+                        <th>Roles</th>
+                        <th>Nombre Persona</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.UserName</td>
+                            <td>@item.Name</td>
+                            <td>@item.NombreCompletoPersona</td>
+                            <th class="text-center">
+                                <a href="javascript:;" class="btn btn-danger btn-xs" onclick="EliminarAsignacionRolUsuario('@item.UserId', '@item.RoleId')">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
+                            </th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        ListarUsuarios();
+        ListarRoles();
+        function AsignarRolUsuario() {
+            var usuarioId = $("#UsuarioId").val();
+            var rolId = $("#RolId").val();
+            if (usuarioId == "" || rolId == "") {
+                alert("Debe escoger un rol y un usuario.");
+                return;
+            }
+            $.confirm({
+                title: 'Agregar Asignación!',
+                content: '¿Estás seguro de agregar esta asignación?',
+                buttons: {
+                    Confirmar: function () {
+                        LoadingOverlayShow("#divAsignar");
+                        $.ajax({
+                            url: "/aspnetusers/asignarrolusuario",
+                            type: "post",
+                            data: { usuarioId, rolId }
+                        }).done(function (response) {
+                            LoadingOverlayHide("#divAsignar");
+                            if (response.ok) {
+                                alert("Asignación creada correctamente.");
+                                window.location = response.toRedirect;
+                            }
+                            else {
+                                alert(response.msg);
+                            }
+                        }).fail(function (jqXHR, textStatus, errorThrown) {
+                            LoadingOverlayHide("#divAsignar");
+                        });
+                    },
+                    Cancelar: function () {
+                    },
+                }
+            });
+        };
+        function EliminarAsignacionRolUsuario(usuarioId, rolId) {
+            $.confirm({
+                title: 'Eliminar Asignación!',
+                content: '¿Estás seguro de Eliminar esta Asignación?',
+                buttons: {
+                    Confirmar: function () {
+                        LoadingOverlayShow("#divAsignar");
+                        $.ajax({
+                            url: "/aspnetusers/eliminarasignacionrolusuario",
+                            type: "post",
+                            data: { usuarioId, rolId }
+                        }).done(function (response) {
+                            LoadingOverlayHide("#divAsignar");
+                            if (response.ok) {
+                                alert("Asignación eliminada correctamente.");
+                                window.location = response.toRedirect;
+                            }
+                            else {
+                                alert(response.msg);
+                            }
+                        }).fail(function (jqXHR, textStatus, errorThrown) {
+                            LoadingOverlayHide("#divAsignar");
+                        });
+                    },
+                    Cancelar: function () {
+                    },
+                }
+            });
+        }
+    </script>
+}

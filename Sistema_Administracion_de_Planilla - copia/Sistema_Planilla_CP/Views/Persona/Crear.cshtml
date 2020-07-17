@@ -1,0 +1,346 @@
+﻿@model Sistema_Planilla_CE.PersonaCE
+
+@{
+    ViewBag.Title = "Crear";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<h2>Crear</h2>
+
+<form action="@Url.Action("Crear", "Persona")" method="post" id="frmPersona">
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Persona</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Id_Persona, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Id_Persona, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Id_Persona, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Número de Identidad</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="NumeroIdentidad_Persona" name="NumeroIdentidad_Persona" placeholder="Ingrese un Número de Identidad " />
+                @*@Html.EditorFor(model => model.NumeroIdentidad_Persona, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.NumeroIdentidad_Persona, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2"> Nombre </label>
+            @*@Html.LabelFor(model => model.Nombre_Persona, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="Nombre_Persona" name="Nombre_Persona" placeholder="Ingrese el Nombre " />
+                @*@Html.EditorFor(model => model.Nombre_Persona, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Nombre_Persona, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2"> Primer Apellido </label>
+            @*@Html.LabelFor(model => model.Apellido1_Persona, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="Apellido1_Persona" name="Apellido1_Persona" placeholder="Ingrese el Primer Apellido" />
+                @*@Html.EditorFor(model => model.Apellido1_Persona, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Apellido1_Persona, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2"> Segundo  Apellido </label>
+            @*@Html.LabelFor(model => model.Apellido2_Persona, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="Apellido2_Persona" name="Apellido2_Persona" placeholder="Ingrese el Segundo Apellido" />
+                @*@Html.EditorFor(model => model.Apellido2_Persona, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Apellido2_Persona, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2"> Fecha de Nacimiento </label>
+            @*@Html.LabelFor(model => model.FechaNacimiento_Persona, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                <input type="date" class="form-control" name="FechaNacimiento_Persona" id="FechaNacimiento_Persona" />
+                @*@Html.EditorFor(model => model.FechaNacimiento_Persona, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.FechaNacimiento_Persona, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Id_Direccion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Id_Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Id_Direccion, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2"> Detalle de la Dirección </label>
+            @*@Html.LabelFor(model => model.Detalle_Direccion, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="Detalle_Direccion" name="Detalle_Direccion" placeholder="Ingrese Detalle de la Dirección " />
+                @*@Html.EditorFor(model => model.Detalle_Direccion, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Detalle_Direccion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Provincia</label>
+            <div class="col-md-10">
+                @*@Html.DropDownListFor(x => Model.Id_Provincia, new SelectList(Model.Nombre_Provincia, "Value", "Text"), htmlAttributes: new { @class = "form-control", @id = "Id_Provincia" })*@
+                <select class="form-control" id="Id_Provincia" name="Id_Provincia">
+                    <option value="">Seleccione...</option>
+                </select>
+                @*@Html.EditorFor(model => model.Id_Provincia, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Id_Provincia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Nombre_Provincia, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Nombre_Provincia, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Nombre_Provincia, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Cantón</label>
+            <div class="col-md-10">
+                @*@Html.DropDownListFor(x => Model.Id_Canton, new SelectList(Model.Nombre_Canton, "Value", "Text"), htmlAttributes: new { @class = "form-control", @id = "Id_Canton" })*@
+                <select class="form-control" id="Id_Canton" name="Id_Canton">
+                    <option value="">Seleccione...</option>
+                </select>
+                @*@Html.EditorFor(model => model.Id_Canton, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Id_Canton, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Nombre_Canton, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Nombre_Canton, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Nombre_Canton, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Distrito</label>
+            @*@Html.LabelFor(model => model.Id_Distrito, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                <select class="form-control" id="Id_Distrito" name="Id_Distrito">
+                    <option value="">Seleccione...</option>
+                </select>
+                @*@Html.EditorFor(model => model.Id_Distrito, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Id_Distrito, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Nombre_Distrito, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Nombre_Distrito, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Nombre_Distrito, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Id_Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Id_Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Id_Email, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Correo</label>
+            @*@Html.LabelFor(model => model.Correo_Email, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="Correo_Email" name="Correo_Email" placeholder="Ingrese un Correo " />
+                @*@Html.EditorFor(model => model.Correo_Email, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Correo_Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.FKId_Direccion_Persona, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FKId_Direccion_Persona, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FKId_Direccion_Persona, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.FKId_Email_Persona, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FKId_Email_Persona, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FKId_Email_Persona, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        GetProvincias();
+
+        $("#Id_Provincia").on("change", function () {
+
+            GetCantones($(this).val());
+        })
+
+        function GetCantones(val) {
+
+            if (val == "") {
+                //alert("Debe escoger un Provincia");
+                $("#Id_Canton").empty();
+                var newOption = $('<option value="">Seleccione...</option>');
+                $('#Id_Canton').append(newOption);
+
+                $("#Id_Distrito").empty();
+                var newOption = $('<option value="">Seleccione...</option>');
+                $('#Id_Distrito').append(newOption);
+                return;
+            }
+
+            $("#Id_Distrito").empty();
+            var newOption = $('<option value="">Seleccione...</option>');
+            $('#Id_Distrito').append(newOption);
+
+            $.ajax({
+                type: "GET",
+                url: '/canton/getcantones',
+                dataType: "json",
+                data: { Id_Provincia: val},
+                success: function (result) {
+                    $("#Id_Canton").html("");
+                    $.each(result.data, function (key, item) {
+                        $("#Id_Canton").append('<option value=' + item.Id_Canton + '>' + item.Nombre_Canton + '</option>');
+                    });
+                },
+                error: function (data) {
+                    alert('error');
+                }
+            });
+        }
+
+        $("#Id_Canton").on("change", function () {
+
+            GetDistritos($(this).val());
+        })
+
+
+        function GetDistritos(val) {
+
+            if (val == "") {
+                //alert("Debe escoger un Provincia");
+                $("#Id_Distrito").empty();
+                var newOption = $('<option value="">Seleccione...</option>');
+                $('#Id_Distrito').append(newOption);
+
+                return;
+            }
+
+            $.ajax({
+                type: "GET",
+                url: '/distrito/getdistritos',
+                dataType: "json",
+                data: { Id_Canton: val },
+                success: function (result) {
+                    $("#Id_Distrito").html("");
+                    $.each(result.data, function (key, item) {
+                        $("#Id_Distrito").append('<option value=' + item.Id_Distrito + '>' + item.Nombre_Distrito + '</option>');
+                    });
+                },
+                error: function (data) {
+                    alert('error');
+                }
+            });
+        }
+
+
+        $("#frmPersona").submit(function (event) {
+            event.preventDefault(); //prevent default action
+            var dptoId = $("#Id_Distrito").val();
+            if (dptoId == "") {
+                alert("Debe escoger un Distrito");
+                return;
+            }
+            var post_url = $(this).attr("action"); //get form action url
+            var request_method = $(this).attr("method"); //get form GET/POST method
+            var form_data = $(this).serializeArray(); //Encode form elements for submission
+            console.log(form_data);
+            LoadingOverlayShow("#frmPersona");
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) { //
+                console.log(response);
+                LoadingOverlayHide("#frmPersona");
+                if (response.ok) {
+                    alert("Persona creada correctamente.");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    alert(response.msg);
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmPersona");
+            });
+        });
+
+        @*function showValue(val) {
+            console.log(val);
+            $.getJSON('@Url.Action("GetCantones", "Canton")' + "?Id_Provincia=" + val, function (result) {
+                $("#Id_Canton").html(""); // makes select null before filling process
+                var data = result.data;
+                for (var i = 0; i < data.length; i++) {
+                    $("#Id_Canton").append("<option>" + data[i] + "</option>")
+                }
+
+            })
+        } *@
+
+        @*$('#Id_Provincia').change(function () {
+            var selectedCountry = $("#Id_Provincia").val();
+            var regionsSelect = $('#Id_Canton');
+            regionsSelect.empty();
+            if (selectedCountry != null && selectedCountry != '') {
+                $.getJSON('@Url.Action("/canton/getcantones")', { Id_Provincia: selectedCountry }, function (regions) {
+                    if (regions != null && !jQuery.isEmptyObject(regions)) {
+                        regionsSelect.append($('<option/>', {
+                            value: null,
+                            text: ""
+                        }));
+                        $.each(regions, function (index, region) {
+                            regionsSelect.append($('<option/>', {
+                                value: region.Value,
+                                text: region.Text
+                            }));
+                        });
+                    };
+                });
+            }
+        });*@
+    </script>
+}

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e15ce60f9f76420d805653fa7706a45e" Name="Diagram1" ZoomLevel="73">
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.AspNetUserClaims" Width="1.5" PointX="10.125" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.AspNetUserLogins" Width="1.5" PointX="15" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.BoletaCurso" Width="1.5" PointX="12" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.Canton" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.Deduccion" Width="1.5" PointX="15" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.Direccion" Width="1.5" PointX="7.5" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.Distrito" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.Email" Width="1.5" PointX="7.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.Empleado" Width="1.5" PointX="15" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.Planilla" Width="1.5" PointX="15" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.PlanillaEmpleado" Width="1.5" PointX="17.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.Provincia" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.TipoDeduccion" Width="1.5" PointX="12.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.Vacaciones" Width="1.5" PointX="12.75" PointY="26.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.PlanillaDeduccion" Width="1.5" PointX="17.25" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Canton_Provincia" ManuallyRouted="false" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Distrito_Canton" ManuallyRouted="false" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Deduccion_TipoDeduccion" ManuallyRouted="false" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_PlanillaDeduccion_Deduccion" ManuallyRouted="false" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Direccion_Distrito" ManuallyRouted="false" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Empleado_Vacaciones" ManuallyRouted="false" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_PlanillaEmpleado_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_PlanillaDeduccion_Planilla" ManuallyRouted="false" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_PlanillaEmpleado_Planilla" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.Departamento" Width="1.5" PointX="12.75" PointY="23.875" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Empleado_Departamento" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.Persona" Width="1.5" PointX="9.75" PointY="6.625" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.Telefono" Width="1.5" PointX="12" PointY="4.5" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_BoletaCurso_Persona" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Persona_Direccion" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Persona_Email" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Empleado_Persona" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Telefono_Persona" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.Cargo" Width="1.5" PointX="12.75" PointY="18.375" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Empleado_Cargo" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.Contrato" Width="1.5" PointX="12.75" PointY="20.75" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Empleado_Contrato" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.Curso" Width="1.5" PointX="10.125" PointY="2.375" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_BoletaCurso_Curso" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.AspNetRoles" Width="2.25" PointX="6.75" PointY="15.5" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.AspNetUserRoles" Width="2.25" PointX="10" PointY="15.25" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.AspNetUsers" Width="2.25" PointX="12.75" PointY="11.375" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Empleado_AspNetUsers" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.Solicitud" Width="1.5" PointX="20.25" PointY="6.875" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.StatusSolicitud" Width="1.5" PointX="18" PointY="3.75" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.TipoSolicitud" Width="1.5" PointX="18" PointY="12.125" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Solicitud_Empleado" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Solicitud_Empleado1" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Solicitud_StatusSolicitud" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Solicitud_TipoSolicitud" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.TipoContrato" Width="1.5" PointX="10.5" PointY="21.125" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Contrato_TipoContrato" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
