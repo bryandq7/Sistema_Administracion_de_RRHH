@@ -106,6 +106,7 @@
           <Property Name="FKId_TipoContrato_Contrato" Type="int" Nullable="false" />
           <Property Name="Nombre_Contrato" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="FKId_Empleado_Contrato" Type="int" Nullable="false" />
+          <Property Name="FKId_Cargo_Contrato" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Curso">
           <Key>
@@ -162,7 +163,6 @@
           <Property Name="Id_Empleado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FKId_Persona_Empleado" Type="int" Nullable="false" />
           <Property Name="FKId_Departamento_Empleado" Type="int" Nullable="false" />
-          <Property Name="FKId_Cargo_Empleado" Type="int" Nullable="false" />
           <Property Name="FKId_Vacaciones_Empleado" Type="int" Nullable="false" />
           <Property Name="FKId_Usuario_Empleado" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
@@ -331,6 +331,18 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Contrato_Cargo">
+          <End Role="Cargo" Type="Self.Cargo" Multiplicity="1" />
+          <End Role="Contrato" Type="Self.Contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cargo">
+              <PropertyRef Name="Id_Cargo" />
+            </Principal>
+            <Dependent Role="Contrato">
+              <PropertyRef Name="FKId_Cargo_Contrato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Contrato_Empleado">
           <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
           <End Role="Contrato" Type="Self.Contrato" Multiplicity="*" />
@@ -456,18 +468,6 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
             </Principal>
             <Dependent Role="Empleado">
               <PropertyRef Name="FKId_Usuario_Empleado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Empleado_Cargo">
-          <End Role="Cargo" Type="Self.Cargo" Multiplicity="1" />
-          <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cargo">
-              <PropertyRef Name="Id_Cargo" />
-            </Principal>
-            <Dependent Role="Empleado">
-              <PropertyRef Name="FKId_Cargo_Empleado" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -688,6 +688,10 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
             <End Role="Provincia" EntitySet="Provincia" />
             <End Role="Canton" EntitySet="Canton" />
           </AssociationSet>
+          <AssociationSet Name="FK_Contrato_Cargo" Association="Self.FK_Contrato_Cargo">
+            <End Role="Cargo" EntitySet="Cargo" />
+            <End Role="Contrato" EntitySet="Contrato" />
+          </AssociationSet>
           <AssociationSet Name="FK_Contrato_Empleado" Association="Self.FK_Contrato_Empleado">
             <End Role="Empleado" EntitySet="Empleado" />
             <End Role="Contrato" EntitySet="Contrato" />
@@ -726,10 +730,6 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
           </AssociationSet>
           <AssociationSet Name="FK_Empleado_AspNetUsers" Association="Self.FK_Empleado_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Empleado" EntitySet="Empleado" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Empleado_Cargo" Association="Self.FK_Empleado_Cargo">
-            <End Role="Cargo" EntitySet="Cargo" />
             <End Role="Empleado" EntitySet="Empleado" />
           </AssociationSet>
           <AssociationSet Name="FK_Empleado_Departamento" Association="Self.FK_Empleado_Departamento">
@@ -1112,7 +1112,6 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
             <End Role="Persona" EntitySet="Persona" />
             <End Role="Telefono" EntitySet="Telefono" />
           </AssociationSet>
-          <EntitySet Name="Cargo" EntityType="RecursosHumanosDBModel.Cargo" />
           <EntitySet Name="Curso" EntityType="RecursosHumanosDBModel.Curso" />
           <AssociationSet Name="FK_BoletaCurso_Curso" Association="RecursosHumanosDBModel.FK_BoletaCurso_Curso">
             <End Role="Curso" EntitySet="Curso" />
@@ -1149,23 +1148,10 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
             <End Role="Solicitud" EntitySet="Solicitud" />
           </AssociationSet>
           <EntitySet Name="TipoContrato" EntityType="RecursosHumanosDBModel.TipoContrato" />
-          <EntitySet Name="Contrato" EntityType="RecursosHumanosDBModel.Contrato" />
           <EntitySet Name="Empleado" EntityType="RecursosHumanosDBModel.Empleado" />
           <AssociationSet Name="FK_Empleado_AspNetUsers" Association="RecursosHumanosDBModel.FK_Empleado_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Empleado" EntitySet="Empleado" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Empleado_Cargo" Association="RecursosHumanosDBModel.FK_Empleado_Cargo">
-            <End Role="Cargo" EntitySet="Cargo" />
-            <End Role="Empleado" EntitySet="Empleado" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Contrato_Empleado" Association="RecursosHumanosDBModel.FK_Contrato_Empleado">
-            <End Role="Empleado" EntitySet="Empleado" />
-            <End Role="Contrato" EntitySet="Contrato" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Contrato_TipoContrato" Association="RecursosHumanosDBModel.FK_Contrato_TipoContrato">
-            <End Role="TipoContrato" EntitySet="TipoContrato" />
-            <End Role="Contrato" EntitySet="Contrato" />
           </AssociationSet>
           <AssociationSet Name="FK_Empleado_Departamento" Association="RecursosHumanosDBModel.FK_Empleado_Departamento">
             <End Role="Departamento" EntitySet="Departamento" />
@@ -1190,6 +1176,20 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
           <AssociationSet Name="FK_Solicitud_Empleado1" Association="RecursosHumanosDBModel.FK_Solicitud_Empleado1">
             <End Role="Empleado" EntitySet="Empleado" />
             <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <EntitySet Name="Cargo" EntityType="RecursosHumanosDBModel.Cargo" />
+          <EntitySet Name="Contrato" EntityType="RecursosHumanosDBModel.Contrato" />
+          <AssociationSet Name="FK_Contrato_Cargo" Association="RecursosHumanosDBModel.FK_Contrato_Cargo">
+            <End Role="Cargo" EntitySet="Cargo" />
+            <End Role="Contrato" EntitySet="Contrato" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contrato_Empleado" Association="RecursosHumanosDBModel.FK_Contrato_Empleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Contrato" EntitySet="Contrato" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contrato_TipoContrato" Association="RecursosHumanosDBModel.FK_Contrato_TipoContrato">
+            <End Role="TipoContrato" EntitySet="TipoContrato" />
+            <End Role="Contrato" EntitySet="Contrato" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Departamento">
@@ -1276,15 +1276,6 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Cargo">
-          <Key>
-            <PropertyRef Name="Id_Cargo" />
-          </Key>
-          <Property Name="Id_Cargo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre_Cargo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="FechaActualizacion_Cargo" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Empleado" Relationship="RecursosHumanosDBModel.FK_Empleado_Cargo" FromRole="Cargo" ToRole="Empleado" />
-        </EntityType>
         <EntityType Name="Curso">
           <Key>
             <PropertyRef Name="Id_Curso" />
@@ -1471,20 +1462,6 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
           <Property Name="FechaActualizacion_TipoContrato" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Contrato" Relationship="RecursosHumanosDBModel.FK_Contrato_TipoContrato" FromRole="TipoContrato" ToRole="Contrato" />
         </EntityType>
-        <EntityType Name="Contrato">
-          <Key>
-            <PropertyRef Name="Id_Contrato" />
-          </Key>
-          <Property Name="Id_Contrato" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SalarioBruto_Contrato" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="FechaInicio_Contrato" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="FechaFin_Contrato" Type="DateTime" Precision="3" />
-          <Property Name="FKId_TipoContrato_Contrato" Type="Int32" Nullable="false" />
-          <Property Name="Nombre_Contrato" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="FKId_Empleado_Contrato" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Empleado" Relationship="RecursosHumanosDBModel.FK_Contrato_Empleado" FromRole="Contrato" ToRole="Empleado" />
-          <NavigationProperty Name="TipoContrato" Relationship="RecursosHumanosDBModel.FK_Contrato_TipoContrato" FromRole="Contrato" ToRole="TipoContrato" />
-        </EntityType>
         <EntityType Name="Empleado">
           <Key>
             <PropertyRef Name="Id_Empleado" />
@@ -1492,18 +1469,16 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
           <Property Name="Id_Empleado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FKId_Persona_Empleado" Type="Int32" Nullable="false" />
           <Property Name="FKId_Departamento_Empleado" Type="Int32" Nullable="false" />
-          <Property Name="FKId_Cargo_Empleado" Type="Int32" Nullable="false" />
           <Property Name="FKId_Vacaciones_Empleado" Type="Int32" Nullable="false" />
           <Property Name="FKId_Usuario_Empleado" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="RecursosHumanosDBModel.FK_Empleado_AspNetUsers" FromRole="Empleado" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Cargo" Relationship="RecursosHumanosDBModel.FK_Empleado_Cargo" FromRole="Empleado" ToRole="Cargo" />
-          <NavigationProperty Name="Contrato" Relationship="RecursosHumanosDBModel.FK_Contrato_Empleado" FromRole="Empleado" ToRole="Contrato" />
           <NavigationProperty Name="Departamento" Relationship="RecursosHumanosDBModel.FK_Empleado_Departamento" FromRole="Empleado" ToRole="Departamento" />
           <NavigationProperty Name="Persona" Relationship="RecursosHumanosDBModel.FK_Empleado_Persona" FromRole="Empleado" ToRole="Persona" />
           <NavigationProperty Name="Vacaciones" Relationship="RecursosHumanosDBModel.FK_Empleado_Vacaciones" FromRole="Empleado" ToRole="Vacaciones" />
           <NavigationProperty Name="PlanillaEmpleado" Relationship="RecursosHumanosDBModel.FK_PlanillaEmpleado_Empleado" FromRole="Empleado" ToRole="PlanillaEmpleado" />
           <NavigationProperty Name="Solicitud" Relationship="RecursosHumanosDBModel.FK_Solicitud_Empleado" FromRole="Empleado" ToRole="Solicitud" />
           <NavigationProperty Name="Solicitud1" Relationship="RecursosHumanosDBModel.FK_Solicitud_Empleado1" FromRole="Empleado" ToRole="Solicitud" />
+          <NavigationProperty Name="Contrato" Relationship="RecursosHumanosDBModel.FK_Contrato_Empleado" FromRole="Empleado" ToRole="Contrato" />
         </EntityType>
         <Association Name="FK_Empleado_AspNetUsers">
           <End Type="RecursosHumanosDBModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -1514,42 +1489,6 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
             </Principal>
             <Dependent Role="Empleado">
               <PropertyRef Name="FKId_Usuario_Empleado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Empleado_Cargo">
-          <End Type="RecursosHumanosDBModel.Cargo" Role="Cargo" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cargo">
-              <PropertyRef Name="Id_Cargo" />
-            </Principal>
-            <Dependent Role="Empleado">
-              <PropertyRef Name="FKId_Cargo_Empleado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Contrato_Empleado">
-          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.Contrato" Role="Contrato" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empleado">
-              <PropertyRef Name="Id_Empleado" />
-            </Principal>
-            <Dependent Role="Contrato">
-              <PropertyRef Name="FKId_Empleado_Contrato" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Contrato_TipoContrato">
-          <End Type="RecursosHumanosDBModel.TipoContrato" Role="TipoContrato" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.Contrato" Role="Contrato" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TipoContrato">
-              <PropertyRef Name="Id_TipoContrato" />
-            </Principal>
-            <Dependent Role="Contrato">
-              <PropertyRef Name="FKId_TipoContrato_Contrato" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1622,6 +1561,67 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
             </Principal>
             <Dependent Role="Solicitud">
               <PropertyRef Name="FKId_EmpleadoAprobador_Solictud" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Cargo">
+          <Key>
+            <PropertyRef Name="Id_Cargo" />
+          </Key>
+          <Property Name="Id_Cargo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre_Cargo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="FechaActualizacion_Cargo" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Contrato" Relationship="RecursosHumanosDBModel.FK_Contrato_Cargo" FromRole="Cargo" ToRole="Contrato" />
+        </EntityType>
+        <EntityType Name="Contrato">
+          <Key>
+            <PropertyRef Name="Id_Contrato" />
+          </Key>
+          <Property Name="Id_Contrato" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalarioBruto_Contrato" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="FechaInicio_Contrato" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaFin_Contrato" Type="DateTime" Precision="3" />
+          <Property Name="FKId_TipoContrato_Contrato" Type="Int32" Nullable="false" />
+          <Property Name="Nombre_Contrato" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="FKId_Empleado_Contrato" Type="Int32" Nullable="false" />
+          <Property Name="FKId_Cargo_Contrato" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cargo" Relationship="RecursosHumanosDBModel.FK_Contrato_Cargo" FromRole="Contrato" ToRole="Cargo" />
+          <NavigationProperty Name="Empleado" Relationship="RecursosHumanosDBModel.FK_Contrato_Empleado" FromRole="Contrato" ToRole="Empleado" />
+          <NavigationProperty Name="TipoContrato" Relationship="RecursosHumanosDBModel.FK_Contrato_TipoContrato" FromRole="Contrato" ToRole="TipoContrato" />
+        </EntityType>
+        <Association Name="FK_Contrato_Cargo">
+          <End Type="RecursosHumanosDBModel.Cargo" Role="Cargo" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Contrato" Role="Contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cargo">
+              <PropertyRef Name="Id_Cargo" />
+            </Principal>
+            <Dependent Role="Contrato">
+              <PropertyRef Name="FKId_Cargo_Contrato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contrato_Empleado">
+          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Contrato" Role="Contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Id_Empleado" />
+            </Principal>
+            <Dependent Role="Contrato">
+              <PropertyRef Name="FKId_Empleado_Contrato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contrato_TipoContrato">
+          <End Type="RecursosHumanosDBModel.TipoContrato" Role="TipoContrato" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Contrato" Role="Contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoContrato">
+              <PropertyRef Name="Id_TipoContrato" />
+            </Principal>
+            <Dependent Role="Contrato">
+              <PropertyRef Name="FKId_TipoContrato_Contrato" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1823,15 +1823,6 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Cargo">
-            <EntityTypeMapping TypeName="RecursosHumanosDBModel.Cargo">
-              <MappingFragment StoreEntitySet="Cargo">
-                <ScalarProperty Name="FechaActualizacion_Cargo" ColumnName="FechaActualizacion_Cargo" />
-                <ScalarProperty Name="Nombre_Cargo" ColumnName="Nombre_Cargo" />
-                <ScalarProperty Name="Id_Cargo" ColumnName="Id_Cargo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Curso">
             <EntityTypeMapping TypeName="RecursosHumanosDBModel.Curso">
               <MappingFragment StoreEntitySet="Curso">
@@ -1919,9 +1910,30 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Empleado">
+            <EntityTypeMapping TypeName="RecursosHumanosDBModel.Empleado">
+              <MappingFragment StoreEntitySet="Empleado">
+                <ScalarProperty Name="FKId_Usuario_Empleado" ColumnName="FKId_Usuario_Empleado" />
+                <ScalarProperty Name="FKId_Vacaciones_Empleado" ColumnName="FKId_Vacaciones_Empleado" />
+                <ScalarProperty Name="FKId_Departamento_Empleado" ColumnName="FKId_Departamento_Empleado" />
+                <ScalarProperty Name="FKId_Persona_Empleado" ColumnName="FKId_Persona_Empleado" />
+                <ScalarProperty Name="Id_Empleado" ColumnName="Id_Empleado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cargo">
+            <EntityTypeMapping TypeName="RecursosHumanosDBModel.Cargo">
+              <MappingFragment StoreEntitySet="Cargo">
+                <ScalarProperty Name="FechaActualizacion_Cargo" ColumnName="FechaActualizacion_Cargo" />
+                <ScalarProperty Name="Nombre_Cargo" ColumnName="Nombre_Cargo" />
+                <ScalarProperty Name="Id_Cargo" ColumnName="Id_Cargo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Contrato">
             <EntityTypeMapping TypeName="RecursosHumanosDBModel.Contrato">
               <MappingFragment StoreEntitySet="Contrato">
+                <ScalarProperty Name="FKId_Cargo_Contrato" ColumnName="FKId_Cargo_Contrato" />
                 <ScalarProperty Name="FKId_Empleado_Contrato" ColumnName="FKId_Empleado_Contrato" />
                 <ScalarProperty Name="Nombre_Contrato" ColumnName="Nombre_Contrato" />
                 <ScalarProperty Name="FKId_TipoContrato_Contrato" ColumnName="FKId_TipoContrato_Contrato" />
@@ -1929,18 +1941,6 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
                 <ScalarProperty Name="FechaInicio_Contrato" ColumnName="FechaInicio_Contrato" />
                 <ScalarProperty Name="SalarioBruto_Contrato" ColumnName="SalarioBruto_Contrato" />
                 <ScalarProperty Name="Id_Contrato" ColumnName="Id_Contrato" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Empleado">
-            <EntityTypeMapping TypeName="RecursosHumanosDBModel.Empleado">
-              <MappingFragment StoreEntitySet="Empleado">
-                <ScalarProperty Name="FKId_Usuario_Empleado" ColumnName="FKId_Usuario_Empleado" />
-                <ScalarProperty Name="FKId_Vacaciones_Empleado" ColumnName="FKId_Vacaciones_Empleado" />
-                <ScalarProperty Name="FKId_Cargo_Empleado" ColumnName="FKId_Cargo_Empleado" />
-                <ScalarProperty Name="FKId_Departamento_Empleado" ColumnName="FKId_Departamento_Empleado" />
-                <ScalarProperty Name="FKId_Persona_Empleado" ColumnName="FKId_Persona_Empleado" />
-                <ScalarProperty Name="Id_Empleado" ColumnName="Id_Empleado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

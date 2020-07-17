@@ -17,23 +17,19 @@ namespace Sistema_Planilla_CE
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Empleado()
         {
-            this.Contrato = new HashSet<Contrato>();
             this.PlanillaEmpleado = new HashSet<PlanillaEmpleado>();
             this.Solicitud = new HashSet<Solicitud>();
             this.Solicitud1 = new HashSet<Solicitud>();
+            this.Contrato = new HashSet<Contrato>();
         }
     
         public int Id_Empleado { get; set; }
         public int FKId_Persona_Empleado { get; set; }
         public int FKId_Departamento_Empleado { get; set; }
-        public int FKId_Cargo_Empleado { get; set; }
         public int FKId_Vacaciones_Empleado { get; set; }
         public string FKId_Usuario_Empleado { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
-        public virtual Cargo Cargo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Contrato> Contrato { get; set; }
         public virtual Departamento Departamento { get; set; }
         public virtual Persona Persona { get; set; }
         public virtual Vacaciones Vacaciones { get; set; }
@@ -43,5 +39,7 @@ namespace Sistema_Planilla_CE
         public virtual ICollection<Solicitud> Solicitud { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Solicitud> Solicitud1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Contrato> Contrato { get; set; }
     }
 }

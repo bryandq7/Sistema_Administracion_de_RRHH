@@ -17,7 +17,7 @@ namespace Sistema_Planilla_CE
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Cargo()
         {
-            this.Empleado = new HashSet<Empleado>();
+            this.Contrato = new HashSet<Contrato>();
         }
     
         public int Id_Cargo { get; set; }
@@ -25,6 +25,6 @@ namespace Sistema_Planilla_CE
         public System.DateTime FechaActualizacion_Cargo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Empleado> Empleado { get; set; }
+        public virtual ICollection<Contrato> Contrato { get; set; }
     }
 }
