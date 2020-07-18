@@ -305,6 +305,7 @@
     <Content Include="Views\Persona\Editar.cshtml" />
     <Content Include="Views\Telefono\Crear.cshtml" />
     <Content Include="Views\Telefono\Editar.cshtml" />
+    <Content Include="Views\Telefono\Crear2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -20,7 +20,7 @@
 
 <p>
     @*<a class="btn btn-info" href="@Url.Action("Crear", "Telefono")"><i class="glyphicon glyphicon-plus"></i> Crear Nuevo</a>*@
-    <a class="btn btn-info" title="Crear" href="@Url.Action("Crear", "Telefono",new { Id_Persona = @Model.First().FKId_Persona_Telefono})"><i class="glyphicon glyphicon-pencil"></i></a>
+    <a class="btn btn-info" title="Crear" href="@Url.Action("Crear2", "Telefono",new { Id_Persona = @Model.First().Id_Persona})"><i class="glyphicon glyphicon-plus"></i>Agregar Teléfono</a>
 
 </p>
 <table class="table" id="tablaTelefono">
@@ -54,7 +54,7 @@
                     </td>*@
                 <td>
                     <a class="btn btn-success btn-xm" title="Editar" href="@Url.Action("Editar", "Telefono",new { Id_Telefono=item.Id_Telefono  })"><i class="glyphicon glyphicon-pencil"></i></a>
-                    <a class="btn btn-danger btn-xm" onclick="EliminarTelefono(@item.Id_Telefono)" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+                    <a class="btn btn-danger btn-xm" onclick="EliminarTelefono(@item.Id_Telefono, @item.FKId_Persona_Telefono)" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
                     @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                     @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                     @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
@@ -97,7 +97,7 @@
 
 
 
-        function EliminarTelefono(idtelefono) {
+        function EliminarTelefono(idtelefono, idpersona) {
             $.confirm({
                 title: 'Eliminar Número Telefónico',
                 content: '¿Desea Eliminar este Número Telefónico?',
@@ -107,7 +107,7 @@
                         $.ajax({
                             url: "/telefono/eliminartelefono",
                             type: "post",
-                            data: { id_telefono: idtelefono, id_persona : @Model.First().FKId_Persona_Telefono}
+                            data: { id_telefono: idtelefono, id_persona : idpersona}
                         }).done(function (response) {
                             console.log(response);//
                             LoadingOverlayHide("#tablaTelefono");

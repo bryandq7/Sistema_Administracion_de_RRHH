@@ -39,12 +39,23 @@ namespace Sistema_Planilla_CD
 
         }
 
+        public int ExisteTelefono(int personaID)
+        {
+            using (var db = new RecursosHumanosDBContext())
+            {
+                var ExisteUnTelefono = db.Telefono
+                    .Count(p => p.FKId_Persona_Telefono == personaID);
+
+                return ExisteUnTelefono;
+            }
+        }
+
         public void Crear(TelefonoCE telefono)
         {
             var telefonoOrigen = new Telefono
             {
                 Numero_Telefono = telefono.Numero_Telefono,
-                FKId_Persona_Telefono = telefono.FKId_Persona_Telefono
+                FKId_Persona_Telefono = telefono.Id_Persona
 
             };
 

@@ -45,8 +45,8 @@
             </th>
 
             @*<th>
-                Dirección Física
-            </th>*@
+                    Dirección Física
+                </th>*@
             <th>
                 Email
             </th>
@@ -78,25 +78,26 @@
                     @item.FechaNacimiento_Persona.ToShortDateString()
                     @*@Html.DisplayFor(modelItem => item.FechaNacimiento_Persona.ToShortDateString())*@
                 </td>
-   
+
 
                 @*<td>
-  
-                    @Html.DisplayFor(modelItem => item.DetalleCompleto_Direccion)
-                </td>*@
+
+                        @Html.DisplayFor(modelItem => item.DetalleCompleto_Direccion)
+                    </td>*@
 
                 <td>
                     @Html.DisplayFor(modelItem => item.Correo_Email)
                 </td>
                 <td>
-                    <a class="btn btn-primary btn-xm" title="Telefonos" href="@Url.Action("ObtenerListaTelefonosPersona", "Telefono",new { id_persona=item.Id_Persona})"><i class="glyphicon glyphicon-earphone"></i></a>
+                    <a class="btn btn-primary btn-xm" title="Telefonos" href="@Url.Action("ObtenerListaTelefonosPersona", "Telefono",new { Id_Persona=item.Id_Persona, Nombre_Persona = item.Nombre_Persona, Apellido1_Persona = item.Apellido1_Persona, Apellido2_Persona = item.Apellido2_Persona })"><i class="glyphicon glyphicon-earphone"></i></a>
+                    @*<a class="btn btn-primary btn-xm" onclick="AgregaroListarTelefonos(@item.Id_Persona)" title="Telefonos"><i class="glyphicon glyphicon-earphone"></i></a>*@
                     <a class="btn btn-info btn-xm" title="Detalle" href="@Url.Action("DetallesPersona", "Persona",new { id_persona=item.Id_Persona})"><i class="glyphicon glyphicon-edit"></i></a>
                     <a class="btn btn-success btn-xm" title="Editar" href="@Url.Action("Editar", "Persona",new { id=item.Id_Persona  })"><i class="glyphicon glyphicon-pencil"></i></a>
                     <a class="btn btn-danger btn-xm" onclick="EliminarPersona(@item.Id_Persona,@item.Id_Direccion,@item.Id_Email)" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
 
                     @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
                 </td>
             </tr>
         }
@@ -143,7 +144,7 @@
                         $.ajax({
                             url: "/persona/eliminarpersona",
                             type: "post",
-                            data: { id_persona: idpersona, id_direccion : iddireccion, Id_Email : idemail }
+                            data: { id_persona: idpersona, id_direccion: iddireccion, Id_Email: idemail }
                         }).done(function (response) {
                             console.log(response);//
                             LoadingOverlayHide("#tablaPersona");
@@ -165,6 +166,76 @@
                 }
             });
         }
+
+        //function AgregaroListarTelefonos(idpersona) {
+
+        //    var post_url = $(this).attr("action"); //get form action url
+        //    var request_method = $(this).attr("method"); //get form GET/POST method
+        //    var form_data = $(this).serializeArray(); //Encode form elements for submission
+
+        //    $.confirm({
+        //        title: 'Gestión Teléfonos',
+        //        content: '¿Desea Agregar un Teléfono  o Listar los Teléfonos?',
+        //        buttons: {
+        //            Listar: function () {
+        //                LoadingOverlayShow("#tablaPersona");
+        //                $.ajax({
+        //                    url: "/telefono/obtenerlistatelefonospersona",
+        //                    type: "get",
+        //                    data: { Id_Persona: idpersona}
+        //                }).done(function (response) {
+        //                    console.log(response);//
+        //                    LoadingOverlayHide("#tablaPersona");
+        //                    if (response.ok) {
+        //                        //alert("Persona eliminada correctamente.");
+        //                        window.location = response.toRedirect;
+        //                    }
+        //                    else {
+        //                        alert(response.msg);
+        //                    }
+        //                }).fail(function (jqXHR, textStatus, errorThrown) {
+        //                    LoadingOverlayHide("#tablaPersona");
+        //                    alert(textStatus);
+        //                });
+        //            },
+        //            Agregar: function () {
+        //                //$.alert('Canceled!');
+        //            },
+        //        }
+        //    });
+
+
+        //}
+
+        //function ObtenerListaTelefonos(idpersona) {
+
+        //    event.preventDefault(); //prevent default action
+        //    var post_url = $(this).attr("action"); //get form action url
+        //    var request_method = $(this).attr("method"); //get form GET/POST method
+        //    var form_data = $(this).serializeArray(); //Encode form elements for submission
+        //    console.log(form_data);
+
+        //    $.ajax({
+        //        url: "/telefono/ObtenerListaTelefonosPersona",
+        //        type: "post",
+        //        data: { id_persona: idpersona }
+        //    }).done(function (response) {
+        //        console.log(response);//
+        //        if (response.ok) {
+        //            alert("Persona eliminada correctamente.");
+        //            window.location = response.toRedirect;
+        //        }
+        //        else {
+        //            alert(response.msg);
+        //        }
+        //    }).fail(function (jqXHR, textStatus, errorThrown) {
+        //        alert(textStatus);
+        //    });
+
+        //}
+
+
+
 
     </script>
 

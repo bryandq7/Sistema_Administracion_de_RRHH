@@ -36,9 +36,14 @@ namespace Sistema_Planilla_CN
             obj.Editar(telefono);
         }
 
-            public static void Eliminar(int id_telefono)
+        public static void Eliminar(int id_telefono)
         {
             obj.Eliminar(id_telefono);
+        }
+
+        public static int ExisteTelefono(int personaID)
+        {
+            return obj.ExisteTelefono(personaID);
         }
     }
 }
