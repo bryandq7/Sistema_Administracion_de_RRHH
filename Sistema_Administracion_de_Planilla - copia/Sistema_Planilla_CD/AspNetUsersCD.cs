@@ -18,12 +18,25 @@ namespace Sistema_Planilla_CD
             }
         }
 
+        public List<AspNetUsersCE> ListarAspNetUsers2()
+        {
+            string sql = @"select u.Id as UserId, u.UserName
+                from  AspNetUsers u 
+	            left JOIN Persona p on u.Id= p.FKId_Usuario_Persona	
+				where p.FKId_Usuario_Persona is NULL";
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                return db.Database.SqlQuery<AspNetUsersCE>(sql).ToList();
+            }
+        }
+
         public bool ExisteUsuarioEnEmpleado(string usuarioId)
         {
             using (var db = new RecursosHumanosDBContext())
             {
-                var ExisteUsuarioEnEmpleado = db.Empleado
-                    .Any(p => p.FKId_Usuario_Empleado == usuarioId);
+                var ExisteUsuarioEnEmpleado = db.Persona
+                    .Any(p => p.FKId_Usuario_Persona == usuarioId);
                 return ExisteUsuarioEnEmpleado;
             }
         }
@@ -60,8 +73,8 @@ namespace Sistema_Planilla_CD
                 from AspNetUserRoles ur 
                 inner join AspNetRoles r on ur.RoleId = r.Id
                 inner join AspNetUsers u on ur.UserId = u.Id
-                inner join Empleado e  on u.Id = e.FKId_Usuario_Empleado
-                inner join Persona p on e.FKId_Persona_Empleado = p.Id_Persona";
+                inner join Persona p on u.Id = p.FKId_Usuario_Persona";
+
             using (var db = new RecursosHumanosDBContext())
             {
                 return db.Database.SqlQuery<AspNetUserRolesCE>(sql).ToList();

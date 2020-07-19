@@ -16,12 +16,12 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @*<div class="form-group">
-                @Html.LabelFor(model => model.Id_Persona, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Id_Persona, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Id_Persona, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+            @Html.LabelFor(model => model.Id_Persona, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Id_Persona, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Id_Persona, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
         <div class="form-group">
             <label class="control-label col-md-2">Número de Identidad</label>
@@ -73,12 +73,12 @@
         </div>
 
         @*<div class="form-group">
-                @Html.LabelFor(model => model.Id_Direccion, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Id_Direccion, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Id_Direccion, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+            @Html.LabelFor(model => model.Id_Direccion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Id_Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Id_Direccion, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
         <div class="form-group">
             <label class="control-label col-md-2"> Detalle de la Dirección </label>
@@ -103,12 +103,12 @@
         </div>
 
         @*<div class="form-group">
-                @Html.LabelFor(model => model.Nombre_Provincia, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Nombre_Provincia, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Nombre_Provincia, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+            @Html.LabelFor(model => model.Nombre_Provincia, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nombre_Provincia, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nombre_Provincia, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
         <div class="form-group">
             <label class="control-label col-md-2">Cantón</label>
@@ -123,12 +123,12 @@
         </div>
 
         @*<div class="form-group">
-                @Html.LabelFor(model => model.Nombre_Canton, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Nombre_Canton, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Nombre_Canton, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+            @Html.LabelFor(model => model.Nombre_Canton, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nombre_Canton, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nombre_Canton, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
         <div class="form-group">
             <label class="control-label col-md-2">Distrito</label>
@@ -142,21 +142,34 @@
             </div>
         </div>
 
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.Nombre_Distrito, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Nombre_Distrito, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Nombre_Distrito, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Asigne un Usuario</label>
+            @*@Html.LabelFor(model => model.Id_Distrito, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                <select class="form-control" id="Id_Usuario" name="Id_Usuario">
+                    <option value="">Seleccione...</option>
+                </select>
+                @*@Html.EditorFor(model => model.Id_Distrito, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Id_Usuario, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         @*<div class="form-group">
-                @Html.LabelFor(model => model.Id_Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Id_Email, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Id_Email, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+            @Html.LabelFor(model => model.Nombre_Distrito, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nombre_Distrito, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nombre_Distrito, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Id_Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Id_Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Id_Email, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
         <div class="form-group">
             <label class="control-label col-md-2">Correo</label>
@@ -169,20 +182,20 @@
         </div>
 
         @*<div class="form-group">
-                @Html.LabelFor(model => model.FKId_Direccion_Persona, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.FKId_Direccion_Persona, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.FKId_Direccion_Persona, "", new { @class = "text-danger" })
-                </div>
+            @Html.LabelFor(model => model.FKId_Direccion_Persona, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FKId_Direccion_Persona, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FKId_Direccion_Persona, "", new { @class = "text-danger" })
             </div>
+        </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.FKId_Email_Persona, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.FKId_Email_Persona, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.FKId_Email_Persona, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.FKId_Email_Persona, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FKId_Email_Persona, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FKId_Email_Persona, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
 
         <div class="form-group">
@@ -202,6 +215,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         GetProvincias();
+        ListarUsuarios2();
 
         $("#Id_Provincia").on("change", function () {
 
@@ -285,6 +299,12 @@
                 alert("Debe escoger un Distrito");
                 return;
             }
+
+            var usuarioId = $("#UsuarioId").val();
+            if (usuarioId == "") {
+                alert("Debe escoger un usuario");
+                return;
+            }
             var post_url = $(this).attr("action"); //get form action url
             var request_method = $(this).attr("method"); //get form GET/POST method
             var form_data = $(this).serializeArray(); //Encode form elements for submission
@@ -308,6 +328,25 @@
                 LoadingOverlayHide("#frmPersona");
             });
         });
+
+        function ListarUsuarios2(myCallback) {
+            $.ajax({
+                type: "GET",
+                url: '/aspnetusers/listarusuarios2',
+                dataType: "json",
+                success: function (result) {
+                    $.each(result.data, function (key, item) {
+                        $("#Id_Usuario").append('<option value=' + item.UserId + '>' + item.UserName + '</option>');
+                    });
+
+                    if (myCallback !== undefined)
+                        return myCallback(result.data);
+                },
+                error: function (data) {
+                    alert('error');
+                }
+            });
+        }
 
         @*function showValue(val) {
             console.log(val);

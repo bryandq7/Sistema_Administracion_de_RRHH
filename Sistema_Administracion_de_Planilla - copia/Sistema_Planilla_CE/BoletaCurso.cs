@@ -23,7 +23,7 @@ namespace Sistema_Planilla_CE
         public System.DateTime FechaInicio_BoletaCurso { get; set; }
         public System.DateTime FechaFin_BoletaCurso { get; set; }
     
-        public virtual Persona Persona { get; set; }
         public virtual Curso Curso { get; set; }
+        public virtual Persona Persona { get; set; }
     }
 }

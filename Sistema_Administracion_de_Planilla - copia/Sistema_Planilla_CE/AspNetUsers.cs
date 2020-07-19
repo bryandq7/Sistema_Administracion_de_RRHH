@@ -20,7 +20,7 @@ namespace Sistema_Planilla_CE
             this.AspNetUserClaims = new HashSet<AspNetUserClaims>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogins>();
             this.AspNetUserRoles = new HashSet<AspNetUserRoles>();
-            this.Empleado = new HashSet<Empleado>();
+            this.Persona = new HashSet<Persona>();
         }
     
         public string Id { get; set; }
@@ -43,6 +43,6 @@ namespace Sistema_Planilla_CE
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserRoles> AspNetUserRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Empleado> Empleado { get; set; }
+        public virtual ICollection<Persona> Persona { get; set; }
     }
 }

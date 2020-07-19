@@ -16,7 +16,12 @@ namespace Sistema_Planilla_CN
             return obj.ListarAspNetUsers();
         }
 
-        public static void AsignarRolUsuario(string usuarioId, string rolId)
+        public static List<AspNetUsersCE> ListarAspNetUsers2()
+        {
+            return obj.ListarAspNetUsers2();
+        }
+
+            public static void AsignarRolUsuario(string usuarioId, string rolId)
         {
             obj.AsignarRolUsuario(usuarioId, rolId);
         }

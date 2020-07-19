@@ -93,7 +93,7 @@
                     @*<a class="btn btn-primary btn-xm" onclick="AgregaroListarTelefonos(@item.Id_Persona)" title="Telefonos"><i class="glyphicon glyphicon-earphone"></i></a>*@
                     <a class="btn btn-info btn-xm" title="Detalle" href="@Url.Action("DetallesPersona", "Persona",new { id_persona=item.Id_Persona})"><i class="glyphicon glyphicon-edit"></i></a>
                     <a class="btn btn-success btn-xm" title="Editar" href="@Url.Action("Editar", "Persona",new { id=item.Id_Persona  })"><i class="glyphicon glyphicon-pencil"></i></a>
-                    <a class="btn btn-danger btn-xm" onclick="EliminarPersona(@item.Id_Persona,@item.Id_Direccion,@item.Id_Email)" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+                    <a class="btn btn-danger btn-xm" onclick="EliminarPersona(@item.Id_Persona,'@item.FKId_Usuario_Persona')" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
 
                     @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
         @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
@@ -134,7 +134,7 @@
 
 
 
-        function EliminarPersona(idpersona, iddireccion, idemail) {
+        function EliminarPersona(idpersona, idusario) {
             $.confirm({
                 title: 'Eliminar Persona',
                 content: '¿Desea Eliminar esta Persona?',
@@ -144,7 +144,7 @@
                         $.ajax({
                             url: "/persona/eliminarpersona",
                             type: "post",
-                            data: { id_persona: idpersona, id_direccion: iddireccion, Id_Email: idemail }
+                            data: { id_persona: idpersona, id_usuario: idusario}
                         }).done(function (response) {
                             console.log(response);//
                             LoadingOverlayHide("#tablaPersona");

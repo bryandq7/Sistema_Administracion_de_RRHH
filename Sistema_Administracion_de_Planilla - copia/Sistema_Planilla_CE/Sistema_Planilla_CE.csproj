@@ -56,6 +56,7 @@
     <Compile Include="AspNetUsers.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
+    <Compile Include="AspNetUsersCE.cs" />
     <Compile Include="BoletaCurso.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
@@ -95,6 +96,7 @@
     <Compile Include="Empleado.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
+    <Compile Include="EmpleadoCE.cs" />
     <Compile Include="ModelRecursosHumanos.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -28,5 +28,9 @@ namespace Sistema_Planilla_CE
         public string NumeroIdentidad_Persona { get; set; }
         public string NombreCompleto_Persona { get { return $"{Apellido1_Persona}{" "}{Apellido2_Persona}{", "}{Nombre_Persona}"; }}
         public string DetalleCompleto_Direccion { get { return $"{Detalle_Direccion}{", "}{Nombre_Provincia}{" - "}{Nombre_Canton}{" - "}{Nombre_Distrito}"; } }
+        public string Id_Usuario { get; set; }
+        public string UserName { get; set; }
+        public string FKId_Usuario_Persona { get; set; }
+
     }
 }

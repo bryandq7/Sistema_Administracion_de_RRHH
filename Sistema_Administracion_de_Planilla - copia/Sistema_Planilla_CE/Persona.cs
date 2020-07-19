@@ -18,8 +18,8 @@ namespace Sistema_Planilla_CE
         public Persona()
         {
             this.BoletaCurso = new HashSet<BoletaCurso>();
-            this.Telefono = new HashSet<Telefono>();
             this.Empleado = new HashSet<Empleado>();
+            this.Telefono = new HashSet<Telefono>();
         }
     
         public int Id_Persona { get; set; }
@@ -30,14 +30,17 @@ namespace Sistema_Planilla_CE
         public int FKId_Direccion_Persona { get; set; }
         public int FKId_Email_Persona { get; set; }
         public string NumeroIdentidad_Persona { get; set; }
+        public bool Activo_Persona { get; set; }
+        public string FKId_Usuario_Persona { get; set; }
     
+        public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BoletaCurso> BoletaCurso { get; set; }
         public virtual Direccion Direccion { get; set; }
         public virtual Email Email { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Telefono> Telefono { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Empleado> Empleado { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Telefono> Telefono { get; set; }
     }
 }

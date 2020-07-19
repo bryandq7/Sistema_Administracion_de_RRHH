@@ -77,12 +77,14 @@ namespace Sistema_Planilla_CP.Controllers
         }
 
         [HttpPost]
-        public ActionResult EliminarPersona(int id_persona, int id_direccion, int id_email)
+        public ActionResult EliminarPersona(int id_persona, string id_usuario)
         {
 
             try
             {
-                PersonaCN.EliminarPersona(id_persona,id_direccion,id_email);
+                if (EmpleadoCN.ExisteEmpleado(id_persona))
+                    return Json(new { ok = false, msg = "Esta persona es un empleado y debe eliminarla desde la Lista de Empleados" });
+                PersonaCN.EliminarPersona(id_persona, id_usuario);
                 return Json(new { ok = true, toRedirect = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

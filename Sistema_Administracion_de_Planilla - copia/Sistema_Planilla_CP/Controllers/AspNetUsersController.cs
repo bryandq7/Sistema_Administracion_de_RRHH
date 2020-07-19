@@ -37,6 +37,21 @@ namespace Sistema_Planilla_CP.Controllers
 
         }
 
+
+        public ActionResult ListarUsuarios2()
+        {
+            try
+            {
+                var lista = AspNetUsersCN.ListarAspNetUsers2();
+                return Json(new { data = lista }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ok = false, msg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
         [HttpPost]
         public ActionResult AsignarRolUsuario(string usuarioId, string rolId)
         {

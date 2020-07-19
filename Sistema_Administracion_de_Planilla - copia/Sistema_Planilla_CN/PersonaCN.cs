@@ -31,9 +31,9 @@ namespace Sistema_Planilla_CN
             obj.Editar(persona);
         }
 
-            public static void EliminarPersona(int id_persona, int id_direccion, int id_email)
+            public static void EliminarPersona(int id_persona, string id_usuario)
         {
-            obj.EliminarPersona(id_persona, id_direccion, id_email);
+            obj.EliminarPersona(id_persona, id_usuario);
         }
 
 

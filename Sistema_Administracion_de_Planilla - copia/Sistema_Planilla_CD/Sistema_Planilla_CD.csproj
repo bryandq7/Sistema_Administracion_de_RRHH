@@ -57,6 +57,7 @@
     <Compile Include="DepartamentoCD.cs" />
     <Compile Include="DireccionCD.cs" />
     <Compile Include="DistritoCD.cs" />
+    <Compile Include="EmpleadoCD.cs" />
     <Compile Include="ModelRecursosHumanos.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

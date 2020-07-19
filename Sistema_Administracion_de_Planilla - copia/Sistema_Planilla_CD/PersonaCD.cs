@@ -21,7 +21,7 @@ namespace Sistema_Planilla_CD
 
         public List<PersonaCE> ListarPersonas()
         {
-            string sql = @"select p.NumeroIdentidad_Persona,Id_Persona,p.Nombre_Persona,p.Apellido1_Persona,p.Apellido2_Persona,
+            string sql = @"select p.NumeroIdentidad_Persona, u.Id as Id_Usuario, u.UserName,p.Id_Persona,p.FKId_Usuario_Persona,p.Nombre_Persona,p.Apellido1_Persona,p.Apellido2_Persona,
                         p.FechaNacimiento_Persona,p.FKId_Email_Persona,e.Id_Email,e.Correo_Email, p.FKId_Email_Persona, d.Id_Direccion, 
                         d.Detalle_Direccion,pr.Id_Provincia,pr.Nombre_Provincia,c.Id_Canton,c.Nombre_Canton,di.Id_Distrito,di.Nombre_Distrito
                         from Persona p 
@@ -29,7 +29,10 @@ namespace Sistema_Planilla_CD
 				        inner join Distrito di on d.FKIdDistrito_Direccion = di.Id_Distrito
                         inner join Canton c on di.FKIdCanton_Distrito = c.Id_Canton
                         inner join Provincia pr  on c.FKIdProvincia_Canton = pr.Id_Provincia
-				        inner join Email e on p.FKId_Email_Persona = e.Id_Email";
+				        inner join Email e on p.FKId_Email_Persona = e.Id_Email
+						inner join AspNetUsers u on p.FKId_Usuario_Persona = u.Id
+                        where p.Activo_Persona = 1";
+
             using (var db = new RecursosHumanosDBContext())
             {
                 return db.Database.SqlQuery<PersonaCE>(sql).ToList();
@@ -74,7 +77,9 @@ namespace Sistema_Planilla_CD
                 FechaNacimiento_Persona = persona.FechaNacimiento_Persona,
                 FKId_Direccion_Persona = idultimoregistrodireccion,
                 FKId_Email_Persona = idultimoregistrocorreo,
-                NumeroIdentidad_Persona = persona.NumeroIdentidad_Persona
+                NumeroIdentidad_Persona = persona.NumeroIdentidad_Persona,
+                FKId_Usuario_Persona = persona.Id_Usuario,
+                Activo_Persona = true
             };
 
             using (var db = new RecursosHumanosDBContext())
@@ -104,7 +109,7 @@ namespace Sistema_Planilla_CD
         public PersonaCE ObtenerDetallePersona(int idPersona)
         {
 
-            string sql = @"select p.NumeroIdentidad_Persona,Id_Persona,p.Nombre_Persona,p.Apellido1_Persona,p.Apellido2_Persona,
+            string sql = @"select p.NumeroIdentidad_Persona,u.Id as Id_Usuario, u.UserName,p.FKId_Usuario_Persona,p.Id_Persona,p.Nombre_Persona,p.Apellido1_Persona,p.Apellido2_Persona,
                         p.FechaNacimiento_Persona,p.FKId_Email_Persona,e.Id_Email,e.Correo_Email, p.FKId_Email_Persona, d.Id_Direccion, 
                         d.Detalle_Direccion,pr.Id_Provincia,pr.Nombre_Provincia,c.Id_Canton,c.Nombre_Canton,di.Id_Distrito,di.Nombre_Distrito
                         from Persona p 
@@ -113,6 +118,7 @@ namespace Sistema_Planilla_CD
                         inner join Canton c on di.FKIdCanton_Distrito = c.Id_Canton
                         inner join Provincia pr  on c.FKIdProvincia_Canton = pr.Id_Provincia
                         inner join Email e on p.FKId_Email_Persona = e.Id_Email
+                        inner join AspNetUsers u on p.FKId_Usuario_Persona = u.Id
                         where p.Id_Persona = @Cod_Persona";
 
             using (var db = new RecursosHumanosDBContext())
@@ -144,19 +150,19 @@ namespace Sistema_Planilla_CD
         }
 
 
-        public void EliminarPersona(int id_persona, int id_direccion, int id_email)
+        public void EliminarPersona(int id_persona, string id_usuario)
         {
 
 
 
-            using (var db = new RecursosHumanosDBContext())
-            {
-                var telefono = db.Telefono
-                    .Where(e => e.FKId_Persona_Telefono == id_persona)
-                    .ToList();
-                db.Telefono.RemoveRange(telefono);
-                db.SaveChanges();
-            }
+            //using (var db = new RecursosHumanosDBContext())
+            //{
+            //    var telefono = db.Telefono
+            //        .Where(e => e.FKId_Persona_Telefono == id_persona)
+            //        .ToList();
+            //    db.Telefono.RemoveRange(telefono);
+            //    db.SaveChanges();
+            //}
 
 
             using (var db = new RecursosHumanosDBContext())
@@ -164,27 +170,52 @@ namespace Sistema_Planilla_CD
                 var persona = db.Persona
                     .Where(e => e.Id_Persona == id_persona)
                     .FirstOrDefault();
-                db.Persona.Remove(persona);
+                persona.FKId_Usuario_Persona = null;
+                persona.Activo_Persona = false;
+                //db.Persona.Remove(persona);
                 db.SaveChanges();
             }
 
             using (var db = new RecursosHumanosDBContext())
             {
-                var direccion = db.Direccion
-                    .Where(e => e.Id_Direccion == id_direccion)
-                    .FirstOrDefault();
-                db.Direccion.Remove(direccion);
+                var rolusuario = db.AspNetUserRoles
+                    .Where(e => e.UserId == id_usuario)
+                    .ToList();
+                db.AspNetUserRoles.RemoveRange(rolusuario);
                 db.SaveChanges();
             }
 
             using (var db = new RecursosHumanosDBContext())
             {
-                var correo = db.Email
-                    .Where(e => e.Id_Email == id_email)
+                var usuario = db.AspNetUsers
+                    .Where(e => e.Id == id_usuario)
                     .FirstOrDefault();
-                db.Email.Remove(correo);
+                db.AspNetUsers.Remove(usuario);
                 db.SaveChanges();
             }
+
+
+
+
+ 
+
+            //using (var db = new RecursosHumanosDBContext())
+            //{
+            //    var direccion = db.Direccion
+            //        .Where(e => e.Id_Direccion == id_direccion)
+            //        .FirstOrDefault();
+            //    db.Direccion.Remove(direccion);
+            //    db.SaveChanges();
+            //}
+
+            //using (var db = new RecursosHumanosDBContext())
+            //{
+            //    var correo = db.Email
+            //        .Where(e => e.Id_Email == id_email)
+            //        .FirstOrDefault();
+            //    db.Email.Remove(correo);
+            //    db.SaveChanges();
+            //}
         }
 
 

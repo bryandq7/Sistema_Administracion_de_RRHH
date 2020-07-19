@@ -36,6 +36,8 @@ function ListarUsuarios(myCallback) {
     });
 }
 
+
+
 function ListarRoles(myCallback) {
     $.ajax({
         type: "GET",

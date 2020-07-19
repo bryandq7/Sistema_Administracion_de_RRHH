@@ -14,16 +14,10 @@ namespace Sistema_Planilla_CE
     
     public partial class Vacaciones
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Vacaciones()
-        {
-            this.Empleado = new HashSet<Empleado>();
-        }
-    
         public int Id_Vacaciones { get; set; }
         public decimal AcumuladoDias_Vacaciones { get; set; }
+        public int FKId_Empleado_Vacaciones { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Empleado> Empleado { get; set; }
+        public virtual Empleado Empleado { get; set; }
     }
 }
