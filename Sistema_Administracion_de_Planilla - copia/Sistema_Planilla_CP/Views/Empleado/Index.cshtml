@@ -24,24 +24,24 @@
 <table class="table" id="tablaEmpleado">
     <thead>
         <tr>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Id_Empleado)
-                </th>*@
-            @*<th>
-                    @Html.DisplayNameFor(model => model.FKId_Usuario_Empleado)
+            <th>
+                    Número de Empleado
+                </th>
+            <th>
+                    Cargo
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.FKId_Persona_Empleado)
+                    Tipo de Contrato
                 </th>
-                <th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.FKId_Departamento_Empleado)
                 </th>*@
             @*<th>
                     @Html.DisplayNameFor(model => model.Id_Usuario)
                 </th>*@
-            <th>
+            @*<th>
                 Nombre de Usuario
-            </th>
+            </th>*@
             @*<th>
                     @Html.DisplayNameFor(model => model.Id_Departamento)
                 </th>*@
@@ -61,24 +61,24 @@
         @foreach (var item in Model)
         {
             <tr>
-                @*<td>
+                <td>
                         @Html.DisplayFor(modelItem => item.Id_Empleado)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.FKId_Usuario_Empleado)
+                        @Html.DisplayFor(modelItem => item.Nombre_Cargo)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.FKId_Persona_Empleado)
+                        @Html.DisplayFor(modelItem => item.Detalle_TipoContrato)
                     </td>
-                    <td>
+                    @*<td>
                         @Html.DisplayFor(modelItem => item.FKId_Departamento_Empleado)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Id_Usuario)
                     </td>*@
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.UserName)
-                </td>
+                </td>*@
                 @*<td>
                         @Html.DisplayFor(modelItem => item.Id_Departamento)
                     </td>*@
@@ -92,11 +92,12 @@
                     @Html.DisplayFor(modelItem => item.NombreCompletoPersona)
                 </td>
                 <td>
+                    <a class="btn btn-info btn-xm" title="Detalle" href="@Url.Action("DetallesEmpleado", "Empleado",new { id_empleado=item.Id_Empleado})"><i class="glyphicon glyphicon-edit"></i></a>
                     <a class="btn btn-success" title="Editar" href="@Url.Action("Editar", "Empleado",new { id=item.Id_Empleado })"><i class="glyphicon glyphicon-pencil"></i></a>
-                    <a class="btn btn-danger" onclick="EliminarEmpleado(@item.Id_Empleado)" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+                    <a class="btn btn-danger" onclick="EliminarEmpleado(@item.Id_Persona,@item.Id_Empleado,@item.Id_Usuario)" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
                     @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
                 </td>
             </tr>
 
@@ -134,7 +135,7 @@
 
 
 
-        function EliminarDepartamento(id) {
+        function EliminarEmpleado(id_persona, id_empleado, id_usuario) {
             $.confirm({
                 title: 'Eliminar Empleado',
                 content: '¿Desea Eliminar el Empleado?',
@@ -144,7 +145,7 @@
                         $.ajax({
                             url: "/Empleado/Eliminar",
                             type: "post",
-                            data: { identificador: id }
+                            data: { id_persona: id_persona, id_empleado: id_empleado, id_usuario: id_usuario}
                         }).done(function (response) {
                             console.log(response);//
                             LoadingOverlayHide("#tablaEmpleado");

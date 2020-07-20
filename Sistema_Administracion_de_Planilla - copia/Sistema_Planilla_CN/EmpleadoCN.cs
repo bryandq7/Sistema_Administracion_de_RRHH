@@ -17,10 +17,21 @@ namespace Sistema_Planilla_CN
             return obj.ListarEmpleados();
         }
 
-        public static bool ExisteEmpleado(int personaID)
+        public static EmpleadoCE ObtenerDetalleEmpleado(int idEmpleado)
+        {
+            return obj.ObtenerDetalleEmpleado(idEmpleado);
+        }
+
+
+            public static bool ExisteEmpleado(int personaID)
         {
             return obj.ExisteEmpleado(personaID);
         }
 
-    }
+        public static void Eliminar(int id_empleado)
+        {
+            obj.Eliminar(id_empleado);
+        }
+
+        }
 }

@@ -35,13 +35,10 @@
         <EntityTypeShape EntityType="RecursosHumanosDBModel.TipoSolicitud" Width="1.5" PointX="18" PointY="12.125" />
         <EntityTypeShape EntityType="RecursosHumanosDBModel.TipoContrato" Width="1.5" PointX="10.5" PointY="21.125" />
         <EntityTypeShape EntityType="RecursosHumanosDBModel.Cargo" Width="1.5" PointX="10.5" PointY="23.375" />
-        <EntityTypeShape EntityType="RecursosHumanosDBModel.Contrato" Width="1.5" PointX="12.75" PointY="20.25" />
         <EntityTypeShape EntityType="RecursosHumanosDBModel.Departamento" Width="1.5" PointX="3.75" PointY="22.625" />
         <EntityTypeShape EntityType="RecursosHumanosDBModel.PlanillaEmpleado" Width="1.5" PointX="20.25" PointY="10.875" />
         <EntityTypeShape EntityType="RecursosHumanosDBModel.Solicitud" Width="1.5" PointX="23.25" PointY="11" />
         <EntityTypeShape EntityType="RecursosHumanosDBModel.Vacaciones" Width="1.5" PointX="8.25" PointY="33" />
-        <AssociationConnector Association="RecursosHumanosDBModel.FK_Contrato_Cargo" />
-        <AssociationConnector Association="RecursosHumanosDBModel.FK_Contrato_TipoContrato" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_PlanillaEmpleado_Planilla" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_Solicitud_StatusSolicitud" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_Solicitud_TipoSolicitud" />
@@ -53,7 +50,6 @@
         <AssociationConnector Association="RecursosHumanosDBModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_Persona_AspNetUsers" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_BoletaCurso_Persona" />
-        <AssociationConnector Association="RecursosHumanosDBModel.FK_Contrato_Empleado" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_Empleado_Departamento" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_Persona_Direccion" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_Persona_Email" />
@@ -63,6 +59,10 @@
         <AssociationConnector Association="RecursosHumanosDBModel.FK_Solicitud_Empleado1" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_Vacaciones_Empleado" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_Telefono_Persona" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.Contrato" Width="1.5" PointX="15.25" PointY="19.125" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Contrato_Cargo" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Contrato_Empleado" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Contrato_TipoContrato" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

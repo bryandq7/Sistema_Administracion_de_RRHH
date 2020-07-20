@@ -19,13 +19,21 @@ namespace Sistema_Planilla_CP.Controllers
         }
 
 
+        public ActionResult DetallesEmpleado(int id_empleado)
+        {
+            var empleado = EmpleadoCN.ObtenerDetalleEmpleado(id_empleado);
+            return View(empleado);
+        }
+
+
         [HttpPost]
-        public ActionResult Eliminar(int id_persona, int id_direccion, int id_email, int id_empleado, string id_usuario)
+        public ActionResult Eliminar(int id_persona, int id_empleado, string id_usuario)
         {
 
             try
             {
-                //EmpleadoCN.Eliminar(id_persona, id_direccion, id_email, id_empleado, id_usuario);
+                PersonaCN.EliminarPersona(id_persona, id_usuario);
+                EmpleadoCN.Eliminar(id_empleado);
                 return Json(new { ok = true, toRedirect = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

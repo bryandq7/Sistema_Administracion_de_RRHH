@@ -308,6 +308,8 @@
     <Content Include="Views\Telefono\Editar.cshtml" />
     <Content Include="Views\Telefono\Crear2.cshtml" />
     <Content Include="Views\Empleado\Index.cshtml" />
+    <Content Include="Views\AspNetUsers\ListarRolusuarioNuevos.cshtml" />
+    <Content Include="Views\Empleado\DetallesEmpleado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

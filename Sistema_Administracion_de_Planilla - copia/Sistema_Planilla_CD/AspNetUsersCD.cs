@@ -41,6 +41,16 @@ namespace Sistema_Planilla_CD
             }
         }
 
+        public int ExisteUnRolParaUsuario(string usuarioId)
+        {
+            using (var db = new RecursosHumanosDBContext())
+            {
+                var ExisteUnUsuario = db.AspNetUserRoles
+                    .Count(p => p.UserId == usuarioId);
+                return ExisteUnUsuario;
+            }
+        }
+
 
         public bool ExisteAsignacionrolusuario(string usuarioId, string rolId)
         {
@@ -51,6 +61,7 @@ namespace Sistema_Planilla_CD
                 return ExisteAsignacionrolusuario;
             }
         }
+
         public void AsignarRolUsuario(string usuarioId, string rolId)
         {
             var rolusuario = new AspNetUserRoles
@@ -81,6 +92,21 @@ namespace Sistema_Planilla_CD
             }
         }
 
+        public List<AspNetUserRolesCE> ListarAsignacionesrolusuarionuevos()
+        {
+            string sql = @"select r.Id as RoleId, r.Name,u.Id as UserId,u.UserName
+                from AspNetUserRoles ur 
+                left join AspNetRoles r on ur.RoleId = r.Id
+                left join AspNetUsers u on ur.UserId = u.Id
+                left join Persona p on u.Id = p.FKId_Usuario_Persona
+				where p.FKId_Usuario_Persona is NULL";
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                return db.Database.SqlQuery<AspNetUserRolesCE>(sql).ToList();
+            }
+        }
+
         public void EliminarAsignacionRolUsuario(string usuarioId, string rolId)
         {
             using (var db = new RecursosHumanosDBContext())
@@ -89,6 +115,18 @@ namespace Sistema_Planilla_CD
                     .Where(e => e.UserId == usuarioId && e.RoleId == rolId)
                     .FirstOrDefault();
                 db.AspNetUserRoles.Remove(rolUsuario);
+                db.SaveChanges();
+            }
+        }
+
+        public void EliminarUsuario(string usuarioId)
+        {
+            using (var db = new RecursosHumanosDBContext())
+            {
+                var rolUsuario = db.AspNetUsers
+                    .Where(e => e.Id == usuarioId )
+                    .FirstOrDefault();
+                db.AspNetUsers.Remove(rolUsuario);
                 db.SaveChanges();
             }
         }

@@ -1,0 +1,176 @@
+﻿@model IEnumerable<Sistema_Planilla_CE.AspNetUserRolesCE>
+
+@{
+    ViewBag.Title = "ListarRolusuarioNuevos";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@section styles{
+
+    <style>
+        .tituloCss {
+            color: #3d3d29;
+        }
+    </style>
+
+
+}
+
+<h2 class="tituloCss">Lista de usuarios con asignacion de perfil de persona pendiente</h2>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+@*<table class="table" id="tablaUsuarios">
+
+    <thead>
+        <tr>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.UserId)
+                </th>*@
+            @*<th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>*@
+            @*<th>
+                    @Html.DisplayNameFor(model => model.RoleId)
+                </th>*@
+            @*<th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>*@
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Id_Persona)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NombreCompletoPersona)
+                </th>*@
+            @*<th></th>
+        </tr>
+    </thead>*@
+
+    @*<tbody>
+        @foreach (var item in Model)
+        {
+            <tr>*@
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.UserId)
+                    </td>*@
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>*@
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.RoleId)
+                    </td>*@
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>*@
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Id_Persona)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NombreCompletoPersona)
+                    </td>*@
+                @*<td>
+                    <a href="javascript:;" class="btn btn-danger btn-xs" onclick="EliminarAsignacionRolUsuario('@item.UserId', '@item.RoleId')">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </a>*@
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                    @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                @*</td>
+            </tr>
+        }
+    </tbody>
+
+</table>*@
+
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-6">
+        <table class="table table-bordered table-condensed table-striped" id="tablaUsuarios">
+            <thead>
+                <tr>
+                    <th>Usuarios</th>
+                    <th>Rol</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.UserName</td>
+                        <td>@item.Name</td>
+                        <th class="text-center">
+                            <a href="javascript:;" class="btn btn-danger btn-xs" onclick="EliminarUsuario('@item.UserId', '@item.RoleId')">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </a>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script>
+
+        $('#tablaUsuarios').DataTable({
+            "pageLength": 5,
+            lengthMenu: [5, 10, 20, 50, 100, 200, 500],
+            language: {
+                search: "Buscar en tabla: ",
+                lengthMenu: "Mostrar  _MENU_  entradas",
+                info: "Mostrando de la entrada _START_ a la _END_ de _TOTAL_ entradas",
+                infoEmpty: "Mostrando de la entrada 0 a la 0 de 0  entradas",
+                infoFiltered: "(filtrando de  _MAX_ entradas totales)",
+                infoPostFix: "",
+                loadingRecords: "Agregando entradas",
+                zeroRecords: "No existen entradas disponibles para esta búsqueda",
+                emptyTable: "No existe data disponible para esta tabla",
+
+                paginate: {
+                    first: "Primera",
+                    previous: "Anterior",
+                    next: "Siguiente",
+                    last: "Ultima"
+                }
+            }
+
+        });
+
+
+        function EliminarUsuario(usuarioId, rolId) {
+            $.confirm({
+                title: 'Eliminar Usuario!',
+                content: '¿Estás seguro de Eliminar este usuario?',
+                buttons: {
+                    Confirmar: function () {
+                        LoadingOverlayShow("#tablaUsuarios");
+                        $.ajax({
+                            url: "/aspnetusers/eliminarusuario",
+                            type: "post",
+                            data: { usuarioId, rolId }
+                        }).done(function (response) {
+                            LoadingOverlayHide("#tablaUsuarios");
+                            if (response.ok) {
+                                alert("Usuario eliminado correctamente.");
+                                window.location = response.toRedirect;
+                            }
+                            else {
+                                alert(response.msg);
+                            }
+                        }).fail(function (jqXHR, textStatus, errorThrown) {
+                            LoadingOverlayHide("#tablaUsuarios");
+                        });
+                    },
+                    Cancelar: function () {
+                    },
+                }
+            });
+        }
+    </script>
+}
+

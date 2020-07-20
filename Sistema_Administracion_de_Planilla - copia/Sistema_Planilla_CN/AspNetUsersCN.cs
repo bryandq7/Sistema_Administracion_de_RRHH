@@ -21,7 +21,7 @@ namespace Sistema_Planilla_CN
             return obj.ListarAspNetUsers2();
         }
 
-            public static void AsignarRolUsuario(string usuarioId, string rolId)
+        public static void AsignarRolUsuario(string usuarioId, string rolId)
         {
             obj.AsignarRolUsuario(usuarioId, rolId);
         }
@@ -37,6 +37,11 @@ namespace Sistema_Planilla_CN
             return obj.ListarAsignacionesrolusuario();
         }
 
+        public static List<AspNetUserRolesCE> ListarAsignacionesrolusuarionuevos()
+        {
+            return obj.ListarAsignacionesrolusuarionuevos();
+        }
+
         public static bool ExisteUsuarioEnEmpleado(string usuarioId)
         {
             return obj.ExisteUsuarioEnEmpleado(usuarioId);
@@ -45,7 +50,20 @@ namespace Sistema_Planilla_CN
 
         public static void EliminarAsignacionRolUsuario(string usuarioId, string rolId)
         {
-             obj.EliminarAsignacionRolUsuario(usuarioId, rolId);
+            obj.EliminarAsignacionRolUsuario(usuarioId, rolId);
+        }
+
+        public static void EliminarUsuario(string usuarioId, string rolId)
+        {
+            obj.EliminarAsignacionRolUsuario(usuarioId, rolId);
+            obj.EliminarUsuario(usuarioId);
+
+        }
+
+        public static int ExisteUnRolParaUsuario(string usuarioId)
+        {
+
+            return obj.ExisteUnRolParaUsuario(usuarioId);
         }
     }
 }

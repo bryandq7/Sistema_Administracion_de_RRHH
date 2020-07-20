@@ -23,6 +23,15 @@ namespace Sistema_Planilla_CP.Controllers
 
         }
 
+        public ActionResult ListarRolusuarioNuevos()
+        {
+            return View(AspNetUsersCN.ListarAsignacionesrolusuarionuevos());
+
+        }
+
+
+
+
         public ActionResult ListarUsuarios()
         {
             try
@@ -61,7 +70,7 @@ namespace Sistema_Planilla_CP.Controllers
                 if (AspNetUsersCN.ExisteAsignacionrolusuario(usuarioId, rolId))
                     return Json(new { ok = false, msg = "Ya existe esta relación entre usuario y rol" });
                 if (AspNetUsersCN.ExisteUsuarioEnEmpleado(usuarioId)==false)
-                    return Json(new { ok = false, msg = "No se ha asignado un perfil de empleado para este usuario. Por favor asigne un perfil de empleado primero e intentelo de nuevo" });
+                    return Json(new { ok = false, msg = "No se ha asignado un perfil de persona para este usuario. Por favor asigne un perfil de persona primero e intentelo de nuevo" });
                 AspNetUsersCN.AsignarRolUsuario(usuarioId, rolId);
                 return Json(new { ok = true, toRedirect = Url.Action("AsignarRolUsuario") }, JsonRequestBehavior.AllowGet);
             }
@@ -78,8 +87,26 @@ namespace Sistema_Planilla_CP.Controllers
 
             try
             {
+                if (AspNetUsersCN.ExisteUnRolParaUsuario(usuarioId)==1)
+                    return Json(new { ok = false, msg = "Debe al menos existir una asignacion de Rol para este usuario" });
                 AspNetUsersCN.EliminarAsignacionRolUsuario(usuarioId, rolId);
                 return Json(new { ok = true, toRedirect = Url.Action("AsignarRolUsuario") }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new { ok = false, msg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EliminarUsuario(string usuarioId, string rolId)
+        {
+
+            try
+            {
+                AspNetUsersCN.EliminarUsuario(usuarioId, rolId);
+                return Json(new { ok = true, toRedirect = Url.Action("ListarRolusuarioNuevos") }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

@@ -1,0 +1,192 @@
+﻿@model Sistema_Planilla_CE.EmpleadoCE
+
+@{
+    ViewBag.Title = "DetallesEmpleado";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@section styles{
+    <style>
+        .tituloCss {
+            color: #3d3d29;
+        }
+    </style>
+}
+
+<h2 class="tituloCss">Detalle del Empleado</h2>
+
+<div>
+    <h4>Detalle del Empleado</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Número de Empleado
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id_Empleado)
+        </dd>
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.FKId_Persona_Empleado)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FKId_Persona_Empleado)
+            </dd>*@
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.FKId_Departamento_Empleado)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FKId_Departamento_Empleado)
+            </dd>*@
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.Id_Departamento)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Id_Departamento)
+            </dd>*@
+
+        <dt>
+            Departamento
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre_Departamento)
+        </dd>
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.Id_Persona)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Id_Persona)
+            </dd>*@
+
+        <dt>
+            Nombre Empleado
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreCompletoPersona)
+        </dd>
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.Id_Usuario)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Id_Usuario)
+            </dd>*@
+
+        <dt>
+            Usuario
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.Id_Contrato)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Id_Contrato)
+            </dd>*@
+
+        <dt>
+            Salario Bruto
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SalarioBruto_Contrato)
+        </dd>
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.FKId_TipoContrato_Contrato)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FKId_TipoContrato_Contrato)
+            </dd>*@
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.FKId_Empleado_Contrato)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FKId_Empleado_Contrato)
+            </dd>*@
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.FKId_Cargo_Contrato)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FKId_Cargo_Contrato)
+            </dd>*@
+
+        <dt>
+            Fecha de Inicio de Contrato
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaInicio_Contrato)
+        </dd>
+
+        <dt>
+            Fecha de Fin de Contrato
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaFin_Contrato)
+        </dd>
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.Activo_Contrato)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Activo_Contrato)
+            </dd>*@
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.Id_TipoContrato)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Id_TipoContrato)
+            </dd>*@
+
+        <dt>
+            Tipo de Contrato
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Detalle_TipoContrato)
+        </dd>
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.Id_Cargo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Id_Cargo)
+            </dd>*@
+        <dt>
+            Cargo
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nombre_Cargo)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
