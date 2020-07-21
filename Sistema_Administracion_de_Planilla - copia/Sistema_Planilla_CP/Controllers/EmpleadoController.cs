@@ -19,6 +19,12 @@ namespace Sistema_Planilla_CP.Controllers
         }
 
 
+        public ActionResult Crear()
+        {
+            return View();
+        }
+
+
         public ActionResult DetallesEmpleado(int id_empleado)
         {
             var empleado = EmpleadoCN.ObtenerDetalleEmpleado(id_empleado);

@@ -16,7 +16,12 @@ namespace Sistema_Planilla_CN
             return obj.ListarPersonas();
         }
 
-        public static void Crear(PersonaCE persona)
+        public static List<PersonaCE> ListarPersonasNOEmpleados()
+        {
+            return obj.ListarPersonasNOEmpleados();
+        }
+
+            public static void Crear(PersonaCE persona)
         {
             obj.Crear(persona);
         }

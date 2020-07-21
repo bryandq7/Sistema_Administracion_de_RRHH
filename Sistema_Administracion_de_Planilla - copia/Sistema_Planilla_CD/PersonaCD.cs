@@ -39,6 +39,20 @@ namespace Sistema_Planilla_CD
             }
         }
 
+        public List<PersonaCE> ListarPersonasNOEmpleados()
+        {
+            string sql = @"select p.Id_Persona,p.Nombre_Persona,p.Apellido1_Persona,p.Apellido2_Persona,
+                        e.Id_Empleado, p.FKId_Usuario_Persona
+                        from Persona p 
+				        left  join Empleado e on p.Id_Persona=e.FKId_Persona_Empleado
+                        where p.Activo_Persona = 1 and p.FKId_Usuario_Persona is not NULL and e.Id_Empleado is NULL";
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                return db.Database.SqlQuery<PersonaCE>(sql).ToList();
+            }
+        }
+
         public void Crear(PersonaCE persona)
         {
             var direccion = new Direccion

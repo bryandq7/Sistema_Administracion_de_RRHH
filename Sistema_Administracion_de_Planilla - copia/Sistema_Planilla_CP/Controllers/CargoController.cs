@@ -8,13 +8,19 @@ using System.Web.Mvc;
 
 namespace Sistema_Planilla_CP.Controllers
 {
-    [Authorize(Roles = "Empleado")]
+
     public class CargoController : Controller
     {
         public ActionResult Index()
         {
             var dptos = CargoCN.ListarCargos();
             return View(dptos);
+        }
+
+        public JsonResult ListarCargos()
+        {
+            var lista = CargoCN.ListarCargos2();
+            return Json(new { data = lista }, JsonRequestBehavior.AllowGet);
         }
 
 

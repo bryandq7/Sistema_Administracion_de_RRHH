@@ -16,7 +16,12 @@ namespace Sistema_Planilla_CN
             return obj.ListarCargos();
         }
 
-        public static void Crear(Cargo cargo)
+        public static List<EmpleadoCE> ListarCargos2()
+        {
+            return obj.ListarCargos2();
+        }
+
+            public static void Crear(Cargo cargo)
         {
             obj.Crear(cargo);
         }

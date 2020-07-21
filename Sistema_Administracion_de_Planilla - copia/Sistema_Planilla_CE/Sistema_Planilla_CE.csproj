@@ -67,6 +67,7 @@
     <Compile Include="Cargo.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
+    <Compile Include="CargoCE.cs" />
     <Compile Include="Contrato.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>

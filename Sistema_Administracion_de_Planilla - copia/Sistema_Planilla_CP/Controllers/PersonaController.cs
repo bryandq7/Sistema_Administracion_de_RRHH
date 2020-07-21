@@ -18,6 +18,20 @@ namespace Sistema_Planilla_CP.Controllers
 
         }
 
+        //public ActionResult ListarPersonasNOEmpleados()
+        //{
+        //    var personas = PersonaCN.ListarPersonasNOEmpleados();
+        //    return View(personas);
+
+        //}
+
+        public JsonResult ListarPersonasNOEmpleados()
+        {
+            var lista = PersonaCN.ListarPersonasNOEmpleados();
+            return Json(new { data = lista }, JsonRequestBehavior.AllowGet);
+        }
+
+
         public ActionResult Crear()
         {
             return View();

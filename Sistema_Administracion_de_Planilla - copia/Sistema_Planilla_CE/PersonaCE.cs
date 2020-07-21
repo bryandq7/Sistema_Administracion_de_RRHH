@@ -32,5 +32,7 @@ namespace Sistema_Planilla_CE
         public string UserName { get; set; }
         public string FKId_Usuario_Persona { get; set; }
 
+        public Nullable<int> Id_Empleado { get; set; }
+
     }
 }
