@@ -94,7 +94,7 @@
                 <td>
                     <a class="btn btn-info btn-xm" title="Detalle" href="@Url.Action("DetallesEmpleado", "Empleado",new { id_empleado=item.Id_Empleado})"><i class="glyphicon glyphicon-edit"></i></a>
                     <a class="btn btn-success" title="Editar" href="@Url.Action("Editar", "Empleado",new { id=item.Id_Empleado })"><i class="glyphicon glyphicon-pencil"></i></a>
-                    <a class="btn btn-danger" onclick="EliminarEmpleado(@item.Id_Persona,@item.Id_Empleado,@item.Id_Usuario)" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+                    <a class="btn btn-danger" onclick="EliminarEmpleado(@item.Id_Persona,@item.Id_Empleado,'@item.Id_Usuario')" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
                     @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
         @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
         @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@

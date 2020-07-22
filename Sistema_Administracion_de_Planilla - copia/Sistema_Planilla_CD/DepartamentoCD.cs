@@ -18,6 +18,17 @@ namespace Sistema_Planilla_CD
             }
         }
 
+        public List<DepartamentoCE> ListarDepartamentos2()
+        {
+            string sql = @"select d.Id_Departamento, d.Nombre_Departamento, d.FechaActualizacion_Departamento
+                        from Departamento d";
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                return db.Database.SqlQuery<DepartamentoCE>(sql).ToList();
+            }
+        }
+
         public void Crear(Departamento departamento)
         {
             using (var db = new RecursosHumanosDBContext())

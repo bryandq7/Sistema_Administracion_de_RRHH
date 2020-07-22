@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Sistema_Planilla_CP.Controllers
 {
-    [Authorize(Roles = "Empleado, Administrador")]
+    //[Authorize(Roles = "Empleado, Administrador")]
     public class DepartamentoController : Controller
     {
         // GET: Departamento
@@ -16,6 +16,12 @@ namespace Sistema_Planilla_CP.Controllers
         {
             var dptos = DepartamentoCN.ListarDepartamentos();
             return View(dptos);
+        }
+
+        public JsonResult ListarDepartamentos2()
+        {
+            var lista = DepartamentoCN.ListarDepartamentos2();
+            return Json(new { data = lista }, JsonRequestBehavior.AllowGet);
         }
 
 

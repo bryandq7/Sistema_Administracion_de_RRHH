@@ -17,6 +17,17 @@ namespace Sistema_Planilla_CD
             }
         }
 
+        public List<TipoContratoCE> ListarTipoContratos2()
+        {
+            string sql = @"select tc.Id_TipoContrato, tc.Detalle_TipoContrato, tc.FechaActualizacion_TipoContrato
+                        from TipoContrato tc";
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                return db.Database.SqlQuery<TipoContratoCE>(sql).ToList();
+            }
+        }
+
         public void Crear(TipoContrato tipocontrato)
         {
             using (var db = new RecursosHumanosDBContext())

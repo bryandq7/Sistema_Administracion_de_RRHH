@@ -16,7 +16,7 @@ namespace Sistema_Planilla_CN
             return obj.ListarCargos();
         }
 
-        public static List<EmpleadoCE> ListarCargos2()
+        public static List<CargoCE> ListarCargos2()
         {
             return obj.ListarCargos2();
         }

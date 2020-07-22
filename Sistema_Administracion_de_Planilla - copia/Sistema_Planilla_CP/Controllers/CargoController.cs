@@ -20,7 +20,7 @@ namespace Sistema_Planilla_CP.Controllers
         public JsonResult ListarCargos()
         {
             var lista = CargoCN.ListarCargos2();
-            return Json(new { data = lista }, JsonRequestBehavior.AllowGet);
+             return Json(new { data = lista }, JsonRequestBehavior.AllowGet);
         }
 
 

@@ -16,6 +16,11 @@ namespace Sistema_Planilla_CP.Controllers
             return View(tpcontr);
         }
 
+        public JsonResult ListarTipoContratos()
+        {
+            var lista = TipoContratoCN.ListarTipoContratos2();
+            return Json(new { data = lista }, JsonRequestBehavior.AllowGet);
+        }
 
 
         public ActionResult Crear()

@@ -16,7 +16,12 @@ namespace Sistema_Planilla_CN
             return obj.ListarTipoContratos();
         }
 
-        public static void Crear(TipoContrato tipocontrato)
+        public static List<TipoContratoCE> ListarTipoContratos2()
+        {
+            return obj.ListarTipoContratos2();
+        }
+
+            public static void Crear(TipoContrato tipocontrato)
         {
             obj.Crear(tipocontrato);
         }

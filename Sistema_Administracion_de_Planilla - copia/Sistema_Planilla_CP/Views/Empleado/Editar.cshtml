@@ -1,13 +1,13 @@
 ﻿@model Sistema_Planilla_CE.EmpleadoCE
 
 @{
-    ViewBag.Title = "Crear";
+    ViewBag.Title = "Editar";
     Layout = "~/Views/Shared/_MyLayout.cshtml";
 }
 
-<h2>Crear</h2>
+<h2>Editar</h2>
 
-<form action="@Url.Action("Crear", "Empleado")" method="post" id="frmEmpleado">
+<form id="frmEmpleado" action="@Url.Action("Editar", "Empleado")" method="post">
 
     @Html.AntiForgeryToken()
 
@@ -15,15 +15,18 @@
         <h4>EmpleadoCE</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.Id_Empleado)
+
         @*<div class="form-group">
             @Html.LabelFor(model => model.Id_Empleado, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Id_Empleado, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Id_Empleado, "", new { @class = "text-danger" })
             </div>
-        </div>*@
+        </div>
 
-        @*<div class="form-group">
+        <div class="form-group">
             @Html.LabelFor(model => model.FKId_Persona_Empleado, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.FKId_Persona_Empleado, new { htmlAttributes = new { @class = "form-control" } })
@@ -39,7 +42,15 @@
             </div>
         </div>*@
 
-
+        <div class="form-group">
+            <label class="control-label col-md-2">Departamento</label>
+            <div class="col-md-10">
+                <select class="form-control" id="Id_Departamento" name="Id_Departamento">
+                    <option value="">Seleccione...</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.Id_Departamento, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         @*<div class="form-group">
             @Html.LabelFor(model => model.Nombre_Departamento, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -49,35 +60,23 @@
             </div>
         </div>*@
 
-        <div class="form-group">
-            <label class="control-label col-md-2">Nombre Persona</label>
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Id_Persona, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select class="form-control" id="Id_Persona" name="Id_Persona">
-                    <option value="">Seleccione...</option>
-                </select>
-                @*@Html.EditorFor(model => model.Id_Persona, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.EditorFor(model => model.Id_Persona, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Id_Persona, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
-            <label class="control-label col-md-2">Cargo</label>
+            <label class="control-label col-md-2">Nombre Completo</label>
             <div class="col-md-10">
-                <select class="form-control" id="Id_Cargo" name="Id_Cargo">
-                    <option value="">Seleccione...</option>
-                </select>
-                @*@Html.EditorFor(model => model.Id_Cargo, new { htmlAttributes = new { @class = "form-control" } })*@
-                @*@Html.ValidationMessageFor(model => model.Id_Cargo, "", new { @class = "text-danger" })*@
-            </div>
-        </div>
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.NombreCompletoPersona, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NombreCompletoPersona, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="text" class="form-control" name="NombreCompletoPersona"
+                       value="@Model.NombreCompletoPersona" placeholder="Ingrese Número de Identidad" disabled />
+                @*@Html.EditorFor(model => model.NombreCompletoPersona, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.NombreCompletoPersona, "", new { @class = "text-danger" })
             </div>
-        </div>*@
+        </div>
 
         @*<div class="form-group">
             @Html.LabelFor(model => model.Id_Usuario, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -103,14 +102,13 @@
             </div>
         </div>*@
 
-        <div class="form-group">
-            <label class="control-label col-md-2">Salario Bruto</label>
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.SalarioBruto_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="text" class="form-control" id="SalarioBruto_Contrato" name="SalarioBruto_Contrato" placeholder="Ingrese un Salario para este Empleado " />
-                @*@Html.EditorFor(model => model.SalarioBruto_Contrato, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.EditorFor(model => model.SalarioBruto_Contrato, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.SalarioBruto_Contrato, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         @*<div class="form-group">
             @Html.LabelFor(model => model.FKId_TipoContrato_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -136,22 +134,21 @@
             </div>
         </div>*@
 
-        <div class="form-group">
-            <label class="control-label col-md-2">Fecha Inicio de Contrato</label>
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.FechaInicio_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="date" class="form-control" id="FechaInicio_Contrato" name="FechaInicio_Contrato" placeholder="Ingrese Fecha de Inicio del Contrato" />
-                @*@Html.EditorFor(model => model.FechaInicio_Contrato, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.EditorFor(model => model.FechaInicio_Contrato, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.FechaInicio_Contrato, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
-        <div class="form-group">
-            <label class="control-label col-md-2">Fecha Fin de Contrato</label>
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.FechaFin_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="date" class="form-control" id="FechaFin_Contrato" name="FechaFin_Contrato" placeholder="Ingrese Fecha de Fin del Contrato" />
+                @Html.EditorFor(model => model.FechaFin_Contrato, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.FechaFin_Contrato, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         @*<div class="form-group">
             @Html.LabelFor(model => model.Activo_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -163,16 +160,13 @@
             </div>
         </div>*@
 
-        <div class="form-group">
-            <label class="control-label col-md-2">Tipo de Contrato</label>
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Id_TipoContrato, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select class="form-control" id="Id_TipoContrato" name="Id_TipoContrato">
-                    <option value="">Seleccione...</option>
-                </select>
-
+                @Html.EditorFor(model => model.Id_TipoContrato, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Id_TipoContrato, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         @*<div class="form-group">
             @Html.LabelFor(model => model.Detalle_TipoContrato, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -182,17 +176,13 @@
             </div>
         </div>*@
 
-
-
-        <div class="form-group">
-            <label class="control-label col-md-2">Departamento</label>
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Id_Cargo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select class="form-control" id="Id_Departamento" name="Id_Departamento">
-                    <option value="">Seleccione...</option>
-                </select>
-                @Html.ValidationMessageFor(model => model.Id_Departamento, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Id_Cargo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Id_Cargo, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         @*<div class="form-group">
             @Html.LabelFor(model => model.Nombre_Cargo, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -204,7 +194,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -217,10 +207,23 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
+
         ListarDepartamentos();
-        ListarTiposContrato();
-        ListarCargos();
-        ListarPersonasNOEmpleados();
+
+        ListarDepartamentos(function (result) {
+            //jQuery.ajaxSetup({ async: false });
+            
+            $("#Id_Departamento").val(@Model.Id_Departamento).change();
+
+            //jQuery.ajaxSetup({ async: false });
+        });
+
+
+
+        //$("#Id_Provincia").on("change", function () {
+
+        //    GetCantones($(this).val());
+        //});
 
 
         function ListarDepartamentos(myCallback) {
@@ -243,83 +246,18 @@
         }
 
 
-        function ListarTiposContrato(myCallback) {
-            $.ajax({
-                type: "GET",
-                url: '/tipocontrato/listartipocontratos',
-                dataType: "json",
-                success: function (result) {
-                    $.each(result.data, function (key, item) {
-                        $("#Id_TipoContrato").append('<option value=' + item.Id_TipoContrato + '>' + item.Detalle_TipoContrato + '</option>');
-                    });
-
-                    if (myCallback !== undefined)
-                        return myCallback(result.data);
-                },
-                error: function (data) {
-                    alert('error');
-                }
-            });
-        }
-
-
-        function ListarCargos(myCallback)  {
-            $.ajax({
-                type: "GET",
-                url: '/cargo/listarcargos',
-                dataType: "json",
-                success: function (result) {
-                    $.each(result.data, function (key, item) {
-                        $("#Id_Cargo").append('<option value=' + item.Id_Cargo + '>' + item.Nombre_Cargo + '</option>');
-                    });
-
-                    if (myCallback !== undefined)
-                        return myCallback(result.data);
-                },
-                error: function (data) {
-                    alert('error');
-                }
-            });
-        }
-
-
-
-        function ListarPersonasNOEmpleados(myCallback) {
-            $.ajax({
-                type: "GET",
-                url: '/persona/listarPersonasNOEmpleados',
-                dataType: "json",
-                success: function (result) {
-                    $.each(result.data, function (key, item) {
-                        $("#Id_Persona").append('<option value=' + item.Id_Persona + '>' + item.NombreCompleto_Persona + '</option>');
-                    });
-
-                    if (myCallback !== undefined)
-                        return myCallback(result.data);
-                },
-                error: function (data) {
-                    alert('error');
-                }
-            });
-        }
-
         $("#frmEmpleado").submit(function (event) {
             event.preventDefault(); //prevent default action
-            //var dptoId = $("#Id_Distrito").val();
-            //if (dptoId == "") {
-            //    alert("Debe escoger un Distrito");
-            //    return;
-            //}
-
-            //var usuarioId = $("#Id_Usuario").val();
-            //if (usuarioId == "") {
-            //    alert("Debe escoger un usuario");
-            //    return;
-            //}
+            var dptoId = $("#Id_Departamento").val();
+            if (dptoId == "") {
+                alert("Debe escoger un Departamento");
+                return;
+            }
             var post_url = $(this).attr("action"); //get form action url
             var request_method = $(this).attr("method"); //get form GET/POST method
             var form_data = $(this).serializeArray(); //Encode form elements for submission
             console.log(form_data);
+
             LoadingOverlayShow("#frmEmpleado");
             $.ajax({
                 url: post_url,
@@ -329,7 +267,7 @@
                 console.log(response);
                 LoadingOverlayHide("#frmEmpleado");
                 if (response.ok) {
-                    alert("Empleado creado correctamente.");
+                    alert("Empleado editado correctamente.");
                     window.location = response.toRedirect;
                 }
                 else {

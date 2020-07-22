@@ -17,9 +17,20 @@ namespace Sistema_Planilla_CN
             return obj.ListarEmpleados();
         }
 
-        public static EmpleadoCE ObtenerDetalleEmpleado(int idEmpleado)
+        public static void Crear(EmpleadoCE empleado)
+        {
+            obj.Crear(empleado);
+
+        }
+
+            public static EmpleadoCE ObtenerDetalleEmpleado(int idEmpleado)
         {
             return obj.ObtenerDetalleEmpleado(idEmpleado);
+        }
+
+        public static void Editar(EmpleadoCE empleado)
+        {
+            obj.Editar(empleado);
         }
 
 

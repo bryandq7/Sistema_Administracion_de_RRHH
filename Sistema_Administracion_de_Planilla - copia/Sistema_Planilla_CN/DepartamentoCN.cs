@@ -16,7 +16,12 @@ namespace Sistema_Planilla_CN
             return obj.ListarDepartamentos();
         }
 
-        public static void Crear(Departamento departamento)
+        public static List<DepartamentoCE> ListarDepartamentos2()
+        {
+            return obj.ListarDepartamentos2();
+        }
+
+            public static void Crear(Departamento departamento)
         {
             obj.Crear(departamento);
         }

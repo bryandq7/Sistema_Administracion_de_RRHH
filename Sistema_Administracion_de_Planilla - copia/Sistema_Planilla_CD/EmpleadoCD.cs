@@ -41,6 +41,67 @@ namespace Sistema_Planilla_CD
             }
         }
 
+        public int ObtenerIdEmpleado()
+        {
+            using (var db = new RecursosHumanosDBContext())
+            {
+                return db.Empleado.Max(p => p.Id_Empleado);
+            }
+        }
+
+
+        public void Crear(EmpleadoCE empleado)
+        {
+
+            var empleado1 = new Empleado
+            {
+                FKId_Persona_Empleado = empleado.Id_Persona,
+                FKId_Departamento_Empleado = empleado.Id_Departamento,
+                Activo_Empleado = true
+            };
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                db.Empleado.Add(empleado1);
+                db.SaveChanges();
+            }
+
+
+            var idultimoregistroempleado= ObtenerIdEmpleado();
+
+            var contrato = new Contrato
+            {
+                SalarioBruto_Contrato = empleado.SalarioBruto_Contrato,
+                FechaInicio_Contrato = empleado.FechaInicio_Contrato,
+                FechaFin_Contrato = empleado.FechaFin_Contrato,
+                FKId_TipoContrato_Contrato = empleado.Id_TipoContrato,
+                FKId_Empleado_Contrato = idultimoregistroempleado,
+                FKId_Cargo_Contrato = empleado.Id_Cargo,
+                Activo_Contrato = true
+            };
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                db.Contrato.Add(contrato);
+                db.SaveChanges();
+            }
+
+
+            var vacaciones = new Vacaciones
+            {
+                AcumuladoDias_Vacaciones = 0,
+                FKId_Empleado_Vacaciones = idultimoregistroempleado
+
+            };
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                db.Vacaciones.Add(vacaciones);
+                db.SaveChanges();
+            }
+
+        }
+
 
         public EmpleadoCE ObtenerDetalleEmpleado(int idEmpleado)
         {
@@ -62,6 +123,17 @@ namespace Sistema_Planilla_CD
                 return db.Database.SqlQuery<EmpleadoCE>(sql, new SqlParameter("@Cod_Empleado", idEmpleado)).FirstOrDefault();
             }
 
+        }
+
+
+        public void Editar(EmpleadoCE empleado)
+        {
+            using (var db = new RecursosHumanosDBContext())
+            {
+                var origen = db.Empleado.Find(empleado.Id_Empleado);
+                origen.FKId_Departamento_Empleado = empleado.Id_Departamento;
+                db.SaveChanges();
+            }
         }
 
         public void Eliminar(int id_empleado)

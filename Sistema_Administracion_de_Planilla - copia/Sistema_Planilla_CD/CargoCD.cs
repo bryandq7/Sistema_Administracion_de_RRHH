@@ -17,14 +17,14 @@ namespace Sistema_Planilla_CD
             }
         }
 
-        public List<EmpleadoCE> ListarCargos2()
+        public List<CargoCE> ListarCargos2()
         {
             string sql = @"select c.Id_Cargo, c.Nombre_Cargo, c.FechaActualizacion_Cargo
                         from Cargo c";
 
             using (var db = new RecursosHumanosDBContext())
             {
-                return db.Database.SqlQuery<EmpleadoCE>(sql).ToList();
+                return db.Database.SqlQuery<CargoCE>(sql).ToList();
             }
         }
 
