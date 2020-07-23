@@ -44,6 +44,7 @@
     <Compile Include="AspNetUsersCN.cs" />
     <Compile Include="CantonCN.cs" />
     <Compile Include="CargoCN.cs" />
+    <Compile Include="ContratoCN.cs" />
     <Compile Include="CursoCN.cs" />
     <Compile Include="DepartamentoCN.cs" />
     <Compile Include="DireccionCN.cs" />

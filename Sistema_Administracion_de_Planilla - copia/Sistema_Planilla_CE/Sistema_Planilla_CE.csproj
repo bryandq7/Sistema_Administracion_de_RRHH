@@ -71,6 +71,7 @@
     <Compile Include="Contrato.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
+    <Compile Include="ContratoCE.cs" />
     <Compile Include="Curso.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>

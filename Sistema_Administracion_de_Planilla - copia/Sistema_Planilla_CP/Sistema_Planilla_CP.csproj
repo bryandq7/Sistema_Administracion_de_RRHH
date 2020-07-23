@@ -195,6 +195,7 @@
     <Compile Include="Controllers\AspNetUsersController.cs" />
     <Compile Include="Controllers\CantonController.cs" />
     <Compile Include="Controllers\CargoController.cs" />
+    <Compile Include="Controllers\ContratoController.cs" />
     <Compile Include="Controllers\CursoController.cs" />
     <Compile Include="Controllers\DepartamentoController.cs" />
     <Compile Include="Controllers\DireccionController.cs" />
@@ -312,6 +313,8 @@
     <Content Include="Views\Empleado\DetallesEmpleado.cshtml" />
     <Content Include="Views\Empleado\Crear.cshtml" />
     <Content Include="Views\Empleado\Editar.cshtml" />
+    <Content Include="Views\Contrato\Index.cshtml" />
+    <Content Include="Views\Contrato\Crear.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

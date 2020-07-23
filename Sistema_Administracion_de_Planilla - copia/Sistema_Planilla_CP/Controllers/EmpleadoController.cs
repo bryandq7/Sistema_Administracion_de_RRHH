@@ -18,6 +18,12 @@ namespace Sistema_Planilla_CP.Controllers
 
         }
 
+        public JsonResult ListarEmpleados()
+        {
+            var lista = EmpleadoCN.ListarEmpleados();
+            return Json(new { data = lista }, JsonRequestBehavior.AllowGet);
+        }
+
 
         public ActionResult Crear()
         {

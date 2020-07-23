@@ -53,6 +53,7 @@
     <Compile Include="AspNetUsersCD.cs" />
     <Compile Include="CantonCD.cs" />
     <Compile Include="CargoCD.cs" />
+    <Compile Include="ContratoCD.cs" />
     <Compile Include="CursoCD.cs" />
     <Compile Include="DepartamentoCD.cs" />
     <Compile Include="DireccionCD.cs" />

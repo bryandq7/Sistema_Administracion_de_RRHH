@@ -1,0 +1,305 @@
+﻿@model Sistema_Planilla_CE.ContratoCE
+
+@{
+    ViewBag.Title = "Crear";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@section styles{
+
+    <style>
+        .tituloCss {
+            color: #3d3d29;
+        }
+    </style>
+
+
+}
+
+<h2 class="tituloCss">Crea un Contrato</h2>
+
+<form action="@Url.Action("Crear", "Contrato")" method="post" id="frmContrato">
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Cree un nuevo Contrato para un Empleado </h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Id_Empleado, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Id_Empleado, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Id_Empleado, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.FKId_Persona_Empleado, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FKId_Persona_Empleado, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FKId_Persona_Empleado, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.FKId_Departamento_Empleado, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FKId_Departamento_Empleado, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FKId_Departamento_Empleado, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Nombre del Empleado</label>
+            <div class="col-md-10">
+                <select class="form-control" id="Id_Persona" name="Id_Persona">
+                    <option value="">Seleccione...</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.Id_Persona, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.NombreCompletoPersona, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NombreCompletoPersona, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NombreCompletoPersona, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Id_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Id_Contrato, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Id_Contrato, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Salario Bruto</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="SalarioBruto_Contrato" name="SalarioBruto_Contrato" placeholder="Ingrese Salario Bruto del Empleado" />
+                @Html.ValidationMessageFor(model => model.SalarioBruto_Contrato, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.FKId_TipoContrato_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FKId_TipoContrato_Contrato, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FKId_TipoContrato_Contrato, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.FKId_Empleado_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FKId_Empleado_Contrato, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FKId_Empleado_Contrato, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.FKId_Cargo_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FKId_Cargo_Contrato, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FKId_Cargo_Contrato, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Fecha Inicio de Contrato</label>
+            <div class="col-md-10">
+                <input type="date" class="form-control" id="FechaInicio_Contrato" name="FechaInicio_Contrato" placeholder="Ingrese Fecha de Inicio del Contrato" />
+                @Html.ValidationMessageFor(model => model.FechaInicio_Contrato, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Fecha Fin de Contrato</label>
+            <div class="col-md-10">
+                <input type="date" class="form-control" id="FechaFin_Contrato" name="FechaFin_Contrato" placeholder="Ingrese Fecha de Fin del Contrato" />
+                @Html.ValidationMessageFor(model => model.FechaFin_Contrato, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Activo_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Activo_Contrato)
+                        @Html.ValidationMessageFor(model => model.Activo_Contrato, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Tipo de Contrato</label>
+            <div class="col-md-10">
+                <select class="form-control" id="Id_TipoContrato" name="Id_TipoContrato">
+                    <option value="">Seleccione...</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.Id_TipoContrato, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Detalle_TipoContrato, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Detalle_TipoContrato, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Detalle_TipoContrato, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Cargo</label>
+            <div class="col-md-10">
+                <select class="form-control" id="Id_Cargo" name="Id_Cargo">
+                    <option value="">Seleccione...</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.Id_Cargo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Nombre_Cargo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Nombre_Cargo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Nombre_Cargo, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        ListarTiposContrato();
+        ListarCargos();
+        ListarEmpleados();
+
+        function ListarTiposContrato(myCallback) {
+            $.ajax({
+                type: "GET",
+                url: '/tipocontrato/listartipocontratos',
+                dataType: "json",
+                success: function (result) {
+                    $.each(result.data, function (key, item) {
+                        $("#Id_TipoContrato").append('<option value=' + item.Id_TipoContrato + '>' + item.Detalle_TipoContrato + '</option>');
+                    });
+
+                    if (myCallback !== undefined)
+                        return myCallback(result.data);
+                },
+                error: function (data) {
+                    alert('error');
+                }
+            });
+        }
+
+
+        function ListarCargos(myCallback) {
+            $.ajax({
+                type: "GET",
+                url: '/cargo/listarcargos',
+                dataType: "json",
+                success: function (result) {
+                    $.each(result.data, function (key, item) {
+                        $("#Id_Cargo").append('<option value=' + item.Id_Cargo + '>' + item.Nombre_Cargo + '</option>');
+                    });
+
+                    if (myCallback !== undefined)
+                        return myCallback(result.data);
+                },
+                error: function (data) {
+                    alert('error');
+                }
+            });
+        }
+
+
+
+        function ListarEmpleados(myCallback) {
+            $.ajax({
+                type: "GET",
+                url: '/empleado/ListarEmpleados',
+                dataType: "json",
+                success: function (result) {
+                    $.each(result.data, function (key, item) {
+                        $("#Id_Persona").append('<option value=' + item.Id_Persona + '>' + item.NombreCompletoPersona + '</option>');
+                    });
+
+                    if (myCallback !== undefined)
+                        return myCallback(result.data);
+                },
+                error: function (data) {
+                    alert('error');
+                }
+            });
+        }
+
+
+        $("#frmContrato").submit(function (event) {
+            $.confirm({
+                title: 'Eliminar Empleado',
+                content: '¿Desea Eliminar el Empleado?',
+                buttons: {
+                    Activar: function () {
+                        event.preventDefault(); //prevent default action
+                        //var dptoId = $("#Id_Distrito").val();
+                        //if (dptoId == "") {
+                        //    alert("Debe escoger un Distrito");
+                        //    return;
+                        //}
+
+                        //var usuarioId = $("#Id_Usuario").val();
+                        //if (usuarioId == "") {
+                        //    alert("Debe escoger un usuario");
+                        //    return;
+                        //}
+                        var post_url = $(this).attr("action"); //get form action url
+                        var request_method = $(this).attr("method"); //get form GET/POST method
+                        var form_data = $(this).serializeArray(); //Encode form elements for submission
+                        console.log(form_data);
+                        LoadingOverlayShow("#frmContrato");
+                        $.ajax({
+                            url: post_url,
+                            type: request_method,
+                            data: form_data
+                        }).done(function (response) { //
+                            console.log(response);
+                            LoadingOverlayHide("#frmContrato");
+                            if (response.ok) {
+                                alert("Contrato creado correctamente.");
+                                window.location = response.toRedirect;
+                            }
+                            else {
+                                alert(response.msg);
+                            }
+                        }).fail(function (jqXHR, textStatus, errorThrown) {
+                            LoadingOverlayHide("#frmContrato");
+                        });
+
+                    },
+                },
+                Cancelar: function () {
+                    //$.alert('Canceled!');
+                },
+            });
+        });
+
+
+
+    </script>
+}
