@@ -22,7 +22,7 @@ namespace Sistema_Planilla_CD
 				inner join Contrato c on c.FKId_Empleado_Contrato = e.Id_Empleado
 				inner join TipoContrato tc on tc.Id_TipoContrato = c.FKId_TipoContrato_Contrato
 				inner join Cargo ca on ca.Id_Cargo = c.FKId_Cargo_Contrato
-                where e.Activo_Empleado = 1";
+                where e.Activo_Empleado = 1 and c.Activo_Contrato =1";
 
             using (var db = new RecursosHumanosDBContext())
             {

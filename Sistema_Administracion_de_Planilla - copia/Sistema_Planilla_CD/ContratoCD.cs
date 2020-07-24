@@ -65,7 +65,8 @@ namespace Sistema_Planilla_CD
 
             using (var db = new RecursosHumanosDBContext())
             {
-                var origen = db.Contrato.Find(idempleado);
+                var origen = db.Contrato
+                .First(p => p.FKId_Empleado_Contrato == idempleado && p.Activo_Contrato == true );
                 origen.Activo_Contrato = false;
                 db.SaveChanges();
             }

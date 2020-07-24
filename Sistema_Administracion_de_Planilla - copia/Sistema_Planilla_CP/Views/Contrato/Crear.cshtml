@@ -172,6 +172,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
+                @*<a class="btn btn-info" onclick="CrearContrato()" title="Crear"><i class="glyphicon glyphicon-plus"></i>Crear Contrato</a>*@
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
@@ -251,55 +252,151 @@
 
 
         $("#frmContrato").submit(function (event) {
-            $.confirm({
-                title: 'Eliminar Empleado',
-                content: '¿Desea Eliminar el Empleado?',
-                buttons: {
-                    Activar: function () {
-                        event.preventDefault(); //prevent default action
-                        //var dptoId = $("#Id_Distrito").val();
-                        //if (dptoId == "") {
-                        //    alert("Debe escoger un Distrito");
-                        //    return;
-                        //}
+            //jQuery.ajaxSetup({ async: false });
+            //return confirm("Do you want to submit?");
+            /*event.preventDefault(); *///prevent default action
+            //var dptoId = $("#Id_Distrito").val();
+            //if (dptoId == "") {
+            //    alert("Debe escoger un Distrito");
+            //    return;
+            //}
 
-                        //var usuarioId = $("#Id_Usuario").val();
-                        //if (usuarioId == "") {
-                        //    alert("Debe escoger un usuario");
-                        //    return;
-                        //}
-                        var post_url = $(this).attr("action"); //get form action url
-                        var request_method = $(this).attr("method"); //get form GET/POST method
-                        var form_data = $(this).serializeArray(); //Encode form elements for submission
-                        console.log(form_data);
-                        LoadingOverlayShow("#frmContrato");
-                        $.ajax({
-                            url: post_url,
-                            type: request_method,
-                            data: form_data
-                        }).done(function (response) { //
-                            console.log(response);
-                            LoadingOverlayHide("#frmContrato");
-                            if (response.ok) {
-                                alert("Contrato creado correctamente.");
-                                window.location = response.toRedirect;
-                            }
-                            else {
-                                alert(response.msg);
-                            }
-                        }).fail(function (jqXHR, textStatus, errorThrown) {
-                            LoadingOverlayHide("#frmContrato");
-                        });
+            var personaId = $("#Id_Persona").val();
+            if (personaId == "") {
+                alert("Debe escoger una persona");
+                return false;
+            }
 
-                    },
-                },
-                Cancelar: function () {
-                    //$.alert('Canceled!');
-                },
+            if (!confirm("Esta acción desactivará el actual contrato; creará y asignará un contrato nuevo a este empleado")) {
+                alert("Acción Cancelada");
+                return false;
+            } 
+
+            event.preventDefault();
+
+            var post_url = $(this).attr("action"); //get form action url
+            var request_method = $(this).attr("method"); //get form GET/POST method
+            var form_data = $(this).serializeArray(); //Encode form elements for submission
+            console.log(form_data);
+            //return confirm("Do you want to submit?");
+            LoadingOverlayShow("#frmContrato");
+
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) { //
+                console.log(response);
+                LoadingOverlayHide("#frmContrato");
+                if (response.ok) {
+                    alert("Contrato creado correctamente.");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    alert(response.msg);
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmContrato");
             });
+            //jQuery.ajaxSetup({ async: false });
         });
 
 
+
+            //function CrearContrato(contrato) {
+            //    $.confirm({
+            //        title: 'Eliminar Departamento',
+            //        content: '¿Desea Eliminar el Departamento?',
+            //        buttons: {
+            //            Eliminar: function () {
+            //                LoadingOverlayShow("#frmContrato");
+            //                var contrato = {};
+            //                contrato.Id_Persona = $("#Id_Persona").val();
+            //                contrato.SalarioBruto_Contrato = $("#SalarioBruto_Contrato").val();
+            //                contrato.FechaInicio_Contrato = $("#FechaInicio_Contrato").val();
+            //                contrato.FechaFin_Contrato = $("#FechaFin_Contrato").val();
+            //                contrato.Id_TipoContrato = $("#Id_TipoContrato").val();
+            //                contrato.Id_Cargo = $("#Id_Cargo").val();
+
+
+            //                $.ajax({
+            //                    url: "/contrato/crear",
+            //                    type: "post",
+            //                    data: { contrato: JSON.stringify(contrato)}
+            //                }).done(function (response) {
+            //                    console.log(response);//
+            //                    LoadingOverlayHide("#frmContrato");
+            //                    if (response.ok) {
+            //                        alert("Departamento eliminado correctamente.");
+            //                        window.location = response.toRedirect;
+            //                    }
+            //                    else {
+            //                        alert(response.msg);
+            //                    }
+            //                }).fail(function (jqXHR, textStatus, errorThrown) {
+            //                    LoadingOverlayHide("#frmContrato");
+            //                    alert(textStatus);
+            //                });
+            //            },
+            //            Cancelar: function () {
+            //                //$.alert('Canceled!');
+            //            },
+            //        }
+            //    });
+            //}
+
+
+            //$("#frmContrato").submit(function (event) {
+            //    $.confirm({
+            //        title: 'Eliminar Empleado',
+            //        content: '¿Desea Eliminar el Empleado?',
+            //        buttons: {
+            //            Activar: function () {
+            //                event.preventDefault(); //prevent default action
+            //                //var dptoId = $("#Id_Distrito").val();
+            //                //if (dptoId == "") {
+            //                //    alert("Debe escoger un Distrito");
+            //                //    return;
+            //                //}
+
+            //                //var usuarioId = $("#Id_Usuario").val();
+            //                //if (usuarioId == "") {
+            //                //    alert("Debe escoger un usuario");
+            //                //    return;
+            //                //}
+
+
+            //                var post_url = $(this).attr("action"); //get form action url
+            //                var request_method = $(this).attr("method"); //get form GET/POST method
+            //                var form_data = $(this).serializeArray(); //Encode form elements for submission
+            //                console.log(form_data);
+            //                LoadingOverlayShow("#frmContrato");
+            //                $.ajax({
+            //                    url: post_url,
+            //                    type: request_method,
+            //                    data: form_data
+            //                }).done(function (response) { //
+            //                    console.log(response);
+            //                    LoadingOverlayHide("#frmContrato");
+            //                    if (response.ok) {
+            //                        alert("Contrato creado correctamente.");
+            //                        window.location = response.toRedirect;
+            //                    }
+            //                    else {
+            //                        alert(response.msg);
+            //                    }
+            //                }).fail(function (jqXHR, textStatus, errorThrown) {
+            //                    LoadingOverlayHide("#frmContrato");
+            //                });
+
+            //            },
+            //            Cancelar: function () {
+            //                //$.alert('Canceled!');
+            //            },
+            //        },
+            //    });
+
+            //}
 
     </script>
 }

@@ -34,8 +34,10 @@ namespace Sistema_Planilla_CP.Controllers
                 ////System.Threading.Thread.Sleep(5000);
                 //cargo.FechaActualizacion_Cargo = DateTime.Now;
                 ContratoCN.Crear(contrato);
-                //ContratoCN.EditarActivo(contrato);
                 return Json(new { ok = true, toRedirect = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
+
+                //return Json(new { ok = true, toRedirect = Url.Action("Index", "Contrato") }, JsonRequestBehavior.AllowGet);
+                //return RedirectToAction("Index", "Contrato");
                 //return RedirectToAction("Index");
             }
             catch (Exception ex)
