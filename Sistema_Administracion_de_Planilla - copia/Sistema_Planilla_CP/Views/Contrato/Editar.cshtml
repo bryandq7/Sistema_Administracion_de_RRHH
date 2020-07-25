@@ -1,0 +1,254 @@
+﻿@model Sistema_Planilla_CE.ContratoCE
+
+@{
+    ViewBag.Title = "Editar";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<h2>Editar</h2>
+
+<form id="frmContrato" action="@Url.Action("Editar", "Contrato")" method="post">
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>ContratoCE</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.Id_Contrato)
+        @*@Html.HiddenFor(model => model.Id_Cargo)*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Número de Empleado</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="Id_Empleado"
+                       value="@Model.Id_Empleado" disabled />
+                @Html.ValidationMessageFor(model => model.Id_Empleado, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.FKId_Persona_Empleado, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FKId_Persona_Empleado, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FKId_Persona_Empleado, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.FKId_Departamento_Empleado, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FKId_Departamento_Empleado, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FKId_Departamento_Empleado, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Id_Persona, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Id_Persona, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Id_Persona, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Nombre Empleado</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="NombreCompletoPersona"
+                       value="@Model.NombreCompletoPersona" placeholder="Ingrese Nombre de la Persona" disabled />
+                @Html.ValidationMessageFor(model => model.NombreCompletoPersona, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Id_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Id_Contrato, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Id_Contrato, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Salario Bruto</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="SalarioBruto_Contrato"
+                       value="@Model.SalarioBruto_Contrato" placeholder="Ingrese un Salario en colones" />
+                @Html.ValidationMessageFor(model => model.SalarioBruto_Contrato, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.FKId_TipoContrato_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FKId_TipoContrato_Contrato, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FKId_TipoContrato_Contrato, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.FKId_Empleado_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FKId_Empleado_Contrato, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FKId_Empleado_Contrato, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.FKId_Cargo_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FKId_Cargo_Contrato, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FKId_Cargo_Contrato, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.FechaInicio_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FechaInicio_Contrato, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FechaInicio_Contrato, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.FechaFin_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FechaFin_Contrato, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FechaFin_Contrato, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Activo_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Activo_Contrato)
+                    @Html.ValidationMessageFor(model => model.Activo_Contrato, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Id_TipoContrato, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Id_TipoContrato, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Id_TipoContrato, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Detalle_TipoContrato, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Detalle_TipoContrato, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Detalle_TipoContrato, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Cargo</label>
+            <div class="col-md-10">
+                <select class="form-control" id="Id_Cargo" name="Id_Cargo">
+                    <option value="">Seleccione...</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.Id_Cargo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Nombre_Cargo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nombre_Cargo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nombre_Cargo, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        ListarCargos();
+
+        ListarCargos(function (result) {
+            //jQuery.ajaxSetup({ async: false });
+
+            $("#Id_Cargo").val(@Model.Id_Cargo).change();
+
+            //jQuery.ajaxSetup({ async: false });
+        });
+
+
+
+        //$("#Id_Provincia").on("change", function () {
+
+        //    GetCantones($(this).val());
+        //});
+
+
+        function ListarCargos(myCallback) {
+            $.ajax({
+                type: "GET",
+                url: '/cargo/listarcargos',
+                dataType: "json",
+                success: function (result) {
+                    $.each(result.data, function (key, item) {
+                        $("#Id_Cargo").append('<option value=' + item.Id_Cargo + '>' + item.Nombre_Cargo + '</option>');
+                    });
+
+                    if (myCallback !== undefined)
+                        return myCallback(result.data);
+                },
+                error: function (data) {
+                    alert('error');
+                }
+            });
+        }
+
+
+        $("#frmContrato").submit(function (event) {
+            event.preventDefault(); //prevent default action
+            var dptoId = $("#Id_Cargo").val();
+            if (dptoId == "") {
+                alert("Debe escoger un Cargo");
+                return;
+            }
+            var post_url = $(this).attr("action"); //get form action url
+            var request_method = $(this).attr("method"); //get form GET/POST method
+            var form_data = $(this).serializeArray(); //Encode form elements for submission
+            console.log(form_data);
+
+            LoadingOverlayShow("#frmContrato");
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) { //
+                console.log(response);
+                LoadingOverlayHide("#frmContrato");
+                if (response.ok) {
+                    alert("Cargo editado correctamente.");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    alert(response.msg);
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmContrato");
+            });
+        });
+
+    </script>
+}
+

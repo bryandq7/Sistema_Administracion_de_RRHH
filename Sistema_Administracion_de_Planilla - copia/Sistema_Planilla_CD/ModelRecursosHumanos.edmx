@@ -122,8 +122,10 @@
           </Key>
           <Property Name="Id_Deduccion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre_Deduccion" Type="varchar" MaxLength="150" Nullable="false" />
-          <Property Name="Porcentaje_Deduccion" Type="numeric" Precision="2" Scale="2" Nullable="false" />
+          <Property Name="Porcentaje_Deduccion" Type="decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="FKId_TipoDeduccion_Deduccion" Type="int" Nullable="false" />
+          <Property Name="FechaActualizacion_Deducion" Type="datetime" Nullable="false" />
+          <Property Name="FKId_DestinatarioDeduccion_Deduccion" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Departamento">
           <Key>
@@ -132,6 +134,13 @@
           <Property Name="Id_Departamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre_Departamento" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="FechaActualizacion_Departamento" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DestinatarioDeduccion">
+          <Key>
+            <PropertyRef Name="Id_DestinatarioDeduccion" />
+          </Key>
+          <Property Name="Id_DestinatarioDeduccion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre_DestinatarioDeduccion" Type="varchar" MaxLength="150" Nullable="false" />
         </EntityType>
         <EntityType Name="Direccion">
           <Key>
@@ -425,6 +434,18 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Deduccion_DestinatarioDeduccion">
+          <End Role="DestinatarioDeduccion" Type="Self.DestinatarioDeduccion" Multiplicity="1" />
+          <End Role="Deduccion" Type="Self.Deduccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DestinatarioDeduccion">
+              <PropertyRef Name="Id_DestinatarioDeduccion" />
+            </Principal>
+            <Dependent Role="Deduccion">
+              <PropertyRef Name="FKId_DestinatarioDeduccion_Deduccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Deduccion_TipoDeduccion">
           <End Role="TipoDeduccion" Type="Self.TipoDeduccion" Multiplicity="1" />
           <End Role="Deduccion" Type="Self.Deduccion" Multiplicity="*" />
@@ -655,6 +676,7 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
           <EntitySet Name="Curso" EntityType="Self.Curso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Deduccion" EntityType="Self.Deduccion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departamento" EntityType="Self.Departamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DestinatarioDeduccion" EntityType="Self.DestinatarioDeduccion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Direccion" EntityType="Self.Direccion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Distrito" EntityType="Self.Distrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Email" EntityType="Self.Email" Schema="dbo" store:Type="Tables" />
@@ -717,6 +739,10 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deduccion_DestinatarioDeduccion" Association="Self.FK_Deduccion_DestinatarioDeduccion">
+            <End Role="DestinatarioDeduccion" EntitySet="DestinatarioDeduccion" />
+            <End Role="Deduccion" EntitySet="Deduccion" />
           </AssociationSet>
           <AssociationSet Name="FK_Deduccion_TipoDeduccion" Association="Self.FK_Deduccion_TipoDeduccion">
             <End Role="TipoDeduccion" EntitySet="TipoDeduccion" />
@@ -851,17 +877,6 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
           <NavigationProperty Name="Provincia" Relationship="Self.FK_Canton_Provincia" FromRole="Canton" ToRole="Provincia" />
           <NavigationProperty Name="Distrito" Relationship="Self.FK_Distrito_Canton" FromRole="Canton" ToRole="Distrito" />
         </EntityType>
-        <EntityType Name="Deduccion">
-          <Key>
-            <PropertyRef Name="Id_Deduccion" />
-          </Key>
-          <Property Name="Id_Deduccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre_Deduccion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Porcentaje_Deduccion" Type="Decimal" Precision="2" Scale="2" Nullable="false" />
-          <Property Name="FKId_TipoDeduccion_Deduccion" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="TipoDeduccion" Relationship="Self.FK_Deduccion_TipoDeduccion" FromRole="Deduccion" ToRole="TipoDeduccion" />
-          <NavigationProperty Name="PlanillaDeduccion" Relationship="Self.FK_PlanillaDeduccion_Deduccion" FromRole="Deduccion" ToRole="PlanillaDeduccion" />
-        </EntityType>
         <EntityType Name="Direccion">
           <Key>
             <PropertyRef Name="Id_Direccion" />
@@ -916,14 +931,6 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="TipoDeduccion">
-          <Key>
-            <PropertyRef Name="Id_TipoDeduccion" />
-          </Key>
-          <Property Name="Id_TipoDeduccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Detalle_TipoDeduccion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Deduccion" Relationship="Self.FK_Deduccion_TipoDeduccion" FromRole="TipoDeduccion" ToRole="Deduccion" />
-        </EntityType>
         <EntityType Name="PlanillaDeduccion">
           <Key>
             <PropertyRef Name="FKId_Planilla_PlanillaDeduccion" />
@@ -933,8 +940,8 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
           <Property Name="FKId_Planilla_PlanillaDeduccion" Type="Int32" Nullable="false" />
           <Property Name="FKId_Deduccion_PlanillaDeduccion" Type="Int32" Nullable="false" />
           <Property Name="FechaActualizacion_PlanillaDeducion" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Deduccion" Relationship="Self.FK_PlanillaDeduccion_Deduccion" FromRole="PlanillaDeduccion" ToRole="Deduccion" />
           <NavigationProperty Name="Planilla" Relationship="Self.FK_PlanillaDeduccion_Planilla" FromRole="PlanillaDeduccion" ToRole="Planilla" />
+          <NavigationProperty Name="Deduccion" Relationship="RecursosHumanosDBModel.FK_PlanillaDeduccion_Deduccion" FromRole="PlanillaDeduccion" ToRole="Deduccion" />
         </EntityType>
         <Association Name="FK_Canton_Provincia">
           <End Role="Provincia" Type="Self.Provincia" Multiplicity="1" />
@@ -957,30 +964,6 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
             </Principal>
             <Dependent Role="Distrito">
               <PropertyRef Name="FKIdCanton_Distrito" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Deduccion_TipoDeduccion">
-          <End Role="TipoDeduccion" Type="Self.TipoDeduccion" Multiplicity="1" />
-          <End Role="Deduccion" Type="Self.Deduccion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TipoDeduccion">
-              <PropertyRef Name="Id_TipoDeduccion" />
-            </Principal>
-            <Dependent Role="Deduccion">
-              <PropertyRef Name="FKId_TipoDeduccion_Deduccion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PlanillaDeduccion_Deduccion">
-          <End Role="Deduccion" Type="Self.Deduccion" Multiplicity="1" />
-          <End Role="PlanillaDeduccion" Type="Self.PlanillaDeduccion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Deduccion">
-              <PropertyRef Name="Id_Deduccion" />
-            </Principal>
-            <Dependent Role="PlanillaDeduccion">
-              <PropertyRef Name="FKId_Deduccion_PlanillaDeduccion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1014,14 +997,12 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
           <EntitySet Name="BoletaCurso" EntityType="Self.BoletaCurso" />
           <EntitySet Name="Canton" EntityType="Self.Canton" />
-          <EntitySet Name="Deduccion" EntityType="Self.Deduccion" />
           <EntitySet Name="Direccion" EntityType="Self.Direccion" />
           <EntitySet Name="Distrito" EntityType="Self.Distrito" />
           <EntitySet Name="Email" EntityType="Self.Email" />
           <EntitySet Name="Planilla" EntityType="Self.Planilla" />
           <EntitySet Name="Provincia" EntityType="Self.Provincia" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="TipoDeduccion" EntityType="Self.TipoDeduccion" />
           <EntitySet Name="PlanillaDeduccion" EntityType="Self.PlanillaDeduccion" />
           <AssociationSet Name="FK_Canton_Provincia" Association="Self.FK_Canton_Provincia">
             <End Role="Provincia" EntitySet="Provincia" />
@@ -1030,14 +1011,6 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
           <AssociationSet Name="FK_Distrito_Canton" Association="Self.FK_Distrito_Canton">
             <End Role="Canton" EntitySet="Canton" />
             <End Role="Distrito" EntitySet="Distrito" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Deduccion_TipoDeduccion" Association="Self.FK_Deduccion_TipoDeduccion">
-            <End Role="TipoDeduccion" EntitySet="TipoDeduccion" />
-            <End Role="Deduccion" EntitySet="Deduccion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PlanillaDeduccion_Deduccion" Association="Self.FK_PlanillaDeduccion_Deduccion">
-            <End Role="Deduccion" EntitySet="Deduccion" />
-            <End Role="PlanillaDeduccion" EntitySet="PlanillaDeduccion" />
           </AssociationSet>
           <AssociationSet Name="FK_Direccion_Distrito" Association="Self.FK_Direccion_Distrito">
             <End Role="Distrito" EntitySet="Distrito" />
@@ -1150,6 +1123,21 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
           <AssociationSet Name="FK_Contrato_TipoContrato" Association="RecursosHumanosDBModel.FK_Contrato_TipoContrato">
             <End Role="TipoContrato" EntitySet="TipoContrato" />
             <End Role="Contrato" EntitySet="Contrato" />
+          </AssociationSet>
+          <EntitySet Name="Deduccion" EntityType="RecursosHumanosDBModel.Deduccion" />
+          <EntitySet Name="DestinatarioDeduccion" EntityType="RecursosHumanosDBModel.DestinatarioDeduccion" />
+          <EntitySet Name="TipoDeduccion" EntityType="RecursosHumanosDBModel.TipoDeduccion" />
+          <AssociationSet Name="FK_Deduccion_DestinatarioDeduccion" Association="RecursosHumanosDBModel.FK_Deduccion_DestinatarioDeduccion">
+            <End Role="DestinatarioDeduccion" EntitySet="DestinatarioDeduccion" />
+            <End Role="Deduccion" EntitySet="Deduccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deduccion_TipoDeduccion" Association="RecursosHumanosDBModel.FK_Deduccion_TipoDeduccion">
+            <End Role="TipoDeduccion" EntitySet="TipoDeduccion" />
+            <End Role="Deduccion" EntitySet="Deduccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlanillaDeduccion_Deduccion" Association="RecursosHumanosDBModel.FK_PlanillaDeduccion_Deduccion">
+            <End Role="Deduccion" EntitySet="Deduccion" />
+            <End Role="PlanillaDeduccion" EntitySet="PlanillaDeduccion" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Telefono">
@@ -1629,6 +1617,72 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Deduccion">
+          <Key>
+            <PropertyRef Name="Id_Deduccion" />
+          </Key>
+          <Property Name="Id_Deduccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre_Deduccion" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Porcentaje_Deduccion" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="FKId_TipoDeduccion_Deduccion" Type="Int32" Nullable="false" />
+          <Property Name="FechaActualizacion_Deducion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FKId_DestinatarioDeduccion_Deduccion" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DestinatarioDeduccion" Relationship="RecursosHumanosDBModel.FK_Deduccion_DestinatarioDeduccion" FromRole="Deduccion" ToRole="DestinatarioDeduccion" />
+          <NavigationProperty Name="TipoDeduccion" Relationship="RecursosHumanosDBModel.FK_Deduccion_TipoDeduccion" FromRole="Deduccion" ToRole="TipoDeduccion" />
+          <NavigationProperty Name="PlanillaDeduccion" Relationship="RecursosHumanosDBModel.FK_PlanillaDeduccion_Deduccion" FromRole="Deduccion" ToRole="PlanillaDeduccion" />
+        </EntityType>
+        <EntityType Name="DestinatarioDeduccion">
+          <Key>
+            <PropertyRef Name="Id_DestinatarioDeduccion" />
+          </Key>
+          <Property Name="Id_DestinatarioDeduccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre_DestinatarioDeduccion" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Deduccion" Relationship="RecursosHumanosDBModel.FK_Deduccion_DestinatarioDeduccion" FromRole="DestinatarioDeduccion" ToRole="Deduccion" />
+        </EntityType>
+        <EntityType Name="TipoDeduccion">
+          <Key>
+            <PropertyRef Name="Id_TipoDeduccion" />
+          </Key>
+          <Property Name="Id_TipoDeduccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Detalle_TipoDeduccion" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Deduccion" Relationship="RecursosHumanosDBModel.FK_Deduccion_TipoDeduccion" FromRole="TipoDeduccion" ToRole="Deduccion" />
+        </EntityType>
+        <Association Name="FK_Deduccion_DestinatarioDeduccion">
+          <End Type="RecursosHumanosDBModel.DestinatarioDeduccion" Role="DestinatarioDeduccion" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Deduccion" Role="Deduccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DestinatarioDeduccion">
+              <PropertyRef Name="Id_DestinatarioDeduccion" />
+            </Principal>
+            <Dependent Role="Deduccion">
+              <PropertyRef Name="FKId_DestinatarioDeduccion_Deduccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deduccion_TipoDeduccion">
+          <End Type="RecursosHumanosDBModel.TipoDeduccion" Role="TipoDeduccion" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Deduccion" Role="Deduccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoDeduccion">
+              <PropertyRef Name="Id_TipoDeduccion" />
+            </Principal>
+            <Dependent Role="Deduccion">
+              <PropertyRef Name="FKId_TipoDeduccion_Deduccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlanillaDeduccion_Deduccion">
+          <End Type="RecursosHumanosDBModel.Deduccion" Role="Deduccion" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.PlanillaDeduccion" Role="PlanillaDeduccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deduccion">
+              <PropertyRef Name="Id_Deduccion" />
+            </Principal>
+            <Dependent Role="PlanillaDeduccion">
+              <PropertyRef Name="FKId_Deduccion_PlanillaDeduccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1687,16 +1741,6 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Deduccion">
-            <EntityTypeMapping TypeName="RecursosHumanosDBModel.Deduccion">
-              <MappingFragment StoreEntitySet="Deduccion">
-                <ScalarProperty Name="Id_Deduccion" ColumnName="Id_Deduccion" />
-                <ScalarProperty Name="Nombre_Deduccion" ColumnName="Nombre_Deduccion" />
-                <ScalarProperty Name="Porcentaje_Deduccion" ColumnName="Porcentaje_Deduccion" />
-                <ScalarProperty Name="FKId_TipoDeduccion_Deduccion" ColumnName="FKId_TipoDeduccion_Deduccion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Direccion">
             <EntityTypeMapping TypeName="RecursosHumanosDBModel.Direccion">
               <MappingFragment StoreEntitySet="Direccion">
@@ -1746,14 +1790,6 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TipoDeduccion">
-            <EntityTypeMapping TypeName="RecursosHumanosDBModel.TipoDeduccion">
-              <MappingFragment StoreEntitySet="TipoDeduccion">
-                <ScalarProperty Name="Id_TipoDeduccion" ColumnName="Id_TipoDeduccion" />
-                <ScalarProperty Name="Detalle_TipoDeduccion" ColumnName="Detalle_TipoDeduccion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1947,6 +1983,34 @@ advertencia 6002: La tabla o vista 'RecursosHumanosDB.dbo.PlanillaDeduccion' no 
                 <ScalarProperty Name="FechaInicio_Contrato" ColumnName="FechaInicio_Contrato" />
                 <ScalarProperty Name="SalarioBruto_Contrato" ColumnName="SalarioBruto_Contrato" />
                 <ScalarProperty Name="Id_Contrato" ColumnName="Id_Contrato" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Deduccion">
+            <EntityTypeMapping TypeName="RecursosHumanosDBModel.Deduccion">
+              <MappingFragment StoreEntitySet="Deduccion">
+                <ScalarProperty Name="FKId_DestinatarioDeduccion_Deduccion" ColumnName="FKId_DestinatarioDeduccion_Deduccion" />
+                <ScalarProperty Name="FechaActualizacion_Deducion" ColumnName="FechaActualizacion_Deducion" />
+                <ScalarProperty Name="FKId_TipoDeduccion_Deduccion" ColumnName="FKId_TipoDeduccion_Deduccion" />
+                <ScalarProperty Name="Porcentaje_Deduccion" ColumnName="Porcentaje_Deduccion" />
+                <ScalarProperty Name="Nombre_Deduccion" ColumnName="Nombre_Deduccion" />
+                <ScalarProperty Name="Id_Deduccion" ColumnName="Id_Deduccion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DestinatarioDeduccion">
+            <EntityTypeMapping TypeName="RecursosHumanosDBModel.DestinatarioDeduccion">
+              <MappingFragment StoreEntitySet="DestinatarioDeduccion">
+                <ScalarProperty Name="Nombre_DestinatarioDeduccion" ColumnName="Nombre_DestinatarioDeduccion" />
+                <ScalarProperty Name="Id_DestinatarioDeduccion" ColumnName="Id_DestinatarioDeduccion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoDeduccion">
+            <EntityTypeMapping TypeName="RecursosHumanosDBModel.TipoDeduccion">
+              <MappingFragment StoreEntitySet="TipoDeduccion">
+                <ScalarProperty Name="Detalle_TipoDeduccion" ColumnName="Detalle_TipoDeduccion" />
+                <ScalarProperty Name="Id_TipoDeduccion" ColumnName="Id_TipoDeduccion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

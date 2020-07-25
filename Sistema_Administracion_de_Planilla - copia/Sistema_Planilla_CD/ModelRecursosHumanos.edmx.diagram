@@ -10,19 +10,15 @@
         <EntityTypeShape EntityType="RecursosHumanosDBModel.AspNetUserLogins" Width="1.5" PointX="15" PointY="16.25" IsExpanded="true" />
         <EntityTypeShape EntityType="RecursosHumanosDBModel.BoletaCurso" Width="1.5" PointX="12" PointY="7.375" IsExpanded="true" />
         <EntityTypeShape EntityType="RecursosHumanosDBModel.Canton" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecursosHumanosDBModel.Deduccion" Width="1.5" PointX="15" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RecursosHumanosDBModel.Direccion" Width="1.5" PointX="7.5" PointY="7.875" IsExpanded="true" />
         <EntityTypeShape EntityType="RecursosHumanosDBModel.Distrito" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
         <EntityTypeShape EntityType="RecursosHumanosDBModel.Email" Width="1.5" PointX="7.5" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="RecursosHumanosDBModel.Planilla" Width="1.5" PointX="15" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="RecursosHumanosDBModel.Provincia" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="RecursosHumanosDBModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecursosHumanosDBModel.TipoDeduccion" Width="1.5" PointX="12.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="RecursosHumanosDBModel.PlanillaDeduccion" Width="1.5" PointX="17.25" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_Canton_Provincia" ManuallyRouted="false" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_Distrito_Canton" ManuallyRouted="false" />
-        <AssociationConnector Association="RecursosHumanosDBModel.FK_Deduccion_TipoDeduccion" ManuallyRouted="false" />
-        <AssociationConnector Association="RecursosHumanosDBModel.FK_PlanillaDeduccion_Deduccion" ManuallyRouted="false" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_Direccion_Distrito" ManuallyRouted="false" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_PlanillaDeduccion_Planilla" ManuallyRouted="false" />
         <EntityTypeShape EntityType="RecursosHumanosDBModel.Telefono" Width="1.5" PointX="12" PointY="4.5" />
@@ -63,6 +59,12 @@
         <AssociationConnector Association="RecursosHumanosDBModel.FK_Contrato_Cargo" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_Contrato_Empleado" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_Contrato_TipoContrato" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.Deduccion" Width="1.5" PointX="16.625" PointY="7" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.DestinatarioDeduccion" Width="2.375" PointX="19.625" PointY="6.375" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.TipoDeduccion" Width="1.5" PointX="19.5" PointY="8.5" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Deduccion_DestinatarioDeduccion" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_Deduccion_TipoDeduccion" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_PlanillaDeduccion_Deduccion" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,7 +1,7 @@
-﻿@model Sistema_Planilla_CE.EmpleadoCE
+﻿@model Sistema_Planilla_CE.ContratoCE
 
 @{
-    ViewBag.Title = "DetallesEmpleado";
+    ViewBag.Title = "DetallesContrato";
     Layout = "~/Views/Shared/_MyLayout.cshtml";
 }
 
@@ -13,10 +13,10 @@
     </style>
 }
 
-<h2 class="tituloCss">Detalle del Empleado</h2>
+    <h2 class="tituloCss">Detalle del Contrato</h2>
 
 <div>
-    <h4>Detalle del Empleado</h4>
+    <h4>ContratoCE</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -44,22 +44,6 @@
             </dd>*@
 
         @*<dt>
-                @Html.DisplayNameFor(model => model.Id_Departamento)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Id_Departamento)
-            </dd>*@
-
-        <dt>
-            Departamento
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nombre_Departamento)
-        </dd>
-
-        @*<dt>
                 @Html.DisplayNameFor(model => model.Id_Persona)
             </dt>
 
@@ -68,27 +52,11 @@
             </dd>*@
 
         <dt>
-            Nombre Empleado
+            Nombre de Empleado
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.NombreCompletoPersona)
-        </dd>
-
-        @*<dt>
-                @Html.DisplayNameFor(model => model.Id_Usuario)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Id_Usuario)
-            </dd>*@
-
-        <dt>
-            Usuario
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
         </dd>
 
         @*<dt>
@@ -140,7 +108,7 @@
         </dd>
 
         <dt>
-            Fecha de Fin de Contrato
+            Fecha Fin de Contrato
         </dt>
 
         <dd>
@@ -178,15 +146,18 @@
             <dd>
                 @Html.DisplayFor(model => model.Id_Cargo)
             </dd>*@
+
         <dt>
             Cargo
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Nombre_Cargo)
         </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "Editar", new { id = Model.Id_Empleado }) |
+    @Html.ActionLink("Editar", "Editar", new { id = Model.Id_Contrato}) |
     @Html.ActionLink("Back to List", "Index")
 </p>

@@ -18,7 +18,7 @@ namespace Sistema_Planilla_CE
         public int FKId_Deduccion_PlanillaDeduccion { get; set; }
         public System.DateTime FechaActualizacion_PlanillaDeducion { get; set; }
     
-        public virtual Deduccion Deduccion { get; set; }
         public virtual Planilla Planilla { get; set; }
+        public virtual Deduccion Deduccion { get; set; }
     }
 }

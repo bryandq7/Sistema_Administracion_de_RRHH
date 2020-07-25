@@ -1,6 +1,7 @@
 ﻿using Sistema_Planilla_CE;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -71,6 +72,40 @@ namespace Sistema_Planilla_CD
                 db.SaveChanges();
             }
 
+
+        }
+
+
+        public ContratoCE ObtenerDetalleContrato(int idcontrato)
+        {
+
+            string sql = @"select e.Id_Empleado,e.FKId_Departamento_Empleado,e.FKId_Persona_Empleado,p.Id_Persona,p.Nombre_Persona+' '+p.Apellido1_Persona+' '+p.Apellido2_Persona as NombreCompletoPersona, 
+				c.Id_Contrato, c.SalarioBruto_Contrato, c.FKId_TipoContrato_Contrato,c.FKId_Empleado_Contrato, c.FKId_Cargo_Contrato,c.FechaInicio_Contrato,c.FechaFin_Contrato,c.Activo_Contrato,
+				tc.Id_TipoContrato,tc.Detalle_TipoContrato,ca.Id_Cargo,ca.Nombre_Cargo
+                from Contrato c  
+                inner join Empleado e on c.FKId_Empleado_Contrato = e.Id_Empleado
+				inner join TipoContrato tc on c.FKId_TipoContrato_Contrato = tc.Id_TipoContrato
+				inner join Cargo ca on c.FKId_Cargo_Contrato = ca.Id_Cargo
+				inner join Persona p on e.FKId_Persona_Empleado = p.Id_Persona
+                where c.Activo_Contrato = 1 and e.Activo_Empleado = 1 and c.Id_Contrato=@Cod_Contrato";
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                return db.Database.SqlQuery<ContratoCE>(sql, new SqlParameter("@Cod_Contrato", idcontrato)).FirstOrDefault();
+            }
+
+        }
+
+
+        public void Editar(ContratoCE contrato)
+        {
+            using (var db = new RecursosHumanosDBContext())
+            {
+                var origen = db.Contrato.Find(contrato.Id_Contrato);
+                origen.SalarioBruto_Contrato = contrato.SalarioBruto_Contrato;
+                origen.FKId_Cargo_Contrato = contrato.Id_Cargo;
+                db.SaveChanges();
+            }
         }
 
         //public void EditarActivo(ContratoCE contrato)

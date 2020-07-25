@@ -48,5 +48,32 @@ namespace Sistema_Planilla_CP.Controllers
             }
 
         }
+
+        public ActionResult DetallesContrato(int id_contrato)
+        {
+            var contrato = ContratoCN.ObtenerDetalleContrato(id_contrato);
+            return View(contrato);
+        }
+
+        public ActionResult Editar(int id)
+        {
+            var contrato = ContratoCN.ObtenerDetalleContrato(id);
+            return View(contrato);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editar(ContratoCE contrato)
+        {
+            try
+            {
+                ContratoCN.Editar(contrato);
+                return Json(new { ok = true, toRedirect = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ok = false, msg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

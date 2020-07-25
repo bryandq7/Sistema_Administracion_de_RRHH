@@ -46,6 +46,7 @@
     <Compile Include="CargoCN.cs" />
     <Compile Include="ContratoCN.cs" />
     <Compile Include="CursoCN.cs" />
+    <Compile Include="DeduccionCN.cs" />
     <Compile Include="DepartamentoCN.cs" />
     <Compile Include="DireccionCN.cs" />
     <Compile Include="DistritoCN.cs" />

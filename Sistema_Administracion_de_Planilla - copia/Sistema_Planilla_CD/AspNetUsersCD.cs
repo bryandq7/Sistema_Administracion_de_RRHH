@@ -107,6 +107,8 @@ namespace Sistema_Planilla_CD
             }
         }
 
+
+
         public void EliminarAsignacionRolUsuario(string usuarioId, string rolId)
         {
             using (var db = new RecursosHumanosDBContext())

@@ -12,24 +12,18 @@ namespace Sistema_Planilla_CE
     using System;
     using System.Collections.Generic;
     
-    public partial class Deduccion
+    public partial class DestinatarioDeduccion
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Deduccion()
+        public DestinatarioDeduccion()
         {
-            this.PlanillaDeduccion = new HashSet<PlanillaDeduccion>();
+            this.Deduccion = new HashSet<Deduccion>();
         }
     
-        public int Id_Deduccion { get; set; }
-        public string Nombre_Deduccion { get; set; }
-        public decimal Porcentaje_Deduccion { get; set; }
-        public int FKId_TipoDeduccion_Deduccion { get; set; }
-        public System.DateTime FechaActualizacion_Deducion { get; set; }
-        public int FKId_DestinatarioDeduccion_Deduccion { get; set; }
+        public int Id_DestinatarioDeduccion { get; set; }
+        public string Nombre_DestinatarioDeduccion { get; set; }
     
-        public virtual DestinatarioDeduccion DestinatarioDeduccion { get; set; }
-        public virtual TipoDeduccion TipoDeduccion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlanillaDeduccion> PlanillaDeduccion { get; set; }
+        public virtual ICollection<Deduccion> Deduccion { get; set; }
     }
 }

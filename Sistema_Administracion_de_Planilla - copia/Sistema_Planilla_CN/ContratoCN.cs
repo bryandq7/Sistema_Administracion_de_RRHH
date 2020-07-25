@@ -22,6 +22,17 @@ namespace Sistema_Planilla_CN
             obj.Crear(contrato1);
         }
 
+        public static ContratoCE ObtenerDetalleContrato(int idcontrato)
+        {
+            return obj.ObtenerDetalleContrato(idcontrato);
+        }
+
+        public static void Editar(ContratoCE contrato)
+        {
+            obj.Editar(contrato);
+        }
+
+
         //public static void EditarActivo(ContratoCE contrato)
         //{
         //    obj.EditarActivo(contrato);

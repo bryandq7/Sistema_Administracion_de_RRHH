@@ -55,6 +55,7 @@
     <Compile Include="CargoCD.cs" />
     <Compile Include="ContratoCD.cs" />
     <Compile Include="CursoCD.cs" />
+    <Compile Include="DeduccionCD.cs" />
     <Compile Include="DepartamentoCD.cs" />
     <Compile Include="DireccionCD.cs" />
     <Compile Include="DistritoCD.cs" />

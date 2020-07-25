@@ -29,6 +29,12 @@ namespace Sistema_Planilla_CP.Controllers
 
         }
 
+        public ActionResult ListarAsignacionesrolusuario()
+        {
+            return View(AspNetUsersCN.ListarAsignacionesrolusuario());
+
+        }
+
 
 
 
@@ -91,6 +97,24 @@ namespace Sistema_Planilla_CP.Controllers
                     return Json(new { ok = false, msg = "Debe al menos existir una asignacion de Rol para este usuario" });
                 AspNetUsersCN.EliminarAsignacionRolUsuario(usuarioId, rolId);
                 return Json(new { ok = true, toRedirect = Url.Action("AsignarRolUsuario") }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new { ok = false, msg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EliminarAsignacionRolUsuarioSeg(string usuarioId, string rolId)
+        {
+
+            try
+            {
+                if (AspNetUsersCN.ExisteUnRolParaUsuario(usuarioId) == 1)
+                    return Json(new { ok = false, msg = "Debe al menos existir una asignacion de Rol para este usuario" });
+                AspNetUsersCN.EliminarAsignacionRolUsuario(usuarioId, rolId);
+                return Json(new { ok = true, toRedirect = Url.Action("ListarAsignacionesrolusuario") }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

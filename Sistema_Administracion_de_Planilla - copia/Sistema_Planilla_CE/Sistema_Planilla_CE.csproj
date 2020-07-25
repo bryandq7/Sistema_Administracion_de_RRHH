@@ -81,10 +81,14 @@
     <Compile Include="Deduccion.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
+    <Compile Include="DeduccionCE.cs" />
     <Compile Include="Departamento.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="DepartamentoCE.cs" />
+    <Compile Include="DestinatarioDeduccion.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
     <Compile Include="Direccion.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>

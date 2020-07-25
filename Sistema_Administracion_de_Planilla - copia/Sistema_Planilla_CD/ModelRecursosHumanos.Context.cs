@@ -30,14 +30,12 @@ namespace Sistema_Planilla_CE
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<BoletaCurso> BoletaCurso { get; set; }
         public virtual DbSet<Canton> Canton { get; set; }
-        public virtual DbSet<Deduccion> Deduccion { get; set; }
         public virtual DbSet<Direccion> Direccion { get; set; }
         public virtual DbSet<Distrito> Distrito { get; set; }
         public virtual DbSet<Email> Email { get; set; }
         public virtual DbSet<Planilla> Planilla { get; set; }
         public virtual DbSet<Provincia> Provincia { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<TipoDeduccion> TipoDeduccion { get; set; }
         public virtual DbSet<PlanillaDeduccion> PlanillaDeduccion { get; set; }
         public virtual DbSet<Telefono> Telefono { get; set; }
         public virtual DbSet<Curso> Curso { get; set; }
@@ -55,5 +53,8 @@ namespace Sistema_Planilla_CE
         public virtual DbSet<Empleado> Empleado { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
         public virtual DbSet<Contrato> Contrato { get; set; }
+        public virtual DbSet<Deduccion> Deduccion { get; set; }
+        public virtual DbSet<DestinatarioDeduccion> DestinatarioDeduccion { get; set; }
+        public virtual DbSet<TipoDeduccion> TipoDeduccion { get; set; }
     }
 }

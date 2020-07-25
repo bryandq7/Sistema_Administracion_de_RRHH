@@ -116,7 +116,7 @@ namespace Sistema_Planilla_CD
 				inner join Contrato c on c.FKId_Empleado_Contrato = e.Id_Empleado
 				inner join TipoContrato tc on tc.Id_TipoContrato = c.FKId_TipoContrato_Contrato
 				inner join Cargo ca on ca.Id_Cargo = c.FKId_Cargo_Contrato
-                where e.Id_Empleado = @Cod_Empleado";
+                where e.Id_Empleado = @Cod_Empleado and c.Activo_Contrato=1";
 
             using (var db = new RecursosHumanosDBContext())
             {
@@ -147,6 +147,14 @@ namespace Sistema_Planilla_CD
                     .FirstOrDefault();
                 empleado.Activo_Empleado = false;
                 //db.Persona.Remove(persona);
+                db.SaveChanges();
+            }
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                var origen = db.Contrato
+                .First(p => p.FKId_Empleado_Contrato == id_empleado && p.Activo_Contrato == true);
+                origen.Activo_Contrato = false;
                 db.SaveChanges();
             }
         }
