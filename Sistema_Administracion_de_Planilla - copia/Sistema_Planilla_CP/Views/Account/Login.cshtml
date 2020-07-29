@@ -4,32 +4,43 @@
     ViewBag.Title = "Iniciar sesión";
 }
 
-<h2>@ViewBag.Title</h2>
+@section styles{
+
+    <style>
+        .tituloCss {
+            color: #3d3d29;
+        }
+    </style>
+
+
+}
+
+<h2 class="tituloCss">@ViewBag.Title</h2>
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <h4>Use una cuenta local para iniciar sesión</h4>
+                <h4>Ingrese credenciales para iniciar sesión</h4>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
                     @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
+                    <div class="col-md-4">
                         @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
+                    <div class="col-md-4">
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
+                    <div class="col-md-offset-2 col-md-4">
                         <div class="checkbox">
                             @Html.CheckBoxFor(m => m.RememberMe)
                             @Html.LabelFor(m => m.RememberMe)
@@ -37,7 +48,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
+                    <div class="col-md-offset-2 col-md-4">
                         <input type="submit" value="Iniciar sesión" class="btn btn-default" />
                     </div>
                 </div>
@@ -51,9 +62,15 @@
             }
         </section>
     </div>
+
     <div class="col-md-4">
         <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            <br />
+            <br />
+
+            @*<img src="" alt="IMAGES" />*@
+            <img src="~/Content/saintspirit.jpg" />
+            @*@Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })*@
         </section>
     </div>
 </div>

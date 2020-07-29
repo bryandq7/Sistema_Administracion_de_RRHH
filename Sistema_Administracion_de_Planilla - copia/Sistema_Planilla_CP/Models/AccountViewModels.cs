@@ -5,7 +5,7 @@ namespace Sistema_Planilla_CP.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
-        [Required]
+        //[Required]
         [Display(Name = "Correo electrónico")]
         public string Email { get; set; }
     }
@@ -41,7 +41,7 @@ namespace Sistema_Planilla_CP.Models
 
     public class ForgotViewModel
     {
-        [Required]
+        //[Required]
         [Display(Name = "Correo electrónico")]
         public string Email { get; set; }
     }
@@ -67,7 +67,7 @@ namespace Sistema_Planilla_CP.Models
         [Display(Name = "Nombre de Usuario")]
         public string UserName { get; set; }
 
-        [Required]
+        //[Required]
         [EmailAddress]
         [Display(Name = "Correo electrónico")]
         public string Email { get; set; }
@@ -86,7 +86,7 @@ namespace Sistema_Planilla_CP.Models
 
     public class ResetPasswordViewModel
     {
-        [Required]
+        //[Required]
         [EmailAddress]
         [Display(Name = "Correo electrónico")]
         public string Email { get; set; }
@@ -107,7 +107,7 @@ namespace Sistema_Planilla_CP.Models
 
     public class ForgotPasswordViewModel
     {
-        [Required]
+        //[Required]
         [EmailAddress]
         [Display(Name = "Correo electrónico")]
         public string Email { get; set; }

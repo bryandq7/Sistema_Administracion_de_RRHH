@@ -150,9 +150,12 @@ namespace Sistema_Planilla_CP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            var currenttime = DateTime.Now.ToString("dd-MMMM-yyyy-hh-mm-ss");
+            var genericemail = "user" + currenttime.ToString() + "@saintspirit.com";
+            model.Email = genericemail;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.UserName, Email = genericemail };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
