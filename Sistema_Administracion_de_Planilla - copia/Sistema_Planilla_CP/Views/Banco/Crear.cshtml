@@ -1,0 +1,95 @@
+﻿@model Sistema_Planilla_CE.Banco
+
+@{
+    ViewBag.Title = "Crear";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<h2>Crear</h2>
+
+<form action="@Url.Action("Crear", "Banco")" method="post" id="frmBanco">
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Crear Banco</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Id_Banco, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Id_Banco, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Id_Banco, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-3"> Nombre del Banco</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="Nombre_Banco" name="Nombre_Banco" placeholder="Ingrese nombre del Banco" />
+                @Html.ValidationMessageFor(model => model.Nombre_Banco, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.FechaActualizacion_Banco, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FechaActualizacion_Banco, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FechaActualizacion_Banco, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create Banco" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#frmBanco").submit(function (event) {
+            event.preventDefault(); //prevent default action
+            var nombre = $("#Nombre_Banco").val();
+            if ($.trim(nombre) == "") {
+                alert("Debe ingresar el nombre del banco");
+                return;
+            }
+            var post_url = $(this).attr("action"); //get form action url
+            var request_method = $(this).attr("method"); //get form GET/POST method
+            var form_data = $(this).serializeArray(); //Encode form elements for submission
+            console.log(form_data);
+            //return;
+            LoadingOverlayShow("#frmBanco");
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) { //
+                console.log(response);
+                LoadingOverlayHide("#frmBanco");
+                if (response.ok) {
+                    alert("Banco creado correctamente.");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    alert(response.msg);
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmBanco");
+                //object jqXHR: es un objeto jqXHR que contiene todos los datos de la solicitud Ajax realizada,
+                //    incluyendo la propiedad jqXHR.status que contiene, entre otros posibles, el código de estado HTTP de la respuesta.
+                //string textStatus: texto que describe el tipo de error, que puede ser, además de null,
+                //        «abort», «timeout», «No Transport» o «parseerror».
+                //string errorThrown: si hay un error HTTP, errorThrown contiene el texto de la cabecera HTTP de estado.
+                //    Por ejemplo, para un error HTTP 404, errorThrown es «Not found»; para error un HTTP 500 es «Internal Server Error».
+            });
+        });
+    </script>
+}

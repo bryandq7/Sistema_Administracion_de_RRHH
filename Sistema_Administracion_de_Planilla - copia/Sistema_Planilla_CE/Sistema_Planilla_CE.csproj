@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Asignacion.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
     <Compile Include="AspNetRoles.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
@@ -57,6 +60,9 @@
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="AspNetUsersCE.cs" />
+    <Compile Include="Banco.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
     <Compile Include="BoletaCurso.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
@@ -72,6 +78,9 @@
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="ContratoCE.cs" />
+    <Compile Include="Cuenta.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
     <Compile Include="Curso.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
@@ -104,6 +113,12 @@
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="EmpleadoCE.cs" />
+    <Compile Include="Genero.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ImpuestoRenta.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
     <Compile Include="ModelRecursosHumanos.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -127,6 +142,9 @@
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="Solicitud.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StatusEmpleado.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="StatusSolicitud.cs">

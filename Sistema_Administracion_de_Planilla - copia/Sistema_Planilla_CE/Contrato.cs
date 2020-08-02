@@ -22,6 +22,7 @@ namespace Sistema_Planilla_CE
         public int FKId_Empleado_Contrato { get; set; }
         public int FKId_Cargo_Contrato { get; set; }
         public bool Activo_Contrato { get; set; }
+        public decimal SalarioContrato_Contrato { get; set; }
     
         public virtual Cargo Cargo { get; set; }
         public virtual Empleado Empleado { get; set; }

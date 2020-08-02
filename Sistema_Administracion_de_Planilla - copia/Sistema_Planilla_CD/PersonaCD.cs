@@ -23,7 +23,8 @@ namespace Sistema_Planilla_CD
         {
             string sql = @"select p.NumeroIdentidad_Persona, u.Id as Id_Usuario, u.UserName,p.Id_Persona,p.FKId_Usuario_Persona,p.Nombre_Persona,p.Apellido1_Persona,p.Apellido2_Persona,
                         p.FechaNacimiento_Persona,p.FKId_Email_Persona,e.Id_Email,e.Correo_Email, p.FKId_Email_Persona, d.Id_Direccion, 
-                        d.Detalle_Direccion,pr.Id_Provincia,pr.Nombre_Provincia,c.Id_Canton,c.Nombre_Canton,di.Id_Distrito,di.Nombre_Distrito
+                        d.Detalle_Direccion,pr.Id_Provincia,pr.Nombre_Provincia,c.Id_Canton,c.Nombre_Canton,di.Id_Distrito,di.Nombre_Distrito,
+						g.Id_Genero,g.Nombre_Genero, cta.Id_Cuenta, cta.Numero_Cuenta, cta.FKIdBanco_Cuenta, bco.Id_Banco,bco.Nombre_Banco
                         from Persona p 
 				        inner join Direccion d on p.FKId_Direccion_Persona=d.Id_Direccion
 				        inner join Distrito di on d.FKIdDistrito_Direccion = di.Id_Distrito
@@ -31,6 +32,9 @@ namespace Sistema_Planilla_CD
                         inner join Provincia pr  on c.FKIdProvincia_Canton = pr.Id_Provincia
 				        inner join Email e on p.FKId_Email_Persona = e.Id_Email
 						inner join AspNetUsers u on p.FKId_Usuario_Persona = u.Id
+						inner join Genero g on p.FKId_Genero_Persona = g.Id_Genero
+						inner join Cuenta cta on p.FKId_Cuenta_Persona = cta.Id_Cuenta
+						inner join Banco bco on cta.FKIdBanco_Cuenta = bco.Id_Banco
                         where p.Activo_Persona = 1";
 
             using (var db = new RecursosHumanosDBContext())
@@ -81,7 +85,23 @@ namespace Sistema_Planilla_CD
                 db.SaveChanges();
             }
 
+
             var idultimoregistrocorreo = ObtenerIdEmail();
+
+
+            var cuenta = new Cuenta
+            {
+                Numero_Cuenta = persona.Numero_Cuenta,
+                FKIdBanco_Cuenta = persona.Id_Banco
+            };
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                db.Cuenta.Add(cuenta);
+                db.SaveChanges();
+            }
+
+            var idultimoregistrocuenta = ObtenerIdCuenta();
 
             var persona1 = new Persona
             {
@@ -93,6 +113,8 @@ namespace Sistema_Planilla_CD
                 FKId_Email_Persona = idultimoregistrocorreo,
                 NumeroIdentidad_Persona = persona.NumeroIdentidad_Persona,
                 FKId_Usuario_Persona = persona.Id_Usuario,
+                FKId_Cuenta_Persona = idultimoregistrocuenta,
+                FKId_Genero_Persona = persona.Id_Genero,
                 Activo_Persona = true
             };
 
@@ -120,19 +142,31 @@ namespace Sistema_Planilla_CD
             }
         }
 
+        public int ObtenerIdCuenta()
+        {
+            using (var db = new RecursosHumanosDBContext())
+            {
+                return db.Cuenta.Max(p => p.Id_Cuenta);
+            }
+        }
+
         public PersonaCE ObtenerDetallePersona(int idPersona)
         {
 
             string sql = @"select p.NumeroIdentidad_Persona,u.Id as Id_Usuario, u.UserName,p.FKId_Usuario_Persona,p.Id_Persona,p.Nombre_Persona,p.Apellido1_Persona,p.Apellido2_Persona,
                         p.FechaNacimiento_Persona,p.FKId_Email_Persona,e.Id_Email,e.Correo_Email, p.FKId_Email_Persona, d.Id_Direccion, 
-                        d.Detalle_Direccion,pr.Id_Provincia,pr.Nombre_Provincia,c.Id_Canton,c.Nombre_Canton,di.Id_Distrito,di.Nombre_Distrito
-                        from Persona p 
+                        d.Detalle_Direccion,pr.Id_Provincia,pr.Nombre_Provincia,c.Id_Canton,c.Nombre_Canton,di.Id_Distrito,di.Nombre_Distrito,
+                        g.Id_Genero,g.Nombre_Genero, cta.Id_Cuenta, cta.Numero_Cuenta, cta.FKIdBanco_Cuenta, bco.Id_Banco,bco.Nombre_Banco
+						from Persona p 
                         inner join Direccion d on p.FKId_Direccion_Persona=d.Id_Direccion
                         inner join Distrito di on d.FKIdDistrito_Direccion = di.Id_Distrito
                         inner join Canton c on di.FKIdCanton_Distrito = c.Id_Canton
                         inner join Provincia pr  on c.FKIdProvincia_Canton = pr.Id_Provincia
                         inner join Email e on p.FKId_Email_Persona = e.Id_Email
                         inner join AspNetUsers u on p.FKId_Usuario_Persona = u.Id
+						inner join Genero g on p.FKId_Genero_Persona = g.Id_Genero
+						inner join Cuenta cta on p.FKId_Cuenta_Persona = cta.Id_Cuenta
+						inner join Banco bco on cta.FKIdBanco_Cuenta = bco.Id_Banco
                         where p.Id_Persona = @Cod_Persona";
 
             using (var db = new RecursosHumanosDBContext())
@@ -152,6 +186,11 @@ namespace Sistema_Planilla_CD
                 origen.Apellido2_Persona = persona.Apellido2_Persona;
                 origen.FechaNacimiento_Persona = persona.FechaNacimiento_Persona;
                 origen.NumeroIdentidad_Persona = persona.NumeroIdentidad_Persona;
+                origen.FKId_Genero_Persona = persona.Id_Genero;
+
+                var origencuenta = db.Cuenta.Find(persona.Id_Cuenta);
+                origencuenta.Numero_Cuenta = persona.Numero_Cuenta;
+                origencuenta.FKIdBanco_Cuenta = persona.Id_Banco;
 
                 var origendireccion = db.Direccion.Find(persona.Id_Direccion);
                 origendireccion.Detalle_Direccion = persona.Detalle_Direccion;

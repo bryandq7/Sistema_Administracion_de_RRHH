@@ -17,6 +17,8 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         @Html.HiddenFor(model => model.Id_Empleado)
+        @Html.HiddenFor(model => model.Id_Contrato)
+        @Html.HiddenFor(model => model.SalarioBruto_Contrato)
 
         @*<div class="form-group">
             @Html.LabelFor(model => model.Id_Empleado, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -49,6 +51,16 @@
                     <option value="">Seleccione...</option>
                 </select>
                 @Html.ValidationMessageFor(model => model.Id_Departamento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Estado de Empleado</label>
+            <div class="col-md-10">
+                <select class="form-control" id="Id_StatusEmpleado" name="Id_StatusEmpleado">
+                    <option value="">Seleccione...</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.Id_StatusEmpleado, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -208,12 +220,21 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
 
-        ListarDepartamentos();
+        //ListarDepartamentos();
+        //ListarStatusEmpleados();
 
         ListarDepartamentos(function (result) {
             //jQuery.ajaxSetup({ async: false });
             
-            $("#Id_Departamento").val(@Model.Id_Departamento).change();
+            $("#Id_Departamento").val(@Model.Id_Departamento);
+
+            //jQuery.ajaxSetup({ async: false });
+        });
+
+        ListarStatusEmpleados(function (result) {
+            //jQuery.ajaxSetup({ async: false });
+            
+            $("#Id_StatusEmpleado").val(@Model.Id_StatusEmpleado);
 
             //jQuery.ajaxSetup({ async: false });
         });
@@ -234,6 +255,25 @@
                 success: function (result) {
                     $.each(result.data, function (key, item) {
                         $("#Id_Departamento").append('<option value=' + item.Id_Departamento + '>' + item.Nombre_Departamento + '</option>');
+                    });
+
+                    if (myCallback !== undefined)
+                        return myCallback(result.data);
+                },
+                error: function (data) {
+                    alert('error');
+                }
+            });
+        }
+
+        function ListarStatusEmpleados(myCallback) {
+            $.ajax({
+                type: "GET",
+                url: '/statusempleado/ListarStatusEmpleados',
+                dataType: "json",
+                success: function (result) {
+                    $.each(result.data, function (key, item) {
+                        $("#Id_StatusEmpleado").append('<option value=' + item.Id_StatusEmpleado + '>' + item.Nombre_StatusEmpleado + '</option>');
                     });
 
                     if (myCallback !== undefined)

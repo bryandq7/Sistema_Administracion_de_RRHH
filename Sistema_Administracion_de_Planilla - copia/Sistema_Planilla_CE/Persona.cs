@@ -32,14 +32,18 @@ namespace Sistema_Planilla_CE
         public string NumeroIdentidad_Persona { get; set; }
         public bool Activo_Persona { get; set; }
         public string FKId_Usuario_Persona { get; set; }
+        public int FKId_Genero_Persona { get; set; }
+        public int FKId_Cuenta_Persona { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BoletaCurso> BoletaCurso { get; set; }
+        public virtual Cuenta Cuenta { get; set; }
         public virtual Direccion Direccion { get; set; }
         public virtual Email Email { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Empleado> Empleado { get; set; }
+        public virtual Genero Genero { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Telefono> Telefono { get; set; }
     }

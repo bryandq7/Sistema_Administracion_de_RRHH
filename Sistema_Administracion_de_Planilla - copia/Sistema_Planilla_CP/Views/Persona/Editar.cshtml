@@ -17,13 +17,16 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         @Html.HiddenFor(model => model.Id_Persona)
-            @*@Html.HiddenFor(model => model.Id_Provincia)
+        @*@Html.HiddenFor(model => model.Id_Provincia)
             @Html.HiddenFor(model => model.Id_Canton)
             @Html.HiddenFor(model => model.Id_Distrito)*@
-            @Html.HiddenFor(model => model.Id_Direccion)
-            @Html.HiddenFor(model => model.Id_Email)
+        @Html.HiddenFor(model => model.Id_Direccion)
+        @Html.HiddenFor(model => model.Id_Email)
+        @Html.HiddenFor(model => model.Id_Cuenta)
         @Html.HiddenFor(model => model.FKId_Direccion_Persona)
         @Html.HiddenFor(model => model.FKId_Email_Persona)
+        @Html.HiddenFor(model => model.FKIdBanco_Cuenta)
+        @Html.HiddenFor(model => model.FKId_Genero_Persona)
 
 
 
@@ -150,23 +153,23 @@
 
         <div class="form-group">
             <label class="control-label col-md-2">Distrito</label>
-                <div class="col-md-10">
-                    <select class="form-control" id="Id_Distrito" name="Id_Distrito">
-                        <option value="">Seleccione...</option>
-                    </select>
-                    @*@Html.EditorFor(model => model.Id_Distrito, new { htmlAttributes = new { @class = "form-control" } })*@
-                    @Html.ValidationMessageFor(model => model.Id_Distrito, "", new { @class = "text-danger" })
-                </div>
+            <div class="col-md-10">
+                <select class="form-control" id="Id_Distrito" name="Id_Distrito">
+                    <option value="">Seleccione...</option>
+                </select>
+                @*@Html.EditorFor(model => model.Id_Distrito, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Id_Distrito, "", new { @class = "text-danger" })
             </div>
+        </div>
 
         @*<div class="form-group">
-            <label class="control-label col-md-2">Distrito</label>
+                <label class="control-label col-md-2">Distrito</label>
 
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nombre_Distrito, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nombre_Distrito, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Nombre_Distrito, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Nombre_Distrito, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
 
         @*<div class="form-group">
                 @Html.LabelFor(model => model.Id_Email, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -182,6 +185,37 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Correo_Email, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Correo_Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Banco</label>
+            <div class="col-md-10">
+                <select class="form-control" id="Id_Banco" name="Id_Banco">
+                    <option value="">Seleccione...</option>
+                </select>
+                @*@Html.EditorFor(model => model.Id_Provincia, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Id_Banco, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Número de Cuenta</label>
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Numero_Cuenta, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Numero_Cuenta, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Género</label>
+            <div class="col-md-10">
+                <select class="form-control" id="Id_Genero" name="Id_Genero">
+                    <option value="">Seleccione...</option>
+                </select>
+                @*@Html.EditorFor(model => model.Id_Provincia, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Id_Genero, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -219,11 +253,10 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
 
-        
         GetProvincias(function (result) {
             jQuery.ajaxSetup({ async: false });
             var canton = @Model.Id_Canton;
-            
+
             $("#Id_Provincia").val(@Model.Id_Provincia).change();
 
             $("#Id_Canton").val(canton).change();
@@ -237,6 +270,23 @@
         $("#Id_Provincia").on("change", function () {
 
             GetCantones($(this).val());
+        });
+
+
+        GetGeneros(function (result) {
+            jQuery.ajaxSetup({ async: false });
+
+            $("#Id_Genero").val(@Model.Id_Genero).change();
+
+            jQuery.ajaxSetup({ async: false });
+        });
+
+        GetBancos(function (result) {
+            jQuery.ajaxSetup({ async: false });
+
+            $("#Id_Banco").val(@Model.Id_Banco).change();
+
+            jQuery.ajaxSetup({ async: false });
         });
 
 

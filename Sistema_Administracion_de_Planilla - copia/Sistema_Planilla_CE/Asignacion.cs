@@ -12,27 +12,21 @@ namespace Sistema_Planilla_CE
     using System;
     using System.Collections.Generic;
     
-    public partial class Deduccion
+    public partial class Asignacion
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Deduccion()
+        public Asignacion()
         {
             this.PlanillaDeduccion = new HashSet<PlanillaDeduccion>();
         }
     
-        public int Id_Deduccion { get; set; }
-        public string Nombre_Deduccion { get; set; }
-        public Nullable<decimal> Porcentaje_Deduccion { get; set; }
-        public int FKId_TipoDeduccion_Deduccion { get; set; }
-        public System.DateTime FechaActualizacion_Deducion { get; set; }
-        public int FKId_DestinatarioDeduccion_Deduccion { get; set; }
-        public Nullable<decimal> Monto_Deduccion { get; set; }
-        public Nullable<int> Dias_Deduccion { get; set; }
-        public Nullable<decimal> Horas_Deduccion { get; set; }
-        public bool DeduccionEditable_Deduccion { get; set; }
+        public int Id_Asignacion { get; set; }
+        public string Nombre_Asignacion { get; set; }
+        public Nullable<decimal> Monto_Asignacion { get; set; }
+        public Nullable<int> Dias_Asignacion { get; set; }
+        public Nullable<decimal> Horas_Asignacion { get; set; }
+        public bool AsignacionEditable_Asignacion { get; set; }
     
-        public virtual DestinatarioDeduccion DestinatarioDeduccion { get; set; }
-        public virtual TipoDeduccion TipoDeduccion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlanillaDeduccion> PlanillaDeduccion { get; set; }
     }

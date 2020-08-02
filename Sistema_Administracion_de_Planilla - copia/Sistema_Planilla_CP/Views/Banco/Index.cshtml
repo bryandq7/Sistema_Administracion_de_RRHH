@@ -1,0 +1,135 @@
+﻿@model IEnumerable<Sistema_Planilla_CE.Banco>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+
+@section styles{
+
+    <style>
+        .tituloCss {
+            color: #3d3d29;
+        }
+    </style>
+
+
+}
+
+<h2 class="tituloCss">Lista de Bancos</h2>
+
+<p>
+    @*@Html.ActionLink("Crear Nuevo", "Crear", new { }, new {@class = "btn btn-primary"})*@
+    <a class="btn btn-info" href="@Url.Action("Crear", "Banco")"><i class="glyphicon glyphicon-plus"></i> Crear Nuevo</a>
+</p>
+
+
+<table class="table" id="tablaBanco">
+    <thead>
+        <tr>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Id_Banco)
+                </th>*@
+            <th>
+                Nombre Banco
+            </th>
+            <th>
+                Fecha de Actualización
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Id_Banco)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre_Banco)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaActualizacion_Banco)
+                </td>
+                <td>
+                    <a class="btn btn-success" title="Editar" href="@Url.Action("Editar", "Banco",new { id=item.Id_Banco  })"><i class="glyphicon glyphicon-pencil"></i></a>
+                    <a class="btn btn-danger" onclick="EliminarBanco(@item.Id_Banco)" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+
+@section scripts {
+
+    <script>
+
+        $('#tablaBanco').DataTable({
+            "pageLength": 5,
+            lengthMenu: [5, 10, 20, 50, 100, 200, 500],
+            language: {
+                search: "Buscar en tabla: ",
+                lengthMenu: "Mostrar  _MENU_  entradas",
+                info: "Mostrando de la entrada _START_ a la _END_ de _TOTAL_ entradas",
+                infoEmpty: "Mostrando de la entrada 0 a la 0 de 0  entradas",
+                infoFiltered: "(filtrando de  _MAX_ entradas totales)",
+                infoPostFix: "",
+                loadingRecords: "Agregando entradas",
+                zeroRecords: "No existen entradas disponibles para esta búsqueda",
+                emptyTable: "No existe data disponible para esta tabla",
+
+                paginate: {
+                    first: "Primera",
+                    previous: "Anterior",
+                    next: "Siguiente",
+                    last: "Ultima"
+                }
+            }
+
+        });
+
+
+
+        function EliminarBanco(id) {
+            $.confirm({
+                title: 'Eliminar Banco',
+                content: '¿Desea Eliminar el Banco?',
+                buttons: {
+                    Eliminar: function () {
+                        LoadingOverlayShow("#tablaBanco");
+                        $.ajax({
+                            url: "/Banco/Eliminar",
+                            type: "post",
+                            data: { identificador: id }
+                        }).done(function (response) {
+                            console.log(response);//
+                            LoadingOverlayHide("#tablaBanco");
+                            if (response.ok) {
+                                alert("Banco eliminado correctamente.");
+                                window.location = response.toRedirect;
+                            }
+                            else {
+                                alert(response.msg);
+                            }
+                        }).fail(function (jqXHR, textStatus, errorThrown) {
+                            LoadingOverlayHide("#tablaBanco");
+                            alert(textStatus);
+                        });
+                    },
+                    Cancelar: function () {
+                        //$.alert('Canceled!');
+                    },
+                }
+            });
+        }
+
+    </script>
+}
+

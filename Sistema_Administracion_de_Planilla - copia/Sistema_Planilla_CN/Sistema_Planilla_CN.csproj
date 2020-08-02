@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="AspNetRolesCN.cs" />
     <Compile Include="AspNetUsersCN.cs" />
+    <Compile Include="BancoCN.cs" />
     <Compile Include="CantonCN.cs" />
     <Compile Include="CargoCN.cs" />
     <Compile Include="ContratoCN.cs" />
@@ -51,9 +52,11 @@
     <Compile Include="DireccionCN.cs" />
     <Compile Include="DistritoCN.cs" />
     <Compile Include="EmpleadoCN.cs" />
+    <Compile Include="GeneroCN.cs" />
     <Compile Include="PersonaCN.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProvinciaCN.cs" />
+    <Compile Include="StatusEmpleadoCN.cs" />
     <Compile Include="TelefonoCN.cs" />
     <Compile Include="TipoContratoCN.cs" />
     <Compile Include="TipoSolicitudCN.cs" />

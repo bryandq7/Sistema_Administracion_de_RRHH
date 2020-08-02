@@ -99,6 +99,46 @@ function GetProvincias(myCallback) {
 }
 
 
+function GetBancos(myCallback) {
+    $.ajax({
+        type: "GET",
+        url: '/banco/getbancos',
+        dataType: "json",
+        success: function (result) {
+            $.each(result.data, function (key, item) {
+                $("#Id_Banco").append('<option value=' + item.Id_Banco + '>' + item.Nombre_Banco + '</option>');
+            });
+
+            if (myCallback !== undefined)
+                return myCallback(result.data);
+        },
+        error: function (data) {
+            alert('error');
+        }
+    });
+}
+
+
+function GetGeneros(myCallback) {
+    $.ajax({
+        type: "GET",
+        url: '/genero/getgeneros',
+        dataType: "json",
+        success: function (result) {
+            $.each(result.data, function (key, item) {
+                $("#Id_Genero").append('<option value=' + item.Id_Genero + '>' + item.Nombre_Genero + '</option>');
+            });
+
+            if (myCallback !== undefined)
+                return myCallback(result.data);
+        },
+        error: function (data) {
+            alert('error');
+        }
+    });
+}
+
+
 
 
 

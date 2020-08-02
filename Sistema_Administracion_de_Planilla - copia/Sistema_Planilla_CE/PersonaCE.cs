@@ -32,7 +32,20 @@ namespace Sistema_Planilla_CE
         public string UserName { get; set; }
         public string FKId_Usuario_Persona { get; set; }
 
+        public string FKId_Genero_Persona { get; set; }
+        public string FKId_Cuenta_Persona { get; set; }
+
         public Nullable<int> Id_Empleado { get; set; }
+
+        public int Id_Genero { get; set; }
+        public string Nombre_Genero { get; set; }
+
+        public int Id_Cuenta { get; set; }
+        public string Numero_Cuenta { get; set; }
+        public int FKIdBanco_Cuenta { get; set; }
+
+        public int Id_Banco { get; set; }
+        public string Nombre_Banco { get; set; }
 
     }
 }

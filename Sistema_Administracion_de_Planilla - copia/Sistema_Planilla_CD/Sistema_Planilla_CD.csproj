@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="AspNetRolesCD.cs" />
     <Compile Include="AspNetUsersCD.cs" />
+    <Compile Include="BancoCD.cs" />
     <Compile Include="CantonCD.cs" />
     <Compile Include="CargoCD.cs" />
     <Compile Include="ContratoCD.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="DireccionCD.cs" />
     <Compile Include="DistritoCD.cs" />
     <Compile Include="EmpleadoCD.cs" />
+    <Compile Include="GeneroCD.cs" />
     <Compile Include="ModelRecursosHumanos.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -73,6 +75,7 @@
     <Compile Include="PersonaCD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProvinciaCD.cs" />
+    <Compile Include="StatusEmpleadoCD.cs" />
     <Compile Include="TelefonoCD.cs" />
     <Compile Include="TipoContratoCD.cs" />
     <Compile Include="TipoSolicitudCD.cs" />

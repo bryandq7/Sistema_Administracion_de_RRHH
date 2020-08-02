@@ -193,6 +193,7 @@
     <Compile Include="Controllers\AspNetRolesController.cs" />
     <Compile Include="Controllers\AspNetUserRolesController.cs" />
     <Compile Include="Controllers\AspNetUsersController.cs" />
+    <Compile Include="Controllers\BancoController.cs" />
     <Compile Include="Controllers\CantonController.cs" />
     <Compile Include="Controllers\CargoController.cs" />
     <Compile Include="Controllers\ContratoController.cs" />
@@ -202,10 +203,12 @@
     <Compile Include="Controllers\DireccionController.cs" />
     <Compile Include="Controllers\DistritoController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
+    <Compile Include="Controllers\GeneroController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="Controllers\ProvinciaController.cs" />
+    <Compile Include="Controllers\StatusEmpleadoController.cs" />
     <Compile Include="Controllers\TelefonoController.cs" />
     <Compile Include="Controllers\TipoContratoController.cs" />
     <Compile Include="Controllers\TipoSolicitudController.cs" />
@@ -322,6 +325,9 @@
     <Content Include="Views\AspNetUsers\ListarAsignacionesrolusuario.cshtml" />
     <Content Include="Views\Deduccion\Index.cshtml" />
     <Content Include="Views\Deduccion\Editar.cshtml" />
+    <Content Include="Views\Banco\Index.cshtml" />
+    <Content Include="Views\Banco\Crear.cshtml" />
+    <Content Include="Views\Banco\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -329,8 +335,10 @@
     <Folder Include="Views\Canton\" />
     <Folder Include="Views\Direccion\" />
     <Folder Include="Views\Distrito\" />
+    <Folder Include="Views\Genero\" />
     <Folder Include="Views\Provincia\" />
     <Folder Include="Views\Roles\" />
+    <Folder Include="Views\StatusEmpleado\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

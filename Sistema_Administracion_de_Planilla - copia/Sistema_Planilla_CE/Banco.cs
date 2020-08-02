@@ -12,23 +12,19 @@ namespace Sistema_Planilla_CE
     using System;
     using System.Collections.Generic;
     
-    public partial class Planilla
+    public partial class Banco
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Planilla()
+        public Banco()
         {
-            this.ImpuestoRenta = new HashSet<ImpuestoRenta>();
-            this.PlanillaDeduccion = new HashSet<PlanillaDeduccion>();
-            this.PlanillaEmpleado = new HashSet<PlanillaEmpleado>();
+            this.Cuenta = new HashSet<Cuenta>();
         }
     
-        public int Id_Planilla { get; set; }
+        public int Id_Banco { get; set; }
+        public string Nombre_Banco { get; set; }
+        public System.DateTime FechaActualizacion_Banco { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ImpuestoRenta> ImpuestoRenta { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlanillaDeduccion> PlanillaDeduccion { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlanillaEmpleado> PlanillaEmpleado { get; set; }
+        public virtual ICollection<Cuenta> Cuenta { get; set; }
     }
 }
