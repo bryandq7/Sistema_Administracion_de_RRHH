@@ -27,28 +27,28 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @*<div class="form-group">
-                @Html.LabelFor(model => model.Id_Empleado, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Id_Empleado, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Id_Empleado, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+            @Html.LabelFor(model => model.Id_Empleado, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Id_Empleado, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Id_Empleado, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
         @*<div class="form-group">
-                @Html.LabelFor(model => model.FKId_Persona_Empleado, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.FKId_Persona_Empleado, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.FKId_Persona_Empleado, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+            @Html.LabelFor(model => model.FKId_Persona_Empleado, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FKId_Persona_Empleado, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FKId_Persona_Empleado, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
         @*<div class="form-group">
-                @Html.LabelFor(model => model.FKId_Departamento_Empleado, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.FKId_Departamento_Empleado, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.FKId_Departamento_Empleado, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+            @Html.LabelFor(model => model.FKId_Departamento_Empleado, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FKId_Departamento_Empleado, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FKId_Departamento_Empleado, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
         <div class="form-group">
             <label class="control-label col-md-2">Nombre del Empleado</label>
@@ -60,21 +60,31 @@
             </div>
         </div>
 
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.NombreCompletoPersona, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.NombreCompletoPersona, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.NombreCompletoPersona, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+        <div class="form-group">
+            <label class="control-label col-md-2">Turno</label>
+            <div class="col-md-10">
+                <select class="form-control" id="Id_Turno" name="Id_Turno">
+                    <option value="">Seleccione...</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.Id_Turno, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         @*<div class="form-group">
-                @Html.LabelFor(model => model.Id_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Id_Contrato, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Id_Contrato, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+            @Html.LabelFor(model => model.NombreCompletoPersona, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NombreCompletoPersona, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NombreCompletoPersona, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Id_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Id_Contrato, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Id_Contrato, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
         <div class="form-group">
             <label class="control-label col-md-2">Salario Bruto</label>
@@ -85,28 +95,28 @@
         </div>
 
         @*<div class="form-group">
-                @Html.LabelFor(model => model.FKId_TipoContrato_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.FKId_TipoContrato_Contrato, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.FKId_TipoContrato_Contrato, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+            @Html.LabelFor(model => model.FKId_TipoContrato_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FKId_TipoContrato_Contrato, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FKId_TipoContrato_Contrato, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
         @*<div class="form-group">
-                @Html.LabelFor(model => model.FKId_Empleado_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.FKId_Empleado_Contrato, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.FKId_Empleado_Contrato, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+            @Html.LabelFor(model => model.FKId_Empleado_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FKId_Empleado_Contrato, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FKId_Empleado_Contrato, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
         @*<div class="form-group">
-                @Html.LabelFor(model => model.FKId_Cargo_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.FKId_Cargo_Contrato, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.FKId_Cargo_Contrato, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+            @Html.LabelFor(model => model.FKId_Cargo_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FKId_Cargo_Contrato, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FKId_Cargo_Contrato, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
         <div class="form-group">
             <label class="control-label col-md-2">Fecha Inicio de Contrato</label>
@@ -125,14 +135,14 @@
         </div>
 
         @*<div class="form-group">
-                @Html.LabelFor(model => model.Activo_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.Activo_Contrato)
-                        @Html.ValidationMessageFor(model => model.Activo_Contrato, "", new { @class = "text-danger" })
-                    </div>
+            @Html.LabelFor(model => model.Activo_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Activo_Contrato)
+                    @Html.ValidationMessageFor(model => model.Activo_Contrato, "", new { @class = "text-danger" })
                 </div>
-            </div>*@
+            </div>
+        </div>*@
 
         <div class="form-group">
             <label class="control-label col-md-2">Tipo de Contrato</label>
@@ -145,12 +155,12 @@
         </div>
 
         @*<div class="form-group">
-                @Html.LabelFor(model => model.Detalle_TipoContrato, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Detalle_TipoContrato, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Detalle_TipoContrato, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+            @Html.LabelFor(model => model.Detalle_TipoContrato, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Detalle_TipoContrato, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Detalle_TipoContrato, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
         <div class="form-group">
             <label class="control-label col-md-2">Cargo</label>
@@ -163,12 +173,12 @@
         </div>
 
         @*<div class="form-group">
-                @Html.LabelFor(model => model.Nombre_Cargo, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Nombre_Cargo, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Nombre_Cargo, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+            @Html.LabelFor(model => model.Nombre_Cargo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nombre_Cargo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nombre_Cargo, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -189,6 +199,7 @@
         ListarTiposContrato();
         ListarCargos();
         ListarEmpleados();
+        ListarTurnos();
 
         function ListarTiposContrato(myCallback) {
             $.ajax({
@@ -239,6 +250,26 @@
                 success: function (result) {
                     $.each(result.data, function (key, item) {
                         $("#Id_Persona").append('<option value=' + item.Id_Persona + '>' + item.NombreCompletoPersona + '</option>');
+                    });
+
+                    if (myCallback !== undefined)
+                        return myCallback(result.data);
+                },
+                error: function (data) {
+                    alert('error');
+                }
+            });
+        }
+
+
+        function ListarTurnos(myCallback) {
+            $.ajax({
+                type: "GET",
+                url: '/turnos/getturnos',
+                dataType: "json",
+                success: function (result) {
+                    $.each(result.data, function (key, item) {
+                        $("#Id_Turno").append('<option value=' + item.Id_Turno + '>' + item.Nombre_Turno + '</option>');
                     });
 
                     if (myCallback !== undefined)

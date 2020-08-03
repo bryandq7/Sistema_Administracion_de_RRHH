@@ -119,9 +119,15 @@
     <Compile Include="ImpuestoRenta.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
+    <Compile Include="Incapacidad.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
     <Compile Include="ModelRecursosHumanos.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PeriodoDePago.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="Persona.cs">
@@ -144,9 +150,6 @@
     <Compile Include="Solicitud.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
-    <Compile Include="StatusEmpleado.cs">
-      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
-    </Compile>
     <Compile Include="StatusSolicitud.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
@@ -164,7 +167,13 @@
     <Compile Include="TipoDeduccion.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
+    <Compile Include="TipoIncapacidad.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
     <Compile Include="TipoSolicitud.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Turnos.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="Vacaciones.cs">

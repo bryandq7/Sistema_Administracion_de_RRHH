@@ -8,17 +8,17 @@ using System.Web.Mvc;
 
 namespace Sistema_Planilla_CP.Controllers
 {
-    public class StatusEmpleadoController : Controller
+    public class TurnosController : Controller
     {
-        // GET: StatusEmpleado
+        // GET: Turno
         public ActionResult Index()
         {
             return View();
         }
 
-        public JsonResult ListarStatusEmpleados()
+        public JsonResult GetTurnos()
         {
-            var lista = StatusEmpleadoCN.ListarStatusEmpleados();
+            var lista = TurnosCN.ListarTurnos();
             return Json(new { data = lista }, JsonRequestBehavior.AllowGet);
         }
     }

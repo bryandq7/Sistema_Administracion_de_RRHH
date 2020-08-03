@@ -28,5 +28,9 @@ namespace Sistema_Planilla_CE
         public int Id_Cargo { get; set; }
         public string Nombre_Cargo { get; set; }
 
+        public int Id_Turno { get; set; }
+        public string Nombre_Turno { get; set; }
+        public int FKId_Turno_Contrato { get; set; }
+
     }
 }

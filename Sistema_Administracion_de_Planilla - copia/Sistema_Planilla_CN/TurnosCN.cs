@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Sistema_Planilla_CN
 {
-    public class StatusEmpleadoCN
+    public class TurnosCN
     {
-        private static StatusEmpleadoCD obj = new StatusEmpleadoCD();
-        public static List<StatusEmpleado> ListarStatusEmpleados()
+        private static TurnosCD obj = new TurnosCD();
+        public static List<Turnos> ListarTurnos()
         {
-            return obj.ListarStatusEmpleados();
+            return obj.ListarTurnos();
         }
     }
 }

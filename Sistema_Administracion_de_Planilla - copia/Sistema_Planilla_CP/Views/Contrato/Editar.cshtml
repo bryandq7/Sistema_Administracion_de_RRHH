@@ -17,6 +17,7 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         @Html.HiddenFor(model => model.Id_Contrato)
+        @Html.HiddenFor(model => model.Id_Persona)
         @*@Html.HiddenFor(model => model.Id_Cargo)*@
 
         <div class="form-group">
@@ -27,6 +28,9 @@
                 @Html.ValidationMessageFor(model => model.Id_Empleado, "", new { @class = "text-danger" })
             </div>
         </div>
+
+
+
 
         @*<div class="form-group">
             @Html.LabelFor(model => model.FKId_Persona_Empleado, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -145,6 +149,16 @@
         </div>*@
 
         <div class="form-group">
+            <label class="control-label col-md-2">Turno</label>
+            <div class="col-md-10">
+                <select class="form-control" id="Id_Turno" name="Id_Turno">
+                    <option value="">Seleccione...</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.Id_Turno, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="control-label col-md-2">Cargo</label>
             <div class="col-md-10">
                 <select class="form-control" id="Id_Cargo" name="Id_Cargo">
@@ -180,11 +194,21 @@
     <script>
 
         ListarCargos();
+        ListarTurnos();
 
         ListarCargos(function (result) {
             //jQuery.ajaxSetup({ async: false });
 
             $("#Id_Cargo").val(@Model.Id_Cargo).change();
+
+            //jQuery.ajaxSetup({ async: false });
+        });
+
+
+        ListarTurnos(function (result) {
+            //jQuery.ajaxSetup({ async: false });
+
+            $("#Id_Turno").val(@Model.Id_Turno).change();
 
             //jQuery.ajaxSetup({ async: false });
         });
@@ -205,6 +229,25 @@
                 success: function (result) {
                     $.each(result.data, function (key, item) {
                         $("#Id_Cargo").append('<option value=' + item.Id_Cargo + '>' + item.Nombre_Cargo + '</option>');
+                    });
+
+                    if (myCallback !== undefined)
+                        return myCallback(result.data);
+                },
+                error: function (data) {
+                    alert('error');
+                }
+            });
+        }
+
+        function ListarTurnos(myCallback) {
+            $.ajax({
+                type: "GET",
+                url: '/turnos/getturnos',
+                dataType: "json",
+                success: function (result) {
+                    $.each(result.data, function (key, item) {
+                        $("#Id_Turno").append('<option value=' + item.Id_Turno + '>' + item.Nombre_Turno + '</option>');
                     });
 
                     if (myCallback !== undefined)
@@ -238,7 +281,7 @@
                 console.log(response);
                 LoadingOverlayHide("#frmContrato");
                 if (response.ok) {
-                    alert("Cargo editado correctamente.");
+                    alert("Contrato editado correctamente.");
                     window.location = response.toRedirect;
                 }
                 else {

@@ -208,10 +208,10 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="Controllers\ProvinciaController.cs" />
-    <Compile Include="Controllers\StatusEmpleadoController.cs" />
     <Compile Include="Controllers\TelefonoController.cs" />
     <Compile Include="Controllers\TipoContratoController.cs" />
     <Compile Include="Controllers\TipoSolicitudController.cs" />
+    <Compile Include="Controllers\TurnosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -338,7 +338,7 @@
     <Folder Include="Views\Genero\" />
     <Folder Include="Views\Provincia\" />
     <Folder Include="Views\Roles\" />
-    <Folder Include="Views\StatusEmpleado\" />
+    <Folder Include="Views\Turno\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

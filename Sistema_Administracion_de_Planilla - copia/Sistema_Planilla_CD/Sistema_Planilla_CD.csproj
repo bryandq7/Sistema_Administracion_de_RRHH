@@ -75,10 +75,10 @@
     <Compile Include="PersonaCD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProvinciaCD.cs" />
-    <Compile Include="StatusEmpleadoCD.cs" />
     <Compile Include="TelefonoCD.cs" />
     <Compile Include="TipoContratoCD.cs" />
     <Compile Include="TipoSolicitudCD.cs" />
+    <Compile Include="TurnosCD.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="ModelRecursosHumanos.edmx">

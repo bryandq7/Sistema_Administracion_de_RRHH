@@ -33,11 +33,22 @@ namespace Sistema_Planilla_CN
         }
 
 
-        //public static void EditarActivo(ContratoCE contrato)
+        //public static bool ObtenerEmpleadoActivo(int personaID)
         //{
-        //    obj.EditarActivo(contrato);
+        //    return obj.ObtenerEmpleadoActivo(personaID);
+        //}
+
+        //public static int ExisteEmpleado(int personaID)
+        //{
+        //    return obj.ExisteEmpleado(personaID);
         //}
 
 
-    }
+            //public static void EditarActivo(ContratoCE contrato)
+            //{
+            //    obj.EditarActivo(contrato);
+            //}
+
+
+        }
 }

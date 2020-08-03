@@ -54,7 +54,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             <label class="control-label col-md-2">Estado de Empleado</label>
             <div class="col-md-10">
                 <select class="form-control" id="Id_StatusEmpleado" name="Id_StatusEmpleado">
@@ -62,7 +62,7 @@
                 </select>
                 @Html.ValidationMessageFor(model => model.Id_StatusEmpleado, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         @*<div class="form-group">
             @Html.LabelFor(model => model.Nombre_Departamento, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -231,13 +231,13 @@
             //jQuery.ajaxSetup({ async: false });
         });
 
-        ListarStatusEmpleados(function (result) {
+        @*ListarStatusEmpleados(function (result) {
             //jQuery.ajaxSetup({ async: false });
             
             $("#Id_StatusEmpleado").val(@Model.Id_StatusEmpleado);
 
             //jQuery.ajaxSetup({ async: false });
-        });
+        });*@
 
 
 
@@ -266,24 +266,24 @@
             });
         }
 
-        function ListarStatusEmpleados(myCallback) {
-            $.ajax({
-                type: "GET",
-                url: '/statusempleado/ListarStatusEmpleados',
-                dataType: "json",
-                success: function (result) {
-                    $.each(result.data, function (key, item) {
-                        $("#Id_StatusEmpleado").append('<option value=' + item.Id_StatusEmpleado + '>' + item.Nombre_StatusEmpleado + '</option>');
-                    });
+        //function ListarStatusEmpleados(myCallback) {
+        //    $.ajax({
+        //        type: "GET",
+        //        url: '/statusempleado/ListarStatusEmpleados',
+        //        dataType: "json",
+        //        success: function (result) {
+        //            $.each(result.data, function (key, item) {
+        //                $("#Id_StatusEmpleado").append('<option value=' + item.Id_StatusEmpleado + '>' + item.Nombre_StatusEmpleado + '</option>');
+        //            });
 
-                    if (myCallback !== undefined)
-                        return myCallback(result.data);
-                },
-                error: function (data) {
-                    alert('error');
-                }
-            });
-        }
+        //            if (myCallback !== undefined)
+        //                return myCallback(result.data);
+        //        },
+        //        error: function (data) {
+        //            alert('error');
+        //        }
+        //    });
+        //}
 
 
         $("#frmEmpleado").submit(function (event) {

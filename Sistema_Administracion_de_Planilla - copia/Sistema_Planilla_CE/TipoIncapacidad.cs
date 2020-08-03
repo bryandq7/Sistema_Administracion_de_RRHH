@@ -12,18 +12,18 @@ namespace Sistema_Planilla_CE
     using System;
     using System.Collections.Generic;
     
-    public partial class StatusEmpleado
+    public partial class TipoIncapacidad
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public StatusEmpleado()
+        public TipoIncapacidad()
         {
-            this.Empleado = new HashSet<Empleado>();
+            this.Incapacidad = new HashSet<Incapacidad>();
         }
     
-        public int Id_StatusEmpleado { get; set; }
-        public string Nombre_StatusEmpleado { get; set; }
+        public int Id_TipoIncapacidad { get; set; }
+        public string Nombre_TipoIncapacidad { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Empleado> Empleado { get; set; }
+        public virtual ICollection<Incapacidad> Incapacidad { get; set; }
     }
 }

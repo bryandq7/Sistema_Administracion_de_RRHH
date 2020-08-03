@@ -28,8 +28,8 @@ namespace Sistema_Planilla_CP.Controllers
         {
             try
             {
-                //if (cargo.Nombre_Cargo == null)
-                //    return Json(new { ok = false, msg = "Debe ingresar el nombre del cargo" }, JsonRequestBehavior.AllowGet);
+                //if (ContratoCN.ExisteEmpleado(contrato.Id_Persona) > 0 && ContratoCN.ObtenerEmpleadoActivo(contrato.Id_Persona) ==false)
+                //    return Json(new { ok = false, msg = "Debe cambiar el status de empleado a Activo para hacer cambio de contrato en este empleado" }, JsonRequestBehavior.AllowGet);
 
                 ////System.Threading.Thread.Sleep(5000);
                 //cargo.FechaActualizacion_Cargo = DateTime.Now;
@@ -67,6 +67,9 @@ namespace Sistema_Planilla_CP.Controllers
         {
             try
             {
+                //if (ContratoCN.ExisteEmpleado(contrato.Id_Persona) > 0 && ContratoCN.ObtenerEmpleadoActivo(contrato.Id_Persona) == false)
+                //    return Json(new { ok = false, msg = "Debe cambiar el status de empleado a Activo para hacer cambios en este contrato" }, JsonRequestBehavior.AllowGet);
+
                 ContratoCN.Editar(contrato);
                 return Json(new { ok = true, toRedirect = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
             }

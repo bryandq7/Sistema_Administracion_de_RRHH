@@ -30,7 +30,7 @@ namespace Sistema_Planilla_CE
         public int Id_PlanillaEmpleado { get; set; }
         public decimal SalarioBruto_PlanillaEmpleado { get; set; }
     
-        public virtual Empleado Empleado { get; set; }
         public virtual Planilla Planilla { get; set; }
+        public virtual Empleado Empleado { get; set; }
     }
 }

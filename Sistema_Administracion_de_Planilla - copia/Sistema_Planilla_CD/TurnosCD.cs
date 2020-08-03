@@ -7,17 +7,15 @@ using System.Threading.Tasks;
 
 namespace Sistema_Planilla_CD
 {
-    public class StatusEmpleadoCD
+    public class TurnosCD
     {
-
-        public List<StatusEmpleado> ListarStatusEmpleados()
+        public List<Turnos> ListarTurnos()
         {
             using (var db = new RecursosHumanosDBContext())
             {
                 db.Configuration.LazyLoadingEnabled = false;
-                return db.StatusEmpleado.ToList();
+                return db.Turnos.ToList();
             }
         }
-
     }
 }

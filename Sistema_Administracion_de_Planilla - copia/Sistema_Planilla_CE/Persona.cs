@@ -18,8 +18,8 @@ namespace Sistema_Planilla_CE
         public Persona()
         {
             this.BoletaCurso = new HashSet<BoletaCurso>();
-            this.Empleado = new HashSet<Empleado>();
             this.Telefono = new HashSet<Telefono>();
+            this.Empleado = new HashSet<Empleado>();
         }
     
         public int Id_Persona { get; set; }
@@ -41,10 +41,10 @@ namespace Sistema_Planilla_CE
         public virtual Cuenta Cuenta { get; set; }
         public virtual Direccion Direccion { get; set; }
         public virtual Email Email { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Empleado> Empleado { get; set; }
         public virtual Genero Genero { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Telefono> Telefono { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Empleado> Empleado { get; set; }
     }
 }
