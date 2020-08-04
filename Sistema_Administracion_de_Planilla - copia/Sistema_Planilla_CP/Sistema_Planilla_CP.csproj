@@ -205,11 +205,14 @@
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\GeneroController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IncapacidadController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PeriodoDePagoController.cs" />
     <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="Controllers\ProvinciaController.cs" />
     <Compile Include="Controllers\TelefonoController.cs" />
     <Compile Include="Controllers\TipoContratoController.cs" />
+    <Compile Include="Controllers\TipoIncapacidadController.cs" />
     <Compile Include="Controllers\TipoSolicitudController.cs" />
     <Compile Include="Controllers\TurnosController.cs" />
     <Compile Include="Global.asax.cs">
@@ -328,6 +331,8 @@
     <Content Include="Views\Banco\Index.cshtml" />
     <Content Include="Views\Banco\Crear.cshtml" />
     <Content Include="Views\Banco\Editar.cshtml" />
+    <Content Include="Views\Incapacidad\Index.cshtml" />
+    <Content Include="Views\Incapacidad\Crear.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -336,8 +341,10 @@
     <Folder Include="Views\Direccion\" />
     <Folder Include="Views\Distrito\" />
     <Folder Include="Views\Genero\" />
+    <Folder Include="Views\PeriodoDePago\" />
     <Folder Include="Views\Provincia\" />
     <Folder Include="Views\Roles\" />
+    <Folder Include="Views\TipoIncapacidad\" />
     <Folder Include="Views\Turno\" />
   </ItemGroup>
   <ItemGroup>

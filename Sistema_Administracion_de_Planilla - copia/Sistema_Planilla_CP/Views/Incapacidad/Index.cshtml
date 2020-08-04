@@ -1,0 +1,201 @@
+﻿@model IEnumerable<Sistema_Planilla_CE.IncapacidadCE>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@section styles{
+
+    <style>
+        .tituloCss {
+            color: #3d3d29;
+        }
+    </style>
+
+
+}
+
+<h2 class="tituloCss">Lista de Incapacidades sin Procesar</h2>
+
+<p>
+    <a class="btn btn-info" href="@Url.Action("Crear", "Incapacidad")"><i class="glyphicon glyphicon-plus"></i> Crear Nuevo</a>
+</p>
+
+<table class="table" id="tablaContrato">
+    <thead>
+        <tr>
+
+
+            <th>
+                Id Empleado
+            </th>
+
+            <th>
+                Nombre de Empleado
+            </th>
+
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Nombre_Persona)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Apellido1_Persona)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Apellido2_Persona)
+                </th>*@
+            <th>
+                Tipo Incapacidad
+            </th>
+
+            <th>
+                Días Incapacidad
+            </th>
+
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Procesado_Incapacidad)
+                </th>*@
+            @*<th>
+                    @Html.DisplayNameFor(model => model.FKId_PeriodoDePago_Incapacidad)
+                </th>*@
+            @*<th>
+                    @Html.DisplayNameFor(model => model.FKId_TipoIncapacidad_Incapacidad)
+                </th>*@
+            @*<th>
+                    @Html.DisplayNameFor(model => model.FKId_Empleado_Incapacidad)
+                </th>*@
+            <th>
+                Periodo de Pago
+            </th>
+            <th>
+                Fecha Actualización
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Id_TipoIncapacidad)
+                </th>*@
+
+
+            @*<th>
+                    @Html.DisplayNameFor(model => model.FKId_Persona_Empleado)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Activo_Empleado)
+                </th>*@
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Id_PeriodoDePago)
+                </th>*@
+
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Id_Persona)
+                </th>*@
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id_Empleado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreCompleto_Persona)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre_TipoIncapacidad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dias_Incapacidad)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Procesado_Incapacidad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FKId_PeriodoDePago_Incapacidad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FKId_TipoIncapacidad_Incapacidad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FKId_Empleado_Incapacidad)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Periodo_PeriododDePago)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaActualizacion_Incapacidad)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Id_TipoIncapacidad)
+                    </td>*@
+
+
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.FKId_Persona_Empleado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Activo_Empleado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id_PeriodoDePago)
+                    </td>*@
+
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Id_Persona)
+                    </td>*@
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Nombre_Persona)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Apellido1_Persona)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Apellido2_Persona)
+                    </td>*@
+                <td>
+
+                    <a class="btn btn-info btn-xm" title="Detalle" href="@Url.Action("DetallesIncapacidad", "Incapacidad",new { id_incapacidad=item.Id_Incapacidad})"><i class="glyphicon glyphicon-edit"></i></a>
+                    <a class="btn btn-success btn-xm" title="Editar" href="@Url.Action("Editar", "Incapacidad",new { id_incapacidad=item.Id_Incapacidad  })"><i class="glyphicon glyphicon-pencil"></i></a>
+                    <a class="btn btn-danger btn-xm" onclick="EliminarPersona(@item.Id_Incapacidad)" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts {
+
+    <script>
+
+        $('#tablaContrato').DataTable({
+            "pageLength": 5,
+            lengthMenu: [5, 10, 20, 50, 100, 200, 500],
+            language: {
+                search: "Buscar en tabla: ",
+                lengthMenu: "Mostrar  _MENU_  entradas",
+                info: "Mostrando de la entrada _START_ a la _END_ de _TOTAL_ entradas",
+                infoEmpty: "Mostrando de la entrada 0 a la 0 de 0  entradas",
+                infoFiltered: "(filtrando de  _MAX_ entradas totales)",
+                infoPostFix: "",
+                loadingRecords: "Agregando entradas",
+                zeroRecords: "No existen entradas disponibles para esta búsqueda",
+                emptyTable: "No existe data disponible para esta tabla",
+
+                paginate: {
+                    first: "Primera",
+                    previous: "Anterior",
+                    next: "Siguiente",
+                    last: "Ultima"
+                }
+            }
+
+        });
+
+    </script>
+}

@@ -122,6 +122,7 @@
     <Compile Include="Incapacidad.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
+    <Compile Include="IncapacidadCE.cs" />
     <Compile Include="ModelRecursosHumanos.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -130,6 +131,7 @@
     <Compile Include="PeriodoDePago.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
+    <Compile Include="PeriodoDePagoCE.cs" />
     <Compile Include="Persona.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>

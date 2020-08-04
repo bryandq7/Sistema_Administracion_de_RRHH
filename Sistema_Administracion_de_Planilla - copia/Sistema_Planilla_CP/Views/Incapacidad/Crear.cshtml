@@ -1,0 +1,304 @@
+﻿@model Sistema_Planilla_CE.IncapacidadCE
+
+@{
+    ViewBag.Title = "Crear";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@section styles{
+
+    <style>
+        .tituloCss {
+            color: #3d3d29;
+        }
+    </style>
+
+
+}
+
+<h2 class="tituloCss">Crea una Incapacidad</h2>
+
+<form action="@Url.Action("Crear", "Incapacidad")" method="post" id="frmIncapacidad">
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>IncapacidadCE</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Id_Incapacidad, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Id_Incapacidad, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Id_Incapacidad, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Nombre del Empleado</label>
+            <div class="col-md-10">
+                <select class="form-control" id="Id_Persona" name="Id_Persona">
+                    <option value="">Seleccione...</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.Id_Persona, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Días de Incapacidad</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Dias_Incapacidad, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Dias_Incapacidad, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Procesado_Incapacidad, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Procesado_Incapacidad)
+                    @Html.ValidationMessageFor(model => model.Procesado_Incapacidad, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.FKId_PeriodoDePago_Incapacidad, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FKId_PeriodoDePago_Incapacidad, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FKId_PeriodoDePago_Incapacidad, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.FKId_TipoIncapacidad_Incapacidad, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FKId_TipoIncapacidad_Incapacidad, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FKId_TipoIncapacidad_Incapacidad, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.FKId_Empleado_Incapacidad, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FKId_Empleado_Incapacidad, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FKId_Empleado_Incapacidad, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.FechaActualizacion_Incapacidad, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FechaActualizacion_Incapacidad, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FechaActualizacion_Incapacidad, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Tipo de Incapacidad</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Id_TipoIncapacidad, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Id_TipoIncapacidad, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Nombre_TipoIncapacidad, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nombre_TipoIncapacidad, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nombre_TipoIncapacidad, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Id_Empleado, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Id_Empleado, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Id_Empleado, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.FKId_Persona_Empleado, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FKId_Persona_Empleado, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FKId_Persona_Empleado, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Activo_Empleado, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Activo_Empleado)
+                    @Html.ValidationMessageFor(model => model.Activo_Empleado, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Periodo de Pago</label>
+            <div class="col-md-10">
+                <select class="form-control" id="Id_PeriodoDePago" name="Id_PeriodoDePago">
+                    <option value="">Seleccione...</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.Id_PeriodoDePago, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Periodo_PeriododDePago, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Periodo_PeriododDePago, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Periodo_PeriododDePago, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Id_Persona, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Id_Persona, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Id_Persona, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Nombre_Persona, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nombre_Persona, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nombre_Persona, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Apellido1_Persona, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Apellido1_Persona, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Apellido1_Persona, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Apellido2_Persona, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Apellido2_Persona, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Apellido2_Persona, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        ListarEmpleados();
+        ObtenerPeriododePago();
+
+
+        function ListarEmpleados(myCallback) {
+            $.ajax({
+                type: "GET",
+                url: '/empleado/ListarEmpleados',
+                dataType: "json",
+                success: function (result) {
+                    $.each(result.data, function (key, item) {
+                        $("#Id_Persona").append('<option value=' + item.Id_Persona + '>' + item.NombreCompletoPersona + '</option>');
+                    });
+
+                    if (myCallback !== undefined)
+                        return myCallback(result.data);
+                },
+                error: function (data) {
+                    alert('error');
+                }
+            });
+        }
+
+        function ObtenerPeriododePago(myCallback) {
+            $.ajax({
+                type: "GET",
+                url: '/periododepago/ObtenerPeriododePago',
+                dataType: "json",
+                success: function (result) {
+                    $.each(result.data, function (key, item) {
+                        $("#Id_PeriodoDePago").append('<option value=' + item.Id_PeriodoDePago + '>' + item.Periodo_PeriododDePago + '</option>');
+                    });
+
+                    if (myCallback !== undefined)
+                        return myCallback(result.data);
+                },
+                error: function (data) {
+                    alert('error');
+                }
+            });
+        }
+
+
+
+
+
+        $("#frmIncapacidad").submit(function (event) {
+            //jQuery.ajaxSetup({ async: false });
+            //return confirm("Do you want to submit?");
+            /*event.preventDefault(); *///prevent default action
+            //var dptoId = $("#Id_Distrito").val();
+            //if (dptoId == "") {
+            //    alert("Debe escoger un Distrito");
+            //    return;
+            //}
+
+            var personaId = $("#Id_Persona").val();
+            if (personaId == "") {
+                alert("Debe escoger una persona");
+                return false;
+            }
+
+            if (!confirm("Esta acción creará una rebajo en planilla en la proxima corrida de pago por concepto de una incapacidad")) {
+                alert("Acción Cancelada");
+                return false;
+            }
+
+            event.preventDefault();
+
+            var post_url = $(this).attr("action"); //get form action url
+            var request_method = $(this).attr("method"); //get form GET/POST method
+            var form_data = $(this).serializeArray(); //Encode form elements for submission
+            console.log(form_data);
+            //return confirm("Do you want to submit?");
+            LoadingOverlayShow("#frmIncapacidad");
+
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) { //
+                console.log(response);
+                LoadingOverlayHide("#frmIncapacidad");
+                if (response.ok) {
+                    alert("Incapacidad creada correctamente.");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    alert(response.msg);
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmIncapacidad");
+            });
+            //jQuery.ajaxSetup({ async: false });
+        });
+
+    </script>
+}
