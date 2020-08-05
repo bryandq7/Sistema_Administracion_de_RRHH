@@ -149,6 +149,7 @@
         @*<div class="form-group">
             @Html.LabelFor(model => model.Periodo_PeriododDePago, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                <input type="date" class="form-control" id="Id_PeriodoDePago" name="Id_PeriodoDePago"/>
                 @Html.EditorFor(model => model.Periodo_PeriododDePago, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Periodo_PeriododDePago, "", new { @class = "text-danger" })
             </div>
@@ -216,6 +217,8 @@
                 success: function (result) {
                     $.each(result.data, function (key, item) {
                         $("#Id_Persona").append('<option value=' + item.Id_Persona + '>' + item.NombreCompletoPersona + '</option>');
+
+
                     });
 
                     if (myCallback !== undefined)
@@ -234,7 +237,13 @@
                 dataType: "json",
                 success: function (result) {
                     $.each(result.data, function (key, item) {
-                        $("#Id_PeriodoDePago").append('<option value=' + item.Id_PeriodoDePago + '>' + item.Periodo_PeriododDePago + '</option>');
+                        var parsedDate = new Date(parseInt(item.Periodo_PeriododDePago.substr(6)));
+                        var jsDate = new Date(parsedDate);
+                        var dia = jsDate.getDate();
+                        var mes = jsDate.getMonth()+1;
+                        var año = jsDate.getFullYear();
+                        var fecha = dia +"/"+mes+"/"+año
+                        $("#Id_PeriodoDePago").append('<option value=' + item.Id_PeriodoDePago + ',formattedDate>' + fecha+ '</option>');
                     });
 
                     if (myCallback !== undefined)
@@ -245,6 +254,8 @@
                 }
             });
         }
+
+
 
 
 
