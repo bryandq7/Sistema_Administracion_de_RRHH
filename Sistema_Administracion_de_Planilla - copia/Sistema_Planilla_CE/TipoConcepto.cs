@@ -12,13 +12,18 @@ namespace Sistema_Planilla_CE
     using System;
     using System.Collections.Generic;
     
-    public partial class Vacaciones
+    public partial class TipoConcepto
     {
-        public int Id_Vacaciones { get; set; }
-        public decimal AcumuladoDias_Vacaciones { get; set; }
-        public int FKId_Empleado_Vacaciones { get; set; }
-        public decimal DiasDisfrutados_Vacaciones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TipoConcepto()
+        {
+            this.Concepto = new HashSet<Concepto>();
+        }
     
-        public virtual Empleado Empleado { get; set; }
+        public int Id_TipoConcepto { get; set; }
+        public string Detalle_TipoConcepto { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Concepto> Concepto { get; set; }
     }
 }

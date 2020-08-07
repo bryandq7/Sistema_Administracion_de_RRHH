@@ -12,18 +12,18 @@ namespace Sistema_Planilla_CE
     using System;
     using System.Collections.Generic;
     
-    public partial class DestinatarioDeduccion
+    public partial class ImpactaPlanilla
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DestinatarioDeduccion()
+        public ImpactaPlanilla()
         {
-            this.Deduccion = new HashSet<Deduccion>();
+            this.Concepto = new HashSet<Concepto>();
         }
     
-        public int Id_DestinatarioDeduccion { get; set; }
-        public string Nombre_DestinatarioDeduccion { get; set; }
+        public int Id_ImpactaPlanilla { get; set; }
+        public string Detalle_ImpactaPlanilla { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Deduccion> Deduccion { get; set; }
+        public virtual ICollection<Concepto> Concepto { get; set; }
     }
 }

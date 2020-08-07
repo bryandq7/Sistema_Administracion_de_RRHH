@@ -17,18 +17,24 @@ namespace Sistema_Planilla_CE
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Planilla()
         {
-            this.ImpuestoRenta = new HashSet<ImpuestoRenta>();
             this.PlanillaDeduccion = new HashSet<PlanillaDeduccion>();
-            this.PlanillaEmpleado = new HashSet<PlanillaEmpleado>();
+            this.PlanillaDetalle = new HashSet<PlanillaDetalle>();
         }
     
         public int Id_Planilla { get; set; }
+        public System.DateTime FechaActualizacion_Planilla { get; set; }
+        public int FKId_Empleado_Planilla { get; set; }
+        public int FKId_PeriodoDePago_Planilla { get; set; }
+        public decimal TotalDeducciones_Planilla { get; set; }
+        public decimal TotalAsignaciones_Planilla { get; set; }
+        public decimal TotalMontoaPagar_Planilla { get; set; }
+        public bool PagoProcesado_Planilla { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ImpuestoRenta> ImpuestoRenta { get; set; }
+        public virtual Empleado Empleado { get; set; }
+        public virtual PeriodoDePago PeriodoDePago { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlanillaDeduccion> PlanillaDeduccion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlanillaEmpleado> PlanillaEmpleado { get; set; }
+        public virtual ICollection<PlanillaDetalle> PlanillaDetalle { get; set; }
     }
 }

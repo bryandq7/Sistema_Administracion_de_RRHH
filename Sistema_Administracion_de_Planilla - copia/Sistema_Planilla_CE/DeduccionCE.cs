@@ -18,5 +18,14 @@ namespace Sistema_Planilla_CE
         public int FKId_DestinatarioDeduccion_Deduccion { get; set; }
         public int Id_DestinatarioDeduccion { get; set; }
         public string Nombre_DestinatarioDeduccion { get; set; }
+        public bool DeduccionEditable_Deduccion { get; set; }
+
+        public Nullable<decimal> Monto_Deduccion { get; set; }
+        public Nullable<int> Dias_Deduccion { get; set; }
+        public Nullable<decimal> Horas_Deduccion { get; set; }
+        public int FKId_AportadorDeduccion_Deduccion { get; set; }
+        public int Id_AportadorDeduccion { get; set; }
+        public string Detalle_AportadorDeduccion { get; set; }
+
     }
 }

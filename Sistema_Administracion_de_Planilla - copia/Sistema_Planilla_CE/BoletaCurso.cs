@@ -16,14 +16,15 @@ namespace Sistema_Planilla_CE
     {
         public int Id_BoletaCurso { get; set; }
         public int FKId_Curso_BoletaCurso { get; set; }
-        public int FKId_Persona_BoletaCurso { get; set; }
+        public int FKId_Empleado_BoletaCurso { get; set; }
         public decimal CantidadHoras_BoletaCurso { get; set; }
         public decimal MontoPagar_BoletaCurso { get; set; }
         public int CantidadEstudiantes_BoletaCurso { get; set; }
-        public System.DateTime FechaInicio_BoletaCurso { get; set; }
-        public System.DateTime FechaFin_BoletaCurso { get; set; }
+        public System.DateTime FechaCurso_BoletaCurso { get; set; }
+        public int FKId_PeriodoDePago_BoletaCurso { get; set; }
+        public bool PagoProcesado_BoletaCurso { get; set; }
     
         public virtual Curso Curso { get; set; }
-        public virtual Persona Persona { get; set; }
+        public virtual Empleado Empleado { get; set; }
     }
 }

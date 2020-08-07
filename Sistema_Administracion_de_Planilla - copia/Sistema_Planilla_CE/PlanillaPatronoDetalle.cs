@@ -12,11 +12,15 @@ namespace Sistema_Planilla_CE
     using System;
     using System.Collections.Generic;
     
-    public partial class ImpuestoRenta
+    public partial class PlanillaPatronoDetalle
     {
-        public int Id_ImpuestoRenta { get; set; }
-        public decimal MontoMinimo_ImpuestoRenta { get; set; }
-        public decimal MontoMaximo_ImpuestoRenta { get; set; }
-        public decimal Porcentaje_ImpuestoRenta { get; set; }
+        public int Id_PlanillaPatronoDetalle { get; set; }
+        public int FKId_Planilla_PlanillaPatronoDetalle { get; set; }
+        public decimal Cantidad_PlanillaPatronoDetalle { get; set; }
+        public decimal Monto_PlanillaPatronoDetalle { get; set; }
+        public int FKId_Concepto_PlanillaPatronoDetalle { get; set; }
+    
+        public virtual Concepto Concepto { get; set; }
+        public virtual PlanillaPatrono PlanillaPatrono { get; set; }
     }
 }

@@ -30,9 +30,8 @@ namespace Sistema_Planilla_CE
         public Nullable<int> Dias_Deduccion { get; set; }
         public Nullable<decimal> Horas_Deduccion { get; set; }
         public bool DeduccionEditable_Deduccion { get; set; }
+        public int FKId_AportadorDeduccion_Deduccion { get; set; }
     
-        public virtual DestinatarioDeduccion DestinatarioDeduccion { get; set; }
-        public virtual TipoDeduccion TipoDeduccion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlanillaDeduccion> PlanillaDeduccion { get; set; }
     }

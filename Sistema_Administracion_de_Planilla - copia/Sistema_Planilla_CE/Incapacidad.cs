@@ -22,8 +22,6 @@ namespace Sistema_Planilla_CE
         public int FKId_Empleado_Incapacidad { get; set; }
         public System.DateTime FechaActualizacion_Incapacidad { get; set; }
     
-        public virtual Empleado Empleado { get; set; }
-        public virtual PeriodoDePago PeriodoDePago { get; set; }
         public virtual TipoIncapacidad TipoIncapacidad { get; set; }
     }
 }

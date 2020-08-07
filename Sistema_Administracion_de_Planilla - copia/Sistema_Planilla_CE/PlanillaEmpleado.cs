@@ -14,23 +14,6 @@ namespace Sistema_Planilla_CE
     
     public partial class PlanillaEmpleado
     {
-        public int FKId_Planilla_PlanillaEmpleado { get; set; }
-        public int FKId_Empleado_PlanillaEmpleado { get; set; }
-        public System.DateTime PeriodoPago_PlanillaEmpleado { get; set; }
-        public Nullable<decimal> CantidadHorasExtra_PlanillaEmpleado { get; set; }
-        public Nullable<decimal> MontoHorasExtra_PlanillaEmpleado { get; set; }
-        public decimal CantidadDiasLaborados_PlanillaEmpleado { get; set; }
-        public Nullable<decimal> OtrasAsignaciones_PlanillaEmpleado { get; set; }
-        public Nullable<decimal> CantidadFeriados_PlanillaEmpleado { get; set; }
-        public Nullable<decimal> MontoFeriados_PlanillaEmpleado { get; set; }
-        public decimal CCSSDeduccion_PlanillaEmpleado { get; set; }
-        public Nullable<decimal> OtrasDeducciones_PlanillaEmpleado { get; set; }
-        public Nullable<decimal> SalarioNeto_PlanillaEmpleado { get; set; }
-        public Nullable<int> ConfirmacionEnvio_PlanillaEmpleado { get; set; }
         public int Id_PlanillaEmpleado { get; set; }
-        public decimal SalarioBruto_PlanillaEmpleado { get; set; }
-    
-        public virtual Planilla Planilla { get; set; }
-        public virtual Empleado Empleado { get; set; }
     }
 }

@@ -12,18 +12,18 @@ namespace Sistema_Planilla_CE
     using System;
     using System.Collections.Generic;
     
-    public partial class TipoDeduccion
+    public partial class ClaseConcepto
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TipoDeduccion()
+        public ClaseConcepto()
         {
-            this.Deduccion = new HashSet<Deduccion>();
+            this.Concepto = new HashSet<Concepto>();
         }
     
-        public int Id_TipoDeduccion { get; set; }
-        public string Detalle_TipoDeduccion { get; set; }
+        public int Id_ClaseConcepto { get; set; }
+        public string Detalle_ClaseConcepto { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Deduccion> Deduccion { get; set; }
+        public virtual ICollection<Concepto> Concepto { get; set; }
     }
 }

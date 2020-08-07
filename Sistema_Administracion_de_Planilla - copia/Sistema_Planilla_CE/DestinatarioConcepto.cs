@@ -12,21 +12,18 @@ namespace Sistema_Planilla_CE
     using System;
     using System.Collections.Generic;
     
-    public partial class PeriodoDePago
+    public partial class DestinatarioConcepto
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PeriodoDePago()
+        public DestinatarioConcepto()
         {
-            this.Planilla = new HashSet<Planilla>();
-            this.PlanillaPatrono = new HashSet<PlanillaPatrono>();
+            this.Concepto = new HashSet<Concepto>();
         }
     
-        public int Id_PeriodoDePago { get; set; }
-        public System.DateTime Periodo_PeriododDePago { get; set; }
+        public int Id_DestinatarioConcepto { get; set; }
+        public string Nombre_DestinatarioConcepto { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Planilla> Planilla { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlanillaPatrono> PlanillaPatrono { get; set; }
+        public virtual ICollection<Concepto> Concepto { get; set; }
     }
 }

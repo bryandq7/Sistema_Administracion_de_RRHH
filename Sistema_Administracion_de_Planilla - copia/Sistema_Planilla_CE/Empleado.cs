@@ -17,32 +17,36 @@ namespace Sistema_Planilla_CE
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Empleado()
         {
+            this.BoletaCurso = new HashSet<BoletaCurso>();
             this.Contrato = new HashSet<Contrato>();
-            this.PlanillaEmpleado = new HashSet<PlanillaEmpleado>();
+            this.Planilla = new HashSet<Planilla>();
+            this.PlanillaPatrono = new HashSet<PlanillaPatrono>();
             this.Solicitud = new HashSet<Solicitud>();
             this.Solicitud1 = new HashSet<Solicitud>();
             this.Vacaciones = new HashSet<Vacaciones>();
-            this.Incapacidad = new HashSet<Incapacidad>();
         }
     
         public int Id_Empleado { get; set; }
         public int FKId_Persona_Empleado { get; set; }
         public int FKId_Departamento_Empleado { get; set; }
         public bool Activo_Empleado { get; set; }
+        public bool SinGoceSalarial_Empleado { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BoletaCurso> BoletaCurso { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Contrato> Contrato { get; set; }
         public virtual Departamento Departamento { get; set; }
         public virtual Persona Persona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlanillaEmpleado> PlanillaEmpleado { get; set; }
+        public virtual ICollection<Planilla> Planilla { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PlanillaPatrono> PlanillaPatrono { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Solicitud> Solicitud { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Solicitud> Solicitud1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Vacaciones> Vacaciones { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Incapacidad> Incapacidad { get; set; }
     }
 }

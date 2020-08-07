@@ -13,10 +13,13 @@ namespace Sistema_Planilla_CD
         public List<DeduccionCE> ListarDeducciones()
         {
             string sql = @"select d.Id_Deduccion,d.Nombre_Deduccion,d.Porcentaje_Deduccion,d.FechaActualizacion_Deducion,d.FKId_TipoDeduccion_Deduccion,
-                td.Id_TipoDeduccion,td.Detalle_TipoDeduccion, dd.Id_DestinatarioDeduccion, dd.Nombre_DestinatarioDeduccion
+                td.Id_TipoDeduccion,td.Detalle_TipoDeduccion, dd.Id_DestinatarioDeduccion, dd.Nombre_DestinatarioDeduccion,
+				d.FKId_DestinatarioDeduccion_Deduccion,d.Monto_Deduccion,d.Dias_Deduccion,d.Horas_Deduccion,d.DeduccionEditable_Deduccion,
+				d.FKId_AportadorDeduccion_Deduccion,ad.Id_AportadorDeduccion,ad.Detalle_AportadorDeduccion
                 from Deduccion d 
                 inner join TipoDeduccion td on td.Id_TipoDeduccion = d.FKId_TipoDeduccion_Deduccion
-				inner join Destinatariodeduccion dd on dd.Id_DestinatarioDeduccion = d.FKId_DestinatarioDeduccion_Deduccion";
+				inner join Destinatariodeduccion dd on dd.Id_DestinatarioDeduccion = d.FKId_DestinatarioDeduccion_Deduccion
+				inner join AportadorDeduccion ad on ad.Id_AportadorDeduccion = d.FKId_AportadorDeduccion_Deduccion";
 
             using (var db = new RecursosHumanosDBContext())
             {

@@ -16,7 +16,7 @@
 
 }
 
-<h2 class="tituloCss">Lista de Porcentajes de Cotización</h2>
+<h2 class="tituloCss">Lista de Deducciones</h2>
 
 <p>
     @*@Html.ActionLink("Create New", "Create")*@
@@ -33,20 +33,20 @@
             <th>
                 Destinatario Deducción
             </th>
-            <th>
+            @*<th>
                 Porcentaje Deducción
-            </th>
+            </th>*@
             @*<th>
                     Tipo de Deducción
                 </th>*@
-            <th>
-                Fecha de Actualización
-            </th>
             @*<th>
-                    @Html.DisplayNameFor(model => model.Id_TipoDeduccion)
+                    Fecha de Actualización
                 </th>*@
             <th>
-                Tipo de Deducción
+                    Aportador
+                </th>
+            <th>
+                Tipo de Deducción 
             </th>
             <th></th>
         </tr>
@@ -66,26 +66,35 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Nombre_DestinatarioDeduccion)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Porcentaje_Deduccion)
-                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Porcentaje_Deduccion)%
+                </td>*@
                 @*<td>
                         @Html.DisplayFor(modelItem => item.FKId_TipoDeduccion_Deduccion)
                     </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaActualizacion_Deducion)
-                </td>
                 @*<td>
-                        @Html.DisplayFor(modelItem => item.Id_TipoDeduccion)
+                        @Html.DisplayFor(modelItem => item.FechaActualizacion_Deducion)
                     </td>*@
+                <td>
+                        @Html.DisplayFor(modelItem => item.Detalle_AportadorDeduccion)
+                    </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Detalle_TipoDeduccion)
                 </td>
+
                 <td>
-                    <a class="btn btn-success" title="Editar" href="@Url.Action("Editar", "Deduccion",new { id=item.Id_Deduccion  })"><i class="glyphicon glyphicon-pencil"></i></a>
-                    @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+
+                    @if (item.DeduccionEditable_Deduccion == false)
+                    {
+                        <a class="btn btn-success" title="Editar" href="@Url.Action("Editar", "Deduccion",new { id=item.Id_Deduccion  })"><i class="glyphicon glyphicon-pencil"></i></a>
+
+
+                    }
+
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
                 </td>
+
             </tr>
         }
     </tbody>
@@ -122,38 +131,38 @@
 
 
 
-        //function EliminarCargo(id) {
-        //    $.confirm({
-        //        title: 'Eliminar Cargo',
-        //        content: '¿Desea Eliminar el Cargo?',
-        //        buttons: {
-        //            Eliminar: function () {
-        //                LoadingOverlayShow("#tablaCargo");
-        //                $.ajax({
-        //                    url: "/Cargo/Eliminar",
-        //                    type: "post",
-        //                    data: { identificador: id}
-        //                }).done(function (response) {
-        //                    console.log(response);//
-        //                    LoadingOverlayHide("#tablaCargo");
-        //                    if (response.ok) {
-        //                        alert("Cargo eliminado correctamente.");
-        //                        window.location = response.toRedirect;
-        //                    }
-        //                    else {
-        //                        alert(response.msg);
-        //                    }
-        //                }).fail(function (jqXHR, textStatus, errorThrown) {
-        //                    LoadingOverlayHide("#tablaCargo");
-        //                    alert(textStatus);
-        //                });
-        //            },
-        //            Cancelar: function () {
-        //                //$.alert('Canceled!');
-        //            },
-        //        }
-        //    });
-        //}
+                //function EliminarCargo(id) {
+                //    $.confirm({
+                //        title: 'Eliminar Cargo',
+                //        content: '¿Desea Eliminar el Cargo?',
+                //        buttons: {
+                //            Eliminar: function () {
+                //                LoadingOverlayShow("#tablaCargo");
+                //                $.ajax({
+                //                    url: "/Cargo/Eliminar",
+                //                    type: "post",
+                //                    data: { identificador: id}
+                //                }).done(function (response) {
+                //                    console.log(response);//
+                //                    LoadingOverlayHide("#tablaCargo");
+                //                    if (response.ok) {
+                //                        alert("Cargo eliminado correctamente.");
+                //                        window.location = response.toRedirect;
+                //                    }
+                //                    else {
+                //                        alert(response.msg);
+                //                    }
+                //                }).fail(function (jqXHR, textStatus, errorThrown) {
+                //                    LoadingOverlayHide("#tablaCargo");
+                //                    alert(textStatus);
+                //                });
+                //            },
+                //            Cancelar: function () {
+                //                //$.alert('Canceled!');
+                //            },
+                //        }
+                //    });
+                //}
 
     </script>
 }

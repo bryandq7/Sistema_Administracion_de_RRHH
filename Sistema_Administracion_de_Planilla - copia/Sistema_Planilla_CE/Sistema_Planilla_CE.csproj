@@ -74,6 +74,15 @@
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="CargoCE.cs" />
+    <Compile Include="ClaseConcepto.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Concepto.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ConceptoAplicado.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
     <Compile Include="Contrato.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
@@ -95,7 +104,7 @@
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="DepartamentoCE.cs" />
-    <Compile Include="DestinatarioDeduccion.cs">
+    <Compile Include="DestinatarioConcepto.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="Direccion.cs">
@@ -114,6 +123,9 @@
     </Compile>
     <Compile Include="EmpleadoCE.cs" />
     <Compile Include="Genero.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ImpactaPlanilla.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="ImpuestoRenta.cs">
@@ -142,7 +154,16 @@
     <Compile Include="PlanillaDeduccion.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
+    <Compile Include="PlanillaDetalle.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
     <Compile Include="PlanillaEmpleado.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PlanillaPatrono.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PlanillaPatronoDetalle.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -150,6 +171,9 @@
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="Solicitud.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StatusEmpleado.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="StatusSolicitud.cs">
@@ -162,13 +186,13 @@
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="TelefonoCE.cs" />
+    <Compile Include="TipoConcepto.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
     <Compile Include="TipoContrato.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="TipoContratoCE.cs" />
-    <Compile Include="TipoDeduccion.cs">
-      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
-    </Compile>
     <Compile Include="TipoIncapacidad.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
