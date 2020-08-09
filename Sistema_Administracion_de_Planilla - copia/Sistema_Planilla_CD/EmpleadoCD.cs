@@ -30,6 +30,21 @@ namespace Sistema_Planilla_CD
             }
         }
 
+        public List<EmpleadoCE> ListarEmpleadosContratoVigente()
+        {
+            string sql = @"select p.Id_Persona,p.Nombre_Persona+' '+p.Apellido1_Persona+' '+p.Apellido2_Persona as NombreCompletoPersona,
+				            c.Id_Contrato,c.FechaInicio_Contrato,c.FechaFin_Contrato,c.Activo_Contrato
+                            from Empleado e  
+                            inner join Persona p on e.FKId_Persona_Empleado = p.Id_Persona
+				            inner join Contrato c on c.FKId_Empleado_Contrato = e.Id_Empleado
+                            where e.Activo_Empleado = 1 and c.Activo_Contrato =1 and c.FechaInicio_Contrato<=GetDate() and (c.FechaFin_Contrato>GetDate() or  c.FechaFin_Contrato IS NULL)";
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                return db.Database.SqlQuery<EmpleadoCE>(sql).ToList();
+            }
+        }
+
         public bool ExisteEmpleado(int personaID)
         {
             using (var db = new RecursosHumanosDBContext())
@@ -122,6 +137,22 @@ namespace Sistema_Planilla_CD
             using (var db = new RecursosHumanosDBContext())
             {
                 return db.Database.SqlQuery<EmpleadoCE>(sql, new SqlParameter("@Cod_Empleado", idEmpleado)).FirstOrDefault();
+            }
+
+        }
+
+        public EmpleadoCE ObtenerIdEmpleado(int idpersona)
+        {
+
+            string sql = @"select e.Id_Empleado,e.FKId_Persona_Empleado,p.Id_Persona,p.Nombre_Persona+' '+p.Apellido1_Persona+' '+p.Apellido2_Persona as NombreCompletoPersona
+                from Empleado e  
+                inner join Persona p on e.FKId_Persona_Empleado = p.Id_Persona
+				inner join Contrato c on c.FKId_Empleado_Contrato = e.Id_Empleado
+                where e.Id_Empleado = @Cod_Persona and c.Activo_Contrato=1";
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                return db.Database.SqlQuery<EmpleadoCE>(sql, new SqlParameter("@Cod_Persona", idpersona)).FirstOrDefault();
             }
 
         }

@@ -45,6 +45,9 @@
     <Compile Include="BancoCN.cs" />
     <Compile Include="CantonCN.cs" />
     <Compile Include="CargoCN.cs" />
+    <Compile Include="ClaseConceptoCN.cs" />
+    <Compile Include="ConceptoAplicadoCN.cs" />
+    <Compile Include="ConceptoCN.cs" />
     <Compile Include="ContratoCN.cs" />
     <Compile Include="CursoCN.cs" />
     <Compile Include="DeduccionCN.cs" />
@@ -59,6 +62,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProvinciaCN.cs" />
     <Compile Include="TelefonoCN.cs" />
+    <Compile Include="TipoConceptoCN.cs" />
     <Compile Include="TipoContratoCN.cs" />
     <Compile Include="TipoSolicitudCN.cs" />
     <Compile Include="TurnosCN.cs" />

@@ -16,5 +16,15 @@ namespace Sistema_Planilla_CN
             return obj.ObtenerPeriododePago();
         }
 
+        public static PeriodoDePagoCE ObtenerPeriodoPosterior()
+        {
+            return obj.ObtenerPeriodoPosterior();
+        }
+
+        public static PeriodoDePagoCE ObtenerPeriodoAnterior()
+        {
+            return obj.ObtenerPeriodoAnterior();
+        }
+
     }
 }

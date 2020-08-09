@@ -24,6 +24,7 @@ namespace Sistema_Planilla_CE
             this.Solicitud = new HashSet<Solicitud>();
             this.Solicitud1 = new HashSet<Solicitud>();
             this.Vacaciones = new HashSet<Vacaciones>();
+            this.ConceptoAplicado = new HashSet<ConceptoAplicado>();
         }
     
         public int Id_Empleado { get; set; }
@@ -48,5 +49,7 @@ namespace Sistema_Planilla_CE
         public virtual ICollection<Solicitud> Solicitud1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Vacaciones> Vacaciones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ConceptoAplicado> ConceptoAplicado { get; set; }
     }
 }

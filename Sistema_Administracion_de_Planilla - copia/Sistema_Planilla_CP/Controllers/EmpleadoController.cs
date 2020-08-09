@@ -24,6 +24,12 @@ namespace Sistema_Planilla_CP.Controllers
             return Json(new { data = lista }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult ListarEmpleadosContratoVigente()
+        {
+            var lista = EmpleadoCN.ListarEmpleadosContratoVigente();
+            return Json(new { data = lista }, JsonRequestBehavior.AllowGet);
+        }
+
 
         public ActionResult Crear()
         {

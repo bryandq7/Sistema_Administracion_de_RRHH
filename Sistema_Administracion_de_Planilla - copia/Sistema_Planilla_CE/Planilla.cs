@@ -17,7 +17,6 @@ namespace Sistema_Planilla_CE
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Planilla()
         {
-            this.PlanillaDeduccion = new HashSet<PlanillaDeduccion>();
             this.PlanillaDetalle = new HashSet<PlanillaDetalle>();
         }
     
@@ -32,8 +31,6 @@ namespace Sistema_Planilla_CE
     
         public virtual Empleado Empleado { get; set; }
         public virtual PeriodoDePago PeriodoDePago { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlanillaDeduccion> PlanillaDeduccion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlanillaDetalle> PlanillaDetalle { get; set; }
     }

@@ -48,10 +48,10 @@ namespace Sistema_Planilla_CD
         {
             using (var db = new RecursosHumanosDBContext())
             {
-                var origen = db.Deduccion.Find(deduccion.Id_Deduccion);
-                origen.Porcentaje_Deduccion = deduccion.Porcentaje_Deduccion;
-                origen.FechaActualizacion_Deducion = deduccion.FechaActualizacion_Deducion;
-                db.SaveChanges();
+                //var origen = db.Deduccion.Find(deduccion.Id_Deduccion);
+                //origen.Porcentaje_Deduccion = deduccion.Porcentaje_Deduccion;
+                //origen.FechaActualizacion_Deducion = deduccion.FechaActualizacion_Deducion;
+                //db.SaveChanges();
             }
         }
     }

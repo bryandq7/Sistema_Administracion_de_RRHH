@@ -21,5 +21,28 @@ namespace Sistema_Planilla_CD
             }
         }
 
+
+        public PeriodoDePagoCE ObtenerPeriodoPosterior()
+        {
+            string sql = @"select top 1 pp.Id_PeriodoDePago, pp.Periodo_PeriododDePago from PeriodoDePago pp
+                         where Periodo_PeriododDePago<=DATEADD(day, 17, GetDate()) and Periodo_PeriododDePago>GetDate()";
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                return db.Database.SqlQuery<PeriodoDePagoCE>(sql).FirstOrDefault();
+            }
+        }
+
+        public PeriodoDePagoCE ObtenerPeriodoAnterior()
+        {
+            string sql = @"select top 1 pp.Id_PeriodoDePago, pp.Periodo_PeriododDePago from PeriodoDePago pp
+                         where Periodo_PeriododDePago<=DATEADD(day, 17, GetDate()) and Periodo_PeriododDePago>DATEADD(day, -17, GetDate())";
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                return db.Database.SqlQuery<PeriodoDePagoCE>(sql).FirstOrDefault();
+            }
+        }
+
     }
 }

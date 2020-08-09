@@ -26,9 +26,9 @@ namespace Sistema_Planilla_CE
         public Nullable<System.DateTime> FechaInicioPeriodo_Solicitud { get; set; }
         public Nullable<System.DateTime> FechaFinPeriodo_Solicitud { get; set; }
     
-        public virtual Empleado Empleado { get; set; }
-        public virtual Empleado Empleado1 { get; set; }
         public virtual StatusSolicitud StatusSolicitud { get; set; }
         public virtual TipoSolicitud TipoSolicitud { get; set; }
+        public virtual Empleado Empleado { get; set; }
+        public virtual Empleado Empleado1 { get; set; }
     }
 }

@@ -17,8 +17,9 @@ namespace Sistema_Planilla_CE
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Concepto()
         {
-            this.PlanillaDetalle = new HashSet<PlanillaDetalle>();
             this.PlanillaPatronoDetalle = new HashSet<PlanillaPatronoDetalle>();
+            this.ConceptoAplicado = new HashSet<ConceptoAplicado>();
+            this.PlanillaDetalle = new HashSet<PlanillaDetalle>();
         }
     
         public int Id_Concepto { get; set; }
@@ -30,14 +31,17 @@ namespace Sistema_Planilla_CE
         public int FKId_ClaseConcepto_Concepto { get; set; }
         public Nullable<decimal> Porcentaje_Concepto { get; set; }
         public Nullable<decimal> MontoFijo_Concepto { get; set; }
+        public bool DirectoPlanilla_Concepto { get; set; }
     
         public virtual ClaseConcepto ClaseConcepto { get; set; }
         public virtual DestinatarioConcepto DestinatarioConcepto { get; set; }
         public virtual ImpactaPlanilla ImpactaPlanilla { get; set; }
         public virtual TipoConcepto TipoConcepto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlanillaDetalle> PlanillaDetalle { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlanillaPatronoDetalle> PlanillaPatronoDetalle { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ConceptoAplicado> ConceptoAplicado { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PlanillaDetalle> PlanillaDetalle { get; set; }
     }
 }

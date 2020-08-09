@@ -20,7 +20,7 @@ namespace Sistema_Planilla_CE
         public decimal Monto_PlanillaPatronoDetalle { get; set; }
         public int FKId_Concepto_PlanillaPatronoDetalle { get; set; }
     
-        public virtual Concepto Concepto { get; set; }
         public virtual PlanillaPatrono PlanillaPatrono { get; set; }
+        public virtual Concepto Concepto { get; set; }
     }
 }

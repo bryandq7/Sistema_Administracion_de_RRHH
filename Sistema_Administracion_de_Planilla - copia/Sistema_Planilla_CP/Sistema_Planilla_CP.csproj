@@ -196,6 +196,9 @@
     <Compile Include="Controllers\BancoController.cs" />
     <Compile Include="Controllers\CantonController.cs" />
     <Compile Include="Controllers\CargoController.cs" />
+    <Compile Include="Controllers\ClaseConceptoController.cs" />
+    <Compile Include="Controllers\ConceptoAplicadoController.cs" />
+    <Compile Include="Controllers\ConceptoController.cs" />
     <Compile Include="Controllers\ContratoController.cs" />
     <Compile Include="Controllers\CursoController.cs" />
     <Compile Include="Controllers\DeduccionController.cs" />
@@ -211,6 +214,7 @@
     <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="Controllers\ProvinciaController.cs" />
     <Compile Include="Controllers\TelefonoController.cs" />
+    <Compile Include="Controllers\TipoConceptoController.cs" />
     <Compile Include="Controllers\TipoContratoController.cs" />
     <Compile Include="Controllers\TipoIncapacidadController.cs" />
     <Compile Include="Controllers\TipoSolicitudController.cs" />
@@ -333,17 +337,25 @@
     <Content Include="Views\Banco\Editar.cshtml" />
     <Content Include="Views\Incapacidad\Index.cshtml" />
     <Content Include="Views\Incapacidad\Crear.cshtml" />
+    <Content Include="Views\ConceptoAplicado\Index.cshtml" />
+    <Content Include="Views\ConceptoAplicado\Crear.cshtml" />
+    <Content Include="Views\ConceptoAplicado\CrearTiempo.cshtml" />
+    <Content Include="Views\ConceptoAplicado\CrearDia.cshtml" />
+    <Content Include="Views\ConceptoAplicado\CrearPorcentaje.cshtml" />
+    <Content Include="Views\Concepto\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\AspNetUserRoles\" />
     <Folder Include="Views\Canton\" />
+    <Folder Include="Views\ClaseConcepto\" />
     <Folder Include="Views\Direccion\" />
     <Folder Include="Views\Distrito\" />
     <Folder Include="Views\Genero\" />
     <Folder Include="Views\PeriodoDePago\" />
     <Folder Include="Views\Provincia\" />
     <Folder Include="Views\Roles\" />
+    <Folder Include="Views\TipoConcepto\" />
     <Folder Include="Views\TipoIncapacidad\" />
     <Folder Include="Views\Turno\" />
   </ItemGroup>

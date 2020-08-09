@@ -28,8 +28,8 @@ namespace Sistema_Planilla_CE
         public decimal SalarioBrutoQuincenal_Contrato { get; set; }
     
         public virtual Cargo Cargo { get; set; }
-        public virtual Empleado Empleado { get; set; }
         public virtual TipoContrato TipoContrato { get; set; }
         public virtual Turnos Turnos { get; set; }
+        public virtual Empleado Empleado { get; set; }
     }
 }

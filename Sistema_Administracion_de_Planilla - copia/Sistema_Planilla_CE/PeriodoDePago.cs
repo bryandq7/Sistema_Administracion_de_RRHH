@@ -19,6 +19,7 @@ namespace Sistema_Planilla_CE
         {
             this.Planilla = new HashSet<Planilla>();
             this.PlanillaPatrono = new HashSet<PlanillaPatrono>();
+            this.ConceptoAplicado = new HashSet<ConceptoAplicado>();
         }
     
         public int Id_PeriodoDePago { get; set; }
@@ -28,5 +29,7 @@ namespace Sistema_Planilla_CE
         public virtual ICollection<Planilla> Planilla { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlanillaPatrono> PlanillaPatrono { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ConceptoAplicado> ConceptoAplicado { get; set; }
     }
 }

@@ -1,0 +1,296 @@
+﻿@model IEnumerable<Sistema_Planilla_CE.ConceptoCE>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@section styles{
+
+    <style>
+        .tituloCss {
+            color: #3d3d29;
+        }
+    </style>
+
+
+}
+
+<h2 class="tituloCss">Lista de Conceptos</h2>
+
+<p>
+    @*<a class="btn btn-info" href="@Url.Action("Crear", "ConceptoAplicado")"><i class="glyphicon glyphicon-plus"></i> Crear por Monto</a>
+        <a class="btn btn-info" href="@Url.Action("Crear", "ConceptoAplicado")"><i class="glyphicon glyphicon-plus"></i> Crear por Monto</a>*@
+
+    <div class="btn-group">
+        <button type="button" class="btn btn-info"><i class="glyphicon glyphicon-plus"></i> Crear Nuevo Concepto</button>
+        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a href="@Url.Action("Crear", "Concepto")">Concepto por Monto</a></li>
+            <li><a href="@Url.Action("CrearPorcentaje", "Concepto")">Concepto por Porcentaje</a></li>
+            @*<li><a href="@Url.Action("Crear", "ConceptoAplicado")"</a></li>
+                <li><a href="#">Something else here</a></li>*@
+        </ul>
+    </div>
+</p>
+
+<div class="row">
+    <div class="col-lg-2">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <input type="radio" aria-label="...">
+            </span>
+            <input type="text" class="form-control" aria-label="...">
+        </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+    <div class="col-lg-2">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <input type="radio" aria-label="..."> 
+            </span>
+            <input type="text" class="form-control" aria-label="...">
+        </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+
+
+<table class="table" id="tablaConcepto">
+    <thead>
+        <tr>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Id_Concepto)
+                </th>*@
+
+
+            <th>
+                Planilla Considerar
+            </th>
+
+            <th>
+                Clase
+            </th>
+
+            <th>
+                Tipo
+            </th>
+
+
+
+
+            <th>
+                Nombre
+            </th>
+
+            <th>
+                Porcentaje
+            </th>
+            <th>
+                Monto
+            </th>
+
+            <th>
+                Destino
+            </th>
+
+            <th>
+                Carga Automática Planilla
+            </th>
+
+
+
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Editable_Concepto)
+                </th>*@
+            @*<th>
+                    @Html.DisplayNameFor(model => model.FKId_TipoConcepto_Concepto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FKId_DestinatarioConcepto_Concepto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FKId_ImpactaPlanilla_Concepto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FKId_ClaseConcepto_Concepto)
+                </th>*@
+
+
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Id_TipoConcepto)
+                </th>*@
+
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Id_DestinatarioConcepto)
+                </th>*@
+
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Id_ImpactaPlanilla)
+                </th>*@
+
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Id_ClaseConcepto)
+                </th>*@
+
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Id_Concepto)
+                    </td>*@
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Detalle_ImpactaPlanilla)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Detalle_ClaseConcepto)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Detalle_TipoConcepto)
+                </td>
+
+
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre_Concepto)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Porcentaje_Concepto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MontoFijo_Concepto)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre_DestinatarioConcepto)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.DirectoPlanilla_Concepto)
+                </td>
+
+
+
+
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Editable_Concepto)
+                    </td>*@
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.FKId_TipoConcepto_Concepto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FKId_DestinatarioConcepto_Concepto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FKId_ImpactaPlanilla_Concepto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FKId_ClaseConcepto_Concepto)
+                    </td>*@
+
+
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Id_TipoConcepto)
+                    </td>*@
+
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Id_DestinatarioConcepto)
+                    </td>*@
+
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Id_ImpactaPlanilla)
+                    </td>*@
+
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Id_ClaseConcepto)
+                    </td>*@
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+
+                    @if (item.Editable_Concepto == false)
+                    {
+                        <a class="btn btn-danger" onclick="EliminarConcepto(@item.Id_Concepto)" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts {
+
+    <script>
+
+        $('#tablaConcepto').DataTable({
+            "pageLength": 10,
+            lengthMenu: [5, 10, 20, 50, 100, 200, 500],
+            language: {
+                search: "Buscar en tabla: ",
+                lengthMenu: "Mostrar  _MENU_  entradas",
+                info: "Mostrando de la entrada _START_ a la _END_ de _TOTAL_ entradas",
+                infoEmpty: "Mostrando de la entrada 0 a la 0 de 0  entradas",
+                infoFiltered: "(filtrando de  _MAX_ entradas totales)",
+                infoPostFix: "",
+                loadingRecords: "Agregando entradas",
+                zeroRecords: "No existen entradas disponibles para esta búsqueda",
+                emptyTable: "No existe data disponible para esta tabla",
+
+                paginate: {
+                    first: "Primera",
+                    previous: "Anterior",
+                    next: "Siguiente",
+                    last: "Ultima"
+                }
+            }
+
+        });
+
+
+
+        function EliminarConcepto(id) {
+            $.confirm({
+                title: 'Eliminar Concepto',
+                content: '¿Desea Eliminar el Concepto?',
+                buttons: {
+                    Eliminar: function () {
+                        LoadingOverlayShow("#tablaConcepto");
+                        $.ajax({
+                            url: "/Concepto/Eliminar",
+                            type: "post",
+                            data: { identificador: id }
+                        }).done(function (response) {
+                            console.log(response);//
+                            LoadingOverlayHide("#tablaConcepto");
+                            if (response.ok) {
+                                alert("Concepto eliminado correctamente.");
+                                window.location = response.toRedirect;
+                            }
+                            else {
+                                alert(response.msg);
+                            }
+                        }).fail(function (jqXHR, textStatus, errorThrown) {
+                            LoadingOverlayHide("#tablaConcepto");
+                            alert(textStatus);
+                        });
+                    },
+                    Cancelar: function () {
+                        //$.alert('Canceled!');
+                    },
+                }
+            });
+        }
+
+    </script>
+}

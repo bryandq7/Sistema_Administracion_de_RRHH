@@ -31,21 +31,21 @@ namespace Sistema_Planilla_CD
         public void Crear(IncapacidadCE incapacidad1)
         {
 
-            var incapacidad2 = new Incapacidad
-            {
-                Dias_Incapacidad = incapacidad1.Dias_Incapacidad,
-                Procesado_Incapacidad = false,
-                FKId_PeriodoDePago_Incapacidad = incapacidad1.Id_PeriodoDePago,
-                FKId_TipoIncapacidad_Incapacidad = incapacidad1.Id_TipoIncapacidad,
-                FKId_Empleado_Incapacidad = incapacidad1.Id_Empleado,
-                FechaActualizacion_Incapacidad = incapacidad1.FechaActualizacion_Incapacidad
-            };
+            //var incapacidad2 = new Incapacidad
+            //{
+            //    Dias_Incapacidad = incapacidad1.Dias_Incapacidad,
+            //    Procesado_Incapacidad = false,
+            //    FKId_PeriodoDePago_Incapacidad = incapacidad1.Id_PeriodoDePago,
+            //    FKId_TipoIncapacidad_Incapacidad = incapacidad1.Id_TipoIncapacidad,
+            //    FKId_Empleado_Incapacidad = incapacidad1.Id_Empleado,
+            //    FechaActualizacion_Incapacidad = incapacidad1.FechaActualizacion_Incapacidad
+            //};
 
-            using (var db = new RecursosHumanosDBContext())
-            {
-                db.Incapacidad.Add(incapacidad2);
-                db.SaveChanges();
-            }
+            //using (var db = new RecursosHumanosDBContext())
+            //{
+            //    db.Incapacidad.Add(incapacidad2);
+            //    db.SaveChanges();
+            //}
         }
     }
 }
