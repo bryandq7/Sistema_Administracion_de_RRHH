@@ -22,6 +22,22 @@ namespace Sistema_Planilla_CP.Controllers
             return View();
         }
 
+        public ActionResult CrearTiempo()
+        {
+            return View();
+        }
+
+
+        public ActionResult CrearDia()
+        {
+            return View();
+        }
+
+        public ActionResult CrearPorcentaje()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Crear(ConceptoAplicadoCE concepto)
@@ -92,21 +108,7 @@ namespace Sistema_Planilla_CP.Controllers
         }
 
 
-        public ActionResult CrearTiempo()
-        {
-            return View();
-        }
 
-
-        public ActionResult CrearDia()
-        {
-            return View();
-        }
-
-        public ActionResult CrearPorcentaje()
-        {
-            return View();
-        }
 
 
 

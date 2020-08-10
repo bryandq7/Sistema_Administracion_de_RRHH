@@ -31,30 +31,41 @@
         <ul class="dropdown-menu">
             <li><a href="@Url.Action("Crear", "Concepto")">Concepto por Monto</a></li>
             <li><a href="@Url.Action("CrearPorcentaje", "Concepto")">Concepto por Porcentaje</a></li>
-            @*<li><a href="@Url.Action("Crear", "ConceptoAplicado")"</a></li>
-                <li><a href="#">Something else here</a></li>*@
+            <li><a href="@Url.Action("CrearTiempo", "Concepto")">Concepto por Hora</a></li>
+            <li><a href="@Url.Action("CrearDia", "Concepto")">Concepto por Día</a></li>
+
         </ul>
     </div>
 </p>
 
-<div class="row">
-    <div class="col-lg-2">
-        <div class="input-group">
-            <span class="input-group-addon">
-                <input type="radio" aria-label="...">
-            </span>
-            <input type="text" class="form-control" aria-label="...">
-        </div><!-- /input-group -->
-    </div><!-- /.col-lg-6 -->
-    <div class="col-lg-2">
-        <div class="input-group">
-            <span class="input-group-addon">
-                <input type="radio" aria-label="..."> 
-            </span>
-            <input type="text" class="form-control" aria-label="...">
-        </div><!-- /input-group -->
-    </div><!-- /.col-lg-6 -->
-</div><!-- /.row -->
+<br />
+<p>
+    <a class="btn btn-default" href="@Url.Action("Index", "Concepto")"><i class="glyphicon glyphicon-filter"></i> Todos</a>
+    <a class="btn btn-default" href="@Url.Action("Index", "Concepto", new { impacta = 2})"><i class="glyphicon glyphicon-filter"></i> Trabajador</a>
+    <a class="btn btn-default" href="@Url.Action("Index", "Concepto", new { impacta = 1})"><i class="glyphicon glyphicon-filter"></i> Patrono</a>
+</p>
+
+<br />
+
+
+@*<div class="row">
+        <div class="col-lg-2">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="radio" aria-label="...">
+                </span>
+                <input type="text" class="form-control" aria-label="...">
+            </div><!-- /input-group -->
+        </div><!-- /.col-lg-6 -->
+        <div class="col-lg-2">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <input type="radio" aria-label="...">
+                </span>
+                <input type="text" class="form-control" aria-label="...">
+            </div><!-- /input-group -->
+        </div><!-- /.col-lg-6 -->
+    </div><!-- /.row -->*@
 
 
 <table class="table" id="tablaConcepto">
@@ -89,6 +100,9 @@
             </th>
             <th>
                 Monto
+            </th>
+            <th>
+                Factor Tiempo
             </th>
 
             <th>
@@ -173,6 +187,10 @@
                 </td>
 
                 <td>
+                    @Html.DisplayFor(modelItem => item.FactorTiempo_Concepto)
+                </td>
+
+                <td>
                     @Html.DisplayFor(modelItem => item.Nombre_DestinatarioConcepto)
                 </td>
 
@@ -217,12 +235,13 @@
                     </td>*@
 
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    <a class="btn btn-success" title="Editar" href="@Url.Action("Editar", "Concepto",new { id=item.Id_Concepto })"><i class="glyphicon glyphicon-pencil"></i></a>
 
-                    @if (item.Editable_Concepto == false)
+                    @if (item.Editable_Concepto == true)
                     {
                         <a class="btn btn-danger" onclick="EliminarConcepto(@item.Id_Concepto)" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
                     }
+
                 </td>
             </tr>
         }
@@ -267,7 +286,7 @@
                     Eliminar: function () {
                         LoadingOverlayShow("#tablaConcepto");
                         $.ajax({
-                            url: "/Concepto/Eliminar",
+                            url: "/concepto/Eliminar",
                             type: "post",
                             data: { identificador: id }
                         }).done(function (response) {

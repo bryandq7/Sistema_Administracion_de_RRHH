@@ -208,6 +208,7 @@
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\GeneroController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImpactaPlanillaController.cs" />
     <Compile Include="Controllers\IncapacidadController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PeriodoDePagoController.cs" />
@@ -343,6 +344,10 @@
     <Content Include="Views\ConceptoAplicado\CrearDia.cshtml" />
     <Content Include="Views\ConceptoAplicado\CrearPorcentaje.cshtml" />
     <Content Include="Views\Concepto\Index.cshtml" />
+    <Content Include="Views\Concepto\Crear.cshtml" />
+    <Content Include="Views\Concepto\CrearTiempo.cshtml" />
+    <Content Include="Views\Concepto\CrearDia.cshtml" />
+    <Content Include="Views\Concepto\CrearPorcentaje.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -352,6 +357,7 @@
     <Folder Include="Views\Direccion\" />
     <Folder Include="Views\Distrito\" />
     <Folder Include="Views\Genero\" />
+    <Folder Include="Views\ImpactaPlanilla\" />
     <Folder Include="Views\PeriodoDePago\" />
     <Folder Include="Views\Provincia\" />
     <Folder Include="Views\Roles\" />

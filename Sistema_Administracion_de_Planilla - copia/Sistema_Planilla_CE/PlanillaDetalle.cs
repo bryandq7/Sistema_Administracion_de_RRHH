@@ -22,7 +22,7 @@ namespace Sistema_Planilla_CE
         public bool PagoProcesado_PlanillaDetalle { get; set; }
         public Nullable<System.DateTime> Fecha_PlanillaDetalle { get; set; }
     
-        public virtual Concepto Concepto { get; set; }
         public virtual Planilla Planilla { get; set; }
+        public virtual Concepto Concepto { get; set; }
     }
 }

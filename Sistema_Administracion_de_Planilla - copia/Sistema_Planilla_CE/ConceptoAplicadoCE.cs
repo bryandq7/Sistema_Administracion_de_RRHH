@@ -15,6 +15,7 @@ namespace Sistema_Planilla_CE
         public int FKId_Concepto_ConceptoAplicado { get; set; }
         public int FKId_PeriodoDePago_ConceptoAplicado { get; set; }
         public bool Procesado_ConceptoAplicado { get; set; }
+        public Nullable<decimal> FactorTiempo_Concepto { get; set; }
 
         public int Id_Empleado { get; set; }
         public int FKId_Persona_Empleado { get; set; }

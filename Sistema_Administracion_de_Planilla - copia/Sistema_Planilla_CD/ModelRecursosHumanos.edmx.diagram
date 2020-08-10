@@ -75,19 +75,19 @@
         <AssociationConnector Association="RecursosHumanosDBModel.FK_Vacaciones_Empleado" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_Planilla_PeriodoDePago" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_PlanillaPatrono_PeriodoDePago" />
-        <EntityTypeShape EntityType="RecursosHumanosDBModel.Concepto" Width="1.5" PointX="14.5" PointY="8.375" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.ConceptoAplicado" Width="1.5" PointX="15" PointY="4.375" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.PlanillaDetalle" Width="1.5" PointX="15.625" PointY="17.75" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_ConceptoAplicado_Empleado" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_ConceptoAplicado_PeriodoDePago" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_PlanillaDetalle_Planilla" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.Concepto" Width="1.5" PointX="14.5" PointY="8.25" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_Concepto_ClaseConcepto" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_Concepto_DestinatarioConcepto" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_Concepto_ImpactaPlanilla" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_Concepto_TipoConcepto" />
-        <AssociationConnector Association="RecursosHumanosDBModel.FK_PlanillaPatronoDetalle_Concepto" />
-        <EntityTypeShape EntityType="RecursosHumanosDBModel.ConceptoAplicado" Width="1.5" PointX="15" PointY="4.375" />
-        <EntityTypeShape EntityType="RecursosHumanosDBModel.PlanillaDetalle" Width="1.5" PointX="15.625" PointY="17.75" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_ConceptoAplicado_Concepto" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_PlanillaDetalle_Concepto" />
-        <AssociationConnector Association="RecursosHumanosDBModel.FK_ConceptoAplicado_Empleado" />
-        <AssociationConnector Association="RecursosHumanosDBModel.FK_ConceptoAplicado_PeriodoDePago" />
-        <AssociationConnector Association="RecursosHumanosDBModel.FK_PlanillaDetalle_Planilla" />
+        <AssociationConnector Association="RecursosHumanosDBModel.FK_PlanillaPatronoDetalle_Concepto" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

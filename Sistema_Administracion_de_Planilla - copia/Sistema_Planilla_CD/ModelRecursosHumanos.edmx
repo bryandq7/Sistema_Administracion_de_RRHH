@@ -125,6 +125,7 @@
           <Property Name="Porcentaje_Concepto" Type="numeric" Precision="18" Scale="2" />
           <Property Name="MontoFijo_Concepto" Type="numeric" Precision="18" Scale="2" />
           <Property Name="DirectoPlanilla_Concepto" Type="bit" Nullable="false" />
+          <Property Name="FactorTiempo_Concepto" Type="numeric" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="ConceptoAplicado">
           <Key>
@@ -1293,6 +1294,20 @@
             <End Role="PeriodoDePago" EntitySet="PeriodoDePago" />
             <End Role="PlanillaPatrono" EntitySet="PlanillaPatrono" />
           </AssociationSet>
+          <EntitySet Name="ConceptoAplicado" EntityType="RecursosHumanosDBModel.ConceptoAplicado" />
+          <EntitySet Name="PlanillaDetalle" EntityType="RecursosHumanosDBModel.PlanillaDetalle" />
+          <AssociationSet Name="FK_ConceptoAplicado_Empleado" Association="RecursosHumanosDBModel.FK_ConceptoAplicado_Empleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="ConceptoAplicado" EntitySet="ConceptoAplicado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConceptoAplicado_PeriodoDePago" Association="RecursosHumanosDBModel.FK_ConceptoAplicado_PeriodoDePago">
+            <End Role="PeriodoDePago" EntitySet="PeriodoDePago" />
+            <End Role="ConceptoAplicado" EntitySet="ConceptoAplicado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlanillaDetalle_Planilla" Association="RecursosHumanosDBModel.FK_PlanillaDetalle_Planilla">
+            <End Role="Planilla" EntitySet="Planilla" />
+            <End Role="PlanillaDetalle" EntitySet="PlanillaDetalle" />
+          </AssociationSet>
           <EntitySet Name="Concepto" EntityType="RecursosHumanosDBModel.Concepto" />
           <AssociationSet Name="FK_Concepto_ClaseConcepto" Association="RecursosHumanosDBModel.FK_Concepto_ClaseConcepto">
             <End Role="ClaseConcepto" EntitySet="ClaseConcepto" />
@@ -1310,12 +1325,6 @@
             <End Role="TipoConcepto" EntitySet="TipoConcepto" />
             <End Role="Concepto" EntitySet="Concepto" />
           </AssociationSet>
-          <AssociationSet Name="FK_PlanillaPatronoDetalle_Concepto" Association="RecursosHumanosDBModel.FK_PlanillaPatronoDetalle_Concepto">
-            <End Role="Concepto" EntitySet="Concepto" />
-            <End Role="PlanillaPatronoDetalle" EntitySet="PlanillaPatronoDetalle" />
-          </AssociationSet>
-          <EntitySet Name="ConceptoAplicado" EntityType="RecursosHumanosDBModel.ConceptoAplicado" />
-          <EntitySet Name="PlanillaDetalle" EntityType="RecursosHumanosDBModel.PlanillaDetalle" />
           <AssociationSet Name="FK_ConceptoAplicado_Concepto" Association="RecursosHumanosDBModel.FK_ConceptoAplicado_Concepto">
             <End Role="Concepto" EntitySet="Concepto" />
             <End Role="ConceptoAplicado" EntitySet="ConceptoAplicado" />
@@ -1324,17 +1333,9 @@
             <End Role="Concepto" EntitySet="Concepto" />
             <End Role="PlanillaDetalle" EntitySet="PlanillaDetalle" />
           </AssociationSet>
-          <AssociationSet Name="FK_ConceptoAplicado_Empleado" Association="RecursosHumanosDBModel.FK_ConceptoAplicado_Empleado">
-            <End Role="Empleado" EntitySet="Empleado" />
-            <End Role="ConceptoAplicado" EntitySet="ConceptoAplicado" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ConceptoAplicado_PeriodoDePago" Association="RecursosHumanosDBModel.FK_ConceptoAplicado_PeriodoDePago">
-            <End Role="PeriodoDePago" EntitySet="PeriodoDePago" />
-            <End Role="ConceptoAplicado" EntitySet="ConceptoAplicado" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PlanillaDetalle_Planilla" Association="RecursosHumanosDBModel.FK_PlanillaDetalle_Planilla">
-            <End Role="Planilla" EntitySet="Planilla" />
-            <End Role="PlanillaDetalle" EntitySet="PlanillaDetalle" />
+          <AssociationSet Name="FK_PlanillaPatronoDetalle_Concepto" Association="RecursosHumanosDBModel.FK_PlanillaPatronoDetalle_Concepto">
+            <End Role="Concepto" EntitySet="Concepto" />
+            <End Role="PlanillaPatronoDetalle" EntitySet="PlanillaPatronoDetalle" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -2155,6 +2156,72 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ConceptoAplicado">
+          <Key>
+            <PropertyRef Name="Id_ConceptoAplicado" />
+          </Key>
+          <Property Name="Id_ConceptoAplicado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cantidad_ConceptoAplicado" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Monto_ConceptoAplicado" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="FKId_Empleado_ConceptoAplicado" Type="Int32" Nullable="false" />
+          <Property Name="FKId_Concepto_ConceptoAplicado" Type="Int32" Nullable="false" />
+          <Property Name="FKId_PeriodoDePago_ConceptoAplicado" Type="Int32" Nullable="false" />
+          <Property Name="Procesado_ConceptoAplicado" Type="Boolean" Nullable="false" />
+          <Property Name="Fecha_ConceptoAplicado" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Empleado" Relationship="RecursosHumanosDBModel.FK_ConceptoAplicado_Empleado" FromRole="ConceptoAplicado" ToRole="Empleado" />
+          <NavigationProperty Name="PeriodoDePago" Relationship="RecursosHumanosDBModel.FK_ConceptoAplicado_PeriodoDePago" FromRole="ConceptoAplicado" ToRole="PeriodoDePago" />
+          <NavigationProperty Name="Concepto" Relationship="RecursosHumanosDBModel.FK_ConceptoAplicado_Concepto" FromRole="ConceptoAplicado" ToRole="Concepto" />
+        </EntityType>
+        <EntityType Name="PlanillaDetalle">
+          <Key>
+            <PropertyRef Name="Id_PlanillaDetalle" />
+          </Key>
+          <Property Name="Id_PlanillaDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FKId_Planilla_PlanillaDetalle" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad_PlanillaDetalle" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Monto_PlanillaDetalle" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="FKId_Concepto_PlanillaDetalle" Type="Int32" Nullable="false" />
+          <Property Name="PagoProcesado_PlanillaDetalle" Type="Boolean" Nullable="false" />
+          <Property Name="Fecha_PlanillaDetalle" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Planilla" Relationship="RecursosHumanosDBModel.FK_PlanillaDetalle_Planilla" FromRole="PlanillaDetalle" ToRole="Planilla" />
+          <NavigationProperty Name="Concepto" Relationship="RecursosHumanosDBModel.FK_PlanillaDetalle_Concepto" FromRole="PlanillaDetalle" ToRole="Concepto" />
+        </EntityType>
+        <Association Name="FK_ConceptoAplicado_Empleado">
+          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.ConceptoAplicado" Role="ConceptoAplicado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Id_Empleado" />
+            </Principal>
+            <Dependent Role="ConceptoAplicado">
+              <PropertyRef Name="FKId_Empleado_ConceptoAplicado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConceptoAplicado_PeriodoDePago">
+          <End Type="RecursosHumanosDBModel.PeriodoDePago" Role="PeriodoDePago" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.ConceptoAplicado" Role="ConceptoAplicado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PeriodoDePago">
+              <PropertyRef Name="Id_PeriodoDePago" />
+            </Principal>
+            <Dependent Role="ConceptoAplicado">
+              <PropertyRef Name="FKId_PeriodoDePago_ConceptoAplicado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlanillaDetalle_Planilla">
+          <End Type="RecursosHumanosDBModel.Planilla" Role="Planilla" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.PlanillaDetalle" Role="PlanillaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Planilla">
+              <PropertyRef Name="Id_Planilla" />
+            </Principal>
+            <Dependent Role="PlanillaDetalle">
+              <PropertyRef Name="FKId_Planilla_PlanillaDetalle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="Concepto">
           <Key>
             <PropertyRef Name="Id_Concepto" />
@@ -2169,13 +2236,14 @@
           <Property Name="Porcentaje_Concepto" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="MontoFijo_Concepto" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="DirectoPlanilla_Concepto" Type="Boolean" Nullable="false" />
+          <Property Name="FactorTiempo_Concepto" Type="Decimal" Precision="18" Scale="2" />
           <NavigationProperty Name="ClaseConcepto" Relationship="RecursosHumanosDBModel.FK_Concepto_ClaseConcepto" FromRole="Concepto" ToRole="ClaseConcepto" />
           <NavigationProperty Name="DestinatarioConcepto" Relationship="RecursosHumanosDBModel.FK_Concepto_DestinatarioConcepto" FromRole="Concepto" ToRole="DestinatarioConcepto" />
           <NavigationProperty Name="ImpactaPlanilla" Relationship="RecursosHumanosDBModel.FK_Concepto_ImpactaPlanilla" FromRole="Concepto" ToRole="ImpactaPlanilla" />
           <NavigationProperty Name="TipoConcepto" Relationship="RecursosHumanosDBModel.FK_Concepto_TipoConcepto" FromRole="Concepto" ToRole="TipoConcepto" />
-          <NavigationProperty Name="PlanillaPatronoDetalle" Relationship="RecursosHumanosDBModel.FK_PlanillaPatronoDetalle_Concepto" FromRole="Concepto" ToRole="PlanillaPatronoDetalle" />
           <NavigationProperty Name="ConceptoAplicado" Relationship="RecursosHumanosDBModel.FK_ConceptoAplicado_Concepto" FromRole="Concepto" ToRole="ConceptoAplicado" />
           <NavigationProperty Name="PlanillaDetalle" Relationship="RecursosHumanosDBModel.FK_PlanillaDetalle_Concepto" FromRole="Concepto" ToRole="PlanillaDetalle" />
+          <NavigationProperty Name="PlanillaPatronoDetalle" Relationship="RecursosHumanosDBModel.FK_PlanillaPatronoDetalle_Concepto" FromRole="Concepto" ToRole="PlanillaPatronoDetalle" />
         </EntityType>
         <Association Name="FK_Concepto_ClaseConcepto">
           <End Type="RecursosHumanosDBModel.ClaseConcepto" Role="ClaseConcepto" Multiplicity="1" />
@@ -2225,48 +2293,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PlanillaPatronoDetalle_Concepto">
-          <End Type="RecursosHumanosDBModel.Concepto" Role="Concepto" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.PlanillaPatronoDetalle" Role="PlanillaPatronoDetalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Concepto">
-              <PropertyRef Name="Id_Concepto" />
-            </Principal>
-            <Dependent Role="PlanillaPatronoDetalle">
-              <PropertyRef Name="FKId_Concepto_PlanillaPatronoDetalle" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="ConceptoAplicado">
-          <Key>
-            <PropertyRef Name="Id_ConceptoAplicado" />
-          </Key>
-          <Property Name="Id_ConceptoAplicado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Cantidad_ConceptoAplicado" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="Monto_ConceptoAplicado" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="FKId_Empleado_ConceptoAplicado" Type="Int32" Nullable="false" />
-          <Property Name="FKId_Concepto_ConceptoAplicado" Type="Int32" Nullable="false" />
-          <Property Name="FKId_PeriodoDePago_ConceptoAplicado" Type="Int32" Nullable="false" />
-          <Property Name="Procesado_ConceptoAplicado" Type="Boolean" Nullable="false" />
-          <Property Name="Fecha_ConceptoAplicado" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Concepto" Relationship="RecursosHumanosDBModel.FK_ConceptoAplicado_Concepto" FromRole="ConceptoAplicado" ToRole="Concepto" />
-          <NavigationProperty Name="Empleado" Relationship="RecursosHumanosDBModel.FK_ConceptoAplicado_Empleado" FromRole="ConceptoAplicado" ToRole="Empleado" />
-          <NavigationProperty Name="PeriodoDePago" Relationship="RecursosHumanosDBModel.FK_ConceptoAplicado_PeriodoDePago" FromRole="ConceptoAplicado" ToRole="PeriodoDePago" />
-        </EntityType>
-        <EntityType Name="PlanillaDetalle">
-          <Key>
-            <PropertyRef Name="Id_PlanillaDetalle" />
-          </Key>
-          <Property Name="Id_PlanillaDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FKId_Planilla_PlanillaDetalle" Type="Int32" Nullable="false" />
-          <Property Name="Cantidad_PlanillaDetalle" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="Monto_PlanillaDetalle" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="FKId_Concepto_PlanillaDetalle" Type="Int32" Nullable="false" />
-          <Property Name="PagoProcesado_PlanillaDetalle" Type="Boolean" Nullable="false" />
-          <Property Name="Fecha_PlanillaDetalle" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Concepto" Relationship="RecursosHumanosDBModel.FK_PlanillaDetalle_Concepto" FromRole="PlanillaDetalle" ToRole="Concepto" />
-          <NavigationProperty Name="Planilla" Relationship="RecursosHumanosDBModel.FK_PlanillaDetalle_Planilla" FromRole="PlanillaDetalle" ToRole="Planilla" />
-        </EntityType>
         <Association Name="FK_ConceptoAplicado_Concepto">
           <End Type="RecursosHumanosDBModel.Concepto" Role="Concepto" Multiplicity="1" />
           <End Type="RecursosHumanosDBModel.ConceptoAplicado" Role="ConceptoAplicado" Multiplicity="*" />
@@ -2291,39 +2317,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ConceptoAplicado_Empleado">
-          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.ConceptoAplicado" Role="ConceptoAplicado" Multiplicity="*" />
+        <Association Name="FK_PlanillaPatronoDetalle_Concepto">
+          <End Type="RecursosHumanosDBModel.Concepto" Role="Concepto" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.PlanillaPatronoDetalle" Role="PlanillaPatronoDetalle" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Empleado">
-              <PropertyRef Name="Id_Empleado" />
+            <Principal Role="Concepto">
+              <PropertyRef Name="Id_Concepto" />
             </Principal>
-            <Dependent Role="ConceptoAplicado">
-              <PropertyRef Name="FKId_Empleado_ConceptoAplicado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ConceptoAplicado_PeriodoDePago">
-          <End Type="RecursosHumanosDBModel.PeriodoDePago" Role="PeriodoDePago" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.ConceptoAplicado" Role="ConceptoAplicado" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PeriodoDePago">
-              <PropertyRef Name="Id_PeriodoDePago" />
-            </Principal>
-            <Dependent Role="ConceptoAplicado">
-              <PropertyRef Name="FKId_PeriodoDePago_ConceptoAplicado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PlanillaDetalle_Planilla">
-          <End Type="RecursosHumanosDBModel.Planilla" Role="Planilla" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.PlanillaDetalle" Role="PlanillaDetalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Planilla">
-              <PropertyRef Name="Id_Planilla" />
-            </Principal>
-            <Dependent Role="PlanillaDetalle">
-              <PropertyRef Name="FKId_Planilla_PlanillaDetalle" />
+            <Dependent Role="PlanillaPatronoDetalle">
+              <PropertyRef Name="FKId_Concepto_PlanillaPatronoDetalle" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2722,22 +2724,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Concepto">
-            <EntityTypeMapping TypeName="RecursosHumanosDBModel.Concepto">
-              <MappingFragment StoreEntitySet="Concepto">
-                <ScalarProperty Name="DirectoPlanilla_Concepto" ColumnName="DirectoPlanilla_Concepto" />
-                <ScalarProperty Name="MontoFijo_Concepto" ColumnName="MontoFijo_Concepto" />
-                <ScalarProperty Name="Porcentaje_Concepto" ColumnName="Porcentaje_Concepto" />
-                <ScalarProperty Name="FKId_ClaseConcepto_Concepto" ColumnName="FKId_ClaseConcepto_Concepto" />
-                <ScalarProperty Name="FKId_ImpactaPlanilla_Concepto" ColumnName="FKId_ImpactaPlanilla_Concepto" />
-                <ScalarProperty Name="FKId_DestinatarioConcepto_Concepto" ColumnName="FKId_DestinatarioConcepto_Concepto" />
-                <ScalarProperty Name="FKId_TipoConcepto_Concepto" ColumnName="FKId_TipoConcepto_Concepto" />
-                <ScalarProperty Name="Editable_Concepto" ColumnName="Editable_Concepto" />
-                <ScalarProperty Name="Nombre_Concepto" ColumnName="Nombre_Concepto" />
-                <ScalarProperty Name="Id_Concepto" ColumnName="Id_Concepto" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ConceptoAplicado">
             <EntityTypeMapping TypeName="RecursosHumanosDBModel.ConceptoAplicado">
               <MappingFragment StoreEntitySet="ConceptoAplicado">
@@ -2762,6 +2748,23 @@
                 <ScalarProperty Name="Cantidad_PlanillaDetalle" ColumnName="Cantidad_PlanillaDetalle" />
                 <ScalarProperty Name="FKId_Planilla_PlanillaDetalle" ColumnName="FKId_Planilla_PlanillaDetalle" />
                 <ScalarProperty Name="Id_PlanillaDetalle" ColumnName="Id_PlanillaDetalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Concepto">
+            <EntityTypeMapping TypeName="RecursosHumanosDBModel.Concepto">
+              <MappingFragment StoreEntitySet="Concepto">
+                <ScalarProperty Name="FactorTiempo_Concepto" ColumnName="FactorTiempo_Concepto" />
+                <ScalarProperty Name="DirectoPlanilla_Concepto" ColumnName="DirectoPlanilla_Concepto" />
+                <ScalarProperty Name="MontoFijo_Concepto" ColumnName="MontoFijo_Concepto" />
+                <ScalarProperty Name="Porcentaje_Concepto" ColumnName="Porcentaje_Concepto" />
+                <ScalarProperty Name="FKId_ClaseConcepto_Concepto" ColumnName="FKId_ClaseConcepto_Concepto" />
+                <ScalarProperty Name="FKId_ImpactaPlanilla_Concepto" ColumnName="FKId_ImpactaPlanilla_Concepto" />
+                <ScalarProperty Name="FKId_DestinatarioConcepto_Concepto" ColumnName="FKId_DestinatarioConcepto_Concepto" />
+                <ScalarProperty Name="FKId_TipoConcepto_Concepto" ColumnName="FKId_TipoConcepto_Concepto" />
+                <ScalarProperty Name="Editable_Concepto" ColumnName="Editable_Concepto" />
+                <ScalarProperty Name="Nombre_Concepto" ColumnName="Nombre_Concepto" />
+                <ScalarProperty Name="Id_Concepto" ColumnName="Id_Concepto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -63,8 +63,8 @@ namespace Sistema_Planilla_CE
         public virtual DbSet<Vacaciones> Vacaciones { get; set; }
         public virtual DbSet<Empleado> Empleado { get; set; }
         public virtual DbSet<PeriodoDePago> PeriodoDePago { get; set; }
-        public virtual DbSet<Concepto> Concepto { get; set; }
         public virtual DbSet<ConceptoAplicado> ConceptoAplicado { get; set; }
         public virtual DbSet<PlanillaDetalle> PlanillaDetalle { get; set; }
+        public virtual DbSet<Concepto> Concepto { get; set; }
     }
 }

@@ -15,5 +15,16 @@ namespace Sistema_Planilla_CN
         {
             return obj.ListarClaseConceptos();
         }
+
+        public static List<ClaseConcepto> ObtenerClaseConceptos(int Id_ImpactaPlanilla)
+        {
+            if (Id_ImpactaPlanilla == 1)
+            {
+
+                return obj.ObtenerClaseConceptosPatrono();
+            }
+            else return obj.ObtenerClaseConceptosTrabajador();
+
+        }
     }
 }

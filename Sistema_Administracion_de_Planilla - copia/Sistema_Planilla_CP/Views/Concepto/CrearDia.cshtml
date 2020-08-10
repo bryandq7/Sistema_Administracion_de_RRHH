@@ -1,0 +1,259 @@
+﻿@model Sistema_Planilla_CE.ConceptoCE
+
+@{
+    ViewBag.Title = "CrearDia";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@section styles{
+
+    <style>
+        .tituloCss {
+            color: #3d3d29;
+        }
+    </style>
+
+}
+
+<h2 class="tituloCss">Crear  Concepto Día</h2>
+
+<form action="@Url.Action("Crear", "Concepto")" method="post" id="frmConcepto">
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Agregar Concepto Día</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Id_Concepto, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Id_Concepto, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Id_Concepto, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        @*<div class="form-group">
+                <label class="control-label col-md-2"> Planilla que Impacta</label>
+                <div class="col-md-10">
+                    <select class="form-control" id="Id_ImpactaPlanilla" name="Id_ImpactaPlanilla">
+                        <option value="">Seleccione...</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.Id_ImpactaPlanilla, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2"> Clase de Concepto</label>
+            <div class="col-md-10">
+                <select class="form-control" id="Id_ClaseConcepto" name="Id_ClaseConcepto">
+                    <option value="">Seleccione...</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.Id_ClaseConcepto, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2"> Nombre</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="Nombre_Concepto" name="Nombre_Concepto" placeholder="Ingrese un Nombre de Concepto " />
+                @Html.ValidationMessageFor(model => model.Nombre_Concepto, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2"> Factor de Tiempo</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="FactorTiempo_Concepto" name="FactorTiempo_Concepto" placeholder="Ingrese un Factor de tiempo " />
+                @Html.ValidationMessageFor(model => model.FactorTiempo_Concepto, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                <label class="control-label col-md-2"> Carga Automática en Planilla</label>
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        <input type="checkbox" id="DirectoPlanilla_Concepto" name="DirectoPlanilla_Concepto" value="true" checked>
+                        @Html.ValidationMessageFor(model => model.DirectoPlanilla_Concepto, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.Id_TipoConcepto, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                <input type="hidden" class="form-control" id="Id_TipoConcepto" name="Id_TipoConcepto" value="4" />
+                @Html.ValidationMessageFor(model => model.Id_TipoConcepto, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.Id_TipoConcepto, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                <input type="hidden" class="form-control" id="Id_ImpactaPlanilla" name="Id_ImpactaPlanilla" value="2" />
+                @Html.ValidationMessageFor(model => model.Id_ImpactaPlanilla, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        //ListarEmpleadosContratoVigente();
+        ListarClaseConceptos();
+        //ListarImpactaPlanilla();
+
+
+        //$("#Id_ImpactaPlanilla").on("change", function () {
+
+        //    GetClaseConceptos($(this).val());
+        //})
+
+
+
+
+
+
+
+        //function ListarEmpleadosContratoVigente(myCallback) {
+        //    $.ajax({
+        //        type: "GET",
+        //        url: '/empleado/ListarEmpleadosContratoVigente',
+        //        dataType: "json",
+        //        success: function (result) {
+        //            $.each(result.data, function (key, item) {
+        //                $("#Id_Persona").append('<option value=' + item.Id_Persona + '>' + item.NombreCompletoPersona + '</option>');
+        //            });
+
+        //            if (myCallback !== undefined)
+        //                return myCallback(result.data);
+        //        },
+        //        error: function (data) {
+        //            alert('error');
+        //        }
+        //    });
+        //}
+
+        function ListarClaseConceptos(myCallback) {
+            $.ajax({
+                type: "GET",
+                url: '/ClaseConcepto/ListarClaseConceptos',
+                dataType: "json",
+                success: function (result) {
+                    $.each(result.data, function (key, item) {
+                        $("#Id_ClaseConcepto").append('<option value=' + item.Id_ClaseConcepto + '>' + item.Detalle_ClaseConcepto + '</option>');
+                    });
+
+                    if (myCallback !== undefined)
+                        return myCallback(result.data);
+                },
+                error: function (data) {
+                    alert('error');
+                }
+            });
+        }
+
+
+        //function GetClaseConceptos(val) {
+
+        //    if (val == "") {
+        //        //alert("Debe escoger un Provincia");
+        //        $("#Id_ClaseConcepto").empty();
+        //        var newOption = $('<option value="">Seleccione...</option>');
+        //        $('#Id_ClaseConcepto').append(newOption);
+        //        return;
+        //    }
+
+
+        //    $.ajax({
+        //        type: "GET",
+        //        url: '/claseconcepto/getClaseconceptos',
+        //        dataType: "json",
+        //        data: { Id_ImpactaPlanilla: val },
+        //        success: function (result) {
+        //            $("#Id_ClaseConcepto").html("");
+        //            $.each(result.data, function (key, item) {
+        //                $("#Id_ClaseConcepto").append('<option value=' + item.Id_ClaseConcepto + '>' + item.Detalle_ClaseConcepto + '</option>');
+        //            });
+        //        },
+        //        error: function (data) {
+        //            alert('error');
+        //        }
+        //    });
+        //}
+
+
+        function ListarImpactaPlanilla(myCallback) {
+            $.ajax({
+                type: "GET",
+                url: '/ImpactaPlanilla/ListarImpactaPlanilla',
+                dataType: "json",
+                success: function (result) {
+                    $.each(result.data, function (key, item) {
+                        $("#Id_ImpactaPlanilla").append('<option value=' + item.Id_ImpactaPlanilla + '>' + item.Detalle_ImpactaPlanilla + '</option>');
+                    });
+
+                    if (myCallback !== undefined)
+                        return myCallback(result.data);
+                },
+                error: function (data) {
+                    alert('error');
+                }
+            });
+        }
+
+
+
+
+        $("#frmConcepto").submit(function (event) {
+            event.preventDefault(); //prevent default action
+            //var dptoId = $("#Id_Distrito").val();
+            //if (dptoId == "") {
+            //    alert("Debe escoger un Distrito");
+            //    return;
+            //}
+
+            //var usuarioId = $("#Id_Usuario").val();
+            //if (usuarioId == "") {
+            //    alert("Debe escoger un usuario");
+            //    return;
+            //}
+            var post_url = $(this).attr("action"); //get form action url
+            var request_method = $(this).attr("method"); //get form GET/POST method
+            var form_data = $(this).serializeArray(); //Encode form elements for submission
+            console.log(form_data);
+
+            LoadingOverlayShow("#frmConcepto");
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) { //
+                console.log(response);
+                LoadingOverlayHide("#frmConcepto");
+                if (response.ok) {
+                    alert("Concepto creado correctamente.");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    alert(response.msg);
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmConcepto");
+            });
+        });
+
+    </script>
+}

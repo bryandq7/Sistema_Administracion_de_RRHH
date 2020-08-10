@@ -36,17 +36,51 @@ namespace Sistema_Planilla_CD
         }
 
 
-        public List<ConceptoCE> ListarConceptos()
+        public List<ConceptoCE> ListarConceptos(Nullable<int> impacta)
         {
-            string sql = @"select c.Id_Concepto,c.Nombre_Concepto,c.Editable_Concepto,c.FKId_TipoConcepto_Concepto,c.FKId_DestinatarioConcepto_Concepto,
+            string sql = "";
+            if (impacta is null)
+            {
+                sql = @"select c.Id_Concepto,c.Nombre_Concepto,c.Editable_Concepto,c.FKId_TipoConcepto_Concepto,c.FKId_DestinatarioConcepto_Concepto,
 				c.FKId_ImpactaPlanilla_Concepto,c.FKId_ClaseConcepto_Concepto,c.Porcentaje_Concepto,c.MontoFijo_Concepto,
 				c.DirectoPlanilla_Concepto,tc.Id_TipoConcepto,tc.Detalle_TipoConcepto,dc.Id_DestinatarioConcepto,
-				dc.Nombre_DestinatarioConcepto,imp.Id_ImpactaPlanilla,imp.Detalle_ImpactaPlanilla,cc.Id_ClaseConcepto,cc.Detalle_ClaseConcepto             
+				dc.Nombre_DestinatarioConcepto,imp.Id_ImpactaPlanilla,imp.Detalle_ImpactaPlanilla,cc.Id_ClaseConcepto,cc.Detalle_ClaseConcepto,c.FactorTiempo_Concepto             
                 from Concepto c 
                 inner join ClaseConcepto cc on c.FKId_ClaseConcepto_Concepto = cc.Id_ClaseConcepto
                 inner join TipoConcepto tc on c.FKId_TipoConcepto_Concepto = tc.Id_TipoConcepto
 				inner join DestinatarioConcepto dc on c.FKId_DestinatarioConcepto_Concepto = dc.Id_DestinatarioConcepto
 				inner join ImpactaPlanilla imp on c.FKId_ImpactaPlanilla_Concepto = imp.Id_ImpactaPlanilla";
+
+            }
+
+            if (impacta == 1)
+            {
+                sql = @"select c.Id_Concepto,c.Nombre_Concepto,c.Editable_Concepto,c.FKId_TipoConcepto_Concepto,c.FKId_DestinatarioConcepto_Concepto,
+				c.FKId_ImpactaPlanilla_Concepto,c.FKId_ClaseConcepto_Concepto,c.Porcentaje_Concepto,c.MontoFijo_Concepto,
+				c.DirectoPlanilla_Concepto,tc.Id_TipoConcepto,tc.Detalle_TipoConcepto,dc.Id_DestinatarioConcepto,
+				dc.Nombre_DestinatarioConcepto,imp.Id_ImpactaPlanilla,imp.Detalle_ImpactaPlanilla,cc.Id_ClaseConcepto,cc.Detalle_ClaseConcepto,c.FactorTiempo_Concepto            
+                from Concepto c 
+                inner join ClaseConcepto cc on c.FKId_ClaseConcepto_Concepto = cc.Id_ClaseConcepto
+                inner join TipoConcepto tc on c.FKId_TipoConcepto_Concepto = tc.Id_TipoConcepto
+				inner join DestinatarioConcepto dc on c.FKId_DestinatarioConcepto_Concepto = dc.Id_DestinatarioConcepto
+				inner join ImpactaPlanilla imp on c.FKId_ImpactaPlanilla_Concepto = imp.Id_ImpactaPlanilla
+				where imp.Id_ImpactaPlanilla = 1";
+            }
+
+            if (impacta == 2)
+            {
+                sql = @"select c.Id_Concepto,c.Nombre_Concepto,c.Editable_Concepto,c.FKId_TipoConcepto_Concepto,c.FKId_DestinatarioConcepto_Concepto,
+				c.FKId_ImpactaPlanilla_Concepto,c.FKId_ClaseConcepto_Concepto,c.Porcentaje_Concepto,c.MontoFijo_Concepto,
+				c.DirectoPlanilla_Concepto,tc.Id_TipoConcepto,tc.Detalle_TipoConcepto,dc.Id_DestinatarioConcepto,
+				dc.Nombre_DestinatarioConcepto,imp.Id_ImpactaPlanilla,imp.Detalle_ImpactaPlanilla,cc.Id_ClaseConcepto,cc.Detalle_ClaseConcepto,c.FactorTiempo_Concepto             
+                from Concepto c 
+                inner join ClaseConcepto cc on c.FKId_ClaseConcepto_Concepto = cc.Id_ClaseConcepto
+                inner join TipoConcepto tc on c.FKId_TipoConcepto_Concepto = tc.Id_TipoConcepto
+				inner join DestinatarioConcepto dc on c.FKId_DestinatarioConcepto_Concepto = dc.Id_DestinatarioConcepto
+				inner join ImpactaPlanilla imp on c.FKId_ImpactaPlanilla_Concepto = imp.Id_ImpactaPlanilla
+				where imp.Id_ImpactaPlanilla = 2";
+            }
+
 
             using (var db = new RecursosHumanosDBContext())
             {
@@ -54,5 +88,85 @@ namespace Sistema_Planilla_CD
             }
         }
 
+        public void Crear(ConceptoCE concepto)
+        {
+
+            var destinatario = 0;
+
+            if (concepto.Id_ClaseConcepto == 1 && concepto.Id_TipoConcepto == 1)
+            {
+                destinatario = 7;
+            }
+
+            if (concepto.Id_ClaseConcepto == 2 && concepto.Id_TipoConcepto == 1)
+            {
+                destinatario = 5;
+            }
+
+            if (concepto.Id_ClaseConcepto == 1 && concepto.Id_TipoConcepto ==2)
+            {
+                destinatario = 7;
+            }
+
+            if (concepto.Id_ClaseConcepto == 2 && concepto.Id_TipoConcepto == 2)
+            {
+                destinatario = 5;
+            }
+
+            if (concepto.Id_ClaseConcepto == 2 && concepto.Id_TipoConcepto == 3)
+            {
+                destinatario = 6;
+            }
+
+            if (concepto.Id_ClaseConcepto == 1 && concepto.Id_TipoConcepto == 3)
+            {
+                destinatario = 7;
+            }
+
+            if (concepto.Id_ClaseConcepto == 2 && concepto.Id_TipoConcepto == 4)
+            {
+                destinatario = 6;
+            }
+
+            if (concepto.Id_ClaseConcepto == 1 && concepto.Id_TipoConcepto == 4)
+            {
+                destinatario = 7;
+            }
+
+            var concepto1 = new Concepto
+            {
+                Nombre_Concepto = concepto.Nombre_Concepto,
+                Editable_Concepto = true,
+                FKId_TipoConcepto_Concepto = concepto.Id_TipoConcepto,
+                FKId_DestinatarioConcepto_Concepto = destinatario,
+                FKId_ImpactaPlanilla_Concepto = concepto.Id_ImpactaPlanilla,
+                FKId_ClaseConcepto_Concepto = concepto.Id_ClaseConcepto,
+                MontoFijo_Concepto = concepto.MontoFijo_Concepto,
+                DirectoPlanilla_Concepto = concepto.DirectoPlanilla_Concepto,
+                FactorTiempo_Concepto = concepto.FactorTiempo_Concepto,
+                Porcentaje_Concepto = concepto.Porcentaje_Concepto
+            };
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                db.Concepto.Add(concepto1);
+                db.SaveChanges();
+            }
+
+        }
+
+
+
+        public void Eliminar(int id)
+        {
+            using (var db = new RecursosHumanosDBContext())
+            {
+
+                var concepto = db.Concepto.Find(id);
+                db.Concepto.Remove(concepto);
+                db.SaveChanges();
+            }
+
+        }
     }
 }

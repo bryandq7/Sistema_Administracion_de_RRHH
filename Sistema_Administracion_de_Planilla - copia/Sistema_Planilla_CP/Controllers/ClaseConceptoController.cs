@@ -21,5 +21,11 @@ namespace Sistema_Planilla_CP.Controllers
             var lista = ClaseConceptoCN.ListarClaseConceptos();
             return Json(new { data = lista }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetClaseConceptos(int Id_ImpactaPlanilla)
+        {
+            var lista = ClaseConceptoCN.ObtenerClaseConceptos(Id_ImpactaPlanilla);
+            return Json(new { data = lista }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

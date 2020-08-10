@@ -16,10 +16,24 @@ namespace Sistema_Planilla_CN
             return obj.ObtenerConceptos(Id_ClaseConcepto, Id_TipoConcepto);
         }
 
-        public static List<ConceptoCE> ListarConceptos()
+        public static List<ConceptoCE> ListarConceptos(Nullable<int> impacta)
         {
-            return obj.ListarConceptos();
+            return obj.ListarConceptos(impacta);
         }
+
+
+        public static void Crear(ConceptoCE concepto)
+        {
+            obj.Crear(concepto);
+
+        }
+
+
+        public static void Eliminar(int id)
+        {
+            obj.Eliminar(id);
+        }
+
 
 
     }

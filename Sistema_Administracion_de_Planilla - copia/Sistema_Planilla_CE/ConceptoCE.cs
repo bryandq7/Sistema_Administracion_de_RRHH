@@ -18,6 +18,7 @@ namespace Sistema_Planilla_CE
         public Nullable<decimal> Porcentaje_Concepto { get; set; }
         public Nullable<decimal> MontoFijo_Concepto { get; set; }
         public bool DirectoPlanilla_Concepto { get; set; }
+        public Nullable<decimal> FactorTiempo_Concepto { get; set; }
 
         public int Id_TipoConcepto { get; set; }
         public string Detalle_TipoConcepto { get; set; }

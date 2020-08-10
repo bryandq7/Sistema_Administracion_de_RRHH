@@ -84,6 +84,27 @@ namespace Sistema_Planilla_CD
             }
         }
 
+        public decimal? ObtenerFactorConcepto(int conceptoID)
+        {
+            using (var db = new RecursosHumanosDBContext())
+            {
+                var factorConceptoId = db.Concepto
+                    .Where(p => p.Id_Concepto == conceptoID).FirstOrDefault();
+
+                return factorConceptoId.FactorTiempo_Concepto;
+            }
+        }
+
+        public decimal? ObtenerPorcentajeConcepto(int conceptoID)
+        {
+            using (var db = new RecursosHumanosDBContext())
+            {
+                var factorConceptoId = db.Concepto
+                    .Where(p => p.Id_Concepto == conceptoID).FirstOrDefault();
+
+                return factorConceptoId.Porcentaje_Concepto;
+            }
+        }
 
         public void Crear(ConceptoAplicadoCE concepto)
         {
@@ -94,12 +115,16 @@ namespace Sistema_Planilla_CD
 
             var contrato = ObtenerContrato(idempleado);
 
+
+            decimal factor = ObtenerFactorConcepto(concepto.Id_Concepto)??0;
+            decimal porcentaje = ObtenerPorcentajeConcepto(concepto.Id_Concepto) ?? 0;
+
             decimal cantidadconceptoAplicado = 0;
             decimal montoconceptoAplicado = 0;
 
             if (tipoConceptoId == 1)
             {
-                cantidadconceptoAplicado = concepto.Cantidad_ConceptoAplicado;
+                cantidadconceptoAplicado = porcentaje;
                 montoconceptoAplicado = (cantidadconceptoAplicado / 100) * contrato.SalarioBrutoQuincenal_Contrato;
             }
 
@@ -111,32 +136,18 @@ namespace Sistema_Planilla_CD
             }
 
 
-            if (tipoConceptoId == 3 && concepto.Id_ClaseConcepto == 1 )
+            if (tipoConceptoId == 3 )
             {
                 cantidadconceptoAplicado = concepto.Cantidad_ConceptoAplicado;
-                montoconceptoAplicado = (cantidadconceptoAplicado * 1.5M)*contrato.SalarioBrutoPorHora_Contrato;
-            }
-
-            if (tipoConceptoId == 3 && concepto.Id_ClaseConcepto == 2)
-            {
-                cantidadconceptoAplicado = concepto.Cantidad_ConceptoAplicado;
-                montoconceptoAplicado = cantidadconceptoAplicado  * contrato.SalarioBrutoPorHora_Contrato;
+                montoconceptoAplicado = (cantidadconceptoAplicado * factor) *contrato.SalarioBrutoPorHora_Contrato;
             }
 
 
-            if (tipoConceptoId == 4 && concepto.Id_ClaseConcepto == 1)
+            if (tipoConceptoId == 4 )
             {
                 cantidadconceptoAplicado = 1;
-                montoconceptoAplicado = (cantidadconceptoAplicado * 2M) * contrato.SalarioBrutoPorDia_Contrato;
+                montoconceptoAplicado = (cantidadconceptoAplicado * factor) * contrato.SalarioBrutoPorDia_Contrato;
             }
-
-            if (tipoConceptoId == 4 && concepto.Id_ClaseConcepto == 2)
-            {
-                cantidadconceptoAplicado = 1;
-                montoconceptoAplicado = cantidadconceptoAplicado * contrato.SalarioBrutoPorDia_Contrato;
-            }
-
-
 
             var concepto1 = new ConceptoAplicado
             {
