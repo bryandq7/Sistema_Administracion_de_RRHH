@@ -93,12 +93,56 @@ namespace Sistema_Planilla_CP.Controllers
 
         }
 
+        public ActionResult Editar(int id)
+        {
+            var contrato = ConceptoCN.ObtenerDetalleConcepto(id);
+            return View(contrato);
+        }
+
+        public ActionResult EditarPorcentaje(int id)
+        {
+            var contrato = ConceptoCN.ObtenerDetalleConcepto(id);
+            return View(contrato);
+        }
+
+        public ActionResult EditarDia(int id)
+        {
+            var contrato = ConceptoCN.ObtenerDetalleConcepto(id);
+            return View(contrato);
+        }
+
+        public ActionResult EditarTiempo(int id)
+        {
+            var contrato = ConceptoCN.ObtenerDetalleConcepto(id);
+            return View(contrato);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editar(ConceptoCE concepto)
+        {
+            try
+            {
+                if (ConceptoAplicadoCN.ConceptoExiste(concepto.Id_Concepto) == true)
+                    return Json(new { ok = false, msg = "Este Concepto ya se ha aplicado para el siguiente periodo de pago, elimine el concepto aplicado o bien espere a la siguiente corrida de nómina para ejecutar esta acción" }, JsonRequestBehavior.AllowGet);
+
+                ConceptoCN.Editar(concepto);
+                return Json(new { ok = true, toRedirect = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ok = false, msg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
 
         [HttpPost]
         public ActionResult Eliminar(int identificador)
         {
             try
             {
+                if (ConceptoAplicadoCN.ConceptoExiste(identificador) == true)
+                    return Json(new { ok = false, msg = "Este Concepto ya se ha aplicado para el siguiente periodo de pago, elimine el concepto aplicado o bien espere a la siguiente corrida de nómina para ejecutar esta acción" }, JsonRequestBehavior.AllowGet);
                 ConceptoCN.Eliminar(identificador);
                 return Json(new { ok = true, toRedirect = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
             }

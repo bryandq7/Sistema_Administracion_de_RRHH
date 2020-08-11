@@ -348,6 +348,10 @@
     <Content Include="Views\Concepto\CrearTiempo.cshtml" />
     <Content Include="Views\Concepto\CrearDia.cshtml" />
     <Content Include="Views\Concepto\CrearPorcentaje.cshtml" />
+    <Content Include="Views\Concepto\Editar.cshtml" />
+    <Content Include="Views\Concepto\EditarPorcentaje.cshtml" />
+    <Content Include="Views\Concepto\EditarDia.cshtml" />
+    <Content Include="Views\Concepto\EditarTiempo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

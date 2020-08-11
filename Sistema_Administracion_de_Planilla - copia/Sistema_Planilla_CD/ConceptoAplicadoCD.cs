@@ -72,6 +72,17 @@ namespace Sistema_Planilla_CD
             }
         }
 
+        public bool ConceptoExiste(int conceptoID)
+        {
+            using (var db = new RecursosHumanosDBContext())
+            {
+                var existeconcepto = db.ConceptoAplicado
+                    .Any(p => p.FKId_Concepto_ConceptoAplicado == conceptoID && p.Procesado_ConceptoAplicado == false);
+
+                return existeconcepto;
+            }
+        }
+
 
         public Contrato ObtenerContrato(int EmpleadoId)
         {

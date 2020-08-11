@@ -28,6 +28,34 @@ namespace Sistema_Planilla_CN
 
         }
 
+        public static ConceptoCE ObtenerDetalleConcepto(int idconcepto)
+        {
+            return obj.ObtenerDetalleConcepto(idconcepto);
+        }
+
+        public static void Editar(ConceptoCE concepto)
+        {
+            if (concepto.Id_TipoConcepto == 1)
+            {
+                obj.EditarPorcentaje(concepto);
+            }
+
+            if (concepto.Id_TipoConcepto == 2)
+            {
+                obj.Editar(concepto);
+            }
+
+            if (concepto.Id_TipoConcepto == 3)
+            {
+                obj.EditarTiempo(concepto);
+            }
+
+            if (concepto.Id_TipoConcepto == 4)
+            {
+                obj.EditarDia(concepto);
+            }
+        }
+
 
         public static void Eliminar(int id)
         {

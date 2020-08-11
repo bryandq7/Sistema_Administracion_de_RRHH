@@ -29,7 +29,12 @@ namespace Sistema_Planilla_CN
             return obj.ConceptoTiempoExiste(empleadoID, conceptoID, fecha);
         }
 
-        public static int ObtenerIdEmpleado(int personaID)
+        public static bool ConceptoExiste(int conceptoID)
+        {
+            return obj.ConceptoExiste(conceptoID);
+        }
+
+            public static int ObtenerIdEmpleado(int personaID)
         {
 
             return obj.ObtenerIdEmpleado(personaID);

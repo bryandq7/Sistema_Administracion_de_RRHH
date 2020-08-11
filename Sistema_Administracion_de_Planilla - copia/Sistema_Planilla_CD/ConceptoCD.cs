@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -153,6 +154,71 @@ namespace Sistema_Planilla_CD
                 db.SaveChanges();
             }
 
+        }
+
+        public ConceptoCE ObtenerDetalleConcepto(int idconcepto)
+        {
+
+            string sql = @"select c.Id_Concepto,c.Nombre_Concepto,c.Editable_Concepto,c.FKId_TipoConcepto_Concepto,c.FKId_DestinatarioConcepto_Concepto,
+				c.FKId_ImpactaPlanilla_Concepto,c.FKId_ClaseConcepto_Concepto,c.Porcentaje_Concepto,c.MontoFijo_Concepto,
+				c.DirectoPlanilla_Concepto,tc.Id_TipoConcepto,tc.Detalle_TipoConcepto,dc.Id_DestinatarioConcepto,
+				dc.Nombre_DestinatarioConcepto,imp.Id_ImpactaPlanilla,imp.Detalle_ImpactaPlanilla,cc.Id_ClaseConcepto,cc.Detalle_ClaseConcepto,c.FactorTiempo_Concepto             
+                from Concepto c 
+                inner join ClaseConcepto cc on c.FKId_ClaseConcepto_Concepto = cc.Id_ClaseConcepto
+                inner join TipoConcepto tc on c.FKId_TipoConcepto_Concepto = tc.Id_TipoConcepto
+				inner join DestinatarioConcepto dc on c.FKId_DestinatarioConcepto_Concepto = dc.Id_DestinatarioConcepto
+				inner join ImpactaPlanilla imp on c.FKId_ImpactaPlanilla_Concepto = imp.Id_ImpactaPlanilla
+				where c.Id_Concepto = @Cod_Concepto";
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                return db.Database.SqlQuery<ConceptoCE>(sql, new SqlParameter("@Cod_Concepto", idconcepto)).FirstOrDefault();
+            }
+
+        }
+
+
+        public void Editar(ConceptoCE concepto)
+        {
+            using (var db = new RecursosHumanosDBContext())
+            {
+                var origen = db.Concepto.Find(concepto.Id_Concepto);
+                origen.MontoFijo_Concepto = concepto.MontoFijo_Concepto;
+
+                db.SaveChanges();
+            }
+        }
+
+        public void EditarPorcentaje(ConceptoCE concepto)
+        {
+            using (var db = new RecursosHumanosDBContext())
+            {
+                var origen = db.Concepto.Find(concepto.Id_Concepto);
+                origen.Porcentaje_Concepto = concepto.Porcentaje_Concepto;
+                db.SaveChanges();
+            }
+        }
+
+        public void EditarTiempo(ConceptoCE concepto)
+        {
+            using (var db = new RecursosHumanosDBContext())
+            {
+                var origen = db.Concepto.Find(concepto.Id_Concepto);
+                origen.FactorTiempo_Concepto = concepto.FactorTiempo_Concepto;
+
+                db.SaveChanges();
+            }
+        }
+
+        public void EditarDia(ConceptoCE concepto)
+        {
+            using (var db = new RecursosHumanosDBContext())
+            {
+                var origen = db.Concepto.Find(concepto.Id_Concepto);
+                origen.FactorTiempo_Concepto = concepto.FactorTiempo_Concepto;
+
+                db.SaveChanges();
+            }
         }
 
 

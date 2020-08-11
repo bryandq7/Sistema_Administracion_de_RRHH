@@ -13,7 +13,6 @@
         }
     </style>
 
-
 }
 
 <h2 class="tituloCss">Lista de Conceptos</h2>
@@ -235,8 +234,22 @@
                     </td>*@
 
                 <td>
-                    <a class="btn btn-success" title="Editar" href="@Url.Action("Editar", "Concepto",new { id=item.Id_Concepto })"><i class="glyphicon glyphicon-pencil"></i></a>
-
+                    @if (item.Id_TipoConcepto == 2 && item.DirectoPlanilla_Concepto == true)
+                    {
+                        <a class="btn btn-success" title="Editar" href="@Url.Action("Editar", "Concepto", new { id = item.Id_Concepto })"><i class="glyphicon glyphicon-pencil"></i></a>
+                    }
+                    @if (item.Id_TipoConcepto == 3)
+                    {
+                        <a class="btn btn-success" title="Editar" href="@Url.Action("EditarTiempo", "Concepto", new { id = item.Id_Concepto })"><i class="glyphicon glyphicon-pencil"></i></a>
+                    }
+                    @if (item.Id_TipoConcepto == 4)
+                    {
+                        <a class="btn btn-success" title="Editar" href="@Url.Action("EditarDia", "Concepto", new { id = item.Id_Concepto })"><i class="glyphicon glyphicon-pencil"></i></a>
+                    }
+                    @if (item.Id_TipoConcepto == 1)
+                    {
+                        <a class="btn btn-success" title="Editar" href="@Url.Action("EditarPorcentaje", "Concepto", new { id = item.Id_Concepto })"><i class="glyphicon glyphicon-pencil"></i></a>
+                    }
                     @if (item.Editable_Concepto == true)
                     {
                         <a class="btn btn-danger" onclick="EliminarConcepto(@item.Id_Concepto)" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
