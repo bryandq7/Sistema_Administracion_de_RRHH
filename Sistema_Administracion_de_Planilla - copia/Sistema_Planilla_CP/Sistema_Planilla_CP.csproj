@@ -209,6 +209,7 @@
     <Compile Include="Controllers\GeneroController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImpactaPlanillaController.cs" />
+    <Compile Include="Controllers\ImpuestoRentaController.cs" />
     <Compile Include="Controllers\IncapacidadController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PeriodoDePagoController.cs" />
@@ -352,6 +353,7 @@
     <Content Include="Views\Concepto\EditarPorcentaje.cshtml" />
     <Content Include="Views\Concepto\EditarDia.cshtml" />
     <Content Include="Views\Concepto\EditarTiempo.cshtml" />
+    <Content Include="Views\ImpuestoRenta\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

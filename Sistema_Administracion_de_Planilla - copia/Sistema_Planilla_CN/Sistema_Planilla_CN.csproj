@@ -57,6 +57,7 @@
     <Compile Include="EmpleadoCN.cs" />
     <Compile Include="GeneroCN.cs" />
     <Compile Include="ImpactaPlanillaCN.cs" />
+    <Compile Include="ImpuestoRentaCN.cs" />
     <Compile Include="IncapacidadCN.cs" />
     <Compile Include="PeriodoDePagoCN.cs" />
     <Compile Include="PersonaCN.cs" />

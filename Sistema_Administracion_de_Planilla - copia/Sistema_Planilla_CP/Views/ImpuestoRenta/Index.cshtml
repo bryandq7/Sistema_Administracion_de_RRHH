@@ -1,0 +1,141 @@
+﻿@model IEnumerable<Sistema_Planilla_CE.ImpuestoRenta>
+
+@{
+    ViewBag.Title = "Index";
+    WebGrid webGrid = new WebGrid(source: Model, canPage: true, canSort: false);
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@section styles{
+
+    <style>
+        .tituloCss {
+            color: #3d3d29;
+        }
+
+        body {
+            font-family: Arial;
+            font-size: 10pt;
+        }
+
+        .Grid {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+        }
+
+            .Grid th {
+                background-color: #F7F7F7;
+                font-weight: bold;
+            }
+
+            .Grid th, .Grid td {
+                padding: 5px;
+                width: 150px;
+                border: 1px solid #ccc;
+            }
+
+            .Grid, .Grid table td {
+                border: 0px solid #ccc;
+            }
+
+                .Grid th a, .Grid th a:visited {
+                    color: #333;
+                }
+
+
+    </style>
+
+
+}
+
+<h2>Tabla de Impuesto de Renta</h2>
+
+<hr />
+
+<body>
+
+    @webGrid.GetHtml(
+        htmlAttributes: new { @id = "WebGrid", @class = "Grid" },
+        columns: webGrid.Columns(
+                 webGrid.Column(header: "Id_ImpuestoRenta", format: @<span class="label">@item.Id_ImpuestoRenta</span>, style: "Id_ImpuestoRenta"),
+                                      webGrid.Column(header: "MontoMinimo_ImpuestoRenta", format: @<span><span class="label">@item.MontoMinimo_ImpuestoRenta</span><input class="text" type="text" value="@item.MontoMinimo_ImpuestoRenta" style="display:none" /></span>, style: "MontoMinimo_ImpuestoRenta"),
+                                                         webGrid.Column(header: "MontoMaximo_ImpuestoRenta", format: @<span><span class="label">@item.MontoMaximo_ImpuestoRenta</span><input class="text" type="text" value="@item.MontoMaximo_ImpuestoRenta" style="display:none" /></span>, style: "MontoMaximo_ImpuestoRenta"),
+                                                                @*webGrid.Column(header: "Porcentaje_ImpuestoRenta", format: @<span><span class="label">@item.Porcentaje_ImpuestoRenta</span><input class="text" type="text" value="@item.Porcentaje_ImpuestoRenta" style="display:none" /></span>, style: "Porcentaje_ImpuestoRenta"),*@
+                                                                webGrid.Column(format:@<span class="link">
+                                                                    <a class="Edit" href="javascript:;">Edit</a>
+                                                                    <a class="Update" href="javascript:;" style="display:none">Update</a>
+                                                                    <a class="Cancel" href="javascript:;" style="display:none">Cancel</a>
+                                                                </span>)))
+
+
+    @section scripts{
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+
+        <script type="text/javascript">
+            //Edit event handler.
+            $("body").on("click", "#WebGrid TBODY .Edit", function () {
+                var row = $(this).closest("tr");
+                $("td", row).each(function () {
+                    if ($(this).find(".text").length > 0) {
+                        $(this).find(".text").show();
+                        $(this).find(".label").hide();
+                    }
+                });
+                row.find(".Update").show();
+                row.find(".Cancel").show();
+                $(this).hide();
+            });
+
+            //Update event handler.
+            $("body").on("click", "#WebGrid TBODY .Update", function () {
+                var row = $(this).closest("tr");
+                $("td", row).each(function () {
+                    if ($(this).find(".text").length > 0) {
+                        var span = $(this).find(".label");
+                        var input = $(this).find(".text");
+                        span.html(input.val());
+                        span.show();
+                        input.hide();
+                    }
+                });
+                row.find(".Edit").show();
+                row.find(".Cancel").hide();
+                $(this).hide();
+
+                var customer = {};
+                customer.Id_ImpuestoRenta = row.find(".Id_ImpuestoRenta").find(".label").html();
+                customer.MontoMinimo_ImpuestoRenta = row.find(".MontoMinimo_ImpuestoRenta").find(".label").html();
+                customer.MontoMaximo_ImpuestoRenta = row.find(".MontoMaximo_ImpuestoRenta").find(".label").html();
+                $.ajax({
+                    type: "POST",
+                    url: "/ImpuestoRenta/UpdateCustomer",
+                    data: '{customer:' + JSON.stringify(customer) + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json"
+                });
+            });
+
+            //Cancel event handler.
+            $("body").on("click", "#WebGrid TBODY .Cancel", function () {
+                var row = $(this).closest("tr");
+                $("td", row).each(function () {
+                    if ($(this).find(".text").length > 0) {
+                        var span = $(this).find(".label");
+                        var input = $(this).find(".text");
+                        input.val(span.html());
+                        span.show();
+                        input.hide();
+                    }
+                });
+                row.find(".Edit").show();
+                row.find(".Update").hide();
+                $(this).hide();
+            });
+
+
+        </script>
+    }
+
+</body>
+

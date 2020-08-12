@@ -66,6 +66,7 @@
     <Compile Include="EmpleadoCD.cs" />
     <Compile Include="GeneroCD.cs" />
     <Compile Include="ImpactaPlanillaCD.cs" />
+    <Compile Include="ImpuestoRentaCD.cs" />
     <Compile Include="IncapacidadCD.cs" />
     <Compile Include="ModelRecursosHumanos.Context.cs">
       <AutoGen>True</AutoGen>
