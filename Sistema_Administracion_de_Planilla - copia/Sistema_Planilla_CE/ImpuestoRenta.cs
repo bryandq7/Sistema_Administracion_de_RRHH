@@ -15,8 +15,8 @@ namespace Sistema_Planilla_CE
     public partial class ImpuestoRenta
     {
         public int Id_ImpuestoRenta { get; set; }
-        public decimal MontoMinimo_ImpuestoRenta { get; set; }
-        public decimal MontoMaximo_ImpuestoRenta { get; set; }
+        public Nullable<decimal> MontoMinimo_ImpuestoRenta { get; set; }
+        public Nullable<decimal> MontoMaximo_ImpuestoRenta { get; set; }
         public decimal Porcentaje_ImpuestoRenta { get; set; }
     }
 }

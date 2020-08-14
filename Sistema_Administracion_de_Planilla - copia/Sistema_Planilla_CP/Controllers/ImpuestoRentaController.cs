@@ -14,6 +14,8 @@ namespace Sistema_Planilla_CP.Controllers
         // GET: ImpuestoRenta
         public ActionResult Index()
         {
+
+
             var impuestos = ImpuestoRentaCN.ListarImpuestoRenta();
             return View(impuestos);
         }
@@ -22,41 +24,85 @@ namespace Sistema_Planilla_CP.Controllers
         [HttpPost]
         public ActionResult UpdateCustomer(ImpuestoRenta customer)
         {
-            //using (CustomersEntities entities = new CustomersEntities())
-            //{
-            //    Customer updatedCustomer = (from c in entities.Customers
-            //                                where c.CustomerId == customer.CustomerId
-            //                                select c).FirstOrDefault();
-            //    updatedCustomer.Name = customer.Name;
-            //    updatedCustomer.Country = customer.Country;
-            //    entities.SaveChanges();
-            //}
 
-            ImpuestoRentaCN.Editar(customer);
-            return new EmptyResult();
+            try
+            {
+
+                if (customer.MontoMaximo_ImpuestoRenta <= 0 )
+                {
+                    //return RedirectToAction("Index", "ImpuestoRentaController");
+                    return Json(new { ok = false, msg = "Solo puede ingresar números positivos en este campo", toRedirect = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
+                    //return Json(new { ok = false, msg = "Debe ingresar el nombre del cargo" }, JsonRequestBehavior.AllowGet);
+                }
+
+                if (customer.Porcentaje_ImpuestoRenta < 0)
+                {
+                    //return RedirectToAction("Index", "ImpuestoRentaController");
+                    return Json(new { ok = false, msg = "Solo puede ingresar números positivos en este campo", toRedirect = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
+                    //return Json(new { ok = false, msg = "Debe ingresar el nombre del cargo" }, JsonRequestBehavior.AllowGet);
+                }
+
+                if (customer.MontoMinimo_ImpuestoRenta != 0 && customer.Id_ImpuestoRenta == 1)
+                {
+                    //return RedirectToAction("Index", "ImpuestoRentaController");
+                    return Json(new { ok = false, msg = "El Monto Mínimo para esta primera linea debe ser cero", toRedirect = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
+                    //return Json(new { ok = false, msg = "Debe ingresar el nombre del cargo" }, JsonRequestBehavior.AllowGet);
+                }
+
+                var maxIdImpuesto = ImpuestoRentaCN.ObtenerMaxIdImpuestoRenta();
+
+                if (customer.Id_ImpuestoRenta == maxIdImpuesto && customer.MontoMaximo_ImpuestoRenta != null)
+                {
+
+                    return Json(new { ok = false, msg = "El campo de Monto Máximo para esta  linea debe estar vacío", toRedirect = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
+
+                }
+
+                if (customer.MontoMaximo_ImpuestoRenta<= customer.MontoMinimo_ImpuestoRenta)
+                {
+
+                    return Json(new { ok = false, msg = "El Monto Máximo debe ser estrictamente mayor al monto Mínimo de la misma linea", toRedirect = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
+
+                }
+
+                if (customer.MontoMaximo_ImpuestoRenta==0)
+                {
+
+                    return Json(new { ok = false, msg = "El Monto Máximo no puede ser cero", toRedirect = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
+
+                }
+
+                if (customer.Id_ImpuestoRenta < maxIdImpuesto && customer.MontoMaximo_ImpuestoRenta == null)
+                {
+  
+                    return Json(new { ok = false, msg = "El Monto Máximo no puede ser nulo o vacío", toRedirect = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
+
+                }
+
+
+                var maxmontoImpuestosig = ImpuestoRentaCN.ObtenerMaxMontoSiguienteImpuestoRenta(customer.Id_ImpuestoRenta);
+
+                if (customer.Id_ImpuestoRenta < 4 && customer.MontoMaximo_ImpuestoRenta >= (maxmontoImpuestosig-2))
+                {
+
+                    return Json(new { ok = false, msg = "El Monto Máximo no puede ser mayor o estar tan cerca del monto máximo de la siguiente linea", toRedirect = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
+
+                }
+
+
+
+                ImpuestoRentaCN.Editar(customer);
+                return Json(new { ok = true, toRedirect = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
+                //return new EmptyResult();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ok = false, msg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
 
-        //[HttpPost]
-        //public ActionResult EditarImpuesto(int Id, decimal propertyName, decimal value)
-        //{
-        //    var status = false;
-        //    var message = "";
-
-        //    try
-        //    {
-        //        ImpuestoRentaCN.Editar(Id, propertyName, value);
-        //        var response = new { value = value, status = status, message = message };
-        //        JObject o = JObject.FromObject(response);
-        //        return Content(o.ToString());
-        //        //return Json(new { ok = true, toRedirect = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Json(new { ok = false, msg = ex.Message }, JsonRequestBehavior.AllowGet);
-        //    }
-
-
+       
 
 
         //}

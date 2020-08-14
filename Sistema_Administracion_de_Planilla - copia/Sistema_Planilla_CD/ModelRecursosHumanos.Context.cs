@@ -46,7 +46,6 @@ namespace Sistema_Planilla_CE
         public virtual DbSet<Email> Email { get; set; }
         public virtual DbSet<Genero> Genero { get; set; }
         public virtual DbSet<ImpactaPlanilla> ImpactaPlanilla { get; set; }
-        public virtual DbSet<ImpuestoRenta> ImpuestoRenta { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
         public virtual DbSet<Planilla> Planilla { get; set; }
         public virtual DbSet<PlanillaPatrono> PlanillaPatrono { get; set; }
@@ -66,5 +65,6 @@ namespace Sistema_Planilla_CE
         public virtual DbSet<ConceptoAplicado> ConceptoAplicado { get; set; }
         public virtual DbSet<PlanillaDetalle> PlanillaDetalle { get; set; }
         public virtual DbSet<Concepto> Concepto { get; set; }
+        public virtual DbSet<ImpuestoRenta> ImpuestoRenta { get; set; }
     }
 }

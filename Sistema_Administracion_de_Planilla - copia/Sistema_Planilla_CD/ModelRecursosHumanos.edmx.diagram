@@ -26,7 +26,6 @@
         <EntityTypeShape EntityType="RecursosHumanosDBModel.Email" Width="1.5" PointX="3.75" PointY="14.75" />
         <EntityTypeShape EntityType="RecursosHumanosDBModel.Genero" Width="1.5" PointX="3.75" PointY="31.125" />
         <EntityTypeShape EntityType="RecursosHumanosDBModel.ImpactaPlanilla" Width="1.5" PointX="11.25" PointY="3.75" />
-        <EntityTypeShape EntityType="RecursosHumanosDBModel.ImpuestoRenta" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="RecursosHumanosDBModel.Persona" Width="1.5" PointX="6" PointY="16.75" />
         <EntityTypeShape EntityType="RecursosHumanosDBModel.Planilla" Width="1.5" PointX="13.5" PointY="17.5" />
         <EntityTypeShape EntityType="RecursosHumanosDBModel.PlanillaPatrono" Width="1.5" PointX="13.5" PointY="13.75" />
@@ -88,6 +87,7 @@
         <AssociationConnector Association="RecursosHumanosDBModel.FK_ConceptoAplicado_Concepto" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_PlanillaDetalle_Concepto" />
         <AssociationConnector Association="RecursosHumanosDBModel.FK_PlanillaPatronoDetalle_Concepto" />
+        <EntityTypeShape EntityType="RecursosHumanosDBModel.ImpuestoRenta" Width="1.5" PointX="3.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -48,29 +48,39 @@
 
 }
 
-<h2>Tabla de Impuesto de Renta</h2>
+<h2 class="tituloCss">Tramos de Impuesto de Renta</h2>
 
 <hr />
 
 <body>
 
+
+
     @webGrid.GetHtml(
         htmlAttributes: new { @id = "WebGrid", @class = "Grid" },
         columns: webGrid.Columns(
-                 webGrid.Column(header: "Id_ImpuestoRenta", format: @<span class="label">@item.Id_ImpuestoRenta</span>, style: "Id_ImpuestoRenta"),
-                                      webGrid.Column(header: "MontoMinimo_ImpuestoRenta", format: @<span><span class="label">@item.MontoMinimo_ImpuestoRenta</span><input class="text" type="text" value="@item.MontoMinimo_ImpuestoRenta" style="display:none" /></span>, style: "MontoMinimo_ImpuestoRenta"),
-                                                         webGrid.Column(header: "MontoMaximo_ImpuestoRenta", format: @<span><span class="label">@item.MontoMaximo_ImpuestoRenta</span><input class="text" type="text" value="@item.MontoMaximo_ImpuestoRenta" style="display:none" /></span>, style: "MontoMaximo_ImpuestoRenta"),
-                                                                @*webGrid.Column(header: "Porcentaje_ImpuestoRenta", format: @<span><span class="label">@item.Porcentaje_ImpuestoRenta</span><input class="text" type="text" value="@item.Porcentaje_ImpuestoRenta" style="display:none" /></span>, style: "Porcentaje_ImpuestoRenta"),*@
-                                                                webGrid.Column(format:@<span class="link">
-                                                                    <a class="Edit" href="javascript:;">Edit</a>
-                                                                    <a class="Update" href="javascript:;" style="display:none">Update</a>
-                                                                    <a class="Cancel" href="javascript:;" style="display:none">Cancel</a>
-                                                                </span>)))
+                   webGrid.Column(header: "Id", format: @<span class="tituloCss">@item.Id_ImpuestoRenta</span>, style: "Id_ImpuestoRenta"),
+                                         webGrid.Column(header: "Monto Mínimo", format: @<span class="tituloCss">@item.MontoMinimo_ImpuestoRenta</span>, style: "MontoMinimo_ImpuestoRenta"),
+                                                @*webGrid.Column(header: "Monto Mínimo", format: @<span><span class="tituloCss">@item.MontoMinimo_ImpuestoRenta</span><input class="text" type="text" value="@item.MontoMinimo_ImpuestoRenta" style="display:none" /></span>, style: "MontoMinimo_ImpuestoRenta"),*@
+                                                webGrid.Column(header: "Monto Máximo", format: @<span><span class="tituloCss">@item.MontoMaximo_ImpuestoRenta</span><input class="text" type="text" value="@item.MontoMaximo_ImpuestoRenta" style="display:none" /></span>, style: "MontoMaximo_ImpuestoRenta"),
+                                                                          webGrid.Column(header: "Porcentaje", format: @<span><span class="tituloCss">@item.Porcentaje_ImpuestoRenta</span><input class="text" type="text" value="@item.Porcentaje_ImpuestoRenta" style="display:none" /></span>, style: "Porcentaje_ImpuestoRenta"),
+                                                                                @*webGrid.Column(header: "Porcentaje_ImpuestoRenta", format: @<span><span class="label">@item.Porcentaje_ImpuestoRenta</span><input class="text" type="text" value="@item.Porcentaje_ImpuestoRenta" style="display:none" /></span>, style: "Porcentaje_ImpuestoRenta"),*@
+                                                                                webGrid.Column(format:@<span class="link">
+                                                                                    <a class="Edit" href="javascript:;">Editar</a>
+                                                                                    <a class="Update" href="javascript:;" style="display:none">Actualizar</a>
+                                                                                    <a class="Cancel" href="javascript:;" style="display:none">Cancelar</a>
+                                                                                </span>)))
+
+    <br />
+    <br />
+
 
 
     @section scripts{
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <script type="text/javascript" src="https://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+        <script src="~/Scripts/inplaceediting2.js"></script>
+        <script src="~/Scripts/inplaceediting.js"></script>
+        @*<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>*@
 
         <script type="text/javascript">
             //Edit event handler.
@@ -79,7 +89,7 @@
                 $("td", row).each(function () {
                     if ($(this).find(".text").length > 0) {
                         $(this).find(".text").show();
-                        $(this).find(".label").hide();
+                        $(this).find(".tituloCss").hide();
                     }
                 });
                 row.find(".Update").show();
@@ -92,7 +102,7 @@
                 var row = $(this).closest("tr");
                 $("td", row).each(function () {
                     if ($(this).find(".text").length > 0) {
-                        var span = $(this).find(".label");
+                        var span = $(this).find(".tituloCss");
                         var input = $(this).find(".text");
                         span.html(input.val());
                         span.show();
@@ -104,16 +114,45 @@
                 $(this).hide();
 
                 var customer = {};
-                customer.Id_ImpuestoRenta = row.find(".Id_ImpuestoRenta").find(".label").html();
-                customer.MontoMinimo_ImpuestoRenta = row.find(".MontoMinimo_ImpuestoRenta").find(".label").html();
-                customer.MontoMaximo_ImpuestoRenta = row.find(".MontoMaximo_ImpuestoRenta").find(".label").html();
+                customer.Id_ImpuestoRenta = row.find(".Id_ImpuestoRenta").find(".tituloCss").html();
+                customer.MontoMinimo_ImpuestoRenta = row.find(".MontoMinimo_ImpuestoRenta").find(".tituloCss").html();
+                customer.MontoMaximo_ImpuestoRenta = row.find(".MontoMaximo_ImpuestoRenta").find(".tituloCss").html();
+                customer.Porcentaje_ImpuestoRenta = row.find(".Porcentaje_ImpuestoRenta").find(".tituloCss").html();
                 $.ajax({
                     type: "POST",
                     url: "/ImpuestoRenta/UpdateCustomer",
                     data: '{customer:' + JSON.stringify(customer) + '}',
                     contentType: "application/json; charset=utf-8",
-                    dataType: "json"
+                    dataType: "json",
+
+                    //success: function (result) {
+                    //    alert('Success');
+
+                    //    if (myCallback !== undefined)
+                    //        return myCallback(result.data);
+                    //},
+                    //error: function (data) {
+                    //    alert('error');
+                    //}
+
+
+                }).done(function (response) {
+                    console.log(response);//
+                    //LoadingOverlayHide("#tablaEmpleado");
+                    if (response.ok) {
+                        alert("Campos actualizados correctamente.");
+                        window.location = response.toRedirect;
+                    }
+                    else {
+                        alert(response.msg);
+                        window.location = response.toRedirect;
+                    }
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    //LoadingOverlayHide("#tablaEmpleado");
+                    alert(textStatus);
                 });
+
+
             });
 
             //Cancel event handler.
@@ -121,7 +160,7 @@
                 var row = $(this).closest("tr");
                 $("td", row).each(function () {
                     if ($(this).find(".text").length > 0) {
-                        var span = $(this).find(".label");
+                        var span = $(this).find(".tituloCss");
                         var input = $(this).find(".text");
                         input.val(span.html());
                         span.show();

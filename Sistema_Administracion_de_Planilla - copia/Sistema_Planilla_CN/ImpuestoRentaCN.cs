@@ -22,5 +22,17 @@ namespace Sistema_Planilla_CN
         {
             obj.Editar(customer);
         }
+
+        public static int ObtenerMaxIdImpuestoRenta()
+        {
+            return obj.ObtenerMaxIdImpuestoRenta();
+        }
+
+        public static decimal? ObtenerMaxMontoSiguienteImpuestoRenta(int idImpuestoRenta)
+        {
+            idImpuestoRenta = idImpuestoRenta + 1;
+            return obj.ObtenerMaxMontoSiguienteImpuestoRenta(idImpuestoRenta);
+        }
+
     }
 }

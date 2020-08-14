@@ -240,8 +240,8 @@
             <PropertyRef Name="Id_ImpuestoRenta" />
           </Key>
           <Property Name="Id_ImpuestoRenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MontoMinimo_ImpuestoRenta" Type="numeric" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="MontoMaximo_ImpuestoRenta" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="MontoMinimo_ImpuestoRenta" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="MontoMaximo_ImpuestoRenta" Type="numeric" Precision="18" Scale="2" />
           <Property Name="Porcentaje_ImpuestoRenta" Type="numeric" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="PeriodoDePago">
@@ -1149,7 +1149,6 @@
           <EntitySet Name="Email" EntityType="RecursosHumanosDBModel.Email" />
           <EntitySet Name="Genero" EntityType="RecursosHumanosDBModel.Genero" />
           <EntitySet Name="ImpactaPlanilla" EntityType="RecursosHumanosDBModel.ImpactaPlanilla" />
-          <EntitySet Name="ImpuestoRenta" EntityType="RecursosHumanosDBModel.ImpuestoRenta" />
           <EntitySet Name="Persona" EntityType="RecursosHumanosDBModel.Persona" />
           <EntitySet Name="Planilla" EntityType="RecursosHumanosDBModel.Planilla" />
           <EntitySet Name="PlanillaPatrono" EntityType="RecursosHumanosDBModel.PlanillaPatrono" />
@@ -1337,6 +1336,7 @@
             <End Role="Concepto" EntitySet="Concepto" />
             <End Role="PlanillaPatronoDetalle" EntitySet="PlanillaPatronoDetalle" />
           </AssociationSet>
+          <EntitySet Name="ImpuestoRenta" EntityType="RecursosHumanosDBModel.ImpuestoRenta" />
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -1560,15 +1560,6 @@
           <Property Name="Id_ImpactaPlanilla" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Detalle_ImpactaPlanilla" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Concepto" Relationship="RecursosHumanosDBModel.FK_Concepto_ImpactaPlanilla" FromRole="ImpactaPlanilla" ToRole="Concepto" />
-        </EntityType>
-        <EntityType Name="ImpuestoRenta">
-          <Key>
-            <PropertyRef Name="Id_ImpuestoRenta" />
-          </Key>
-          <Property Name="Id_ImpuestoRenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MontoMinimo_ImpuestoRenta" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="MontoMaximo_ImpuestoRenta" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="Porcentaje_ImpuestoRenta" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Persona">
           <Key>
@@ -2329,6 +2320,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ImpuestoRenta">
+          <Key>
+            <PropertyRef Name="Id_ImpuestoRenta" />
+          </Key>
+          <Property Name="Id_ImpuestoRenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MontoMinimo_ImpuestoRenta" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="MontoMaximo_ImpuestoRenta" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Porcentaje_ImpuestoRenta" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2544,16 +2544,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ImpuestoRenta">
-            <EntityTypeMapping TypeName="RecursosHumanosDBModel.ImpuestoRenta">
-              <MappingFragment StoreEntitySet="ImpuestoRenta">
-                <ScalarProperty Name="Porcentaje_ImpuestoRenta" ColumnName="Porcentaje_ImpuestoRenta" />
-                <ScalarProperty Name="MontoMaximo_ImpuestoRenta" ColumnName="MontoMaximo_ImpuestoRenta" />
-                <ScalarProperty Name="MontoMinimo_ImpuestoRenta" ColumnName="MontoMinimo_ImpuestoRenta" />
-                <ScalarProperty Name="Id_ImpuestoRenta" ColumnName="Id_ImpuestoRenta" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Persona">
             <EntityTypeMapping TypeName="RecursosHumanosDBModel.Persona">
               <MappingFragment StoreEntitySet="Persona">
@@ -2765,6 +2755,16 @@
                 <ScalarProperty Name="Editable_Concepto" ColumnName="Editable_Concepto" />
                 <ScalarProperty Name="Nombre_Concepto" ColumnName="Nombre_Concepto" />
                 <ScalarProperty Name="Id_Concepto" ColumnName="Id_Concepto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImpuestoRenta">
+            <EntityTypeMapping TypeName="RecursosHumanosDBModel.ImpuestoRenta">
+              <MappingFragment StoreEntitySet="ImpuestoRenta">
+                <ScalarProperty Name="Porcentaje_ImpuestoRenta" ColumnName="Porcentaje_ImpuestoRenta" />
+                <ScalarProperty Name="MontoMaximo_ImpuestoRenta" ColumnName="MontoMaximo_ImpuestoRenta" />
+                <ScalarProperty Name="MontoMinimo_ImpuestoRenta" ColumnName="MontoMinimo_ImpuestoRenta" />
+                <ScalarProperty Name="Id_ImpuestoRenta" ColumnName="Id_ImpuestoRenta" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
