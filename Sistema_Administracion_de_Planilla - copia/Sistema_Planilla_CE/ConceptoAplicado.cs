@@ -23,8 +23,8 @@ namespace Sistema_Planilla_CE
         public bool Procesado_ConceptoAplicado { get; set; }
         public Nullable<System.DateTime> Fecha_ConceptoAplicado { get; set; }
     
+        public virtual Concepto Concepto { get; set; }
         public virtual Empleado Empleado { get; set; }
         public virtual PeriodoDePago PeriodoDePago { get; set; }
-        public virtual Concepto Concepto { get; set; }
     }
 }

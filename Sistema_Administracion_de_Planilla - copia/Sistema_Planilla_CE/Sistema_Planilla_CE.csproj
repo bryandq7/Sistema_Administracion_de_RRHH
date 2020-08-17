@@ -71,6 +71,9 @@
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="CargoCE.cs" />
+    <Compile Include="Cesantia.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
     <Compile Include="ClaseConcepto.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
@@ -129,6 +132,9 @@
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="IncapacidadCE.cs" />
+    <Compile Include="Liquidacion.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
     <Compile Include="ModelRecursosHumanos.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -155,6 +161,9 @@
     <Compile Include="PlanillaPatronoDetalle.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
+    <Compile Include="Preaviso.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provincia.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
@@ -175,10 +184,9 @@
     <Compile Include="TipoConcepto.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
-    <Compile Include="TipoContrato.cs">
+    <Compile Include="TipoSalida.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
-    <Compile Include="TipoContratoCE.cs" />
     <Compile Include="TipoSolicitud.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>

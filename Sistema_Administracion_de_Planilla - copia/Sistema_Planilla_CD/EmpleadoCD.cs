@@ -13,15 +13,15 @@ namespace Sistema_Planilla_CD
         public List<EmpleadoCE> ListarEmpleados()
         {
             string sql = @"select e.Id_Empleado,e.FKId_Departamento_Empleado,e.FKId_Persona_Empleado,d.Id_Departamento,d.Nombre_Departamento,p.Id_Persona,p.Nombre_Persona+' '+p.Apellido1_Persona+' '+p.Apellido2_Persona as NombreCompletoPersona, u.Id as Id_Usuario, u.UserName,
-				c.Id_Contrato, c.SalarioBruto_Contrato, c.FKId_TipoContrato_Contrato,c.FKId_Empleado_Contrato, c.FKId_Cargo_Contrato,c.FechaInicio_Contrato,c.FechaFin_Contrato,c.Activo_Contrato,
-				tc.Id_TipoContrato,tc.Detalle_TipoContrato,ca.Id_Cargo,ca.Nombre_Cargo
+				c.Id_Contrato, c.SalarioBruto_Contrato, c.FKId_Empleado_Contrato, c.FKId_Cargo_Contrato,c.FechaInicio_Contrato,c.Activo_Contrato,
+				ca.Id_Cargo,ca.Nombre_Cargo,t.Id_Turno,t.Nombre_Turno
                 from Empleado e  
                 inner join Persona p on e.FKId_Persona_Empleado = p.Id_Persona
 				inner join Departamento d on e.FKId_Departamento_Empleado = d.Id_Departamento
 				inner join AspNetUsers u on p.FKId_Usuario_Persona = u.Id
 				inner join Contrato c on c.FKId_Empleado_Contrato = e.Id_Empleado
-				inner join TipoContrato tc on tc.Id_TipoContrato = c.FKId_TipoContrato_Contrato
 				inner join Cargo ca on ca.Id_Cargo = c.FKId_Cargo_Contrato
+				inner join Turnos t on c.FKId_Turno_Contrato = t.Id_Turno
                 where e.Activo_Empleado = 1 and c.Activo_Contrato =1";
 
             using (var db = new RecursosHumanosDBContext())
@@ -33,11 +33,11 @@ namespace Sistema_Planilla_CD
         public List<EmpleadoCE> ListarEmpleadosContratoVigente()
         {
             string sql = @"select p.Id_Persona,p.Nombre_Persona+' '+p.Apellido1_Persona+' '+p.Apellido2_Persona as NombreCompletoPersona,
-				            c.Id_Contrato,c.FechaInicio_Contrato,c.FechaFin_Contrato,c.Activo_Contrato
+				            c.Id_Contrato,c.FechaInicio_Contrato,c.Activo_Contrato
                             from Empleado e  
                             inner join Persona p on e.FKId_Persona_Empleado = p.Id_Persona
 				            inner join Contrato c on c.FKId_Empleado_Contrato = e.Id_Empleado
-                            where e.Activo_Empleado = 1 and c.Activo_Contrato =1 and c.FechaInicio_Contrato<=GetDate() and (c.FechaFin_Contrato>GetDate() or  c.FechaFin_Contrato IS NULL)";
+                            where e.Activo_Empleado = 1 and c.Activo_Contrato =1 and c.FechaInicio_Contrato<=GetDate()";
 
             using (var db = new RecursosHumanosDBContext())
             {
@@ -88,10 +88,12 @@ namespace Sistema_Planilla_CD
             {
                 SalarioBruto_Contrato = empleado.SalarioBruto_Contrato,
                 FechaInicio_Contrato = empleado.FechaInicio_Contrato,
-                FechaFin_Contrato = empleado.FechaFin_Contrato,
-                FKId_TipoContrato_Contrato = empleado.Id_TipoContrato,
                 FKId_Empleado_Contrato = idultimoregistroempleado,
                 FKId_Cargo_Contrato = empleado.Id_Cargo,
+                FKId_Turno_Contrato = empleado.Id_Turno,
+                SalarioBrutoPorDia_Contrato = empleado.SalarioBruto_Contrato/30,
+                SalarioBrutoPorHora_Contrato = (empleado.SalarioBruto_Contrato / 30)/8,
+                SalarioBrutoQuincenal_Contrato = empleado.SalarioBruto_Contrato /2,
                 Activo_Contrato = true
 
             };
@@ -123,15 +125,15 @@ namespace Sistema_Planilla_CD
         {
 
             string sql = @"select e.Id_Empleado,e.FKId_Departamento_Empleado,e.FKId_Persona_Empleado,d.Id_Departamento,d.Nombre_Departamento,p.Id_Persona,p.Nombre_Persona+' '+p.Apellido1_Persona+' '+p.Apellido2_Persona as NombreCompletoPersona, u.Id as Id_Usuario, u.UserName,
-				c.Id_Contrato, c.SalarioBruto_Contrato, c.FKId_TipoContrato_Contrato,c.FKId_Empleado_Contrato, c.FKId_Cargo_Contrato,c.FechaInicio_Contrato,c.FechaFin_Contrato,c.Activo_Contrato,
-				tc.Id_TipoContrato,tc.Detalle_TipoContrato,ca.Id_Cargo,ca.Nombre_Cargo
+				c.Id_Contrato, c.SalarioBruto_Contrato, c.FKId_Empleado_Contrato, c.FKId_Cargo_Contrato,c.FechaInicio_Contrato,c.Activo_Contrato,
+				ca.Id_Cargo,ca.Nombre_Cargo,t.Id_Turno,t.Nombre_Turno
                 from Empleado e  
                 inner join Persona p on e.FKId_Persona_Empleado = p.Id_Persona
 				inner join Departamento d on e.FKId_Departamento_Empleado = d.Id_Departamento
 				inner join AspNetUsers u on p.FKId_Usuario_Persona = u.Id
 				inner join Contrato c on c.FKId_Empleado_Contrato = e.Id_Empleado
-				inner join TipoContrato tc on tc.Id_TipoContrato = c.FKId_TipoContrato_Contrato
 				inner join Cargo ca on ca.Id_Cargo = c.FKId_Cargo_Contrato
+				inner join Turnos t on c.FKId_Turno_Contrato = t.Id_Turno
                 where e.Id_Empleado = @Cod_Empleado and c.Activo_Contrato=1";
 
             using (var db = new RecursosHumanosDBContext())

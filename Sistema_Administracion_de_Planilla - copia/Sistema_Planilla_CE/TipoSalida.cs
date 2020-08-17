@@ -12,23 +12,18 @@ namespace Sistema_Planilla_CE
     using System;
     using System.Collections.Generic;
     
-    public partial class PlanillaPatrono
+    public partial class TipoSalida
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PlanillaPatrono()
+        public TipoSalida()
         {
-            this.PlanillaPatronoDetalle = new HashSet<PlanillaPatronoDetalle>();
+            this.Liquidacion = new HashSet<Liquidacion>();
         }
     
-        public int Id_PlanillaPatrono { get; set; }
-        public System.DateTime FechaActualizacion_PlanillaPatrono { get; set; }
-        public int FKId_Empleado_PlanillaPatrono { get; set; }
-        public int FKId_PeriodoDePago_PlanillaPatrono { get; set; }
-        public decimal TotalMontoaPagar_PlanillaPatrono { get; set; }
+        public int Id_TipoSalida { get; set; }
+        public string Detalle_TipoSalida { get; set; }
     
-        public virtual Empleado Empleado { get; set; }
-        public virtual PeriodoDePago PeriodoDePago { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlanillaPatronoDetalle> PlanillaPatronoDetalle { get; set; }
+        public virtual ICollection<Liquidacion> Liquidacion { get; set; }
     }
 }

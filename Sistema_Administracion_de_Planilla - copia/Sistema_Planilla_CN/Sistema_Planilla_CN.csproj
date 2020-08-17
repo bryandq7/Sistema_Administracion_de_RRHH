@@ -65,7 +65,6 @@
     <Compile Include="ProvinciaCN.cs" />
     <Compile Include="TelefonoCN.cs" />
     <Compile Include="TipoConceptoCN.cs" />
-    <Compile Include="TipoContratoCN.cs" />
     <Compile Include="TipoSolicitudCN.cs" />
     <Compile Include="TurnosCN.cs" />
   </ItemGroup>

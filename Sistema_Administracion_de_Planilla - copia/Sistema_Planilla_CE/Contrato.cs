@@ -17,8 +17,6 @@ namespace Sistema_Planilla_CE
         public int Id_Contrato { get; set; }
         public decimal SalarioBruto_Contrato { get; set; }
         public System.DateTime FechaInicio_Contrato { get; set; }
-        public Nullable<System.DateTime> FechaFin_Contrato { get; set; }
-        public int FKId_TipoContrato_Contrato { get; set; }
         public int FKId_Empleado_Contrato { get; set; }
         public int FKId_Cargo_Contrato { get; set; }
         public bool Activo_Contrato { get; set; }
@@ -28,8 +26,7 @@ namespace Sistema_Planilla_CE
         public decimal SalarioBrutoQuincenal_Contrato { get; set; }
     
         public virtual Cargo Cargo { get; set; }
-        public virtual TipoContrato TipoContrato { get; set; }
-        public virtual Turnos Turnos { get; set; }
         public virtual Empleado Empleado { get; set; }
+        public virtual Turnos Turnos { get; set; }
     }
 }

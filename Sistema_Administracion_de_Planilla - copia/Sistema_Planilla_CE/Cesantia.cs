@@ -12,15 +12,10 @@ namespace Sistema_Planilla_CE
     using System;
     using System.Collections.Generic;
     
-    public partial class PlanillaPatronoDetalle
+    public partial class Cesantia
     {
-        public int Id_PlanillaPatronoDetalle { get; set; }
-        public int FKId_Planilla_PlanillaPatronoDetalle { get; set; }
-        public decimal Cantidad_PlanillaPatronoDetalle { get; set; }
-        public decimal Monto_PlanillaPatronoDetalle { get; set; }
-        public int FKId_Concepto_PlanillaPatronoDetalle { get; set; }
-    
-        public virtual Concepto Concepto { get; set; }
-        public virtual PlanillaPatrono PlanillaPatrono { get; set; }
+        public int Id_Cesantia { get; set; }
+        public decimal FactorAnio_Cesantia { get; set; }
+        public decimal DiasaPagarporAnio_Cesantia { get; set; }
     }
 }

@@ -84,7 +84,6 @@
     <Compile Include="ProvinciaCD.cs" />
     <Compile Include="TelefonoCD.cs" />
     <Compile Include="TipoConceptoCD.cs" />
-    <Compile Include="TipoContratoCD.cs" />
     <Compile Include="TipoSolicitudCD.cs" />
     <Compile Include="TurnosCD.cs" />
   </ItemGroup>

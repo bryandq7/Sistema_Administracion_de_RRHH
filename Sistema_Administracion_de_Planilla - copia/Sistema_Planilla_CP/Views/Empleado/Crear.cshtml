@@ -145,13 +145,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-2">Fecha Fin de Contrato</label>
-            <div class="col-md-10">
-                <input type="date" class="form-control" id="FechaFin_Contrato" name="FechaFin_Contrato" placeholder="Ingrese Fecha de Fin del Contrato" />
-                @Html.ValidationMessageFor(model => model.FechaFin_Contrato, "", new { @class = "text-danger" })
-            </div>
-        </div>
+
 
         @*<div class="form-group">
             @Html.LabelFor(model => model.Activo_Contrato, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -164,13 +158,13 @@
         </div>*@
 
         <div class="form-group">
-            <label class="control-label col-md-2">Tipo de Contrato</label>
+            <label class="control-label col-md-2">Turno</label>
             <div class="col-md-10">
-                <select class="form-control" id="Id_TipoContrato" name="Id_TipoContrato">
+                <select class="form-control" id="Id_Turno" name="Id_Turno">
                     <option value="">Seleccione...</option>
                 </select>
 
-                @Html.ValidationMessageFor(model => model.Id_TipoContrato, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Id_Turno, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -218,7 +212,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         ListarDepartamentos();
-        ListarTiposContrato();
+        ListarTurnos();
         ListarCargos();
         ListarPersonasNOEmpleados();
 
@@ -243,14 +237,14 @@
         }
 
 
-        function ListarTiposContrato(myCallback) {
+        function ListarTurnos(myCallback) {
             $.ajax({
                 type: "GET",
-                url: '/tipocontrato/listartipocontratos',
+                url: '/turnos/GetTurnos',
                 dataType: "json",
                 success: function (result) {
                     $.each(result.data, function (key, item) {
-                        $("#Id_TipoContrato").append('<option value=' + item.Id_TipoContrato + '>' + item.Detalle_TipoContrato + '</option>');
+                        $("#Id_Turno").append('<option value=' + item.Id_Turno + '>' + item.Nombre_Turno + '</option>');
                     });
 
                     if (myCallback !== undefined)

@@ -12,19 +12,18 @@ namespace Sistema_Planilla_CE
     using System;
     using System.Collections.Generic;
     
-    public partial class TipoContrato
+    public partial class Preaviso
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TipoContrato()
+        public Preaviso()
         {
-            this.Contrato = new HashSet<Contrato>();
+            this.Liquidacion = new HashSet<Liquidacion>();
         }
     
-        public int Id_TipoContrato { get; set; }
-        public string Detalle_TipoContrato { get; set; }
-        public System.DateTime FechaActualizacion_TipoContrato { get; set; }
+        public int Id_Preaviso { get; set; }
+        public string Detalle_Preaviso { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Contrato> Contrato { get; set; }
+        public virtual ICollection<Liquidacion> Liquidacion { get; set; }
     }
 }

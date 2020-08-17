@@ -217,7 +217,6 @@
     <Compile Include="Controllers\ProvinciaController.cs" />
     <Compile Include="Controllers\TelefonoController.cs" />
     <Compile Include="Controllers\TipoConceptoController.cs" />
-    <Compile Include="Controllers\TipoContratoController.cs" />
     <Compile Include="Controllers\TipoIncapacidadController.cs" />
     <Compile Include="Controllers\TipoSolicitudController.cs" />
     <Compile Include="Controllers\TurnosController.cs" />
@@ -313,9 +312,6 @@
     <Content Include="Views\TipoSolicitud\Index.cshtml" />
     <Content Include="Views\TipoSolicitud\Crear.cshtml" />
     <Content Include="Views\TipoSolicitud\Editar.cshtml" />
-    <Content Include="Views\TipoContrato\Index.cshtml" />
-    <Content Include="Views\TipoContrato\Crear.cshtml" />
-    <Content Include="Views\TipoContrato\Editar.cshtml" />
     <Content Include="Views\Persona\Index.cshtml" />
     <Content Include="Views\Telefono\ObtenerListaTelefonosPersona.cshtml" />
     <Content Include="Views\Persona\Crear.cshtml" />

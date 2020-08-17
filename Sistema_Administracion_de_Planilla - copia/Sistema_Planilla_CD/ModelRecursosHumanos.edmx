@@ -104,6 +104,14 @@
           <Property Name="Nombre_Cargo" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="FechaActualizacion_Cargo" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="Cesantia">
+          <Key>
+            <PropertyRef Name="Id_Cesantia" />
+          </Key>
+          <Property Name="Id_Cesantia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FactorAnio_Cesantia" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="DiasaPagarporAnio_Cesantia" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="ClaseConcepto">
           <Key>
             <PropertyRef Name="Id_ClaseConcepto" />
@@ -147,8 +155,6 @@
           <Property Name="Id_Contrato" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SalarioBruto_Contrato" Type="numeric" Precision="18" Scale="2" Nullable="false" />
           <Property Name="FechaInicio_Contrato" Type="datetime" Nullable="false" />
-          <Property Name="FechaFin_Contrato" Type="datetime" />
-          <Property Name="FKId_TipoContrato_Contrato" Type="int" Nullable="false" />
           <Property Name="FKId_Empleado_Contrato" Type="int" Nullable="false" />
           <Property Name="FKId_Cargo_Contrato" Type="int" Nullable="false" />
           <Property Name="Activo_Contrato" Type="bit" Nullable="false" />
@@ -244,6 +250,23 @@
           <Property Name="MontoMaximo_ImpuestoRenta" Type="numeric" Precision="18" Scale="2" />
           <Property Name="Porcentaje_ImpuestoRenta" Type="numeric" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
+        <EntityType Name="Liquidacion">
+          <Key>
+            <PropertyRef Name="Id_Liquidacion" />
+          </Key>
+          <Property Name="Id_Liquidacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FechaActualizacion_Liquidacion" Type="datetime" Nullable="false" />
+          <Property Name="DiasVacaciones_Liquidacion" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="MontoVacaciones_Liquidacion" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="AniosLaborados_Liquidacion" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="MontoCesantia_Liquidacion" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="MontoPreaviso_Liquidacion" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="MontoAguinaldo_Liquidacion" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FKId_Preaviso_Liquidacion" Type="int" Nullable="false" />
+          <Property Name="FKId_Empleado_Liquidacion" Type="int" Nullable="false" />
+          <Property Name="LiquidacionPagada_Liquidacion" Type="bit" Nullable="false" />
+          <Property Name="FKId_TipoSalidaLiquidacion" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="PeriodoDePago">
           <Key>
             <PropertyRef Name="Id_PeriodoDePago" />
@@ -313,6 +336,13 @@
           <Property Name="Monto_PlanillaPatronoDetalle" Type="numeric" Precision="18" Scale="2" Nullable="false" />
           <Property Name="FKId_Concepto_PlanillaPatronoDetalle" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Preaviso">
+          <Key>
+            <PropertyRef Name="Id_Preaviso" />
+          </Key>
+          <Property Name="Id_Preaviso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Detalle_Preaviso" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
         <EntityType Name="Provincia">
           <Key>
             <PropertyRef Name="Id_Provincia" />
@@ -368,13 +398,12 @@
           <Property Name="Id_TipoConcepto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Detalle_TipoConcepto" Type="varchar" MaxLength="150" Nullable="false" />
         </EntityType>
-        <EntityType Name="TipoContrato">
+        <EntityType Name="TipoSalida">
           <Key>
-            <PropertyRef Name="Id_TipoContrato" />
+            <PropertyRef Name="Id_TipoSalida" />
           </Key>
-          <Property Name="Id_TipoContrato" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Detalle_TipoContrato" Type="varchar" MaxLength="150" Nullable="false" />
-          <Property Name="FechaActualizacion_TipoContrato" Type="datetime" Nullable="false" />
+          <Property Name="Id_TipoSalida" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Detalle_TipoSalida" Type="varchar" MaxLength="150" Nullable="false" />
         </EntityType>
         <EntityType Name="TipoSolicitud">
           <Key>
@@ -544,18 +573,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Contrato_TipoContrato">
-          <End Role="TipoContrato" Type="Self.TipoContrato" Multiplicity="1" />
-          <End Role="Contrato" Type="Self.Contrato" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TipoContrato">
-              <PropertyRef Name="Id_TipoContrato" />
-            </Principal>
-            <Dependent Role="Contrato">
-              <PropertyRef Name="FKId_TipoContrato_Contrato" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Contrato_Turnos">
           <End Role="Turnos" Type="Self.Turnos" Multiplicity="1" />
           <End Role="Contrato" Type="Self.Contrato" Multiplicity="*" />
@@ -681,6 +698,42 @@
             </Principal>
             <Dependent Role="Empleado">
               <PropertyRef Name="FKId_Persona_Empleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liquidacion_Empleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="Liquidacion" Type="Self.Liquidacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Id_Empleado" />
+            </Principal>
+            <Dependent Role="Liquidacion">
+              <PropertyRef Name="FKId_Empleado_Liquidacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liquidacion_Preaviso">
+          <End Role="Preaviso" Type="Self.Preaviso" Multiplicity="1" />
+          <End Role="Liquidacion" Type="Self.Liquidacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Preaviso">
+              <PropertyRef Name="Id_Preaviso" />
+            </Principal>
+            <Dependent Role="Liquidacion">
+              <PropertyRef Name="FKId_Preaviso_Liquidacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liquidacion_TipoSalida">
+          <End Role="TipoSalida" Type="Self.TipoSalida" Multiplicity="1" />
+          <End Role="Liquidacion" Type="Self.Liquidacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoSalida">
+              <PropertyRef Name="Id_TipoSalida" />
+            </Principal>
+            <Dependent Role="Liquidacion">
+              <PropertyRef Name="FKId_TipoSalidaLiquidacion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -923,6 +976,7 @@
           <EntitySet Name="BoletaCurso" EntityType="Self.BoletaCurso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Canton" EntityType="Self.Canton" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cargo" EntityType="Self.Cargo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cesantia" EntityType="Self.Cesantia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClaseConcepto" EntityType="Self.ClaseConcepto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Concepto" EntityType="Self.Concepto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ConceptoAplicado" EntityType="Self.ConceptoAplicado" Schema="dbo" store:Type="Tables" />
@@ -938,19 +992,21 @@
           <EntitySet Name="Genero" EntityType="Self.Genero" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ImpactaPlanilla" EntityType="Self.ImpactaPlanilla" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ImpuestoRenta" EntityType="Self.ImpuestoRenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Liquidacion" EntityType="Self.Liquidacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PeriodoDePago" EntityType="Self.PeriodoDePago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Persona" EntityType="Self.Persona" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Planilla" EntityType="Self.Planilla" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlanillaDetalle" EntityType="Self.PlanillaDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlanillaPatrono" EntityType="Self.PlanillaPatrono" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlanillaPatronoDetalle" EntityType="Self.PlanillaPatronoDetalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Preaviso" EntityType="Self.Preaviso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Provincia" EntityType="Self.Provincia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Solicitud" EntityType="Self.Solicitud" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StatusSolicitud" EntityType="Self.StatusSolicitud" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Telefono" EntityType="Self.Telefono" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoConcepto" EntityType="Self.TipoConcepto" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TipoContrato" EntityType="Self.TipoContrato" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoSalida" EntityType="Self.TipoSalida" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoSolicitud" EntityType="Self.TipoSolicitud" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Turnos" EntityType="Self.Turnos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vacaciones" EntityType="Self.Vacaciones" Schema="dbo" store:Type="Tables" />
@@ -1002,10 +1058,6 @@
             <End Role="Empleado" EntitySet="Empleado" />
             <End Role="Contrato" EntitySet="Contrato" />
           </AssociationSet>
-          <AssociationSet Name="FK_Contrato_TipoContrato" Association="Self.FK_Contrato_TipoContrato">
-            <End Role="TipoContrato" EntitySet="TipoContrato" />
-            <End Role="Contrato" EntitySet="Contrato" />
-          </AssociationSet>
           <AssociationSet Name="FK_Contrato_Turnos" Association="Self.FK_Contrato_Turnos">
             <End Role="Turnos" EntitySet="Turnos" />
             <End Role="Contrato" EntitySet="Contrato" />
@@ -1045,6 +1097,18 @@
           <AssociationSet Name="FK_Empleado_Persona" Association="Self.FK_Empleado_Persona">
             <End Role="Persona" EntitySet="Persona" />
             <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liquidacion_Empleado" Association="Self.FK_Liquidacion_Empleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Liquidacion" EntitySet="Liquidacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liquidacion_Preaviso" Association="Self.FK_Liquidacion_Preaviso">
+            <End Role="Preaviso" EntitySet="Preaviso" />
+            <End Role="Liquidacion" EntitySet="Liquidacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liquidacion_TipoSalida" Association="Self.FK_Liquidacion_TipoSalida">
+            <End Role="TipoSalida" EntitySet="TipoSalida" />
+            <End Role="Liquidacion" EntitySet="Liquidacion" />
           </AssociationSet>
           <AssociationSet Name="FK_Persona_AspNetUsers" Association="Self.FK_Persona_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -1138,8 +1202,10 @@
           <EntitySet Name="BoletaCurso" EntityType="RecursosHumanosDBModel.BoletaCurso" />
           <EntitySet Name="Canton" EntityType="RecursosHumanosDBModel.Canton" />
           <EntitySet Name="Cargo" EntityType="RecursosHumanosDBModel.Cargo" />
+          <EntitySet Name="Cesantia" EntityType="RecursosHumanosDBModel.Cesantia" />
           <EntitySet Name="ClaseConcepto" EntityType="RecursosHumanosDBModel.ClaseConcepto" />
-          <EntitySet Name="Contrato" EntityType="RecursosHumanosDBModel.Contrato" />
+          <EntitySet Name="Concepto" EntityType="RecursosHumanosDBModel.Concepto" />
+          <EntitySet Name="ConceptoAplicado" EntityType="RecursosHumanosDBModel.ConceptoAplicado" />
           <EntitySet Name="Cuenta" EntityType="RecursosHumanosDBModel.Cuenta" />
           <EntitySet Name="Curso" EntityType="RecursosHumanosDBModel.Curso" />
           <EntitySet Name="Departamento" EntityType="RecursosHumanosDBModel.Departamento" />
@@ -1147,19 +1213,25 @@
           <EntitySet Name="Direccion" EntityType="RecursosHumanosDBModel.Direccion" />
           <EntitySet Name="Distrito" EntityType="RecursosHumanosDBModel.Distrito" />
           <EntitySet Name="Email" EntityType="RecursosHumanosDBModel.Email" />
+          <EntitySet Name="Empleado" EntityType="RecursosHumanosDBModel.Empleado" />
           <EntitySet Name="Genero" EntityType="RecursosHumanosDBModel.Genero" />
           <EntitySet Name="ImpactaPlanilla" EntityType="RecursosHumanosDBModel.ImpactaPlanilla" />
+          <EntitySet Name="ImpuestoRenta" EntityType="RecursosHumanosDBModel.ImpuestoRenta" />
+          <EntitySet Name="Liquidacion" EntityType="RecursosHumanosDBModel.Liquidacion" />
+          <EntitySet Name="PeriodoDePago" EntityType="RecursosHumanosDBModel.PeriodoDePago" />
           <EntitySet Name="Persona" EntityType="RecursosHumanosDBModel.Persona" />
           <EntitySet Name="Planilla" EntityType="RecursosHumanosDBModel.Planilla" />
+          <EntitySet Name="PlanillaDetalle" EntityType="RecursosHumanosDBModel.PlanillaDetalle" />
           <EntitySet Name="PlanillaPatrono" EntityType="RecursosHumanosDBModel.PlanillaPatrono" />
           <EntitySet Name="PlanillaPatronoDetalle" EntityType="RecursosHumanosDBModel.PlanillaPatronoDetalle" />
+          <EntitySet Name="Preaviso" EntityType="RecursosHumanosDBModel.Preaviso" />
           <EntitySet Name="Provincia" EntityType="RecursosHumanosDBModel.Provincia" />
           <EntitySet Name="Solicitud" EntityType="RecursosHumanosDBModel.Solicitud" />
           <EntitySet Name="StatusSolicitud" EntityType="RecursosHumanosDBModel.StatusSolicitud" />
           <EntitySet Name="sysdiagrams" EntityType="RecursosHumanosDBModel.sysdiagrams" />
           <EntitySet Name="Telefono" EntityType="RecursosHumanosDBModel.Telefono" />
           <EntitySet Name="TipoConcepto" EntityType="RecursosHumanosDBModel.TipoConcepto" />
-          <EntitySet Name="TipoContrato" EntityType="RecursosHumanosDBModel.TipoContrato" />
+          <EntitySet Name="TipoSalida" EntityType="RecursosHumanosDBModel.TipoSalida" />
           <EntitySet Name="TipoSolicitud" EntityType="RecursosHumanosDBModel.TipoSolicitud" />
           <EntitySet Name="Turnos" EntityType="RecursosHumanosDBModel.Turnos" />
           <EntitySet Name="Vacaciones" EntityType="RecursosHumanosDBModel.Vacaciones" />
@@ -1191,6 +1263,10 @@
             <End Role="Curso" EntitySet="Curso" />
             <End Role="BoletaCurso" EntitySet="BoletaCurso" />
           </AssociationSet>
+          <AssociationSet Name="FK_BoletaCurso_Empleado" Association="RecursosHumanosDBModel.FK_BoletaCurso_Empleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="BoletaCurso" EntitySet="BoletaCurso" />
+          </AssociationSet>
           <AssociationSet Name="FK_Canton_Provincia" Association="RecursosHumanosDBModel.FK_Canton_Provincia">
             <End Role="Provincia" EntitySet="Provincia" />
             <End Role="Canton" EntitySet="Canton" />
@@ -1199,115 +1275,6 @@
             <End Role="Canton" EntitySet="Canton" />
             <End Role="Distrito" EntitySet="Distrito" />
           </AssociationSet>
-          <AssociationSet Name="FK_Contrato_Cargo" Association="RecursosHumanosDBModel.FK_Contrato_Cargo">
-            <End Role="Cargo" EntitySet="Cargo" />
-            <End Role="Contrato" EntitySet="Contrato" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Contrato_TipoContrato" Association="RecursosHumanosDBModel.FK_Contrato_TipoContrato">
-            <End Role="TipoContrato" EntitySet="TipoContrato" />
-            <End Role="Contrato" EntitySet="Contrato" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Contrato_Turnos" Association="RecursosHumanosDBModel.FK_Contrato_Turnos">
-            <End Role="Turnos" EntitySet="Turnos" />
-            <End Role="Contrato" EntitySet="Contrato" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Persona_Cuenta" Association="RecursosHumanosDBModel.FK_Persona_Cuenta">
-            <End Role="Cuenta" EntitySet="Cuenta" />
-            <End Role="Persona" EntitySet="Persona" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Direccion_Distrito" Association="RecursosHumanosDBModel.FK_Direccion_Distrito">
-            <End Role="Distrito" EntitySet="Distrito" />
-            <End Role="Direccion" EntitySet="Direccion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Persona_Direccion" Association="RecursosHumanosDBModel.FK_Persona_Direccion">
-            <End Role="Direccion" EntitySet="Direccion" />
-            <End Role="Persona" EntitySet="Persona" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Persona_Email" Association="RecursosHumanosDBModel.FK_Persona_Email">
-            <End Role="Email" EntitySet="Email" />
-            <End Role="Persona" EntitySet="Persona" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Persona_Genero" Association="RecursosHumanosDBModel.FK_Persona_Genero">
-            <End Role="Genero" EntitySet="Genero" />
-            <End Role="Persona" EntitySet="Persona" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Telefono_Persona" Association="RecursosHumanosDBModel.FK_Telefono_Persona">
-            <End Role="Persona" EntitySet="Persona" />
-            <End Role="Telefono" EntitySet="Telefono" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PlanillaPatronoDetalle_PlanillaPatrono" Association="RecursosHumanosDBModel.FK_PlanillaPatronoDetalle_PlanillaPatrono">
-            <End Role="PlanillaPatrono" EntitySet="PlanillaPatrono" />
-            <End Role="PlanillaPatronoDetalle" EntitySet="PlanillaPatronoDetalle" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Solicitud_StatusSolicitud" Association="RecursosHumanosDBModel.FK_Solicitud_StatusSolicitud">
-            <End Role="StatusSolicitud" EntitySet="StatusSolicitud" />
-            <End Role="Solicitud" EntitySet="Solicitud" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Solicitud_TipoSolicitud" Association="RecursosHumanosDBModel.FK_Solicitud_TipoSolicitud">
-            <End Role="TipoSolicitud" EntitySet="TipoSolicitud" />
-            <End Role="Solicitud" EntitySet="Solicitud" />
-          </AssociationSet>
-          <EntitySet Name="Empleado" EntityType="RecursosHumanosDBModel.Empleado" />
-          <EntitySet Name="PeriodoDePago" EntityType="RecursosHumanosDBModel.PeriodoDePago" />
-          <AssociationSet Name="FK_BoletaCurso_Empleado" Association="RecursosHumanosDBModel.FK_BoletaCurso_Empleado">
-            <End Role="Empleado" EntitySet="Empleado" />
-            <End Role="BoletaCurso" EntitySet="BoletaCurso" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Contrato_Empleado" Association="RecursosHumanosDBModel.FK_Contrato_Empleado">
-            <End Role="Empleado" EntitySet="Empleado" />
-            <End Role="Contrato" EntitySet="Contrato" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Empleado_Departamento" Association="RecursosHumanosDBModel.FK_Empleado_Departamento">
-            <End Role="Departamento" EntitySet="Departamento" />
-            <End Role="Empleado" EntitySet="Empleado" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Empleado_Persona" Association="RecursosHumanosDBModel.FK_Empleado_Persona">
-            <End Role="Persona" EntitySet="Persona" />
-            <End Role="Empleado" EntitySet="Empleado" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Planilla_Empleado" Association="RecursosHumanosDBModel.FK_Planilla_Empleado">
-            <End Role="Empleado" EntitySet="Empleado" />
-            <End Role="Planilla" EntitySet="Planilla" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PlanillaPatrono_Empleado" Association="RecursosHumanosDBModel.FK_PlanillaPatrono_Empleado">
-            <End Role="Empleado" EntitySet="Empleado" />
-            <End Role="PlanillaPatrono" EntitySet="PlanillaPatrono" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Solicitud_Empleado" Association="RecursosHumanosDBModel.FK_Solicitud_Empleado">
-            <End Role="Empleado" EntitySet="Empleado" />
-            <End Role="Solicitud" EntitySet="Solicitud" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Solicitud_Empleado1" Association="RecursosHumanosDBModel.FK_Solicitud_Empleado1">
-            <End Role="Empleado" EntitySet="Empleado" />
-            <End Role="Solicitud" EntitySet="Solicitud" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Vacaciones_Empleado" Association="RecursosHumanosDBModel.FK_Vacaciones_Empleado">
-            <End Role="Empleado" EntitySet="Empleado" />
-            <End Role="Vacaciones" EntitySet="Vacaciones" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Planilla_PeriodoDePago" Association="RecursosHumanosDBModel.FK_Planilla_PeriodoDePago">
-            <End Role="PeriodoDePago" EntitySet="PeriodoDePago" />
-            <End Role="Planilla" EntitySet="Planilla" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PlanillaPatrono_PeriodoDePago" Association="RecursosHumanosDBModel.FK_PlanillaPatrono_PeriodoDePago">
-            <End Role="PeriodoDePago" EntitySet="PeriodoDePago" />
-            <End Role="PlanillaPatrono" EntitySet="PlanillaPatrono" />
-          </AssociationSet>
-          <EntitySet Name="ConceptoAplicado" EntityType="RecursosHumanosDBModel.ConceptoAplicado" />
-          <EntitySet Name="PlanillaDetalle" EntityType="RecursosHumanosDBModel.PlanillaDetalle" />
-          <AssociationSet Name="FK_ConceptoAplicado_Empleado" Association="RecursosHumanosDBModel.FK_ConceptoAplicado_Empleado">
-            <End Role="Empleado" EntitySet="Empleado" />
-            <End Role="ConceptoAplicado" EntitySet="ConceptoAplicado" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ConceptoAplicado_PeriodoDePago" Association="RecursosHumanosDBModel.FK_ConceptoAplicado_PeriodoDePago">
-            <End Role="PeriodoDePago" EntitySet="PeriodoDePago" />
-            <End Role="ConceptoAplicado" EntitySet="ConceptoAplicado" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PlanillaDetalle_Planilla" Association="RecursosHumanosDBModel.FK_PlanillaDetalle_Planilla">
-            <End Role="Planilla" EntitySet="Planilla" />
-            <End Role="PlanillaDetalle" EntitySet="PlanillaDetalle" />
-          </AssociationSet>
-          <EntitySet Name="Concepto" EntityType="RecursosHumanosDBModel.Concepto" />
           <AssociationSet Name="FK_Concepto_ClaseConcepto" Association="RecursosHumanosDBModel.FK_Concepto_ClaseConcepto">
             <End Role="ClaseConcepto" EntitySet="ClaseConcepto" />
             <End Role="Concepto" EntitySet="Concepto" />
@@ -1336,8 +1303,116 @@
             <End Role="Concepto" EntitySet="Concepto" />
             <End Role="PlanillaPatronoDetalle" EntitySet="PlanillaPatronoDetalle" />
           </AssociationSet>
-          <EntitySet Name="ImpuestoRenta" EntityType="RecursosHumanosDBModel.ImpuestoRenta" />
-        </EntityContainer>
+          <AssociationSet Name="FK_ConceptoAplicado_Empleado" Association="RecursosHumanosDBModel.FK_ConceptoAplicado_Empleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="ConceptoAplicado" EntitySet="ConceptoAplicado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConceptoAplicado_PeriodoDePago" Association="RecursosHumanosDBModel.FK_ConceptoAplicado_PeriodoDePago">
+            <End Role="PeriodoDePago" EntitySet="PeriodoDePago" />
+            <End Role="ConceptoAplicado" EntitySet="ConceptoAplicado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Persona_Cuenta" Association="RecursosHumanosDBModel.FK_Persona_Cuenta">
+            <End Role="Cuenta" EntitySet="Cuenta" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Empleado_Departamento" Association="RecursosHumanosDBModel.FK_Empleado_Departamento">
+            <End Role="Departamento" EntitySet="Departamento" />
+            <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Direccion_Distrito" Association="RecursosHumanosDBModel.FK_Direccion_Distrito">
+            <End Role="Distrito" EntitySet="Distrito" />
+            <End Role="Direccion" EntitySet="Direccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Persona_Direccion" Association="RecursosHumanosDBModel.FK_Persona_Direccion">
+            <End Role="Direccion" EntitySet="Direccion" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Persona_Email" Association="RecursosHumanosDBModel.FK_Persona_Email">
+            <End Role="Email" EntitySet="Email" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Empleado_Persona" Association="RecursosHumanosDBModel.FK_Empleado_Persona">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liquidacion_Empleado" Association="RecursosHumanosDBModel.FK_Liquidacion_Empleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Liquidacion" EntitySet="Liquidacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Planilla_Empleado" Association="RecursosHumanosDBModel.FK_Planilla_Empleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Planilla" EntitySet="Planilla" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlanillaPatrono_Empleado" Association="RecursosHumanosDBModel.FK_PlanillaPatrono_Empleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="PlanillaPatrono" EntitySet="PlanillaPatrono" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Solicitud_Empleado" Association="RecursosHumanosDBModel.FK_Solicitud_Empleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Solicitud_Empleado1" Association="RecursosHumanosDBModel.FK_Solicitud_Empleado1">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vacaciones_Empleado" Association="RecursosHumanosDBModel.FK_Vacaciones_Empleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Vacaciones" EntitySet="Vacaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Persona_Genero" Association="RecursosHumanosDBModel.FK_Persona_Genero">
+            <End Role="Genero" EntitySet="Genero" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liquidacion_Preaviso" Association="RecursosHumanosDBModel.FK_Liquidacion_Preaviso">
+            <End Role="Preaviso" EntitySet="Preaviso" />
+            <End Role="Liquidacion" EntitySet="Liquidacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liquidacion_TipoSalida" Association="RecursosHumanosDBModel.FK_Liquidacion_TipoSalida">
+            <End Role="TipoSalida" EntitySet="TipoSalida" />
+            <End Role="Liquidacion" EntitySet="Liquidacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Planilla_PeriodoDePago" Association="RecursosHumanosDBModel.FK_Planilla_PeriodoDePago">
+            <End Role="PeriodoDePago" EntitySet="PeriodoDePago" />
+            <End Role="Planilla" EntitySet="Planilla" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlanillaPatrono_PeriodoDePago" Association="RecursosHumanosDBModel.FK_PlanillaPatrono_PeriodoDePago">
+            <End Role="PeriodoDePago" EntitySet="PeriodoDePago" />
+            <End Role="PlanillaPatrono" EntitySet="PlanillaPatrono" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Telefono_Persona" Association="RecursosHumanosDBModel.FK_Telefono_Persona">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Telefono" EntitySet="Telefono" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlanillaDetalle_Planilla" Association="RecursosHumanosDBModel.FK_PlanillaDetalle_Planilla">
+            <End Role="Planilla" EntitySet="Planilla" />
+            <End Role="PlanillaDetalle" EntitySet="PlanillaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlanillaPatronoDetalle_PlanillaPatrono" Association="RecursosHumanosDBModel.FK_PlanillaPatronoDetalle_PlanillaPatrono">
+            <End Role="PlanillaPatrono" EntitySet="PlanillaPatrono" />
+            <End Role="PlanillaPatronoDetalle" EntitySet="PlanillaPatronoDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Solicitud_StatusSolicitud" Association="RecursosHumanosDBModel.FK_Solicitud_StatusSolicitud">
+            <End Role="StatusSolicitud" EntitySet="StatusSolicitud" />
+            <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Solicitud_TipoSolicitud" Association="RecursosHumanosDBModel.FK_Solicitud_TipoSolicitud">
+            <End Role="TipoSolicitud" EntitySet="TipoSolicitud" />
+            <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <EntitySet Name="Contrato" EntityType="RecursosHumanosDBModel.Contrato" />
+          <AssociationSet Name="FK_Contrato_Cargo" Association="RecursosHumanosDBModel.FK_Contrato_Cargo">
+            <End Role="Cargo" EntitySet="Cargo" />
+            <End Role="Contrato" EntitySet="Contrato" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contrato_Empleado" Association="RecursosHumanosDBModel.FK_Contrato_Empleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Contrato" EntitySet="Contrato" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contrato_Turnos" Association="RecursosHumanosDBModel.FK_Contrato_Turnos">
+            <End Role="Turnos" EntitySet="Turnos" />
+            <End Role="Contrato" EntitySet="Contrato" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -1452,6 +1527,14 @@
           <Property Name="FechaActualizacion_Cargo" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Contrato" Relationship="RecursosHumanosDBModel.FK_Contrato_Cargo" FromRole="Cargo" ToRole="Contrato" />
         </EntityType>
+        <EntityType Name="Cesantia">
+          <Key>
+            <PropertyRef Name="Id_Cesantia" />
+          </Key>
+          <Property Name="Id_Cesantia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FactorAnio_Cesantia" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="DiasaPagarporAnio_Cesantia" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+        </EntityType>
         <EntityType Name="ClaseConcepto">
           <Key>
             <PropertyRef Name="Id_ClaseConcepto" />
@@ -1460,26 +1543,44 @@
           <Property Name="Detalle_ClaseConcepto" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Concepto" Relationship="RecursosHumanosDBModel.FK_Concepto_ClaseConcepto" FromRole="ClaseConcepto" ToRole="Concepto" />
         </EntityType>
-        <EntityType Name="Contrato">
+        <EntityType Name="Concepto">
           <Key>
-            <PropertyRef Name="Id_Contrato" />
+            <PropertyRef Name="Id_Concepto" />
           </Key>
-          <Property Name="Id_Contrato" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SalarioBruto_Contrato" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="FechaInicio_Contrato" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="FechaFin_Contrato" Type="DateTime" Precision="3" />
-          <Property Name="FKId_TipoContrato_Contrato" Type="Int32" Nullable="false" />
-          <Property Name="FKId_Empleado_Contrato" Type="Int32" Nullable="false" />
-          <Property Name="FKId_Cargo_Contrato" Type="Int32" Nullable="false" />
-          <Property Name="Activo_Contrato" Type="Boolean" Nullable="false" />
-          <Property Name="FKId_Turno_Contrato" Type="Int32" Nullable="false" />
-          <Property Name="SalarioBrutoPorDia_Contrato" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="SalarioBrutoPorHora_Contrato" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="SalarioBrutoQuincenal_Contrato" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <NavigationProperty Name="Cargo" Relationship="RecursosHumanosDBModel.FK_Contrato_Cargo" FromRole="Contrato" ToRole="Cargo" />
-          <NavigationProperty Name="TipoContrato" Relationship="RecursosHumanosDBModel.FK_Contrato_TipoContrato" FromRole="Contrato" ToRole="TipoContrato" />
-          <NavigationProperty Name="Turnos" Relationship="RecursosHumanosDBModel.FK_Contrato_Turnos" FromRole="Contrato" ToRole="Turnos" />
-          <NavigationProperty Name="Empleado" Relationship="RecursosHumanosDBModel.FK_Contrato_Empleado" FromRole="Contrato" ToRole="Empleado" />
+          <Property Name="Id_Concepto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre_Concepto" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Editable_Concepto" Type="Boolean" Nullable="false" />
+          <Property Name="FKId_TipoConcepto_Concepto" Type="Int32" Nullable="false" />
+          <Property Name="FKId_DestinatarioConcepto_Concepto" Type="Int32" Nullable="false" />
+          <Property Name="FKId_ImpactaPlanilla_Concepto" Type="Int32" Nullable="false" />
+          <Property Name="FKId_ClaseConcepto_Concepto" Type="Int32" Nullable="false" />
+          <Property Name="Porcentaje_Concepto" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="MontoFijo_Concepto" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DirectoPlanilla_Concepto" Type="Boolean" Nullable="false" />
+          <Property Name="FactorTiempo_Concepto" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="ClaseConcepto" Relationship="RecursosHumanosDBModel.FK_Concepto_ClaseConcepto" FromRole="Concepto" ToRole="ClaseConcepto" />
+          <NavigationProperty Name="DestinatarioConcepto" Relationship="RecursosHumanosDBModel.FK_Concepto_DestinatarioConcepto" FromRole="Concepto" ToRole="DestinatarioConcepto" />
+          <NavigationProperty Name="ImpactaPlanilla" Relationship="RecursosHumanosDBModel.FK_Concepto_ImpactaPlanilla" FromRole="Concepto" ToRole="ImpactaPlanilla" />
+          <NavigationProperty Name="TipoConcepto" Relationship="RecursosHumanosDBModel.FK_Concepto_TipoConcepto" FromRole="Concepto" ToRole="TipoConcepto" />
+          <NavigationProperty Name="ConceptoAplicado" Relationship="RecursosHumanosDBModel.FK_ConceptoAplicado_Concepto" FromRole="Concepto" ToRole="ConceptoAplicado" />
+          <NavigationProperty Name="PlanillaDetalle" Relationship="RecursosHumanosDBModel.FK_PlanillaDetalle_Concepto" FromRole="Concepto" ToRole="PlanillaDetalle" />
+          <NavigationProperty Name="PlanillaPatronoDetalle" Relationship="RecursosHumanosDBModel.FK_PlanillaPatronoDetalle_Concepto" FromRole="Concepto" ToRole="PlanillaPatronoDetalle" />
+        </EntityType>
+        <EntityType Name="ConceptoAplicado">
+          <Key>
+            <PropertyRef Name="Id_ConceptoAplicado" />
+          </Key>
+          <Property Name="Id_ConceptoAplicado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cantidad_ConceptoAplicado" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Monto_ConceptoAplicado" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="FKId_Empleado_ConceptoAplicado" Type="Int32" Nullable="false" />
+          <Property Name="FKId_Concepto_ConceptoAplicado" Type="Int32" Nullable="false" />
+          <Property Name="FKId_PeriodoDePago_ConceptoAplicado" Type="Int32" Nullable="false" />
+          <Property Name="Procesado_ConceptoAplicado" Type="Boolean" Nullable="false" />
+          <Property Name="Fecha_ConceptoAplicado" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Concepto" Relationship="RecursosHumanosDBModel.FK_ConceptoAplicado_Concepto" FromRole="ConceptoAplicado" ToRole="Concepto" />
+          <NavigationProperty Name="Empleado" Relationship="RecursosHumanosDBModel.FK_ConceptoAplicado_Empleado" FromRole="ConceptoAplicado" ToRole="Empleado" />
+          <NavigationProperty Name="PeriodoDePago" Relationship="RecursosHumanosDBModel.FK_ConceptoAplicado_PeriodoDePago" FromRole="ConceptoAplicado" ToRole="PeriodoDePago" />
         </EntityType>
         <EntityType Name="Cuenta">
           <Key>
@@ -1545,6 +1646,27 @@
           <Property Name="Correo_Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Persona" Relationship="RecursosHumanosDBModel.FK_Persona_Email" FromRole="Email" ToRole="Persona" />
         </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="Id_Empleado" />
+          </Key>
+          <Property Name="Id_Empleado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FKId_Persona_Empleado" Type="Int32" Nullable="false" />
+          <Property Name="FKId_Departamento_Empleado" Type="Int32" Nullable="false" />
+          <Property Name="Activo_Empleado" Type="Boolean" Nullable="false" />
+          <Property Name="SinGoceSalarial_Empleado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="BoletaCurso" Relationship="RecursosHumanosDBModel.FK_BoletaCurso_Empleado" FromRole="Empleado" ToRole="BoletaCurso" />
+          <NavigationProperty Name="ConceptoAplicado" Relationship="RecursosHumanosDBModel.FK_ConceptoAplicado_Empleado" FromRole="Empleado" ToRole="ConceptoAplicado" />
+          <NavigationProperty Name="Departamento" Relationship="RecursosHumanosDBModel.FK_Empleado_Departamento" FromRole="Empleado" ToRole="Departamento" />
+          <NavigationProperty Name="Persona" Relationship="RecursosHumanosDBModel.FK_Empleado_Persona" FromRole="Empleado" ToRole="Persona" />
+          <NavigationProperty Name="Liquidacion" Relationship="RecursosHumanosDBModel.FK_Liquidacion_Empleado" FromRole="Empleado" ToRole="Liquidacion" />
+          <NavigationProperty Name="Planilla" Relationship="RecursosHumanosDBModel.FK_Planilla_Empleado" FromRole="Empleado" ToRole="Planilla" />
+          <NavigationProperty Name="PlanillaPatrono" Relationship="RecursosHumanosDBModel.FK_PlanillaPatrono_Empleado" FromRole="Empleado" ToRole="PlanillaPatrono" />
+          <NavigationProperty Name="Solicitud" Relationship="RecursosHumanosDBModel.FK_Solicitud_Empleado" FromRole="Empleado" ToRole="Solicitud" />
+          <NavigationProperty Name="Solicitud1" Relationship="RecursosHumanosDBModel.FK_Solicitud_Empleado1" FromRole="Empleado" ToRole="Solicitud" />
+          <NavigationProperty Name="Vacaciones" Relationship="RecursosHumanosDBModel.FK_Vacaciones_Empleado" FromRole="Empleado" ToRole="Vacaciones" />
+          <NavigationProperty Name="Contrato" Relationship="RecursosHumanosDBModel.FK_Contrato_Empleado" FromRole="Empleado" ToRole="Contrato" />
+        </EntityType>
         <EntityType Name="Genero">
           <Key>
             <PropertyRef Name="Id_Genero" />
@@ -1560,6 +1682,45 @@
           <Property Name="Id_ImpactaPlanilla" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Detalle_ImpactaPlanilla" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Concepto" Relationship="RecursosHumanosDBModel.FK_Concepto_ImpactaPlanilla" FromRole="ImpactaPlanilla" ToRole="Concepto" />
+        </EntityType>
+        <EntityType Name="ImpuestoRenta">
+          <Key>
+            <PropertyRef Name="Id_ImpuestoRenta" />
+          </Key>
+          <Property Name="Id_ImpuestoRenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MontoMinimo_ImpuestoRenta" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="MontoMaximo_ImpuestoRenta" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Porcentaje_ImpuestoRenta" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Liquidacion">
+          <Key>
+            <PropertyRef Name="Id_Liquidacion" />
+          </Key>
+          <Property Name="Id_Liquidacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaActualizacion_Liquidacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DiasVacaciones_Liquidacion" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="MontoVacaciones_Liquidacion" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="AniosLaborados_Liquidacion" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="MontoCesantia_Liquidacion" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="MontoPreaviso_Liquidacion" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="MontoAguinaldo_Liquidacion" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="FKId_Preaviso_Liquidacion" Type="Int32" Nullable="false" />
+          <Property Name="FKId_Empleado_Liquidacion" Type="Int32" Nullable="false" />
+          <Property Name="LiquidacionPagada_Liquidacion" Type="Boolean" Nullable="false" />
+          <Property Name="FKId_TipoSalidaLiquidacion" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Empleado" Relationship="RecursosHumanosDBModel.FK_Liquidacion_Empleado" FromRole="Liquidacion" ToRole="Empleado" />
+          <NavigationProperty Name="Preaviso" Relationship="RecursosHumanosDBModel.FK_Liquidacion_Preaviso" FromRole="Liquidacion" ToRole="Preaviso" />
+          <NavigationProperty Name="TipoSalida" Relationship="RecursosHumanosDBModel.FK_Liquidacion_TipoSalida" FromRole="Liquidacion" ToRole="TipoSalida" />
+        </EntityType>
+        <EntityType Name="PeriodoDePago">
+          <Key>
+            <PropertyRef Name="Id_PeriodoDePago" />
+          </Key>
+          <Property Name="Id_PeriodoDePago" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Periodo_PeriododDePago" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="ConceptoAplicado" Relationship="RecursosHumanosDBModel.FK_ConceptoAplicado_PeriodoDePago" FromRole="PeriodoDePago" ToRole="ConceptoAplicado" />
+          <NavigationProperty Name="Planilla" Relationship="RecursosHumanosDBModel.FK_Planilla_PeriodoDePago" FromRole="PeriodoDePago" ToRole="Planilla" />
+          <NavigationProperty Name="PlanillaPatrono" Relationship="RecursosHumanosDBModel.FK_PlanillaPatrono_PeriodoDePago" FromRole="PeriodoDePago" ToRole="PlanillaPatrono" />
         </EntityType>
         <EntityType Name="Persona">
           <Key>
@@ -1581,9 +1742,9 @@
           <NavigationProperty Name="Cuenta" Relationship="RecursosHumanosDBModel.FK_Persona_Cuenta" FromRole="Persona" ToRole="Cuenta" />
           <NavigationProperty Name="Direccion" Relationship="RecursosHumanosDBModel.FK_Persona_Direccion" FromRole="Persona" ToRole="Direccion" />
           <NavigationProperty Name="Email" Relationship="RecursosHumanosDBModel.FK_Persona_Email" FromRole="Persona" ToRole="Email" />
+          <NavigationProperty Name="Empleado" Relationship="RecursosHumanosDBModel.FK_Empleado_Persona" FromRole="Persona" ToRole="Empleado" />
           <NavigationProperty Name="Genero" Relationship="RecursosHumanosDBModel.FK_Persona_Genero" FromRole="Persona" ToRole="Genero" />
           <NavigationProperty Name="Telefono" Relationship="RecursosHumanosDBModel.FK_Telefono_Persona" FromRole="Persona" ToRole="Telefono" />
-          <NavigationProperty Name="Empleado" Relationship="RecursosHumanosDBModel.FK_Empleado_Persona" FromRole="Persona" ToRole="Empleado" />
         </EntityType>
         <EntityType Name="Planilla">
           <Key>
@@ -1601,6 +1762,20 @@
           <NavigationProperty Name="PeriodoDePago" Relationship="RecursosHumanosDBModel.FK_Planilla_PeriodoDePago" FromRole="Planilla" ToRole="PeriodoDePago" />
           <NavigationProperty Name="PlanillaDetalle" Relationship="RecursosHumanosDBModel.FK_PlanillaDetalle_Planilla" FromRole="Planilla" ToRole="PlanillaDetalle" />
         </EntityType>
+        <EntityType Name="PlanillaDetalle">
+          <Key>
+            <PropertyRef Name="Id_PlanillaDetalle" />
+          </Key>
+          <Property Name="Id_PlanillaDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FKId_Planilla_PlanillaDetalle" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad_PlanillaDetalle" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Monto_PlanillaDetalle" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="FKId_Concepto_PlanillaDetalle" Type="Int32" Nullable="false" />
+          <Property Name="PagoProcesado_PlanillaDetalle" Type="Boolean" Nullable="false" />
+          <Property Name="Fecha_PlanillaDetalle" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Concepto" Relationship="RecursosHumanosDBModel.FK_PlanillaDetalle_Concepto" FromRole="PlanillaDetalle" ToRole="Concepto" />
+          <NavigationProperty Name="Planilla" Relationship="RecursosHumanosDBModel.FK_PlanillaDetalle_Planilla" FromRole="PlanillaDetalle" ToRole="Planilla" />
+        </EntityType>
         <EntityType Name="PlanillaPatrono">
           <Key>
             <PropertyRef Name="Id_PlanillaPatrono" />
@@ -1610,9 +1785,9 @@
           <Property Name="FKId_Empleado_PlanillaPatrono" Type="Int32" Nullable="false" />
           <Property Name="FKId_PeriodoDePago_PlanillaPatrono" Type="Int32" Nullable="false" />
           <Property Name="TotalMontoaPagar_PlanillaPatrono" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <NavigationProperty Name="PlanillaPatronoDetalle" Relationship="RecursosHumanosDBModel.FK_PlanillaPatronoDetalle_PlanillaPatrono" FromRole="PlanillaPatrono" ToRole="PlanillaPatronoDetalle" />
           <NavigationProperty Name="Empleado" Relationship="RecursosHumanosDBModel.FK_PlanillaPatrono_Empleado" FromRole="PlanillaPatrono" ToRole="Empleado" />
           <NavigationProperty Name="PeriodoDePago" Relationship="RecursosHumanosDBModel.FK_PlanillaPatrono_PeriodoDePago" FromRole="PlanillaPatrono" ToRole="PeriodoDePago" />
+          <NavigationProperty Name="PlanillaPatronoDetalle" Relationship="RecursosHumanosDBModel.FK_PlanillaPatronoDetalle_PlanillaPatrono" FromRole="PlanillaPatrono" ToRole="PlanillaPatronoDetalle" />
         </EntityType>
         <EntityType Name="PlanillaPatronoDetalle">
           <Key>
@@ -1623,8 +1798,16 @@
           <Property Name="Cantidad_PlanillaPatronoDetalle" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="Monto_PlanillaPatronoDetalle" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="FKId_Concepto_PlanillaPatronoDetalle" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="PlanillaPatrono" Relationship="RecursosHumanosDBModel.FK_PlanillaPatronoDetalle_PlanillaPatrono" FromRole="PlanillaPatronoDetalle" ToRole="PlanillaPatrono" />
           <NavigationProperty Name="Concepto" Relationship="RecursosHumanosDBModel.FK_PlanillaPatronoDetalle_Concepto" FromRole="PlanillaPatronoDetalle" ToRole="Concepto" />
+          <NavigationProperty Name="PlanillaPatrono" Relationship="RecursosHumanosDBModel.FK_PlanillaPatronoDetalle_PlanillaPatrono" FromRole="PlanillaPatronoDetalle" ToRole="PlanillaPatrono" />
+        </EntityType>
+        <EntityType Name="Preaviso">
+          <Key>
+            <PropertyRef Name="Id_Preaviso" />
+          </Key>
+          <Property Name="Id_Preaviso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Detalle_Preaviso" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Liquidacion" Relationship="RecursosHumanosDBModel.FK_Liquidacion_Preaviso" FromRole="Preaviso" ToRole="Liquidacion" />
         </EntityType>
         <EntityType Name="Provincia">
           <Key>
@@ -1649,10 +1832,10 @@
           <Property Name="Cantidad_dias_Solicitud" Type="Int32" />
           <Property Name="FechaInicioPeriodo_Solicitud" Type="DateTime" Precision="3" />
           <Property Name="FechaFinPeriodo_Solicitud" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="StatusSolicitud" Relationship="RecursosHumanosDBModel.FK_Solicitud_StatusSolicitud" FromRole="Solicitud" ToRole="StatusSolicitud" />
-          <NavigationProperty Name="TipoSolicitud" Relationship="RecursosHumanosDBModel.FK_Solicitud_TipoSolicitud" FromRole="Solicitud" ToRole="TipoSolicitud" />
           <NavigationProperty Name="Empleado" Relationship="RecursosHumanosDBModel.FK_Solicitud_Empleado" FromRole="Solicitud" ToRole="Empleado" />
           <NavigationProperty Name="Empleado1" Relationship="RecursosHumanosDBModel.FK_Solicitud_Empleado1" FromRole="Solicitud" ToRole="Empleado" />
+          <NavigationProperty Name="StatusSolicitud" Relationship="RecursosHumanosDBModel.FK_Solicitud_StatusSolicitud" FromRole="Solicitud" ToRole="StatusSolicitud" />
+          <NavigationProperty Name="TipoSolicitud" Relationship="RecursosHumanosDBModel.FK_Solicitud_TipoSolicitud" FromRole="Solicitud" ToRole="TipoSolicitud" />
         </EntityType>
         <EntityType Name="StatusSolicitud">
           <Key>
@@ -1689,14 +1872,13 @@
           <Property Name="Detalle_TipoConcepto" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Concepto" Relationship="RecursosHumanosDBModel.FK_Concepto_TipoConcepto" FromRole="TipoConcepto" ToRole="Concepto" />
         </EntityType>
-        <EntityType Name="TipoContrato">
+        <EntityType Name="TipoSalida">
           <Key>
-            <PropertyRef Name="Id_TipoContrato" />
+            <PropertyRef Name="Id_TipoSalida" />
           </Key>
-          <Property Name="Id_TipoContrato" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Detalle_TipoContrato" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="FechaActualizacion_TipoContrato" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Contrato" Relationship="RecursosHumanosDBModel.FK_Contrato_TipoContrato" FromRole="TipoContrato" ToRole="Contrato" />
+          <Property Name="Id_TipoSalida" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Detalle_TipoSalida" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Liquidacion" Relationship="RecursosHumanosDBModel.FK_Liquidacion_TipoSalida" FromRole="TipoSalida" ToRole="Liquidacion" />
         </EntityType>
         <EntityType Name="TipoSolicitud">
           <Key>
@@ -1817,6 +1999,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BoletaCurso_Empleado">
+          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.BoletaCurso" Role="BoletaCurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Id_Empleado" />
+            </Principal>
+            <Dependent Role="BoletaCurso">
+              <PropertyRef Name="FKId_Empleado_BoletaCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Canton_Provincia">
           <End Type="RecursosHumanosDBModel.Provincia" Role="Provincia" Multiplicity="1" />
           <End Type="RecursosHumanosDBModel.Canton" Role="Canton" Multiplicity="*" />
@@ -1841,401 +2035,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Contrato_Cargo">
-          <End Type="RecursosHumanosDBModel.Cargo" Role="Cargo" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.Contrato" Role="Contrato" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cargo">
-              <PropertyRef Name="Id_Cargo" />
-            </Principal>
-            <Dependent Role="Contrato">
-              <PropertyRef Name="FKId_Cargo_Contrato" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Contrato_TipoContrato">
-          <End Type="RecursosHumanosDBModel.TipoContrato" Role="TipoContrato" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.Contrato" Role="Contrato" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TipoContrato">
-              <PropertyRef Name="Id_TipoContrato" />
-            </Principal>
-            <Dependent Role="Contrato">
-              <PropertyRef Name="FKId_TipoContrato_Contrato" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Contrato_Turnos">
-          <End Type="RecursosHumanosDBModel.Turnos" Role="Turnos" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.Contrato" Role="Contrato" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Turnos">
-              <PropertyRef Name="Id_Turno" />
-            </Principal>
-            <Dependent Role="Contrato">
-              <PropertyRef Name="FKId_Turno_Contrato" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Persona_Cuenta">
-          <End Type="RecursosHumanosDBModel.Cuenta" Role="Cuenta" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.Persona" Role="Persona" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cuenta">
-              <PropertyRef Name="Id_Cuenta" />
-            </Principal>
-            <Dependent Role="Persona">
-              <PropertyRef Name="FKId_Cuenta_Persona" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Direccion_Distrito">
-          <End Type="RecursosHumanosDBModel.Distrito" Role="Distrito" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.Direccion" Role="Direccion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Distrito">
-              <PropertyRef Name="Id_Distrito" />
-            </Principal>
-            <Dependent Role="Direccion">
-              <PropertyRef Name="FKIdDistrito_Direccion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Persona_Direccion">
-          <End Type="RecursosHumanosDBModel.Direccion" Role="Direccion" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.Persona" Role="Persona" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Direccion">
-              <PropertyRef Name="Id_Direccion" />
-            </Principal>
-            <Dependent Role="Persona">
-              <PropertyRef Name="FKId_Direccion_Persona" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Persona_Email">
-          <End Type="RecursosHumanosDBModel.Email" Role="Email" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.Persona" Role="Persona" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Email">
-              <PropertyRef Name="Id_Email" />
-            </Principal>
-            <Dependent Role="Persona">
-              <PropertyRef Name="FKId_Email_Persona" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Persona_Genero">
-          <End Type="RecursosHumanosDBModel.Genero" Role="Genero" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.Persona" Role="Persona" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Genero">
-              <PropertyRef Name="Id_Genero" />
-            </Principal>
-            <Dependent Role="Persona">
-              <PropertyRef Name="FKId_Genero_Persona" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Telefono_Persona">
-          <End Type="RecursosHumanosDBModel.Persona" Role="Persona" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.Telefono" Role="Telefono" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Persona">
-              <PropertyRef Name="Id_Persona" />
-            </Principal>
-            <Dependent Role="Telefono">
-              <PropertyRef Name="FKId_Persona_Telefono" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PlanillaPatronoDetalle_PlanillaPatrono">
-          <End Type="RecursosHumanosDBModel.PlanillaPatrono" Role="PlanillaPatrono" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.PlanillaPatronoDetalle" Role="PlanillaPatronoDetalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PlanillaPatrono">
-              <PropertyRef Name="Id_PlanillaPatrono" />
-            </Principal>
-            <Dependent Role="PlanillaPatronoDetalle">
-              <PropertyRef Name="FKId_Planilla_PlanillaPatronoDetalle" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Solicitud_StatusSolicitud">
-          <End Type="RecursosHumanosDBModel.StatusSolicitud" Role="StatusSolicitud" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.Solicitud" Role="Solicitud" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StatusSolicitud">
-              <PropertyRef Name="Id_StatusSolicitud" />
-            </Principal>
-            <Dependent Role="Solicitud">
-              <PropertyRef Name="FKId_StatusSolicitud_Solicitud" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Solicitud_TipoSolicitud">
-          <End Type="RecursosHumanosDBModel.TipoSolicitud" Role="TipoSolicitud" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.Solicitud" Role="Solicitud" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TipoSolicitud">
-              <PropertyRef Name="Id_TipoSolicitud" />
-            </Principal>
-            <Dependent Role="Solicitud">
-              <PropertyRef Name="FKId_TipoSolicitud_Solicitud" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Empleado">
-          <Key>
-            <PropertyRef Name="Id_Empleado" />
-          </Key>
-          <Property Name="Id_Empleado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FKId_Persona_Empleado" Type="Int32" Nullable="false" />
-          <Property Name="FKId_Departamento_Empleado" Type="Int32" Nullable="false" />
-          <Property Name="Activo_Empleado" Type="Boolean" Nullable="false" />
-          <Property Name="SinGoceSalarial_Empleado" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="BoletaCurso" Relationship="RecursosHumanosDBModel.FK_BoletaCurso_Empleado" FromRole="Empleado" ToRole="BoletaCurso" />
-          <NavigationProperty Name="Contrato" Relationship="RecursosHumanosDBModel.FK_Contrato_Empleado" FromRole="Empleado" ToRole="Contrato" />
-          <NavigationProperty Name="Departamento" Relationship="RecursosHumanosDBModel.FK_Empleado_Departamento" FromRole="Empleado" ToRole="Departamento" />
-          <NavigationProperty Name="Persona" Relationship="RecursosHumanosDBModel.FK_Empleado_Persona" FromRole="Empleado" ToRole="Persona" />
-          <NavigationProperty Name="Planilla" Relationship="RecursosHumanosDBModel.FK_Planilla_Empleado" FromRole="Empleado" ToRole="Planilla" />
-          <NavigationProperty Name="PlanillaPatrono" Relationship="RecursosHumanosDBModel.FK_PlanillaPatrono_Empleado" FromRole="Empleado" ToRole="PlanillaPatrono" />
-          <NavigationProperty Name="Solicitud" Relationship="RecursosHumanosDBModel.FK_Solicitud_Empleado" FromRole="Empleado" ToRole="Solicitud" />
-          <NavigationProperty Name="Solicitud1" Relationship="RecursosHumanosDBModel.FK_Solicitud_Empleado1" FromRole="Empleado" ToRole="Solicitud" />
-          <NavigationProperty Name="Vacaciones" Relationship="RecursosHumanosDBModel.FK_Vacaciones_Empleado" FromRole="Empleado" ToRole="Vacaciones" />
-          <NavigationProperty Name="ConceptoAplicado" Relationship="RecursosHumanosDBModel.FK_ConceptoAplicado_Empleado" FromRole="Empleado" ToRole="ConceptoAplicado" />
-        </EntityType>
-        <EntityType Name="PeriodoDePago">
-          <Key>
-            <PropertyRef Name="Id_PeriodoDePago" />
-          </Key>
-          <Property Name="Id_PeriodoDePago" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Periodo_PeriododDePago" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Planilla" Relationship="RecursosHumanosDBModel.FK_Planilla_PeriodoDePago" FromRole="PeriodoDePago" ToRole="Planilla" />
-          <NavigationProperty Name="PlanillaPatrono" Relationship="RecursosHumanosDBModel.FK_PlanillaPatrono_PeriodoDePago" FromRole="PeriodoDePago" ToRole="PlanillaPatrono" />
-          <NavigationProperty Name="ConceptoAplicado" Relationship="RecursosHumanosDBModel.FK_ConceptoAplicado_PeriodoDePago" FromRole="PeriodoDePago" ToRole="ConceptoAplicado" />
-        </EntityType>
-        <Association Name="FK_BoletaCurso_Empleado">
-          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.BoletaCurso" Role="BoletaCurso" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empleado">
-              <PropertyRef Name="Id_Empleado" />
-            </Principal>
-            <Dependent Role="BoletaCurso">
-              <PropertyRef Name="FKId_Empleado_BoletaCurso" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Contrato_Empleado">
-          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.Contrato" Role="Contrato" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empleado">
-              <PropertyRef Name="Id_Empleado" />
-            </Principal>
-            <Dependent Role="Contrato">
-              <PropertyRef Name="FKId_Empleado_Contrato" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Empleado_Departamento">
-          <End Type="RecursosHumanosDBModel.Departamento" Role="Departamento" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Departamento">
-              <PropertyRef Name="Id_Departamento" />
-            </Principal>
-            <Dependent Role="Empleado">
-              <PropertyRef Name="FKId_Departamento_Empleado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Empleado_Persona">
-          <End Type="RecursosHumanosDBModel.Persona" Role="Persona" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Persona">
-              <PropertyRef Name="Id_Persona" />
-            </Principal>
-            <Dependent Role="Empleado">
-              <PropertyRef Name="FKId_Persona_Empleado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Planilla_Empleado">
-          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.Planilla" Role="Planilla" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empleado">
-              <PropertyRef Name="Id_Empleado" />
-            </Principal>
-            <Dependent Role="Planilla">
-              <PropertyRef Name="FKId_Empleado_Planilla" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PlanillaPatrono_Empleado">
-          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.PlanillaPatrono" Role="PlanillaPatrono" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empleado">
-              <PropertyRef Name="Id_Empleado" />
-            </Principal>
-            <Dependent Role="PlanillaPatrono">
-              <PropertyRef Name="FKId_Empleado_PlanillaPatrono" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Solicitud_Empleado">
-          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.Solicitud" Role="Solicitud" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empleado">
-              <PropertyRef Name="Id_Empleado" />
-            </Principal>
-            <Dependent Role="Solicitud">
-              <PropertyRef Name="FKId_EmpleadoSolicitante_Solicitud" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Solicitud_Empleado1">
-          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="0..1" />
-          <End Type="RecursosHumanosDBModel.Solicitud" Role="Solicitud" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empleado">
-              <PropertyRef Name="Id_Empleado" />
-            </Principal>
-            <Dependent Role="Solicitud">
-              <PropertyRef Name="FKId_EmpleadoAprobador_Solictud" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Vacaciones_Empleado">
-          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.Vacaciones" Role="Vacaciones" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empleado">
-              <PropertyRef Name="Id_Empleado" />
-            </Principal>
-            <Dependent Role="Vacaciones">
-              <PropertyRef Name="FKId_Empleado_Vacaciones" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Planilla_PeriodoDePago">
-          <End Type="RecursosHumanosDBModel.PeriodoDePago" Role="PeriodoDePago" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.Planilla" Role="Planilla" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PeriodoDePago">
-              <PropertyRef Name="Id_PeriodoDePago" />
-            </Principal>
-            <Dependent Role="Planilla">
-              <PropertyRef Name="FKId_PeriodoDePago_Planilla" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PlanillaPatrono_PeriodoDePago">
-          <End Type="RecursosHumanosDBModel.PeriodoDePago" Role="PeriodoDePago" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.PlanillaPatrono" Role="PlanillaPatrono" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PeriodoDePago">
-              <PropertyRef Name="Id_PeriodoDePago" />
-            </Principal>
-            <Dependent Role="PlanillaPatrono">
-              <PropertyRef Name="FKId_PeriodoDePago_PlanillaPatrono" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="ConceptoAplicado">
-          <Key>
-            <PropertyRef Name="Id_ConceptoAplicado" />
-          </Key>
-          <Property Name="Id_ConceptoAplicado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Cantidad_ConceptoAplicado" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="Monto_ConceptoAplicado" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="FKId_Empleado_ConceptoAplicado" Type="Int32" Nullable="false" />
-          <Property Name="FKId_Concepto_ConceptoAplicado" Type="Int32" Nullable="false" />
-          <Property Name="FKId_PeriodoDePago_ConceptoAplicado" Type="Int32" Nullable="false" />
-          <Property Name="Procesado_ConceptoAplicado" Type="Boolean" Nullable="false" />
-          <Property Name="Fecha_ConceptoAplicado" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Empleado" Relationship="RecursosHumanosDBModel.FK_ConceptoAplicado_Empleado" FromRole="ConceptoAplicado" ToRole="Empleado" />
-          <NavigationProperty Name="PeriodoDePago" Relationship="RecursosHumanosDBModel.FK_ConceptoAplicado_PeriodoDePago" FromRole="ConceptoAplicado" ToRole="PeriodoDePago" />
-          <NavigationProperty Name="Concepto" Relationship="RecursosHumanosDBModel.FK_ConceptoAplicado_Concepto" FromRole="ConceptoAplicado" ToRole="Concepto" />
-        </EntityType>
-        <EntityType Name="PlanillaDetalle">
-          <Key>
-            <PropertyRef Name="Id_PlanillaDetalle" />
-          </Key>
-          <Property Name="Id_PlanillaDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FKId_Planilla_PlanillaDetalle" Type="Int32" Nullable="false" />
-          <Property Name="Cantidad_PlanillaDetalle" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="Monto_PlanillaDetalle" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="FKId_Concepto_PlanillaDetalle" Type="Int32" Nullable="false" />
-          <Property Name="PagoProcesado_PlanillaDetalle" Type="Boolean" Nullable="false" />
-          <Property Name="Fecha_PlanillaDetalle" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Planilla" Relationship="RecursosHumanosDBModel.FK_PlanillaDetalle_Planilla" FromRole="PlanillaDetalle" ToRole="Planilla" />
-          <NavigationProperty Name="Concepto" Relationship="RecursosHumanosDBModel.FK_PlanillaDetalle_Concepto" FromRole="PlanillaDetalle" ToRole="Concepto" />
-        </EntityType>
-        <Association Name="FK_ConceptoAplicado_Empleado">
-          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.ConceptoAplicado" Role="ConceptoAplicado" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empleado">
-              <PropertyRef Name="Id_Empleado" />
-            </Principal>
-            <Dependent Role="ConceptoAplicado">
-              <PropertyRef Name="FKId_Empleado_ConceptoAplicado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ConceptoAplicado_PeriodoDePago">
-          <End Type="RecursosHumanosDBModel.PeriodoDePago" Role="PeriodoDePago" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.ConceptoAplicado" Role="ConceptoAplicado" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PeriodoDePago">
-              <PropertyRef Name="Id_PeriodoDePago" />
-            </Principal>
-            <Dependent Role="ConceptoAplicado">
-              <PropertyRef Name="FKId_PeriodoDePago_ConceptoAplicado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PlanillaDetalle_Planilla">
-          <End Type="RecursosHumanosDBModel.Planilla" Role="Planilla" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.PlanillaDetalle" Role="PlanillaDetalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Planilla">
-              <PropertyRef Name="Id_Planilla" />
-            </Principal>
-            <Dependent Role="PlanillaDetalle">
-              <PropertyRef Name="FKId_Planilla_PlanillaDetalle" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Concepto">
-          <Key>
-            <PropertyRef Name="Id_Concepto" />
-          </Key>
-          <Property Name="Id_Concepto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre_Concepto" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="Editable_Concepto" Type="Boolean" Nullable="false" />
-          <Property Name="FKId_TipoConcepto_Concepto" Type="Int32" Nullable="false" />
-          <Property Name="FKId_DestinatarioConcepto_Concepto" Type="Int32" Nullable="false" />
-          <Property Name="FKId_ImpactaPlanilla_Concepto" Type="Int32" Nullable="false" />
-          <Property Name="FKId_ClaseConcepto_Concepto" Type="Int32" Nullable="false" />
-          <Property Name="Porcentaje_Concepto" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="MontoFijo_Concepto" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="DirectoPlanilla_Concepto" Type="Boolean" Nullable="false" />
-          <Property Name="FactorTiempo_Concepto" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="ClaseConcepto" Relationship="RecursosHumanosDBModel.FK_Concepto_ClaseConcepto" FromRole="Concepto" ToRole="ClaseConcepto" />
-          <NavigationProperty Name="DestinatarioConcepto" Relationship="RecursosHumanosDBModel.FK_Concepto_DestinatarioConcepto" FromRole="Concepto" ToRole="DestinatarioConcepto" />
-          <NavigationProperty Name="ImpactaPlanilla" Relationship="RecursosHumanosDBModel.FK_Concepto_ImpactaPlanilla" FromRole="Concepto" ToRole="ImpactaPlanilla" />
-          <NavigationProperty Name="TipoConcepto" Relationship="RecursosHumanosDBModel.FK_Concepto_TipoConcepto" FromRole="Concepto" ToRole="TipoConcepto" />
-          <NavigationProperty Name="ConceptoAplicado" Relationship="RecursosHumanosDBModel.FK_ConceptoAplicado_Concepto" FromRole="Concepto" ToRole="ConceptoAplicado" />
-          <NavigationProperty Name="PlanillaDetalle" Relationship="RecursosHumanosDBModel.FK_PlanillaDetalle_Concepto" FromRole="Concepto" ToRole="PlanillaDetalle" />
-          <NavigationProperty Name="PlanillaPatronoDetalle" Relationship="RecursosHumanosDBModel.FK_PlanillaPatronoDetalle_Concepto" FromRole="Concepto" ToRole="PlanillaPatronoDetalle" />
-        </EntityType>
         <Association Name="FK_Concepto_ClaseConcepto">
           <End Type="RecursosHumanosDBModel.ClaseConcepto" Role="ClaseConcepto" Multiplicity="1" />
           <End Type="RecursosHumanosDBModel.Concepto" Role="Concepto" Multiplicity="*" />
@@ -2320,15 +2119,348 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="ImpuestoRenta">
+        <Association Name="FK_ConceptoAplicado_Empleado">
+          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.ConceptoAplicado" Role="ConceptoAplicado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Id_Empleado" />
+            </Principal>
+            <Dependent Role="ConceptoAplicado">
+              <PropertyRef Name="FKId_Empleado_ConceptoAplicado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConceptoAplicado_PeriodoDePago">
+          <End Type="RecursosHumanosDBModel.PeriodoDePago" Role="PeriodoDePago" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.ConceptoAplicado" Role="ConceptoAplicado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PeriodoDePago">
+              <PropertyRef Name="Id_PeriodoDePago" />
+            </Principal>
+            <Dependent Role="ConceptoAplicado">
+              <PropertyRef Name="FKId_PeriodoDePago_ConceptoAplicado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Persona_Cuenta">
+          <End Type="RecursosHumanosDBModel.Cuenta" Role="Cuenta" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Persona" Role="Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cuenta">
+              <PropertyRef Name="Id_Cuenta" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="FKId_Cuenta_Persona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Empleado_Departamento">
+          <End Type="RecursosHumanosDBModel.Departamento" Role="Departamento" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="Id_Departamento" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="FKId_Departamento_Empleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Direccion_Distrito">
+          <End Type="RecursosHumanosDBModel.Distrito" Role="Distrito" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Direccion" Role="Direccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Distrito">
+              <PropertyRef Name="Id_Distrito" />
+            </Principal>
+            <Dependent Role="Direccion">
+              <PropertyRef Name="FKIdDistrito_Direccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Persona_Direccion">
+          <End Type="RecursosHumanosDBModel.Direccion" Role="Direccion" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Persona" Role="Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Direccion">
+              <PropertyRef Name="Id_Direccion" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="FKId_Direccion_Persona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Persona_Email">
+          <End Type="RecursosHumanosDBModel.Email" Role="Email" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Persona" Role="Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Email">
+              <PropertyRef Name="Id_Email" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="FKId_Email_Persona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Empleado_Persona">
+          <End Type="RecursosHumanosDBModel.Persona" Role="Persona" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="Id_Persona" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="FKId_Persona_Empleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liquidacion_Empleado">
+          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Liquidacion" Role="Liquidacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Id_Empleado" />
+            </Principal>
+            <Dependent Role="Liquidacion">
+              <PropertyRef Name="FKId_Empleado_Liquidacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Planilla_Empleado">
+          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Planilla" Role="Planilla" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Id_Empleado" />
+            </Principal>
+            <Dependent Role="Planilla">
+              <PropertyRef Name="FKId_Empleado_Planilla" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlanillaPatrono_Empleado">
+          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.PlanillaPatrono" Role="PlanillaPatrono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Id_Empleado" />
+            </Principal>
+            <Dependent Role="PlanillaPatrono">
+              <PropertyRef Name="FKId_Empleado_PlanillaPatrono" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Solicitud_Empleado">
+          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Solicitud" Role="Solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Id_Empleado" />
+            </Principal>
+            <Dependent Role="Solicitud">
+              <PropertyRef Name="FKId_EmpleadoSolicitante_Solicitud" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Solicitud_Empleado1">
+          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="0..1" />
+          <End Type="RecursosHumanosDBModel.Solicitud" Role="Solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Id_Empleado" />
+            </Principal>
+            <Dependent Role="Solicitud">
+              <PropertyRef Name="FKId_EmpleadoAprobador_Solictud" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vacaciones_Empleado">
+          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Vacaciones" Role="Vacaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Id_Empleado" />
+            </Principal>
+            <Dependent Role="Vacaciones">
+              <PropertyRef Name="FKId_Empleado_Vacaciones" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Persona_Genero">
+          <End Type="RecursosHumanosDBModel.Genero" Role="Genero" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Persona" Role="Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genero">
+              <PropertyRef Name="Id_Genero" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="FKId_Genero_Persona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liquidacion_Preaviso">
+          <End Type="RecursosHumanosDBModel.Preaviso" Role="Preaviso" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Liquidacion" Role="Liquidacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Preaviso">
+              <PropertyRef Name="Id_Preaviso" />
+            </Principal>
+            <Dependent Role="Liquidacion">
+              <PropertyRef Name="FKId_Preaviso_Liquidacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liquidacion_TipoSalida">
+          <End Type="RecursosHumanosDBModel.TipoSalida" Role="TipoSalida" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Liquidacion" Role="Liquidacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoSalida">
+              <PropertyRef Name="Id_TipoSalida" />
+            </Principal>
+            <Dependent Role="Liquidacion">
+              <PropertyRef Name="FKId_TipoSalidaLiquidacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Planilla_PeriodoDePago">
+          <End Type="RecursosHumanosDBModel.PeriodoDePago" Role="PeriodoDePago" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Planilla" Role="Planilla" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PeriodoDePago">
+              <PropertyRef Name="Id_PeriodoDePago" />
+            </Principal>
+            <Dependent Role="Planilla">
+              <PropertyRef Name="FKId_PeriodoDePago_Planilla" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlanillaPatrono_PeriodoDePago">
+          <End Type="RecursosHumanosDBModel.PeriodoDePago" Role="PeriodoDePago" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.PlanillaPatrono" Role="PlanillaPatrono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PeriodoDePago">
+              <PropertyRef Name="Id_PeriodoDePago" />
+            </Principal>
+            <Dependent Role="PlanillaPatrono">
+              <PropertyRef Name="FKId_PeriodoDePago_PlanillaPatrono" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Telefono_Persona">
+          <End Type="RecursosHumanosDBModel.Persona" Role="Persona" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Telefono" Role="Telefono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="Id_Persona" />
+            </Principal>
+            <Dependent Role="Telefono">
+              <PropertyRef Name="FKId_Persona_Telefono" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlanillaDetalle_Planilla">
+          <End Type="RecursosHumanosDBModel.Planilla" Role="Planilla" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.PlanillaDetalle" Role="PlanillaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Planilla">
+              <PropertyRef Name="Id_Planilla" />
+            </Principal>
+            <Dependent Role="PlanillaDetalle">
+              <PropertyRef Name="FKId_Planilla_PlanillaDetalle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlanillaPatronoDetalle_PlanillaPatrono">
+          <End Type="RecursosHumanosDBModel.PlanillaPatrono" Role="PlanillaPatrono" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.PlanillaPatronoDetalle" Role="PlanillaPatronoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlanillaPatrono">
+              <PropertyRef Name="Id_PlanillaPatrono" />
+            </Principal>
+            <Dependent Role="PlanillaPatronoDetalle">
+              <PropertyRef Name="FKId_Planilla_PlanillaPatronoDetalle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Solicitud_StatusSolicitud">
+          <End Type="RecursosHumanosDBModel.StatusSolicitud" Role="StatusSolicitud" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Solicitud" Role="Solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusSolicitud">
+              <PropertyRef Name="Id_StatusSolicitud" />
+            </Principal>
+            <Dependent Role="Solicitud">
+              <PropertyRef Name="FKId_StatusSolicitud_Solicitud" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Solicitud_TipoSolicitud">
+          <End Type="RecursosHumanosDBModel.TipoSolicitud" Role="TipoSolicitud" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Solicitud" Role="Solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoSolicitud">
+              <PropertyRef Name="Id_TipoSolicitud" />
+            </Principal>
+            <Dependent Role="Solicitud">
+              <PropertyRef Name="FKId_TipoSolicitud_Solicitud" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Contrato">
           <Key>
-            <PropertyRef Name="Id_ImpuestoRenta" />
+            <PropertyRef Name="Id_Contrato" />
           </Key>
-          <Property Name="Id_ImpuestoRenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MontoMinimo_ImpuestoRenta" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="MontoMaximo_ImpuestoRenta" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Porcentaje_ImpuestoRenta" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Id_Contrato" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalarioBruto_Contrato" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="FechaInicio_Contrato" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FKId_Empleado_Contrato" Type="Int32" Nullable="false" />
+          <Property Name="FKId_Cargo_Contrato" Type="Int32" Nullable="false" />
+          <Property Name="Activo_Contrato" Type="Boolean" Nullable="false" />
+          <Property Name="FKId_Turno_Contrato" Type="Int32" Nullable="false" />
+          <Property Name="SalarioBrutoPorDia_Contrato" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="SalarioBrutoPorHora_Contrato" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="SalarioBrutoQuincenal_Contrato" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Cargo" Relationship="RecursosHumanosDBModel.FK_Contrato_Cargo" FromRole="Contrato" ToRole="Cargo" />
+          <NavigationProperty Name="Empleado" Relationship="RecursosHumanosDBModel.FK_Contrato_Empleado" FromRole="Contrato" ToRole="Empleado" />
+          <NavigationProperty Name="Turnos" Relationship="RecursosHumanosDBModel.FK_Contrato_Turnos" FromRole="Contrato" ToRole="Turnos" />
         </EntityType>
+        <Association Name="FK_Contrato_Cargo">
+          <End Type="RecursosHumanosDBModel.Cargo" Role="Cargo" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Contrato" Role="Contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cargo">
+              <PropertyRef Name="Id_Cargo" />
+            </Principal>
+            <Dependent Role="Contrato">
+              <PropertyRef Name="FKId_Cargo_Contrato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contrato_Empleado">
+          <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Contrato" Role="Contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Id_Empleado" />
+            </Principal>
+            <Dependent Role="Contrato">
+              <PropertyRef Name="FKId_Empleado_Contrato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contrato_Turnos">
+          <End Type="RecursosHumanosDBModel.Turnos" Role="Turnos" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Contrato" Role="Contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turnos">
+              <PropertyRef Name="Id_Turno" />
+            </Principal>
+            <Dependent Role="Contrato">
+              <PropertyRef Name="FKId_Turno_Contrato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2441,6 +2573,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Cesantia">
+            <EntityTypeMapping TypeName="RecursosHumanosDBModel.Cesantia">
+              <MappingFragment StoreEntitySet="Cesantia">
+                <ScalarProperty Name="DiasaPagarporAnio_Cesantia" ColumnName="DiasaPagarporAnio_Cesantia" />
+                <ScalarProperty Name="FactorAnio_Cesantia" ColumnName="FactorAnio_Cesantia" />
+                <ScalarProperty Name="Id_Cesantia" ColumnName="Id_Cesantia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ClaseConcepto">
             <EntityTypeMapping TypeName="RecursosHumanosDBModel.ClaseConcepto">
               <MappingFragment StoreEntitySet="ClaseConcepto">
@@ -2449,21 +2590,34 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Contrato">
-            <EntityTypeMapping TypeName="RecursosHumanosDBModel.Contrato">
-              <MappingFragment StoreEntitySet="Contrato">
-                <ScalarProperty Name="SalarioBrutoQuincenal_Contrato" ColumnName="SalarioBrutoQuincenal_Contrato" />
-                <ScalarProperty Name="SalarioBrutoPorHora_Contrato" ColumnName="SalarioBrutoPorHora_Contrato" />
-                <ScalarProperty Name="SalarioBrutoPorDia_Contrato" ColumnName="SalarioBrutoPorDia_Contrato" />
-                <ScalarProperty Name="FKId_Turno_Contrato" ColumnName="FKId_Turno_Contrato" />
-                <ScalarProperty Name="Activo_Contrato" ColumnName="Activo_Contrato" />
-                <ScalarProperty Name="FKId_Cargo_Contrato" ColumnName="FKId_Cargo_Contrato" />
-                <ScalarProperty Name="FKId_Empleado_Contrato" ColumnName="FKId_Empleado_Contrato" />
-                <ScalarProperty Name="FKId_TipoContrato_Contrato" ColumnName="FKId_TipoContrato_Contrato" />
-                <ScalarProperty Name="FechaFin_Contrato" ColumnName="FechaFin_Contrato" />
-                <ScalarProperty Name="FechaInicio_Contrato" ColumnName="FechaInicio_Contrato" />
-                <ScalarProperty Name="SalarioBruto_Contrato" ColumnName="SalarioBruto_Contrato" />
-                <ScalarProperty Name="Id_Contrato" ColumnName="Id_Contrato" />
+          <EntitySetMapping Name="Concepto">
+            <EntityTypeMapping TypeName="RecursosHumanosDBModel.Concepto">
+              <MappingFragment StoreEntitySet="Concepto">
+                <ScalarProperty Name="FactorTiempo_Concepto" ColumnName="FactorTiempo_Concepto" />
+                <ScalarProperty Name="DirectoPlanilla_Concepto" ColumnName="DirectoPlanilla_Concepto" />
+                <ScalarProperty Name="MontoFijo_Concepto" ColumnName="MontoFijo_Concepto" />
+                <ScalarProperty Name="Porcentaje_Concepto" ColumnName="Porcentaje_Concepto" />
+                <ScalarProperty Name="FKId_ClaseConcepto_Concepto" ColumnName="FKId_ClaseConcepto_Concepto" />
+                <ScalarProperty Name="FKId_ImpactaPlanilla_Concepto" ColumnName="FKId_ImpactaPlanilla_Concepto" />
+                <ScalarProperty Name="FKId_DestinatarioConcepto_Concepto" ColumnName="FKId_DestinatarioConcepto_Concepto" />
+                <ScalarProperty Name="FKId_TipoConcepto_Concepto" ColumnName="FKId_TipoConcepto_Concepto" />
+                <ScalarProperty Name="Editable_Concepto" ColumnName="Editable_Concepto" />
+                <ScalarProperty Name="Nombre_Concepto" ColumnName="Nombre_Concepto" />
+                <ScalarProperty Name="Id_Concepto" ColumnName="Id_Concepto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConceptoAplicado">
+            <EntityTypeMapping TypeName="RecursosHumanosDBModel.ConceptoAplicado">
+              <MappingFragment StoreEntitySet="ConceptoAplicado">
+                <ScalarProperty Name="Fecha_ConceptoAplicado" ColumnName="Fecha_ConceptoAplicado" />
+                <ScalarProperty Name="Procesado_ConceptoAplicado" ColumnName="Procesado_ConceptoAplicado" />
+                <ScalarProperty Name="FKId_PeriodoDePago_ConceptoAplicado" ColumnName="FKId_PeriodoDePago_ConceptoAplicado" />
+                <ScalarProperty Name="FKId_Concepto_ConceptoAplicado" ColumnName="FKId_Concepto_ConceptoAplicado" />
+                <ScalarProperty Name="FKId_Empleado_ConceptoAplicado" ColumnName="FKId_Empleado_ConceptoAplicado" />
+                <ScalarProperty Name="Monto_ConceptoAplicado" ColumnName="Monto_ConceptoAplicado" />
+                <ScalarProperty Name="Cantidad_ConceptoAplicado" ColumnName="Cantidad_ConceptoAplicado" />
+                <ScalarProperty Name="Id_ConceptoAplicado" ColumnName="Id_ConceptoAplicado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2528,6 +2682,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Empleado">
+            <EntityTypeMapping TypeName="RecursosHumanosDBModel.Empleado">
+              <MappingFragment StoreEntitySet="Empleado">
+                <ScalarProperty Name="SinGoceSalarial_Empleado" ColumnName="SinGoceSalarial_Empleado" />
+                <ScalarProperty Name="Activo_Empleado" ColumnName="Activo_Empleado" />
+                <ScalarProperty Name="FKId_Departamento_Empleado" ColumnName="FKId_Departamento_Empleado" />
+                <ScalarProperty Name="FKId_Persona_Empleado" ColumnName="FKId_Persona_Empleado" />
+                <ScalarProperty Name="Id_Empleado" ColumnName="Id_Empleado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Genero">
             <EntityTypeMapping TypeName="RecursosHumanosDBModel.Genero">
               <MappingFragment StoreEntitySet="Genero">
@@ -2541,6 +2706,42 @@
               <MappingFragment StoreEntitySet="ImpactaPlanilla">
                 <ScalarProperty Name="Detalle_ImpactaPlanilla" ColumnName="Detalle_ImpactaPlanilla" />
                 <ScalarProperty Name="Id_ImpactaPlanilla" ColumnName="Id_ImpactaPlanilla" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImpuestoRenta">
+            <EntityTypeMapping TypeName="RecursosHumanosDBModel.ImpuestoRenta">
+              <MappingFragment StoreEntitySet="ImpuestoRenta">
+                <ScalarProperty Name="Porcentaje_ImpuestoRenta" ColumnName="Porcentaje_ImpuestoRenta" />
+                <ScalarProperty Name="MontoMaximo_ImpuestoRenta" ColumnName="MontoMaximo_ImpuestoRenta" />
+                <ScalarProperty Name="MontoMinimo_ImpuestoRenta" ColumnName="MontoMinimo_ImpuestoRenta" />
+                <ScalarProperty Name="Id_ImpuestoRenta" ColumnName="Id_ImpuestoRenta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Liquidacion">
+            <EntityTypeMapping TypeName="RecursosHumanosDBModel.Liquidacion">
+              <MappingFragment StoreEntitySet="Liquidacion">
+                <ScalarProperty Name="FKId_TipoSalidaLiquidacion" ColumnName="FKId_TipoSalidaLiquidacion" />
+                <ScalarProperty Name="LiquidacionPagada_Liquidacion" ColumnName="LiquidacionPagada_Liquidacion" />
+                <ScalarProperty Name="FKId_Empleado_Liquidacion" ColumnName="FKId_Empleado_Liquidacion" />
+                <ScalarProperty Name="FKId_Preaviso_Liquidacion" ColumnName="FKId_Preaviso_Liquidacion" />
+                <ScalarProperty Name="MontoAguinaldo_Liquidacion" ColumnName="MontoAguinaldo_Liquidacion" />
+                <ScalarProperty Name="MontoPreaviso_Liquidacion" ColumnName="MontoPreaviso_Liquidacion" />
+                <ScalarProperty Name="MontoCesantia_Liquidacion" ColumnName="MontoCesantia_Liquidacion" />
+                <ScalarProperty Name="AniosLaborados_Liquidacion" ColumnName="AniosLaborados_Liquidacion" />
+                <ScalarProperty Name="MontoVacaciones_Liquidacion" ColumnName="MontoVacaciones_Liquidacion" />
+                <ScalarProperty Name="DiasVacaciones_Liquidacion" ColumnName="DiasVacaciones_Liquidacion" />
+                <ScalarProperty Name="FechaActualizacion_Liquidacion" ColumnName="FechaActualizacion_Liquidacion" />
+                <ScalarProperty Name="Id_Liquidacion" ColumnName="Id_Liquidacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PeriodoDePago">
+            <EntityTypeMapping TypeName="RecursosHumanosDBModel.PeriodoDePago">
+              <MappingFragment StoreEntitySet="PeriodoDePago">
+                <ScalarProperty Name="Periodo_PeriododDePago" ColumnName="Periodo_PeriododDePago" />
+                <ScalarProperty Name="Id_PeriodoDePago" ColumnName="Id_PeriodoDePago" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2576,6 +2777,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PlanillaDetalle">
+            <EntityTypeMapping TypeName="RecursosHumanosDBModel.PlanillaDetalle">
+              <MappingFragment StoreEntitySet="PlanillaDetalle">
+                <ScalarProperty Name="Fecha_PlanillaDetalle" ColumnName="Fecha_PlanillaDetalle" />
+                <ScalarProperty Name="PagoProcesado_PlanillaDetalle" ColumnName="PagoProcesado_PlanillaDetalle" />
+                <ScalarProperty Name="FKId_Concepto_PlanillaDetalle" ColumnName="FKId_Concepto_PlanillaDetalle" />
+                <ScalarProperty Name="Monto_PlanillaDetalle" ColumnName="Monto_PlanillaDetalle" />
+                <ScalarProperty Name="Cantidad_PlanillaDetalle" ColumnName="Cantidad_PlanillaDetalle" />
+                <ScalarProperty Name="FKId_Planilla_PlanillaDetalle" ColumnName="FKId_Planilla_PlanillaDetalle" />
+                <ScalarProperty Name="Id_PlanillaDetalle" ColumnName="Id_PlanillaDetalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="PlanillaPatrono">
             <EntityTypeMapping TypeName="RecursosHumanosDBModel.PlanillaPatrono">
               <MappingFragment StoreEntitySet="PlanillaPatrono">
@@ -2595,6 +2809,14 @@
                 <ScalarProperty Name="Cantidad_PlanillaPatronoDetalle" ColumnName="Cantidad_PlanillaPatronoDetalle" />
                 <ScalarProperty Name="FKId_Planilla_PlanillaPatronoDetalle" ColumnName="FKId_Planilla_PlanillaPatronoDetalle" />
                 <ScalarProperty Name="Id_PlanillaPatronoDetalle" ColumnName="Id_PlanillaPatronoDetalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Preaviso">
+            <EntityTypeMapping TypeName="RecursosHumanosDBModel.Preaviso">
+              <MappingFragment StoreEntitySet="Preaviso">
+                <ScalarProperty Name="Detalle_Preaviso" ColumnName="Detalle_Preaviso" />
+                <ScalarProperty Name="Id_Preaviso" ColumnName="Id_Preaviso" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2659,12 +2881,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TipoContrato">
-            <EntityTypeMapping TypeName="RecursosHumanosDBModel.TipoContrato">
-              <MappingFragment StoreEntitySet="TipoContrato">
-                <ScalarProperty Name="FechaActualizacion_TipoContrato" ColumnName="FechaActualizacion_TipoContrato" />
-                <ScalarProperty Name="Detalle_TipoContrato" ColumnName="Detalle_TipoContrato" />
-                <ScalarProperty Name="Id_TipoContrato" ColumnName="Id_TipoContrato" />
+          <EntitySetMapping Name="TipoSalida">
+            <EntityTypeMapping TypeName="RecursosHumanosDBModel.TipoSalida">
+              <MappingFragment StoreEntitySet="TipoSalida">
+                <ScalarProperty Name="Detalle_TipoSalida" ColumnName="Detalle_TipoSalida" />
+                <ScalarProperty Name="Id_TipoSalida" ColumnName="Id_TipoSalida" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2695,76 +2916,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Empleado">
-            <EntityTypeMapping TypeName="RecursosHumanosDBModel.Empleado">
-              <MappingFragment StoreEntitySet="Empleado">
-                <ScalarProperty Name="SinGoceSalarial_Empleado" ColumnName="SinGoceSalarial_Empleado" />
-                <ScalarProperty Name="Activo_Empleado" ColumnName="Activo_Empleado" />
-                <ScalarProperty Name="FKId_Departamento_Empleado" ColumnName="FKId_Departamento_Empleado" />
-                <ScalarProperty Name="FKId_Persona_Empleado" ColumnName="FKId_Persona_Empleado" />
-                <ScalarProperty Name="Id_Empleado" ColumnName="Id_Empleado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PeriodoDePago">
-            <EntityTypeMapping TypeName="RecursosHumanosDBModel.PeriodoDePago">
-              <MappingFragment StoreEntitySet="PeriodoDePago">
-                <ScalarProperty Name="Periodo_PeriododDePago" ColumnName="Periodo_PeriododDePago" />
-                <ScalarProperty Name="Id_PeriodoDePago" ColumnName="Id_PeriodoDePago" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ConceptoAplicado">
-            <EntityTypeMapping TypeName="RecursosHumanosDBModel.ConceptoAplicado">
-              <MappingFragment StoreEntitySet="ConceptoAplicado">
-                <ScalarProperty Name="Fecha_ConceptoAplicado" ColumnName="Fecha_ConceptoAplicado" />
-                <ScalarProperty Name="Procesado_ConceptoAplicado" ColumnName="Procesado_ConceptoAplicado" />
-                <ScalarProperty Name="FKId_PeriodoDePago_ConceptoAplicado" ColumnName="FKId_PeriodoDePago_ConceptoAplicado" />
-                <ScalarProperty Name="FKId_Concepto_ConceptoAplicado" ColumnName="FKId_Concepto_ConceptoAplicado" />
-                <ScalarProperty Name="FKId_Empleado_ConceptoAplicado" ColumnName="FKId_Empleado_ConceptoAplicado" />
-                <ScalarProperty Name="Monto_ConceptoAplicado" ColumnName="Monto_ConceptoAplicado" />
-                <ScalarProperty Name="Cantidad_ConceptoAplicado" ColumnName="Cantidad_ConceptoAplicado" />
-                <ScalarProperty Name="Id_ConceptoAplicado" ColumnName="Id_ConceptoAplicado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PlanillaDetalle">
-            <EntityTypeMapping TypeName="RecursosHumanosDBModel.PlanillaDetalle">
-              <MappingFragment StoreEntitySet="PlanillaDetalle">
-                <ScalarProperty Name="Fecha_PlanillaDetalle" ColumnName="Fecha_PlanillaDetalle" />
-                <ScalarProperty Name="PagoProcesado_PlanillaDetalle" ColumnName="PagoProcesado_PlanillaDetalle" />
-                <ScalarProperty Name="FKId_Concepto_PlanillaDetalle" ColumnName="FKId_Concepto_PlanillaDetalle" />
-                <ScalarProperty Name="Monto_PlanillaDetalle" ColumnName="Monto_PlanillaDetalle" />
-                <ScalarProperty Name="Cantidad_PlanillaDetalle" ColumnName="Cantidad_PlanillaDetalle" />
-                <ScalarProperty Name="FKId_Planilla_PlanillaDetalle" ColumnName="FKId_Planilla_PlanillaDetalle" />
-                <ScalarProperty Name="Id_PlanillaDetalle" ColumnName="Id_PlanillaDetalle" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Concepto">
-            <EntityTypeMapping TypeName="RecursosHumanosDBModel.Concepto">
-              <MappingFragment StoreEntitySet="Concepto">
-                <ScalarProperty Name="FactorTiempo_Concepto" ColumnName="FactorTiempo_Concepto" />
-                <ScalarProperty Name="DirectoPlanilla_Concepto" ColumnName="DirectoPlanilla_Concepto" />
-                <ScalarProperty Name="MontoFijo_Concepto" ColumnName="MontoFijo_Concepto" />
-                <ScalarProperty Name="Porcentaje_Concepto" ColumnName="Porcentaje_Concepto" />
-                <ScalarProperty Name="FKId_ClaseConcepto_Concepto" ColumnName="FKId_ClaseConcepto_Concepto" />
-                <ScalarProperty Name="FKId_ImpactaPlanilla_Concepto" ColumnName="FKId_ImpactaPlanilla_Concepto" />
-                <ScalarProperty Name="FKId_DestinatarioConcepto_Concepto" ColumnName="FKId_DestinatarioConcepto_Concepto" />
-                <ScalarProperty Name="FKId_TipoConcepto_Concepto" ColumnName="FKId_TipoConcepto_Concepto" />
-                <ScalarProperty Name="Editable_Concepto" ColumnName="Editable_Concepto" />
-                <ScalarProperty Name="Nombre_Concepto" ColumnName="Nombre_Concepto" />
-                <ScalarProperty Name="Id_Concepto" ColumnName="Id_Concepto" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ImpuestoRenta">
-            <EntityTypeMapping TypeName="RecursosHumanosDBModel.ImpuestoRenta">
-              <MappingFragment StoreEntitySet="ImpuestoRenta">
-                <ScalarProperty Name="Porcentaje_ImpuestoRenta" ColumnName="Porcentaje_ImpuestoRenta" />
-                <ScalarProperty Name="MontoMaximo_ImpuestoRenta" ColumnName="MontoMaximo_ImpuestoRenta" />
-                <ScalarProperty Name="MontoMinimo_ImpuestoRenta" ColumnName="MontoMinimo_ImpuestoRenta" />
-                <ScalarProperty Name="Id_ImpuestoRenta" ColumnName="Id_ImpuestoRenta" />
+          <EntitySetMapping Name="Contrato">
+            <EntityTypeMapping TypeName="RecursosHumanosDBModel.Contrato">
+              <MappingFragment StoreEntitySet="Contrato">
+                <ScalarProperty Name="SalarioBrutoQuincenal_Contrato" ColumnName="SalarioBrutoQuincenal_Contrato" />
+                <ScalarProperty Name="SalarioBrutoPorHora_Contrato" ColumnName="SalarioBrutoPorHora_Contrato" />
+                <ScalarProperty Name="SalarioBrutoPorDia_Contrato" ColumnName="SalarioBrutoPorDia_Contrato" />
+                <ScalarProperty Name="FKId_Turno_Contrato" ColumnName="FKId_Turno_Contrato" />
+                <ScalarProperty Name="Activo_Contrato" ColumnName="Activo_Contrato" />
+                <ScalarProperty Name="FKId_Cargo_Contrato" ColumnName="FKId_Cargo_Contrato" />
+                <ScalarProperty Name="FKId_Empleado_Contrato" ColumnName="FKId_Empleado_Contrato" />
+                <ScalarProperty Name="FechaInicio_Contrato" ColumnName="FechaInicio_Contrato" />
+                <ScalarProperty Name="SalarioBruto_Contrato" ColumnName="SalarioBruto_Contrato" />
+                <ScalarProperty Name="Id_Contrato" ColumnName="Id_Contrato" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

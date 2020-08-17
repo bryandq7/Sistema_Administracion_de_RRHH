@@ -273,6 +273,9 @@
 
                                 <ul class="dropdown-menu">
 
+                                    @*<li>@Html.ActionLink("Registrarse", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
+
+                                    <li><a href="#">@Html.ActionLink("Registrar un Usuario", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</a></li>
 
                                     <li><a href="#">@Html.ActionLink("Asignar Roles a Usuarios", "AsignarRolUsuario", "AspNetUsers")</a></li>
 
@@ -348,7 +351,7 @@
 
 
                         </li>
-
+                        <li>@Html.ActionLink("Liquidaciones", "Index", "Liquidacion")</li>
                         <li>@Html.ActionLink("Solicitudes", "Index", "Solicitud")</li>
                         <li>@Html.ActionLink("Cursos", "Index", "Curso")</li>
                     }

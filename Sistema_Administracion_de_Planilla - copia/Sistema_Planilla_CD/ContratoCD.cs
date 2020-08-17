@@ -14,11 +14,10 @@ namespace Sistema_Planilla_CD
         public List<ContratoCE> ListarContratos()
         {
             string sql = @"select e.Id_Empleado,e.FKId_Departamento_Empleado,e.FKId_Persona_Empleado,p.Id_Persona,p.Nombre_Persona+' '+p.Apellido1_Persona+' '+p.Apellido2_Persona as NombreCompletoPersona, 
-				c.Id_Contrato, c.SalarioBruto_Contrato, c.FKId_TipoContrato_Contrato,c.FKId_Empleado_Contrato, c.FKId_Cargo_Contrato,c.FechaInicio_Contrato,c.FechaFin_Contrato,c.Activo_Contrato,
-				tc.Id_TipoContrato,tc.Detalle_TipoContrato,ca.Id_Cargo,ca.Nombre_Cargo, c.FKId_Turno_Contrato, t.Id_Turno,t.Nombre_Turno
+				c.Id_Contrato, c.SalarioBruto_Contrato, c.FKId_Empleado_Contrato, c.FKId_Cargo_Contrato,c.FechaInicio_Contrato,c.Activo_Contrato,
+				ca.Id_Cargo,ca.Nombre_Cargo, c.FKId_Turno_Contrato, t.Id_Turno,t.Nombre_Turno
                 from Contrato c  
                 inner join Empleado e on c.FKId_Empleado_Contrato = e.Id_Empleado
-				inner join TipoContrato tc on c.FKId_TipoContrato_Contrato = tc.Id_TipoContrato
 				inner join Cargo ca on c.FKId_Cargo_Contrato = ca.Id_Cargo
 				inner join Persona p on e.FKId_Persona_Empleado = p.Id_Persona
 				inner join Turnos t on c.FKId_Turno_Contrato = t.Id_Turno
@@ -78,11 +77,12 @@ namespace Sistema_Planilla_CD
             {
                 SalarioBruto_Contrato = contrato1.SalarioBruto_Contrato,
                 FechaInicio_Contrato = contrato1.FechaInicio_Contrato,
-                FechaFin_Contrato = contrato1.FechaFin_Contrato,
-                FKId_TipoContrato_Contrato = contrato1.Id_TipoContrato,
                 FKId_Empleado_Contrato = idempleado,
                 FKId_Cargo_Contrato = contrato1.Id_Cargo,
                 FKId_Turno_Contrato = contrato1.Id_Turno,
+                SalarioBrutoPorDia_Contrato = contrato1.SalarioBruto_Contrato / 30,
+                SalarioBrutoPorHora_Contrato = (contrato1.SalarioBruto_Contrato / 30)/ 8,
+                SalarioBrutoQuincenal_Contrato = contrato1.SalarioBruto_Contrato / 2,
                 Activo_Contrato = true
             };
 
@@ -108,11 +108,10 @@ namespace Sistema_Planilla_CD
         {
 
             string sql = @"select e.Id_Empleado,e.FKId_Departamento_Empleado,e.FKId_Persona_Empleado,p.Id_Persona,p.Nombre_Persona+' '+p.Apellido1_Persona+' '+p.Apellido2_Persona as NombreCompletoPersona, 
-				c.Id_Contrato, c.SalarioBruto_Contrato, c.FKId_TipoContrato_Contrato,c.FKId_Empleado_Contrato, c.FKId_Cargo_Contrato,c.FechaInicio_Contrato,c.FechaFin_Contrato,c.Activo_Contrato,
-				tc.Id_TipoContrato,tc.Detalle_TipoContrato,ca.Id_Cargo,ca.Nombre_Cargo,c.FKId_Turno_Contrato, t.Id_Turno,t.Nombre_Turno
+				c.Id_Contrato, c.SalarioBruto_Contrato, c.FKId_Empleado_Contrato, c.FKId_Cargo_Contrato,c.FechaInicio_Contrato,c.Activo_Contrato,
+				ca.Id_Cargo,ca.Nombre_Cargo,c.FKId_Turno_Contrato, t.Id_Turno,t.Nombre_Turno
                 from Contrato c  
                 inner join Empleado e on c.FKId_Empleado_Contrato = e.Id_Empleado
-				inner join TipoContrato tc on c.FKId_TipoContrato_Contrato = tc.Id_TipoContrato
 				inner join Cargo ca on c.FKId_Cargo_Contrato = ca.Id_Cargo
 				inner join Persona p on e.FKId_Persona_Empleado = p.Id_Persona
 				inner join Turnos t on c.FKId_Turno_Contrato = t.Id_Turno
@@ -134,6 +133,9 @@ namespace Sistema_Planilla_CD
                 origen.SalarioBruto_Contrato = contrato.SalarioBruto_Contrato;
                 origen.FKId_Cargo_Contrato = contrato.Id_Cargo;
                 origen.FKId_Turno_Contrato = contrato.Id_Turno;
+                origen.SalarioBrutoPorDia_Contrato = contrato.SalarioBruto_Contrato/30;
+                origen.SalarioBrutoPorHora_Contrato = (contrato.SalarioBruto_Contrato / 30)/ 8;
+                origen.SalarioBrutoQuincenal_Contrato = contrato.SalarioBruto_Contrato / 2;
                 db.SaveChanges();
             }
         }
