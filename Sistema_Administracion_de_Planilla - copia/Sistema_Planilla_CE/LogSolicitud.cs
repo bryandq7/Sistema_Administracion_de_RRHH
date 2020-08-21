@@ -12,22 +12,22 @@ namespace Sistema_Planilla_CE
     using System;
     using System.Collections.Generic;
     
-    public partial class Distrito
+    public partial class LogSolicitud
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Distrito()
+        public LogSolicitud()
         {
-            this.Direccion = new HashSet<Direccion>();
+            this.Solicitud = new HashSet<Solicitud>();
         }
     
-        public int Id_Distrito { get; set; }
-        public string Nombre_Distrito { get; set; }
-        public int FKIdCanton_Distrito { get; set; }
-        public int FKIdProvincia_Distrito { get; set; }
+        public int Id_LogSolicitud { get; set; }
+        public int FKId_EmpleadoModificador_LogSolicitud { get; set; }
+        public System.DateTime FechaActualizacion_LogSolicitud { get; set; }
+        public int FKId_StatusSolicitud_LogSolicitud { get; set; }
     
-        public virtual Canton Canton { get; set; }
+        public virtual Empleado Empleado { get; set; }
+        public virtual StatusSolicitud StatusSolicitud { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Direccion> Direccion { get; set; }
-        public virtual Provincia Provincia { get; set; }
+        public virtual ICollection<Solicitud> Solicitud { get; set; }
     }
 }

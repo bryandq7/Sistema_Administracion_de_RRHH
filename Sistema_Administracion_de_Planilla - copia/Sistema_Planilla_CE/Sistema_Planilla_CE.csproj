@@ -43,12 +43,6 @@
     <Compile Include="AspNetRoles.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
-    <Compile Include="AspNetUserClaims.cs">
-      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUserLogins.cs">
-      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
-    </Compile>
     <Compile Include="AspNetUserRoles.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
@@ -96,9 +90,6 @@
     <Compile Include="Curso.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
-    <Compile Include="C__MigrationHistory.cs">
-      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
-    </Compile>
     <Compile Include="DeduccionCE.cs" />
     <Compile Include="Departamento.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
@@ -133,6 +124,9 @@
     </Compile>
     <Compile Include="IncapacidadCE.cs" />
     <Compile Include="Liquidacion.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LogSolicitud.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="ModelRecursosHumanos.cs">
@@ -172,9 +166,6 @@
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="StatusSolicitud.cs">
-      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sysdiagrams.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="Telefono.cs">

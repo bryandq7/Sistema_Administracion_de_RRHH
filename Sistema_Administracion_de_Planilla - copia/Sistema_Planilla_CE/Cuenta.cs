@@ -23,6 +23,7 @@ namespace Sistema_Planilla_CE
         public int Id_Cuenta { get; set; }
         public string Numero_Cuenta { get; set; }
         public int FKIdBanco_Cuenta { get; set; }
+        public string Moneda_Cuenta { get; set; }
     
         public virtual Banco Banco { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

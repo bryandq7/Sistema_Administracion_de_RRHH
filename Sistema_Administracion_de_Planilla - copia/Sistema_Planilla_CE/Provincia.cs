@@ -18,6 +18,8 @@ namespace Sistema_Planilla_CE
         public Provincia()
         {
             this.Canton = new HashSet<Canton>();
+            this.Direccion = new HashSet<Direccion>();
+            this.Distrito = new HashSet<Distrito>();
         }
     
         public int Id_Provincia { get; set; }
@@ -25,5 +27,9 @@ namespace Sistema_Planilla_CE
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Canton> Canton { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Direccion> Direccion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Distrito> Distrito { get; set; }
     }
 }

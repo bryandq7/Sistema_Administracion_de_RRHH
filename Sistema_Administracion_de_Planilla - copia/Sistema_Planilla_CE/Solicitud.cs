@@ -15,20 +15,16 @@ namespace Sistema_Planilla_CE
     public partial class Solicitud
     {
         public int Id_Solicitud { get; set; }
-        public int FKId_StatusSolicitud_Solicitud { get; set; }
         public int FKId_TipoSolicitud_Solicitud { get; set; }
-        public System.DateTime FechaCreacion_Solicitud { get; set; }
-        public Nullable<System.DateTime> FechaFin_Solicitud { get; set; }
         public int FKId_EmpleadoSolicitante_Solicitud { get; set; }
-        public Nullable<int> FKId_EmpleadoAprobador_Solictud { get; set; }
         public string DetalleSolicitud_Solicitud { get; set; }
-        public Nullable<int> Cantidad_dias_Solicitud { get; set; }
-        public Nullable<System.DateTime> FechaInicioPeriodo_Solicitud { get; set; }
-        public Nullable<System.DateTime> FechaFinPeriodo_Solicitud { get; set; }
+        public int Cantidad_dias_Solicitud { get; set; }
+        public System.DateTime FechaInicioPeriodo_Solicitud { get; set; }
+        public System.DateTime FechaFinPeriodo_Solicitud { get; set; }
+        public int FKId_LogSolicitud_Solicitud { get; set; }
     
         public virtual Empleado Empleado { get; set; }
-        public virtual Empleado Empleado1 { get; set; }
-        public virtual StatusSolicitud StatusSolicitud { get; set; }
+        public virtual LogSolicitud LogSolicitud { get; set; }
         public virtual TipoSolicitud TipoSolicitud { get; set; }
     }
 }

@@ -19,13 +19,13 @@ namespace Sistema_Planilla_CE
         {
             this.BoletaCurso = new HashSet<BoletaCurso>();
             this.ConceptoAplicado = new HashSet<ConceptoAplicado>();
+            this.Contrato = new HashSet<Contrato>();
             this.Liquidacion = new HashSet<Liquidacion>();
+            this.LogSolicitud = new HashSet<LogSolicitud>();
             this.Planilla = new HashSet<Planilla>();
             this.PlanillaPatrono = new HashSet<PlanillaPatrono>();
             this.Solicitud = new HashSet<Solicitud>();
-            this.Solicitud1 = new HashSet<Solicitud>();
             this.Vacaciones = new HashSet<Vacaciones>();
-            this.Contrato = new HashSet<Contrato>();
         }
     
         public int Id_Empleado { get; set; }
@@ -38,10 +38,14 @@ namespace Sistema_Planilla_CE
         public virtual ICollection<BoletaCurso> BoletaCurso { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ConceptoAplicado> ConceptoAplicado { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Contrato> Contrato { get; set; }
         public virtual Departamento Departamento { get; set; }
         public virtual Persona Persona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Liquidacion> Liquidacion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LogSolicitud> LogSolicitud { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Planilla> Planilla { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -49,10 +53,6 @@ namespace Sistema_Planilla_CE
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Solicitud> Solicitud { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Solicitud> Solicitud1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Vacaciones> Vacaciones { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Contrato> Contrato { get; set; }
     }
 }

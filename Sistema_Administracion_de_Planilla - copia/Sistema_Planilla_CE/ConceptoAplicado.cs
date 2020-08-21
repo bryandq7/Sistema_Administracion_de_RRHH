@@ -21,7 +21,7 @@ namespace Sistema_Planilla_CE
         public int FKId_Concepto_ConceptoAplicado { get; set; }
         public int FKId_PeriodoDePago_ConceptoAplicado { get; set; }
         public bool Procesado_ConceptoAplicado { get; set; }
-        public Nullable<System.DateTime> Fecha_ConceptoAplicado { get; set; }
+        public System.DateTime Fecha_ConceptoAplicado { get; set; }
     
         public virtual Concepto Concepto { get; set; }
         public virtual Empleado Empleado { get; set; }

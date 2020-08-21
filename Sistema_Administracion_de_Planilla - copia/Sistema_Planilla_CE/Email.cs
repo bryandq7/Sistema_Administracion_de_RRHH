@@ -14,16 +14,10 @@ namespace Sistema_Planilla_CE
     
     public partial class Email
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Email()
-        {
-            this.Persona = new HashSet<Persona>();
-        }
-    
         public int Id_Email { get; set; }
         public string Correo_Email { get; set; }
+        public int FKId_Persona_Email { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Persona> Persona { get; set; }
+        public virtual Persona Persona { get; set; }
     }
 }

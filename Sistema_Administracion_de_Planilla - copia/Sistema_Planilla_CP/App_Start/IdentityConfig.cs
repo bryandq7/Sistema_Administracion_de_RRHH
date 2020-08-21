@@ -14,23 +14,23 @@ using Sistema_Planilla_CP.Models;
 
 namespace Sistema_Planilla_CP
 {
-    public class EmailService : IIdentityMessageService
-    {
-        public Task SendAsync(IdentityMessage message)
-        {
-            // Conecte su servicio de correo electrónico aquí para enviar correo electrónico.
-            return Task.FromResult(0);
-        }
-    }
+    //public class EmailService : IIdentityMessageService
+    //{
+    //    public Task SendAsync(IdentityMessage message)
+    //    {
+    //        // Conecte su servicio de correo electrónico aquí para enviar correo electrónico.
+    //        return Task.FromResult(0);
+    //    }
+    //}
 
-    public class SmsService : IIdentityMessageService
-    {
-        public Task SendAsync(IdentityMessage message)
-        {
-            // Conecte el servicio SMS aquí para enviar un mensaje de texto.
-            return Task.FromResult(0);
-        }
-    }
+    //public class SmsService : IIdentityMessageService
+    //{
+    //    public Task SendAsync(IdentityMessage message)
+    //    {
+    //        // Conecte el servicio SMS aquí para enviar un mensaje de texto.
+    //        return Task.FromResult(0);
+    //    }
+    //}
 
     // Configure el administrador de usuarios de aplicación que se usa en esta aplicación. UserManager se define en ASP.NET Identity y se usa en la aplicación.
     public class ApplicationUserManager : UserManager<ApplicationUser>
@@ -47,7 +47,7 @@ namespace Sistema_Planilla_CP
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true
+                //RequireUniqueEmail = true
             };
 
             // Configure la lógica de validación de contraseñas
@@ -61,23 +61,23 @@ namespace Sistema_Planilla_CP
             };
 
             // Configurar valores predeterminados para bloqueo de usuario
-            manager.UserLockoutEnabledByDefault = true;
+            //manager.UserLockoutEnabledByDefault = true;
             manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
-            manager.MaxFailedAccessAttemptsBeforeLockout = 5;
+            //manager.MaxFailedAccessAttemptsBeforeLockout = 5;
 
             // Registre proveedores de autenticación en dos fases. Esta aplicación usa los pasos Teléfono y Correo electrónico para recibir un código para comprobar el usuario
             // Puede escribir su propio proveedor y conectarlo aquí.
-            manager.RegisterTwoFactorProvider("Código telefónico", new PhoneNumberTokenProvider<ApplicationUser>
-            {
-                MessageFormat = "Su código de seguridad es {0}"
-            });
-            manager.RegisterTwoFactorProvider("Código de correo electrónico", new EmailTokenProvider<ApplicationUser>
-            {
-                Subject = "Código de seguridad",
-                BodyFormat = "Su código de seguridad es {0}"
-            });
-            manager.EmailService = new EmailService();
-            manager.SmsService = new SmsService();
+            //manager.RegisterTwoFactorProvider("Código telefónico", new PhoneNumberTokenProvider<ApplicationUser>
+            //{
+            //    MessageFormat = "Su código de seguridad es {0}"
+            //});
+            //manager.RegisterTwoFactorProvider("Código de correo electrónico", new EmailTokenProvider<ApplicationUser>
+            //{
+            //    Subject = "Código de seguridad",
+            //    BodyFormat = "Su código de seguridad es {0}"
+            //});
+            //manager.EmailService = new EmailService();
+            //manager.SmsService = new SmsService();
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {

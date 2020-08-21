@@ -17,13 +17,13 @@ namespace Sistema_Planilla_CE
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public StatusSolicitud()
         {
-            this.Solicitud = new HashSet<Solicitud>();
+            this.LogSolicitud = new HashSet<LogSolicitud>();
         }
     
         public int Id_StatusSolicitud { get; set; }
         public string Detalle_StatusSolicitud { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Solicitud> Solicitud { get; set; }
+        public virtual ICollection<LogSolicitud> LogSolicitud { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace Sistema_Planilla_CE
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Canton()
         {
+            this.Direccion = new HashSet<Direccion>();
             this.Distrito = new HashSet<Distrito>();
         }
     
@@ -25,6 +26,8 @@ namespace Sistema_Planilla_CE
         public int FKIdProvincia_Canton { get; set; }
     
         public virtual Provincia Provincia { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Direccion> Direccion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Distrito> Distrito { get; set; }
     }
