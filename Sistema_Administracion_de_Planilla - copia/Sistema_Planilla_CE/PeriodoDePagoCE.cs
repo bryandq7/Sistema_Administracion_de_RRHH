@@ -10,5 +10,7 @@ namespace Sistema_Planilla_CE
     {
         public int Id_PeriodoDePago { get; set; }
         public System.DateTime Periodo_PeriododDePago { get; set; }
+        public bool ActivoPeriodo_PeriododDePago { get; set; }
+        
     }
 }

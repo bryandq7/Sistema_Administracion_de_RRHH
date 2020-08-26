@@ -22,6 +22,7 @@ namespace Sistema_Planilla_CE
         public decimal SalarioBrutoPorDia_Contrato { get; set; }
         public decimal SalarioBrutoPorHora_Contrato { get; set; }
         public decimal SalarioBrutoQuincenal_Contrato { get; set; }
+        public bool SinGoceSalarial_Empleado { get; set; }
 
         public int Id_Contrato { get; set; }
         public decimal SalarioBruto_Contrato { get; set; }

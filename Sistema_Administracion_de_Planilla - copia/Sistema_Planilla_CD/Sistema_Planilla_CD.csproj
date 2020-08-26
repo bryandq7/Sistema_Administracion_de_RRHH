@@ -58,6 +58,7 @@
     <Compile Include="ConceptoAplicadoCD.cs" />
     <Compile Include="ConceptoCD.cs" />
     <Compile Include="ContratoCD.cs" />
+    <Compile Include="CorreoCD.cs" />
     <Compile Include="CursoCD.cs" />
     <Compile Include="DeduccionCD.cs" />
     <Compile Include="DepartamentoCD.cs" />

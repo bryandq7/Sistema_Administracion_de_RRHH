@@ -49,6 +49,7 @@
     <Compile Include="ConceptoAplicadoCN.cs" />
     <Compile Include="ConceptoCN.cs" />
     <Compile Include="ContratoCN.cs" />
+    <Compile Include="CorreoCN.cs" />
     <Compile Include="CursoCN.cs" />
     <Compile Include="DeduccionCN.cs" />
     <Compile Include="DepartamentoCN.cs" />

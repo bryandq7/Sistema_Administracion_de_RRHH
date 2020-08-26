@@ -25,34 +25,35 @@
     <thead>
         <tr>
             <th>
-                    Id Empleado
-                </th>
+                Id Empleado
+            </th>
             <th>
-                    Cargo
-                </th>
-                @*<th>
-                    Tipo de Contrato
-                </th>*@
-                @*<th>
-                    @Html.DisplayNameFor(model => model.FKId_Departamento_Empleado)
-                </th>*@
+                Cargo
+            </th>
             @*<th>
-                    @Html.DisplayNameFor(model => model.Id_Usuario)
-                </th>*@
+            Tipo de Contrato
+        </th>*@
             @*<th>
-                Nombre de Usuario
-            </th>*@
+            @Html.DisplayNameFor(model => model.FKId_Departamento_Empleado)
+        </th>*@
             @*<th>
-                    @Html.DisplayNameFor(model => model.Id_Departamento)
-                </th>*@
+            @Html.DisplayNameFor(model => model.Id_Usuario)
+        </th>*@
+            @*<th>
+            Nombre de Usuario
+        </th>*@
+            @*<th>
+            @Html.DisplayNameFor(model => model.Id_Departamento)
+        </th>*@
             <th>
                 Departamento
             </th>
-            @*<th>
-                    Estado
-                </th>*@
+
             <th>
                 Nombre Completo
+            </th>
+            <th>
+                Permiso Sin Goce Salarial
             </th>
             <th></th>
         </tr>
@@ -60,46 +61,49 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                        @Html.DisplayFor(modelItem => item.Id_Empleado)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nombre_Cargo)
-                    </td>
-                    @*<td>
-                        @Html.DisplayFor(modelItem => item.Detalle_TipoContrato)
-                    </td>*@
-                    @*<td>
-                        @Html.DisplayFor(modelItem => item.FKId_Departamento_Empleado)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id_Usuario)
-                    </td>*@
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </td>*@
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.Id_Departamento)
-                    </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nombre_Departamento)
-                </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.Nombre_StatusEmpleado)
-                    </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.NombreCompletoPersona)
-                </td>
-                <td>
-                    <a class="btn btn-info btn-xm" title="Detalle" href="@Url.Action("DetallesEmpleado", "Empleado",new { id_empleado=item.Id_Empleado})"><i class="glyphicon glyphicon-edit"></i></a>
-                    <a class="btn btn-success" title="Editar" href="@Url.Action("Editar", "Empleado",new { id=item.Id_Empleado })"><i class="glyphicon glyphicon-pencil"></i></a>
-                    <a class="btn btn-danger" onclick="EliminarEmpleado(@item.Id_Persona,@item.Id_Empleado,'@item.Id_Usuario')" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
-                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id_Empleado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre_Cargo)
+            </td>
+            @*<td>
+            @Html.DisplayFor(modelItem => item.Detalle_TipoContrato)
+        </td>*@
+            @*<td>
+            @Html.DisplayFor(modelItem => item.FKId_Departamento_Empleado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id_Usuario)
+        </td>*@
+            @*<td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>*@
+            @*<td>
+            @Html.DisplayFor(modelItem => item.Id_Departamento)
+        </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre_Departamento)
+            </td>
+            @*<td>
+            @Html.DisplayFor(modelItem => item.Nombre_StatusEmpleado)
+        </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreCompletoPersona)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SinGoceSalarial_Empleado)
+            </td>
+            <td>
+                <a class="btn btn-info btn-xm" title="Detalle" href="@Url.Action("DetallesEmpleado", "Empleado",new { id_empleado=item.Id_Empleado})"><i class="glyphicon glyphicon-edit"></i></a>
+                <a class="btn btn-success" title="Editar" href="@Url.Action("Editar", "Empleado",new { id=item.Id_Empleado })"><i class="glyphicon glyphicon-pencil"></i></a>
+                <a class="btn btn-danger" onclick="EliminarEmpleado(@item.Id_Persona,@item.Id_Empleado,'@item.Id_Usuario')" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+                @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+            </td>
+        </tr>
 
         }
     </tbody>

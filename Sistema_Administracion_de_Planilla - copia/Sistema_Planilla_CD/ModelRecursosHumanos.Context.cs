@@ -43,7 +43,6 @@ namespace Sistema_Planilla_CE
         public virtual DbSet<DestinatarioConcepto> DestinatarioConcepto { get; set; }
         public virtual DbSet<Direccion> Direccion { get; set; }
         public virtual DbSet<Distrito> Distrito { get; set; }
-        public virtual DbSet<Email> Email { get; set; }
         public virtual DbSet<Empleado> Empleado { get; set; }
         public virtual DbSet<Genero> Genero { get; set; }
         public virtual DbSet<ImpactaPlanilla> ImpactaPlanilla { get; set; }
@@ -66,5 +65,7 @@ namespace Sistema_Planilla_CE
         public virtual DbSet<TipoSolicitud> TipoSolicitud { get; set; }
         public virtual DbSet<Turnos> Turnos { get; set; }
         public virtual DbSet<Vacaciones> Vacaciones { get; set; }
+        public virtual DbSet<Email> Email { get; set; }
+        public virtual DbSet<FotoPersona> FotoPersona { get; set; }
     }
 }

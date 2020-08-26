@@ -1,0 +1,173 @@
+﻿@model IEnumerable<Sistema_Planilla_CE.CorreoCE>
+
+@{
+    ViewBag.Title = "ObtenerListaCorreosPersona";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+
+
+@section styles{
+
+    <style>
+        .tituloCss {
+            color: #3d3d29;
+        }
+    </style>
+
+
+}
+
+<h2 class="tituloCss">Lista de Correos </h2>
+
+<p>
+    <a class="btn btn-info" title="Crear" href="@Url.Action("Crear2", "Email",new { Id_Persona = @Model.First().Id_Persona})"><i class="glyphicon glyphicon-plus"></i>Agregar Correo</a>
+
+</p>
+<table class="table" id="tablaCorreo">
+    <thead>
+        <tr>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Id_Persona)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre_Persona)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Apellido1_Persona)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Apellido2_Persona)
+                </th>*@
+            <th>
+                Nombre Completo
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Id_Email)
+                </th>*@
+            <th>
+                Correo Electrónico
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.FKId_Persona_Email)
+                </th>*@
+            <th>
+                Email Principal
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Id_Persona)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre_Persona)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Apellido1_Persona)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Apellido2_Persona)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreCompleto_Persona)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Id_Email)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Correo_Email)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.FKId_Persona_Email)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Primario_Email)
+                </td>
+                <td>
+                    <a class="btn btn-success btn-xm" title="Editar" href="@Url.Action("Editar", "Email",new { Id_Email=item.Id_Email  })"><i class="glyphicon glyphicon-pencil"></i></a>
+                    <a class="btn btn-danger btn-xm" onclick="EliminarCorreo(@item.Id_Email, @item.FKId_Persona_Email)" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    @Html.ActionLink("Regresar a Lista de Personas", "Index", "Persona")
+</div>
+
+
+@section scripts {
+    <script>
+
+        $('#tablaCorreo').DataTable({
+            "pageLength": 5,
+            lengthMenu: [5, 10, 20, 50, 100, 200, 500],
+            language: {
+                search: "Buscar en tabla: ",
+                lengthMenu: "Mostrar  _MENU_  entradas",
+                info: "Mostrando de la entrada _START_ a la _END_ de _TOTAL_ entradas",
+                infoEmpty: "Mostrando de la entrada 0 a la 0 de 0  entradas",
+                infoFiltered: "(filtrando de  _MAX_ entradas totales)",
+                infoPostFix: "",
+                loadingRecords: "Agregando entradas",
+                zeroRecords: "No existen entradas disponibles para esta búsqueda",
+                emptyTable: "No existe data disponible para esta tabla",
+
+                paginate: {
+                    first: "Primera",
+                    previous: "Anterior",
+                    next: "Siguiente",
+                    last: "Ultima"
+                }
+            }
+
+        });
+
+
+
+        function Eliminarcorreo(idcorreo, idpersona) {
+            $.confirm({
+                title: 'Eliminar Correo Electrónico',
+                content: '¿Desea Eliminar este Correo Electrónico?',
+                buttons: {
+                    Eliminar: function () {
+                        LoadingOverlayShow("#tablaCorreo");
+                        $.ajax({
+                            url: "/email/eliminarcorreo",
+                            type: "post",
+                            data: { id_email: idcorreo, id_persona: idpersona }
+                        }).done(function (response) {
+                            console.log(response);//
+                            LoadingOverlayHide("#tablaCorreo");
+                            if (response.ok) {
+                                alert("Correo Electrónico eliminado correctamente.");
+                                window.location = response.toRedirect;
+                            }
+                            else {
+                                alert(response.msg);
+                            }
+                        }).fail(function (jqXHR, textStatus, errorThrown) {
+                            LoadingOverlayHide("#tablaCorreo");
+                            alert(textStatus);
+                        });
+                    },
+                    Cancelar: function () {
+                        //$.alert('Canceled!');
+                    },
+                }
+            });
+        }
+
+    </script>
+
+
+}

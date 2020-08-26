@@ -84,6 +84,7 @@
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="ContratoCE.cs" />
+    <Compile Include="CorreoCE.cs" />
     <Compile Include="Cuenta.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
@@ -113,6 +114,9 @@
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
     <Compile Include="EmpleadoCE.cs" />
+    <Compile Include="FotoPersona.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
     <Compile Include="Genero.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>

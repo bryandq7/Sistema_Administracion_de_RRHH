@@ -205,6 +205,7 @@
     <Compile Include="Controllers\DepartamentoController.cs" />
     <Compile Include="Controllers\DireccionController.cs" />
     <Compile Include="Controllers\DistritoController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\GeneroController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -352,6 +353,7 @@
     <Content Include="Views\Concepto\EditarDia.cshtml" />
     <Content Include="Views\Concepto\EditarTiempo.cshtml" />
     <Content Include="Views\ImpuestoRenta\Index.cshtml" />
+    <Content Include="Views\Email\ObtenerListaCorreosPersona.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

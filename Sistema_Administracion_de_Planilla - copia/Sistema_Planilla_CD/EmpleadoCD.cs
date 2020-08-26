@@ -14,7 +14,7 @@ namespace Sistema_Planilla_CD
         {
             string sql = @"select e.Id_Empleado,e.FKId_Departamento_Empleado,e.FKId_Persona_Empleado,d.Id_Departamento,d.Nombre_Departamento,p.Id_Persona,p.Nombre_Persona+' '+p.Apellido1_Persona+' '+p.Apellido2_Persona as NombreCompletoPersona, u.Id as Id_Usuario, u.UserName,
 				c.Id_Contrato, c.SalarioBruto_Contrato, c.FKId_Empleado_Contrato, c.FKId_Cargo_Contrato,c.FechaInicio_Contrato,c.Activo_Contrato,
-				ca.Id_Cargo,ca.Nombre_Cargo,t.Id_Turno,t.Nombre_Turno
+				ca.Id_Cargo,ca.Nombre_Cargo,t.Id_Turno,t.Nombre_Turno,e.SinGoceSalarial_Empleado
                 from Empleado e  
                 inner join Persona p on e.FKId_Persona_Empleado = p.Id_Persona
 				inner join Departamento d on e.FKId_Departamento_Empleado = d.Id_Departamento
@@ -72,7 +72,8 @@ namespace Sistema_Planilla_CD
             {
                 FKId_Persona_Empleado = empleado.Id_Persona,
                 FKId_Departamento_Empleado = empleado.Id_Departamento,
-                Activo_Empleado = true
+                Activo_Empleado = true,
+                SinGoceSalarial_Empleado = false
             };
 
             using (var db = new RecursosHumanosDBContext())
@@ -126,7 +127,7 @@ namespace Sistema_Planilla_CD
 
             string sql = @"select e.Id_Empleado,e.FKId_Departamento_Empleado,e.FKId_Persona_Empleado,d.Id_Departamento,d.Nombre_Departamento,p.Id_Persona,p.Nombre_Persona+' '+p.Apellido1_Persona+' '+p.Apellido2_Persona as NombreCompletoPersona, u.Id as Id_Usuario, u.UserName,
 				c.Id_Contrato, c.SalarioBruto_Contrato, c.FKId_Empleado_Contrato, c.FKId_Cargo_Contrato,c.FechaInicio_Contrato,c.Activo_Contrato,
-				ca.Id_Cargo,ca.Nombre_Cargo,t.Id_Turno,t.Nombre_Turno
+				ca.Id_Cargo,ca.Nombre_Cargo,t.Id_Turno,t.Nombre_Turno,e.SinGoceSalarial_Empleado
                 from Empleado e  
                 inner join Persona p on e.FKId_Persona_Empleado = p.Id_Persona
 				inner join Departamento d on e.FKId_Departamento_Empleado = d.Id_Departamento
@@ -166,6 +167,7 @@ namespace Sistema_Planilla_CD
             {
                 var origen = db.Empleado.Find(empleado.Id_Empleado);
                 origen.FKId_Departamento_Empleado = empleado.Id_Departamento;
+                origen.SinGoceSalarial_Empleado = empleado.SinGoceSalarial_Empleado;
                 //origen.FKId_StatusEmpleado = empleado.Id_StatusEmpleado;
                 db.SaveChanges();
             }

@@ -192,6 +192,7 @@
           <Property Name="Id_Email" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Correo_Email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="FKId_Persona_Email" Type="int" Nullable="false" />
+          <Property Name="Primario_Email" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Empleado">
           <Key>
@@ -202,6 +203,16 @@
           <Property Name="FKId_Departamento_Empleado" Type="int" Nullable="false" />
           <Property Name="Activo_Empleado" Type="bit" Nullable="false" />
           <Property Name="SinGoceSalarial_Empleado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FotoPersona">
+          <Key>
+            <PropertyRef Name="Id_FotoPersona" />
+          </Key>
+          <Property Name="Id_FotoPersona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Foto_FotoPersona" Type="varchar(max)" Nullable="false" />
+          <Property Name="Titulo_FotoPersona" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="FKId_Persona_FotoPersona" Type="int" Nullable="false" />
+          <Property Name="Primario_FotoPersona" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Genero">
           <Key>
@@ -693,6 +704,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FotoPersona_Persona">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
+          <End Role="FotoPersona" Type="Self.FotoPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="Id_Persona" />
+            </Principal>
+            <Dependent Role="FotoPersona">
+              <PropertyRef Name="FKId_Persona_FotoPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Liquidacion_Empleado">
           <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
           <End Role="Liquidacion" Type="Self.Liquidacion" Multiplicity="*" />
@@ -978,6 +1001,7 @@
           <EntitySet Name="Distrito" EntityType="Self.Distrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Email" EntityType="Self.Email" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FotoPersona" EntityType="Self.FotoPersona" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Genero" EntityType="Self.Genero" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ImpactaPlanilla" EntityType="Self.ImpactaPlanilla" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ImpuestoRenta" EntityType="Self.ImpuestoRenta" Schema="dbo" store:Type="Tables" />
@@ -1095,6 +1119,10 @@
             <End Role="Persona" EntitySet="Persona" />
             <End Role="Empleado" EntitySet="Empleado" />
           </AssociationSet>
+          <AssociationSet Name="FK_FotoPersona_Persona" Association="Self.FK_FotoPersona_Persona">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="FotoPersona" EntitySet="FotoPersona" />
+          </AssociationSet>
           <AssociationSet Name="FK_Liquidacion_Empleado" Association="Self.FK_Liquidacion_Empleado">
             <End Role="Empleado" EntitySet="Empleado" />
             <End Role="Liquidacion" EntitySet="Liquidacion" />
@@ -1207,7 +1235,6 @@
           <EntitySet Name="DestinatarioConcepto" EntityType="RecursosHumanosDBModel.DestinatarioConcepto" />
           <EntitySet Name="Direccion" EntityType="RecursosHumanosDBModel.Direccion" />
           <EntitySet Name="Distrito" EntityType="RecursosHumanosDBModel.Distrito" />
-          <EntitySet Name="Email" EntityType="RecursosHumanosDBModel.Email" />
           <EntitySet Name="Empleado" EntityType="RecursosHumanosDBModel.Empleado" />
           <EntitySet Name="Genero" EntityType="RecursosHumanosDBModel.Genero" />
           <EntitySet Name="ImpactaPlanilla" EntityType="RecursosHumanosDBModel.ImpactaPlanilla" />
@@ -1338,10 +1365,6 @@
             <End Role="Provincia" EntitySet="Provincia" />
             <End Role="Distrito" EntitySet="Distrito" />
           </AssociationSet>
-          <AssociationSet Name="FK_Email_Persona" Association="RecursosHumanosDBModel.FK_Email_Persona">
-            <End Role="Persona" EntitySet="Persona" />
-            <End Role="Email" EntitySet="Email" />
-          </AssociationSet>
           <AssociationSet Name="FK_Empleado_Persona" Association="RecursosHumanosDBModel.FK_Empleado_Persona">
             <End Role="Persona" EntitySet="Persona" />
             <End Role="Empleado" EntitySet="Empleado" />
@@ -1413,6 +1436,16 @@
           <AssociationSet Name="FK_Solicitud_TipoSolicitud" Association="RecursosHumanosDBModel.FK_Solicitud_TipoSolicitud">
             <End Role="TipoSolicitud" EntitySet="TipoSolicitud" />
             <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <EntitySet Name="Email" EntityType="RecursosHumanosDBModel.Email" />
+          <EntitySet Name="FotoPersona" EntityType="RecursosHumanosDBModel.FotoPersona" />
+          <AssociationSet Name="FK_Email_Persona" Association="RecursosHumanosDBModel.FK_Email_Persona">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Email" EntitySet="Email" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FotoPersona_Persona" Association="RecursosHumanosDBModel.FK_FotoPersona_Persona">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="FotoPersona" EntitySet="FotoPersona" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AspNetRoles">
@@ -1633,15 +1666,6 @@
           <NavigationProperty Name="Direccion" Relationship="RecursosHumanosDBModel.FK_Direccion_Distrito" FromRole="Distrito" ToRole="Direccion" />
           <NavigationProperty Name="Provincia" Relationship="RecursosHumanosDBModel.FK_Distrito_Provincia" FromRole="Distrito" ToRole="Provincia" />
         </EntityType>
-        <EntityType Name="Email">
-          <Key>
-            <PropertyRef Name="Id_Email" />
-          </Key>
-          <Property Name="Id_Email" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Correo_Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FKId_Persona_Email" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Persona" Relationship="RecursosHumanosDBModel.FK_Email_Persona" FromRole="Email" ToRole="Persona" />
-        </EntityType>
         <EntityType Name="Empleado">
           <Key>
             <PropertyRef Name="Id_Empleado" />
@@ -1749,10 +1773,11 @@
           <NavigationProperty Name="AspNetUsers" Relationship="RecursosHumanosDBModel.FK_Persona_AspNetUsers" FromRole="Persona" ToRole="AspNetUsers" />
           <NavigationProperty Name="Cuenta" Relationship="RecursosHumanosDBModel.FK_Persona_Cuenta" FromRole="Persona" ToRole="Cuenta" />
           <NavigationProperty Name="Direccion" Relationship="RecursosHumanosDBModel.FK_Persona_Direccion" FromRole="Persona" ToRole="Direccion" />
-          <NavigationProperty Name="Email" Relationship="RecursosHumanosDBModel.FK_Email_Persona" FromRole="Persona" ToRole="Email" />
           <NavigationProperty Name="Empleado" Relationship="RecursosHumanosDBModel.FK_Empleado_Persona" FromRole="Persona" ToRole="Empleado" />
           <NavigationProperty Name="Genero" Relationship="RecursosHumanosDBModel.FK_Persona_Genero" FromRole="Persona" ToRole="Genero" />
           <NavigationProperty Name="Telefono" Relationship="RecursosHumanosDBModel.FK_Telefono_Persona" FromRole="Persona" ToRole="Telefono" />
+          <NavigationProperty Name="Email" Relationship="RecursosHumanosDBModel.FK_Email_Persona" FromRole="Persona" ToRole="Email" />
+          <NavigationProperty Name="FotoPersona" Relationship="RecursosHumanosDBModel.FK_FotoPersona_Persona" FromRole="Persona" ToRole="FotoPersona" />
         </EntityType>
         <EntityType Name="Planilla">
           <Key>
@@ -2231,18 +2256,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Email_Persona">
-          <End Type="RecursosHumanosDBModel.Persona" Role="Persona" Multiplicity="1" />
-          <End Type="RecursosHumanosDBModel.Email" Role="Email" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Persona">
-              <PropertyRef Name="Id_Persona" />
-            </Principal>
-            <Dependent Role="Email">
-              <PropertyRef Name="FKId_Persona_Email" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Empleado_Persona">
           <End Type="RecursosHumanosDBModel.Persona" Role="Persona" Multiplicity="1" />
           <End Type="RecursosHumanosDBModel.Empleado" Role="Empleado" Multiplicity="*" />
@@ -2459,6 +2472,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Email">
+          <Key>
+            <PropertyRef Name="Id_Email" />
+          </Key>
+          <Property Name="Id_Email" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Correo_Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FKId_Persona_Email" Type="Int32" Nullable="false" />
+          <Property Name="Primario_Email" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Persona" Relationship="RecursosHumanosDBModel.FK_Email_Persona" FromRole="Email" ToRole="Persona" />
+        </EntityType>
+        <EntityType Name="FotoPersona">
+          <Key>
+            <PropertyRef Name="Id_FotoPersona" />
+          </Key>
+          <Property Name="Id_FotoPersona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Foto_FotoPersona" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Titulo_FotoPersona" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="FKId_Persona_FotoPersona" Type="Int32" Nullable="false" />
+          <Property Name="Primario_FotoPersona" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Persona" Relationship="RecursosHumanosDBModel.FK_FotoPersona_Persona" FromRole="FotoPersona" ToRole="Persona" />
+        </EntityType>
+        <Association Name="FK_Email_Persona">
+          <End Type="RecursosHumanosDBModel.Persona" Role="Persona" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.Email" Role="Email" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="Id_Persona" />
+            </Principal>
+            <Dependent Role="Email">
+              <PropertyRef Name="FKId_Persona_Email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FotoPersona_Persona">
+          <End Type="RecursosHumanosDBModel.Persona" Role="Persona" Multiplicity="1" />
+          <End Type="RecursosHumanosDBModel.FotoPersona" Role="FotoPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="Id_Persona" />
+            </Principal>
+            <Dependent Role="FotoPersona">
+              <PropertyRef Name="FKId_Persona_FotoPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2660,15 +2718,6 @@
                 <ScalarProperty Name="FKIdCanton_Distrito" ColumnName="FKIdCanton_Distrito" />
                 <ScalarProperty Name="Nombre_Distrito" ColumnName="Nombre_Distrito" />
                 <ScalarProperty Name="Id_Distrito" ColumnName="Id_Distrito" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Email">
-            <EntityTypeMapping TypeName="RecursosHumanosDBModel.Email">
-              <MappingFragment StoreEntitySet="Email">
-                <ScalarProperty Name="FKId_Persona_Email" ColumnName="FKId_Persona_Email" />
-                <ScalarProperty Name="Correo_Email" ColumnName="Correo_Email" />
-                <ScalarProperty Name="Id_Email" ColumnName="Id_Email" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2899,6 +2948,27 @@
                 <ScalarProperty Name="FKId_Empleado_Vacaciones" ColumnName="FKId_Empleado_Vacaciones" />
                 <ScalarProperty Name="AcumuladoDias_Vacaciones" ColumnName="AcumuladoDias_Vacaciones" />
                 <ScalarProperty Name="Id_Vacaciones" ColumnName="Id_Vacaciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Email">
+            <EntityTypeMapping TypeName="RecursosHumanosDBModel.Email">
+              <MappingFragment StoreEntitySet="Email">
+                <ScalarProperty Name="Primario_Email" ColumnName="Primario_Email" />
+                <ScalarProperty Name="FKId_Persona_Email" ColumnName="FKId_Persona_Email" />
+                <ScalarProperty Name="Correo_Email" ColumnName="Correo_Email" />
+                <ScalarProperty Name="Id_Email" ColumnName="Id_Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FotoPersona">
+            <EntityTypeMapping TypeName="RecursosHumanosDBModel.FotoPersona">
+              <MappingFragment StoreEntitySet="FotoPersona">
+                <ScalarProperty Name="Primario_FotoPersona" ColumnName="Primario_FotoPersona" />
+                <ScalarProperty Name="FKId_Persona_FotoPersona" ColumnName="FKId_Persona_FotoPersona" />
+                <ScalarProperty Name="Titulo_FotoPersona" ColumnName="Titulo_FotoPersona" />
+                <ScalarProperty Name="Foto_FotoPersona" ColumnName="Foto_FotoPersona" />
+                <ScalarProperty Name="Id_FotoPersona" ColumnName="Id_FotoPersona" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -82,6 +82,9 @@ namespace Sistema_Planilla_CP.Models
         [Display(Name = "Confirmar contraseña")]
         [Compare("Password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
         public string ConfirmPassword { get; set; }
+        public string PhoneNumber { get; set; }
+        public System.DateTime LockoutEndDateUtc { get; set; }
+    
     }
 
     public class ResetPasswordViewModel

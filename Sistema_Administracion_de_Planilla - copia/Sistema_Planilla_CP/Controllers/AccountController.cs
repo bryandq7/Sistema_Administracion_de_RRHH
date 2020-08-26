@@ -81,8 +81,8 @@ namespace Sistema_Planilla_CP.Controllers
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
-                //case SignInStatus.LockedOut:
-                //    return View("Lockout");
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
                 //case SignInStatus.RequiresVerification:
                 //    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
@@ -153,9 +153,11 @@ namespace Sistema_Planilla_CP.Controllers
             var currenttime = DateTime.Now.ToString("dd-MMMM-yyyy-hh-mm-ss");
             var genericemail = "user" + currenttime.ToString() + "@saintspirit.com";
             model.Email = genericemail;
+            model.PhoneNumber = "88888888";
+            model.LockoutEndDateUtc = DateTime.Now.AddYears(100);
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = genericemail };
+                var user = new ApplicationUser { UserName = model.UserName, Email = genericemail, PhoneNumber = model.PhoneNumber, LockoutEndDateUtc = model.LockoutEndDateUtc };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

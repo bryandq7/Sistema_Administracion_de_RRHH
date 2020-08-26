@@ -12,12 +12,13 @@ namespace Sistema_Planilla_CE
     using System;
     using System.Collections.Generic;
     
-    public partial class Email
+    public partial class FotoPersona
     {
-        public int Id_Email { get; set; }
-        public string Correo_Email { get; set; }
-        public int FKId_Persona_Email { get; set; }
-        public bool Primario_Email { get; set; }
+        public int Id_FotoPersona { get; set; }
+        public string Foto_FotoPersona { get; set; }
+        public string Titulo_FotoPersona { get; set; }
+        public int FKId_Persona_FotoPersona { get; set; }
+        public bool Primario_FotoPersona { get; set; }
     
         public virtual Persona Persona { get; set; }
     }

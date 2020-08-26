@@ -13,6 +13,7 @@ namespace Sistema_Planilla_CE
         public string Apellido1_Persona { get; set; }
         public string Apellido2_Persona { get; set; }
         public DateTime FechaNacimiento_Persona { get; set; }
+
         public int Id_Direccion { get; set; }
         public string Detalle_Direccion { get; set; }
         public int Id_Provincia { get; set; }
@@ -23,8 +24,10 @@ namespace Sistema_Planilla_CE
         public string Nombre_Distrito { get; set; }
         public int Id_Email { get; set; }
         public string Correo_Email { get; set; }
+
         public int FKId_Direccion_Persona { get; set; }
-        public int FKId_Email_Persona { get; set; }
+
+        //public int FKId_Email_Persona { get; set; }
         public string NumeroIdentidad_Persona { get; set; }
         public string NombreCompleto_Persona { get { return $"{Apellido1_Persona}{" "}{Apellido2_Persona}{", "}{Nombre_Persona}"; }}
         public string DetalleCompleto_Direccion { get { return $"{Detalle_Direccion}{", "}{Nombre_Provincia}{" - "}{Nombre_Canton}{" - "}{Nombre_Distrito}"; } }
@@ -35,13 +38,15 @@ namespace Sistema_Planilla_CE
         public string FKId_Genero_Persona { get; set; }
         public string FKId_Cuenta_Persona { get; set; }
 
-        public Nullable<int> Id_Empleado { get; set; }
+        public int Id_Empleado { get; set; }
 
         public int Id_Genero { get; set; }
         public string Nombre_Genero { get; set; }
 
         public int Id_Cuenta { get; set; }
         public string Numero_Cuenta { get; set; }
+        public string Moneda_Cuenta { get; set; }
+        
         public int FKIdBanco_Cuenta { get; set; }
 
         public int Id_Banco { get; set; }

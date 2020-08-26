@@ -22,20 +22,20 @@ namespace Sistema_Planilla_CD
         public List<PersonaCE> ListarPersonas()
         {
             string sql = @"select p.NumeroIdentidad_Persona, u.Id as Id_Usuario, u.UserName,p.Id_Persona,p.FKId_Usuario_Persona,p.Nombre_Persona,p.Apellido1_Persona,p.Apellido2_Persona,
-                        p.FechaNacimiento_Persona,p.FKId_Email_Persona,e.Id_Email,e.Correo_Email, p.FKId_Email_Persona, d.Id_Direccion, 
+                        p.FechaNacimiento_Persona, d.Id_Direccion, 
                         d.Detalle_Direccion,pr.Id_Provincia,pr.Nombre_Provincia,c.Id_Canton,c.Nombre_Canton,di.Id_Distrito,di.Nombre_Distrito,
-						g.Id_Genero,g.Nombre_Genero, cta.Id_Cuenta, cta.Numero_Cuenta, cta.FKIdBanco_Cuenta, bco.Id_Banco,bco.Nombre_Banco
+						g.Id_Genero,g.Nombre_Genero, cta.Id_Cuenta, cta.Numero_Cuenta, cta.FKIdBanco_Cuenta,cta.Moneda_Cuenta ,bco.Id_Banco,bco.Nombre_Banco
                         from Persona p 
 				        inner join Direccion d on p.FKId_Direccion_Persona=d.Id_Direccion
 				        inner join Distrito di on d.FKIdDistrito_Direccion = di.Id_Distrito
                         inner join Canton c on di.FKIdCanton_Distrito = c.Id_Canton
                         inner join Provincia pr  on c.FKIdProvincia_Canton = pr.Id_Provincia
-				        inner join Email e on p.FKId_Email_Persona = e.Id_Email
 						inner join AspNetUsers u on p.FKId_Usuario_Persona = u.Id
 						inner join Genero g on p.FKId_Genero_Persona = g.Id_Genero
 						inner join Cuenta cta on p.FKId_Cuenta_Persona = cta.Id_Cuenta
 						inner join Banco bco on cta.FKIdBanco_Cuenta = bco.Id_Banco
                         where p.Activo_Persona = 1";
+
 
             using (var db = new RecursosHumanosDBContext())
             {
@@ -45,8 +45,7 @@ namespace Sistema_Planilla_CD
 
         public List<PersonaCE> ListarPersonasNOEmpleados()
         {
-            string sql = @"select p.Id_Persona,p.Nombre_Persona,p.Apellido1_Persona,p.Apellido2_Persona,
-                        e.Id_Empleado, p.FKId_Usuario_Persona
+            string sql = @"select p.Id_Persona,p.Nombre_Persona,p.Apellido1_Persona,p.Apellido2_Persona, p.FKId_Usuario_Persona
                         from Persona p 
 				        left  join Empleado e on p.Id_Persona=e.FKId_Persona_Empleado
                         where p.Activo_Persona = 1 and p.FKId_Usuario_Persona is not NULL and e.Id_Empleado is NULL";
@@ -62,8 +61,9 @@ namespace Sistema_Planilla_CD
             var direccion = new Direccion
             {
                 Detalle_Direccion = persona.Detalle_Direccion,
-                FKIdDistrito_Direccion = persona.Id_Distrito
-
+                FKIdDistrito_Direccion = persona.Id_Distrito,
+                FKIdCanton_Direccion = persona.Id_Canton,
+                FKIdProvincia_Direccion = persona.Id_Provincia
             };
 
             using (var db = new RecursosHumanosDBContext())
@@ -74,25 +74,27 @@ namespace Sistema_Planilla_CD
 
             var idultimoregistrodireccion = ObtenerIdDireccion();
 
-            var correo = new Email
-            {
-                Correo_Email = persona.Correo_Email
-            };
+            //var correo = new Email
+            //{
+            //    Correo_Email = persona.Correo_Email,
+            //    FKId_Persona_Email = persona.Id_Persona
+            //};
 
-            using (var db = new RecursosHumanosDBContext())
-            {
-                db.Email.Add(correo);
-                db.SaveChanges();
-            }
+            //using (var db = new RecursosHumanosDBContext())
+            //{
+            //    db.Email.Add(correo);
+            //    db.SaveChanges();
+            //}
 
 
-            var idultimoregistrocorreo = ObtenerIdEmail();
+            //var idultimoregistrocorreo = ObtenerIdEmail();
 
 
             var cuenta = new Cuenta
             {
                 Numero_Cuenta = persona.Numero_Cuenta,
-                FKIdBanco_Cuenta = persona.Id_Banco
+                FKIdBanco_Cuenta = persona.Id_Banco,
+                Moneda_Cuenta = persona.Moneda_Cuenta
             };
 
             using (var db = new RecursosHumanosDBContext())
@@ -110,7 +112,7 @@ namespace Sistema_Planilla_CD
                 Apellido2_Persona = persona.Apellido2_Persona,
                 FechaNacimiento_Persona = persona.FechaNacimiento_Persona,
                 FKId_Direccion_Persona = idultimoregistrodireccion,
-                FKId_Email_Persona = idultimoregistrocorreo,
+                //FKId_Email_Persona = idultimoregistrocorreo,
                 NumeroIdentidad_Persona = persona.NumeroIdentidad_Persona,
                 FKId_Usuario_Persona = persona.Id_Usuario,
                 FKId_Cuenta_Persona = idultimoregistrocuenta,
@@ -154,15 +156,14 @@ namespace Sistema_Planilla_CD
         {
 
             string sql = @"select p.NumeroIdentidad_Persona,u.Id as Id_Usuario, u.UserName,p.FKId_Usuario_Persona,p.Id_Persona,p.Nombre_Persona,p.Apellido1_Persona,p.Apellido2_Persona,
-                        p.FechaNacimiento_Persona,p.FKId_Email_Persona,e.Id_Email,e.Correo_Email, p.FKId_Email_Persona, d.Id_Direccion, 
+                        p.FechaNacimiento_Persona, d.Id_Direccion, 
                         d.Detalle_Direccion,pr.Id_Provincia,pr.Nombre_Provincia,c.Id_Canton,c.Nombre_Canton,di.Id_Distrito,di.Nombre_Distrito,
-                        g.Id_Genero,g.Nombre_Genero, cta.Id_Cuenta, cta.Numero_Cuenta, cta.FKIdBanco_Cuenta, bco.Id_Banco,bco.Nombre_Banco
+                        g.Id_Genero,g.Nombre_Genero, cta.Id_Cuenta, cta.Numero_Cuenta, cta.FKIdBanco_Cuenta, cta.Moneda_Cuenta, bco.Id_Banco,bco.Nombre_Banco
 						from Persona p 
                         inner join Direccion d on p.FKId_Direccion_Persona=d.Id_Direccion
                         inner join Distrito di on d.FKIdDistrito_Direccion = di.Id_Distrito
                         inner join Canton c on di.FKIdCanton_Distrito = c.Id_Canton
                         inner join Provincia pr  on c.FKIdProvincia_Canton = pr.Id_Provincia
-                        inner join Email e on p.FKId_Email_Persona = e.Id_Email
                         inner join AspNetUsers u on p.FKId_Usuario_Persona = u.Id
 						inner join Genero g on p.FKId_Genero_Persona = g.Id_Genero
 						inner join Cuenta cta on p.FKId_Cuenta_Persona = cta.Id_Cuenta
@@ -191,13 +192,16 @@ namespace Sistema_Planilla_CD
                 var origencuenta = db.Cuenta.Find(persona.Id_Cuenta);
                 origencuenta.Numero_Cuenta = persona.Numero_Cuenta;
                 origencuenta.FKIdBanco_Cuenta = persona.Id_Banco;
+                origencuenta.Moneda_Cuenta = persona.Moneda_Cuenta;
 
                 var origendireccion = db.Direccion.Find(persona.Id_Direccion);
                 origendireccion.Detalle_Direccion = persona.Detalle_Direccion;
                 origendireccion.FKIdDistrito_Direccion = persona.Id_Distrito;
+                origendireccion.FKIdCanton_Direccion = persona.Id_Canton;
+                origendireccion.FKIdProvincia_Direccion = persona.Id_Provincia;
 
-                var origenemail = db.Email.Find(persona.Id_Email);
-                origenemail.Correo_Email = persona.Correo_Email;
+                //var origenemail = db.Email.Find(persona.Id_Email);
+                //origenemail.Correo_Email = persona.Correo_Email;
                 db.SaveChanges();
             }
         }
@@ -223,7 +227,7 @@ namespace Sistema_Planilla_CD
                 var persona = db.Persona
                     .Where(e => e.Id_Persona == id_persona)
                     .FirstOrDefault();
-                persona.FKId_Usuario_Persona = null;
+                //persona.FKId_Usuario_Persona = "inactivo";
                 persona.Activo_Persona = false;
                 //db.Persona.Remove(persona);
                 db.SaveChanges();
@@ -240,10 +244,13 @@ namespace Sistema_Planilla_CD
 
             using (var db = new RecursosHumanosDBContext())
             {
-                var usuario = db.AspNetUsers
-                    .Where(e => e.Id == id_usuario)
-                    .FirstOrDefault();
-                db.AspNetUsers.Remove(usuario);
+
+                var origenuser = db.AspNetUsers.Find(id_usuario);
+                origenuser.PasswordHash= "Invalido123?";
+                //var usuario = db.AspNetUsers
+                //    .Where(e => e.Id == id_usuario)
+                //    .FirstOrDefault();
+                //db.AspNetUsers.Remove(usuario);
                 db.SaveChanges();
             }
 
