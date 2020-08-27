@@ -50,13 +50,30 @@ namespace Sistema_Planilla_CD
             }
         }
 
-        public void Crear(CorreoCE correo)
+        //public void Crear(CorreoCE correo)
+        //{
+        //    var correoOrigen = new Email
+        //    {
+        //        Correo_Email = correo.Correo_Email,
+        //        FKId_Persona_Email= correo.Id_Persona,
+        //        Primario_Email = correo.Primario_Email
+
+        //    };
+
+        //    using (var db = new RecursosHumanosDBContext())
+        //    {
+        //        db.Email.Add(correoOrigen);
+        //        db.SaveChanges();
+        //    }
+        //}
+
+        public void CrearOtro(CorreoCE correo)
         {
             var correoOrigen = new Email
             {
                 Correo_Email = correo.Correo_Email,
-                FKId_Persona_Email= correo.Id_Persona,
-                Primario_Email = correo.Primario_Email
+                FKId_Persona_Email = correo.Id_Persona,
+                Primario_Email = false
 
             };
 

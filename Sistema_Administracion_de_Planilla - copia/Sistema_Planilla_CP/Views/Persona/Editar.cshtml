@@ -208,14 +208,18 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-2">Moneda de Cuenta</label>
 
+        <div class="form-group">
+            <label class="control-label col-md-2">Moneda</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Moneda_Cuenta, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Moneda_Cuenta, "", new { @class = "text-danger" })
+                <select class="form-control" id="Id_Moneda" name="Id_Moneda">
+                    <option value="">Seleccione...</option>
+                </select>
+                @*@Html.EditorFor(model => model.Id_Provincia, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Id_Moneda, "", new { @class = "text-danger" })
             </div>
         </div>
+
 
         <div class="form-group">
             <label class="control-label col-md-2">Género</label>
@@ -294,6 +298,14 @@
             jQuery.ajaxSetup({ async: false });
 
             $("#Id_Banco").val(@Model.Id_Banco).change();
+
+            jQuery.ajaxSetup({ async: false });
+        });
+
+        GetMonedas(function (result) {
+            jQuery.ajaxSetup({ async: false });
+
+            $("#Id_Moneda").val(@Model.Id_Moneda).change();
 
             jQuery.ajaxSetup({ async: false });
         });

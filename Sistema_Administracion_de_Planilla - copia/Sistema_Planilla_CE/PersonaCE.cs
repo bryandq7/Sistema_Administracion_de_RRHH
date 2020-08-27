@@ -24,6 +24,8 @@ namespace Sistema_Planilla_CE
         public string Nombre_Distrito { get; set; }
         public int Id_Email { get; set; }
         public string Correo_Email { get; set; }
+        public int Id_Telefono { get; set; }
+        public string Numero_Telefono { get; set; }
 
         public int FKId_Direccion_Persona { get; set; }
 
@@ -45,12 +47,15 @@ namespace Sistema_Planilla_CE
 
         public int Id_Cuenta { get; set; }
         public string Numero_Cuenta { get; set; }
-        public string Moneda_Cuenta { get; set; }
+
         
         public int FKIdBanco_Cuenta { get; set; }
 
         public int Id_Banco { get; set; }
         public string Nombre_Banco { get; set; }
+
+        public int Id_Moneda { get; set; }
+        public string Nombre_Moneda { get; set; }
 
     }
 }

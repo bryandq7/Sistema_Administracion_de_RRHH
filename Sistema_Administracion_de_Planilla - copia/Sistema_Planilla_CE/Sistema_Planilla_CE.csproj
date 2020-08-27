@@ -138,6 +138,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
+    <Compile Include="Moneda.cs">
+      <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
+    </Compile>
     <Compile Include="PeriodoDePago.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>

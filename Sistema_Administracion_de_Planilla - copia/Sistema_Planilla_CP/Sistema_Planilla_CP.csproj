@@ -213,6 +213,7 @@
     <Compile Include="Controllers\ImpuestoRentaController.cs" />
     <Compile Include="Controllers\IncapacidadController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MonedaController.cs" />
     <Compile Include="Controllers\PeriodoDePagoController.cs" />
     <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="Controllers\ProvinciaController.cs" />
@@ -354,6 +355,7 @@
     <Content Include="Views\Concepto\EditarTiempo.cshtml" />
     <Content Include="Views\ImpuestoRenta\Index.cshtml" />
     <Content Include="Views\Email\ObtenerListaCorreosPersona.cshtml" />
+    <Content Include="Views\Email\Crear2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -364,6 +366,7 @@
     <Folder Include="Views\Distrito\" />
     <Folder Include="Views\Genero\" />
     <Folder Include="Views\ImpactaPlanilla\" />
+    <Folder Include="Views\Moneda\" />
     <Folder Include="Views\PeriodoDePago\" />
     <Folder Include="Views\Provincia\" />
     <Folder Include="Views\Roles\" />

@@ -1,9 +1,7 @@
 ﻿using Sistema_Planilla_CE;
 using Sistema_Planilla_CN;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Sistema_Planilla_CP.Controllers
@@ -55,7 +53,7 @@ namespace Sistema_Planilla_CP.Controllers
         {
             try
             {
-                CorreoCN.Crear(correo);
+                CorreoCN.CrearOtro(correo);
                 return Json(new { ok = true, toRedirect = Url.Action("ObtenerListaCorreosPersona", "Email", new { id_persona = correo.Id_Persona }) }, JsonRequestBehavior.AllowGet);
 
             }

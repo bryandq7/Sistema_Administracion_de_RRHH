@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Sistema_Planilla_CP.Controllers
 {
-    [Authorize(Roles = "Empleado, Administrador")]
+    //[Authorize(Roles = "Empleado, Administrador")]
     public class AspNetUsersController : Controller
     {
 

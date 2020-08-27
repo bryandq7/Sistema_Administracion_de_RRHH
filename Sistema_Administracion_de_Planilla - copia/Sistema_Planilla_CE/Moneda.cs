@@ -12,22 +12,18 @@ namespace Sistema_Planilla_CE
     using System;
     using System.Collections.Generic;
     
-    public partial class Cuenta
+    public partial class Moneda
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Cuenta()
+        public Moneda()
         {
-            this.Persona = new HashSet<Persona>();
+            this.Cuenta = new HashSet<Cuenta>();
         }
     
-        public int Id_Cuenta { get; set; }
-        public string Numero_Cuenta { get; set; }
-        public int FKIdBanco_Cuenta { get; set; }
-        public Nullable<int> FKId_Moneda_Cuenta { get; set; }
+        public int Id_Moneda { get; set; }
+        public string Nombre_Moneda { get; set; }
     
-        public virtual Banco Banco { get; set; }
-        public virtual Moneda Moneda { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Persona> Persona { get; set; }
+        public virtual ICollection<Cuenta> Cuenta { get; set; }
     }
 }

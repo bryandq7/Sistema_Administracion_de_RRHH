@@ -79,6 +79,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelRecursosHumanos.edmx</DependentUpon>
     </Compile>
+    <Compile Include="MonedaCD.cs" />
     <Compile Include="PeriodoDePagoCD.cs" />
     <Compile Include="PersonaCD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -90,7 +90,11 @@
                 </td>
                 <td>
                     <a class="btn btn-success btn-xm" title="Editar" href="@Url.Action("Editar", "Email",new { Id_Email=item.Id_Email  })"><i class="glyphicon glyphicon-pencil"></i></a>
-                    <a class="btn btn-danger btn-xm" onclick="EliminarCorreo(@item.Id_Email, @item.FKId_Persona_Email)" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+                    @if (item.Primario_Email == false)
+                    {
+                        <a class="btn btn-danger btn-xm" onclick="EliminarCorreo(@item.Id_Email, @item.FKId_Persona_Email)" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+                    }
+
                     @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                         @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                         @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@

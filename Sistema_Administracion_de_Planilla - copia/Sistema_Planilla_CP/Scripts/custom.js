@@ -119,6 +119,26 @@ function GetBancos(myCallback) {
 }
 
 
+function GetMonedas(myCallback) {
+    $.ajax({
+        type: "GET",
+        url: '/moneda/getmonedas',
+        dataType: "json",
+        success: function (result) {
+            $.each(result.data, function (key, item) {
+                $("#Id_Moneda").append('<option value=' + item.Id_Moneda + '>' + item.Nombre_Moneda + '</option>');
+            });
+
+            if (myCallback !== undefined)
+                return myCallback(result.data);
+        },
+        error: function (data) {
+            alert('error');
+        }
+    });
+}
+
+
 function GetGeneros(myCallback) {
     $.ajax({
         type: "GET",

@@ -21,9 +21,14 @@ namespace Sistema_Planilla_CN
             return obj.Crear(idPersona);
         }
 
-        public static void Crear(CorreoCE correo)
+        //public static void Crear(CorreoCE correo)
+        //{
+        //    obj.Crear(correo);
+        //}
+
+        public static void CrearOtro(CorreoCE correo)
         {
-            obj.Crear(correo);
+            obj.CrearOtro(correo);
         }
 
         public static CorreoCE Editar(int idCorreo)
