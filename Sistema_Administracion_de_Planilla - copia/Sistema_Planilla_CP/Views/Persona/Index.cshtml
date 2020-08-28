@@ -89,6 +89,7 @@
                     @Html.DisplayFor(modelItem => item.Correo_Email)
                 </td>*@
                 <td>
+                    <a class="btn btn-default btn-xm" title="Telefonos" href="@Url.Action("Add", "FotoPersona",new { Id_Persona=item.Id_Persona, Nombre_Persona = item.Nombre_Persona, Apellido1_Persona = item.Apellido1_Persona, Apellido2_Persona = item.Apellido2_Persona })"><i class="glyphicon glyphicon-camera"></i></a>
                     <a class="btn btn-primary btn-xm" title="Telefonos" href="@Url.Action("ObtenerListaTelefonosPersona", "Telefono",new { Id_Persona=item.Id_Persona, Nombre_Persona = item.Nombre_Persona, Apellido1_Persona = item.Apellido1_Persona, Apellido2_Persona = item.Apellido2_Persona })"><i class="glyphicon glyphicon-earphone"></i></a>
                     <a class="btn btn-warning btn-xm" title="Correos" href="@Url.Action("ObtenerListaCorreosPersona", "Email",new { Id_Persona=item.Id_Persona, Nombre_Persona = item.Nombre_Persona, Apellido1_Persona = item.Apellido1_Persona, Apellido2_Persona = item.Apellido2_Persona })"><i class="glyphicon glyphicon-envelope"></i></a>
                     @*<a class="btn btn-primary btn-xm" onclick="AgregaroListarTelefonos(@item.Id_Persona)" title="Telefonos"><i class="glyphicon glyphicon-earphone"></i></a>*@

@@ -56,6 +56,7 @@
     <Compile Include="DireccionCN.cs" />
     <Compile Include="DistritoCN.cs" />
     <Compile Include="EmpleadoCN.cs" />
+    <Compile Include="FotoPersonaCN.cs" />
     <Compile Include="GeneroCN.cs" />
     <Compile Include="ImpactaPlanillaCN.cs" />
     <Compile Include="ImpuestoRentaCN.cs" />

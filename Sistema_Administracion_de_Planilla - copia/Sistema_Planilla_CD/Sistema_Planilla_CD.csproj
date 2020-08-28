@@ -65,6 +65,7 @@
     <Compile Include="DireccionCD.cs" />
     <Compile Include="DistritoCD.cs" />
     <Compile Include="EmpleadoCD.cs" />
+    <Compile Include="FotoPersonaCD.cs" />
     <Compile Include="GeneroCD.cs" />
     <Compile Include="ImpactaPlanillaCD.cs" />
     <Compile Include="ImpuestoRentaCD.cs" />

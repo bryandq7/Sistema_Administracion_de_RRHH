@@ -1,0 +1,99 @@
+﻿@model Sistema_Planilla_CE.FotoPersonaCE
+
+@{
+    ViewBag.Title = "DetallesFoto";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<h2>DetallesFoto</h2>
+
+<div>
+    <h4>FotoPersonaCE</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Id_Persona)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id_Persona)
+        </dd>*@
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Nombre_Persona)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre_Persona)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Apellido1_Persona)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Apellido1_Persona)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Apellido2_Persona)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Apellido2_Persona)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreCompleto_Persona)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreCompleto_Persona)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Id_FotoPersona)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id_FotoPersona)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Foto_FotoPersona)
+        </dt>
+
+        <dd>
+            <img src="@Url.Content(Model.Foto_FotoPersona)" width="250" height="250"/>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Titulo_FotoPersona)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titulo_FotoPersona)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.FKId_Persona_FotoPersona)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FKId_Persona_FotoPersona)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Primario_FotoPersona)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Primario_FotoPersona)
+        </dd>*@
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Editar", new { idpersona = Model.Id_Persona }) |
+    @Html.ActionLink("Regresar a Lista de Personas", "Index", "Persona")
+</p>

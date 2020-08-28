@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -117,6 +118,7 @@
     <Compile Include="FotoPersona.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>
+    <Compile Include="FotoPersonaCE.cs" />
     <Compile Include="Genero.cs">
       <DependentUpon>ModelRecursosHumanos.tt</DependentUpon>
     </Compile>

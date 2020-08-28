@@ -66,7 +66,7 @@ namespace Sistema_Planilla_CP.Controllers
 
         public ActionResult Editar(int Id_Email)
         {
-            var correo = TelefonoCN.Editar(Id_Email);
+            var correo = CorreoCN.Editar(Id_Email);
             return View(correo);
         }
 
