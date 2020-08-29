@@ -141,7 +141,7 @@
           <Property Name="Id_Cuenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Numero_Cuenta" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="FKIdBanco_Cuenta" Type="int" Nullable="false" />
-          <Property Name="FKId_Moneda_Cuenta" Type="int" />
+          <Property Name="FKId_Moneda_Cuenta" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Curso">
           <Key>
@@ -213,7 +213,6 @@
           <Property Name="Foto_FotoPersona" Type="varchar(max)" Nullable="false" />
           <Property Name="Titulo_FotoPersona" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="FKId_Persona_FotoPersona" Type="int" Nullable="false" />
-          <Property Name="Primario_FotoPersona" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Genero">
           <Key>
@@ -588,7 +587,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Cuenta_Moneda">
-          <End Role="Moneda" Type="Self.Moneda" Multiplicity="0..1" />
+          <End Role="Moneda" Type="Self.Moneda" Multiplicity="1" />
           <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Moneda">
@@ -1639,7 +1638,7 @@
           <Property Name="Id_Cuenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Numero_Cuenta" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="FKIdBanco_Cuenta" Type="Int32" Nullable="false" />
-          <Property Name="FKId_Moneda_Cuenta" Type="Int32" />
+          <Property Name="FKId_Moneda_Cuenta" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Banco" Relationship="RecursosHumanosDBModel.FK_Cuenta_Banco" FromRole="Cuenta" ToRole="Banco" />
           <NavigationProperty Name="Moneda" Relationship="RecursosHumanosDBModel.FK_Cuenta_Moneda" FromRole="Cuenta" ToRole="Moneda" />
           <NavigationProperty Name="Persona" Relationship="RecursosHumanosDBModel.FK_Persona_Cuenta" FromRole="Cuenta" ToRole="Persona" />
@@ -1736,7 +1735,6 @@
           <Property Name="Foto_FotoPersona" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Titulo_FotoPersona" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="FKId_Persona_FotoPersona" Type="Int32" Nullable="false" />
-          <Property Name="Primario_FotoPersona" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Persona" Relationship="RecursosHumanosDBModel.FK_FotoPersona_Persona" FromRole="FotoPersona" ToRole="Persona" />
         </EntityType>
         <EntityType Name="Genero">
@@ -2244,7 +2242,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Cuenta_Moneda">
-          <End Type="RecursosHumanosDBModel.Moneda" Role="Moneda" Multiplicity="0..1" />
+          <End Type="RecursosHumanosDBModel.Moneda" Role="Moneda" Multiplicity="1" />
           <End Type="RecursosHumanosDBModel.Cuenta" Role="Cuenta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Moneda">
@@ -2796,7 +2794,6 @@
           <EntitySetMapping Name="FotoPersona">
             <EntityTypeMapping TypeName="RecursosHumanosDBModel.FotoPersona">
               <MappingFragment StoreEntitySet="FotoPersona">
-                <ScalarProperty Name="Primario_FotoPersona" ColumnName="Primario_FotoPersona" />
                 <ScalarProperty Name="FKId_Persona_FotoPersona" ColumnName="FKId_Persona_FotoPersona" />
                 <ScalarProperty Name="Titulo_FotoPersona" ColumnName="Titulo_FotoPersona" />
                 <ScalarProperty Name="Foto_FotoPersona" ColumnName="Foto_FotoPersona" />

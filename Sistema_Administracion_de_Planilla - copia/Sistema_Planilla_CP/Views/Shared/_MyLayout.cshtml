@@ -239,6 +239,63 @@
                 font-size: 150px;
             }
         }
+
+
+
+
+
+
+
+
+
+
+        .dropdown-submenu {
+            position: relative;
+        }
+
+            .dropdown-submenu > .dropdown-menu {
+                top: 0;
+                left: 100%;
+                margin-top: -6px;
+                margin-left: -1px;
+                -webkit-border-radius: 0 6px 6px 6px;
+                -moz-border-radius: 0 6px 6px;
+                border-radius: 0 6px 6px 6px;
+            }
+
+            .dropdown-submenu:hover > .dropdown-menu {
+                display: block;
+            }
+
+            .dropdown-submenu > a:after {
+                display: block;
+                content: " ";
+                float: right;
+                width: 0;
+                height: 0;
+                border-color: transparent;
+                border-style: solid;
+                border-width: 5px 0 5px 5px;
+                border-left-color: #ccc;
+                margin-top: 5px;
+                margin-right: -10px;
+            }
+
+            .dropdown-submenu:hover > a:after {
+                border-left-color: #fff;
+            }
+
+            .dropdown-submenu.pull-left {
+                float: none;
+            }
+
+                .dropdown-submenu.pull-left > .dropdown-menu {
+                    left: -100%;
+                    margin-left: 10px;
+                    -webkit-border-radius: 6px 0 6px 6px;
+                    -moz-border-radius: 6px 0 6px 6px;
+                    border-radius: 6px 0 6px 6px;
+                }
     </style>
     <link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
     <link href="~/Content/jquery-confirm.min.css" rel="stylesheet" />
@@ -296,18 +353,88 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 Mantenimientos <span class="caret"></span>
                             </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">@Html.ActionLink("Empleados", "Index", "Empleado")</a></li>
-                                <li><a href="#">@Html.ActionLink("Contratos", "Index", "Contrato")</a></li>
-                                <li><a href="#">@Html.ActionLink("Personas", "Index", "Persona")</a></li>
-                                <li><a href="#">@Html.ActionLink("Departamentos", "Index", "Departamento")</a></li>
-                                <li><a href="#">@Html.ActionLink("Cargos", "Index", "Cargo")</a></li>
-                                <li><a href="#">@Html.ActionLink("Usuarios", "Index", "Usuario")</a></li>
-                                <li><a href="#">@Html.ActionLink("Tipos de Solicitud", "Index", "TipoSolicitud")</a></li>
-                                <li><a href="#">@Html.ActionLink("Tipos de Contrato", "Index", "TipoContrato")</a></li>
-                                <li><a href="#">@Html.ActionLink("Conceptos", "Index", "Concepto")</a></li>
-                                <li><a href="#">@Html.ActionLink("Bancos", "Index", "Banco")</a></li>
+                            <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+
+                                <li class="divider"></li>
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-1" href="#">Personas y Empleados</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">@Html.ActionLink("Personas", "Index", "Persona")</a></li>
+                                        <li><a href="#">@Html.ActionLink("Empleados", "Index", "Empleado")</a></li>
+                                        <li><a href="#">@Html.ActionLink("Departamentos", "Index", "Departamento")</a></li>
+                                        <li><a href="#">@Html.ActionLink("Bancos", "Index", "Banco")</a></li>
+                                    </ul>
+
+
+                                <li class="divider"></li>
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-2" href="#">Conceptos</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">@Html.ActionLink("Conceptos", "Index", "Concepto")</a></li>
+                                    </ul>
+
+
+                                <li class="divider"></li>
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-3" href="#">Tipos de Solicitud</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">@Html.ActionLink("Tipos de Solicitud", "Index", "TipoSolicitud")</a></li>
+                                    </ul>
+
+
+                                <li class="divider"></li>
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-4" href="#">Contratos</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">@Html.ActionLink("Contratos", "Index", "Contrato")</a></li>
+                                        <li><a href="#">@Html.ActionLink("Cargos", "Index", "Cargo")</a></li>
+                                    </ul>
+
                             </ul>
+
+
+                            @*<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+
+                                <li class="divider"></li>
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-2" href="#">Conceptos</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">@Html.ActionLink("Conceptos", "Index", "Concepto")</a></li>
+                                    </ul>
+                            </ul>*@
+
+
+                            @*<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+
+                                <li class="divider"></li>
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-3" href="#">Tipos de Solicitud</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">@Html.ActionLink("Tipos de Solicitud", "Index", "TipoSolicitud")</a></li>
+                                    </ul>
+                            </ul>*@
+
+
+                            @*<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+
+                                <li class="divider"></li>
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-4" href="#">Contratos</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">@Html.ActionLink("Contratos", "Index", "Contrato")</a></li>
+                                        <li><a href="#">@Html.ActionLink("Cargos", "Index", "Cargo")</a></li>
+                                    </ul>
+                            </ul>*@
+
+
+
+
+
+                            @*<li><a href="#">@Html.ActionLink("Usuarios", "Index", "Usuario")</a></li>
+
+                                <li><a href="#">@Html.ActionLink("Tipos de Contrato", "Index", "TipoContrato")</a></li>*@
+
+
                         </li>
 
                         <li class="dropdown">

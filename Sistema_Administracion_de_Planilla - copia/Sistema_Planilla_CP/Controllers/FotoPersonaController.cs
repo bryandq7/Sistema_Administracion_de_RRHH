@@ -11,6 +11,28 @@ namespace Sistema_Planilla_CP.Controllers
 {
     public class FotoPersonaController : Controller
     {
+
+        public ActionResult IrFotosPersona(int Id_Persona, string Nombre_Persona, string Apellido1_Persona, string Apellido2_Persona)
+        {
+
+            var fotopersona = FotoPersonaCN.ObtenerListaFotosPersona(Id_Persona);
+            bool isEmpty = !fotopersona.Any();
+
+            if (isEmpty)
+            {
+                return RedirectToAction("Add", "FotoPersona", new { Id_Persona = Id_Persona, Nombre_Persona = Nombre_Persona, Apellido1_Persona = Apellido1_Persona, Apellido2_Persona = Apellido2_Persona });
+
+            }
+            else
+            {
+                return RedirectToAction("DetallesFoto", "FotoPersona", new { idpersona = Id_Persona });
+            }
+
+
+        }
+
+
+
         // GET: FotoPersona
         public ActionResult Add(int Id_Persona, string Nombre_Persona, string Apellido1_Persona, string Apellido2_Persona)
         {
@@ -23,6 +45,10 @@ namespace Sistema_Planilla_CP.Controllers
         {
             try
             {
+
+                var fotopersona = FotoPersonaCN.ObtenerListaFotosPersona(foto.Id_Persona);
+                bool isEmpty = !fotopersona.Any();
+
                 string fileName = Path.GetFileNameWithoutExtension(foto.ImageFile.FileName);
                 string extension = Path.GetExtension(foto.ImageFile.FileName);
                 fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
@@ -34,7 +60,8 @@ namespace Sistema_Planilla_CP.Controllers
                 FotoPersonaCN.Crear(foto);
                 //return Json(new { ok = true, toRedirect = Url.Action("DetallesFoto", "FotoPersona", new { id_persona = foto.Id_Persona }) }, JsonRequestBehavior.AllowGet);
 
-                return RedirectToAction("DetallesFoto", "FotoPersona", new { idpersona= foto.Id_Persona });
+                return RedirectToAction("DetallesFoto", "FotoPersona", new { idpersona = foto.Id_Persona });
+
             }
             catch (Exception ex)
             {

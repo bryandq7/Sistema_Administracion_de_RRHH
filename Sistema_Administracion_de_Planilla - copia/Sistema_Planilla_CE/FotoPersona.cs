@@ -18,7 +18,6 @@ namespace Sistema_Planilla_CE
         public string Foto_FotoPersona { get; set; }
         public string Titulo_FotoPersona { get; set; }
         public int FKId_Persona_FotoPersona { get; set; }
-        public bool Primario_FotoPersona { get; set; }
     
         public virtual Persona Persona { get; set; }
     }

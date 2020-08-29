@@ -297,7 +297,7 @@ namespace Sistema_Planilla_CD
             {
 
                 var origenuser = db.AspNetUsers.Find(id_usuario);
-                origenuser.PasswordHash= "Invalido123?";
+                origenuser.PasswordHash= "AF1yDASQS5CFXsuQCSI0qbBlxD3uoKHAMnK/SVpCpCXpohO25uZwPxlHKpFlasuxwA==";
                 //var usuario = db.AspNetUsers
                 //    .Where(e => e.Id == id_usuario)
                 //    .FirstOrDefault();

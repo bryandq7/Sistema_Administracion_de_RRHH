@@ -51,7 +51,7 @@ namespace Sistema_Planilla_CP.Controllers
 
                 var maxIdImpuesto = ImpuestoRentaCN.ObtenerMaxIdImpuestoRenta();
 
-                if (customer.Id_ImpuestoRenta == maxIdImpuesto && customer.MontoMaximo_ImpuestoRenta != null)
+                if (customer.Id_ImpuestoRenta == maxIdImpuesto && customer.MontoMaximo_ImpuestoRenta != 99999999)
                 {
 
                     return Json(new { ok = false, msg = "El campo de Monto Máximo para esta  linea debe estar vacío", toRedirect = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
@@ -72,7 +72,7 @@ namespace Sistema_Planilla_CP.Controllers
 
                 }
 
-                if (customer.Id_ImpuestoRenta < maxIdImpuesto && customer.MontoMaximo_ImpuestoRenta == null)
+                if (customer.Id_ImpuestoRenta < maxIdImpuesto && customer.MontoMaximo_ImpuestoRenta == 0)
                 {
   
                     return Json(new { ok = false, msg = "El Monto Máximo no puede ser nulo o vacío", toRedirect = Url.Action("Index") }, JsonRequestBehavior.AllowGet);

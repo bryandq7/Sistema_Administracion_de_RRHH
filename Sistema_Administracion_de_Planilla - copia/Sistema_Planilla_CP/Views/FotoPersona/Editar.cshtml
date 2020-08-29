@@ -70,8 +70,8 @@
         <div class="form-group">
             <label class="control-label col-md-2">Título de Foto </label>
             <div class="col-md-10">
-                <input type="text" class="form-control" name="Titulo_FotoPersona"
-                       value="@Model.Titulo_FotoPersona" placeholder="Ingrese Título de Foto" disabled />
+                <input type="text" class="form-control" name="Titulo_FotoPersona" id="Titulo_FotoPersona"
+                       value="@Model.Titulo_FotoPersona" placeholder="Ingrese Título de Foto"/>
                 @Html.ValidationMessageFor(model => model.Titulo_FotoPersona, "", new { @class = "text-danger" })
             </div>
         </div>

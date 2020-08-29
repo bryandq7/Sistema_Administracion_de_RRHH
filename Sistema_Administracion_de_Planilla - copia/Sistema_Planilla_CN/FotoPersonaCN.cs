@@ -29,5 +29,10 @@ namespace Sistema_Planilla_CN
             obj.Editar(foto);
         }
 
+        public static List<FotoPersonaCE> ObtenerListaFotosPersona(int Id_Persona)
+        {
+            return obj.ObtenerListaFotosPersona(Id_Persona);
+        }
+
     }
 }
