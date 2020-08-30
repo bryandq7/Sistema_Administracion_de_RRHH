@@ -1,6 +1,7 @@
 ﻿using Sistema_Planilla_CE;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,8 +63,28 @@ namespace Sistema_Planilla_CD
             }
         }
 
+        public bool ExisteAsignacionusuario(string usuarioId)
+        {
+            using (var db = new RecursosHumanosDBContext())
+            {
+                var ExisteAsignacionrolusuario = db.AspNetUserRoles
+                    .Any(p => p.UserId == usuarioId);
+                return ExisteAsignacionrolusuario;
+            }
+        }
+
         public void AsignarRolUsuario(string usuarioId, string rolId)
         {
+            var rolusuario2 = new AspNetUserRoles();
+            bool existerolusuario = ExisteAsignacionusuario(usuarioId);
+
+            if (existerolusuario == true)
+            {
+                rolusuario2 = ObtenerUserRole(usuarioId);
+            }
+
+
+
             var rolusuario = new AspNetUserRoles
             {
                 UserId = usuarioId,
@@ -73,9 +94,29 @@ namespace Sistema_Planilla_CD
             {
                 db.AspNetUserRoles.Add(rolusuario);
                 db.SaveChanges();
-
-
+                if (existerolusuario == true)
+                {
+                    EliminarAsignacionRolUsuario(rolusuario2.UserId, rolusuario2.RoleId);
+                }
             }
+
+
+
+        }
+
+
+        public AspNetUserRoles ObtenerUserRole(string usuarioId)
+        {
+
+            string sql = @"select *
+                from AspNetUserRoles ur 
+				where ur.UserId = @Cod_Usuario";
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                return db.Database.SqlQuery<AspNetUserRoles>(sql, new SqlParameter("@Cod_Usuario", usuarioId)).FirstOrDefault();
+            }
+
         }
 
         public List<AspNetUserRolesCE> ListarAsignacionesrolusuario()

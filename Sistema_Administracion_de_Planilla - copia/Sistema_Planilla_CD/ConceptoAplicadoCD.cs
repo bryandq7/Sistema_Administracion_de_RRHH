@@ -17,7 +17,7 @@ namespace Sistema_Planilla_CD
                              p.Apellido1_Persona+' '+p.Apellido2_Persona+' ,'+ p.Nombre_Persona As NombreCompleto_Persona,c.Id_Concepto,c.Nombre_Concepto,
                              c.Editable_Concepto,c.FKId_TipoConcepto_Concepto,c.FKId_DestinatarioConcepto_Concepto,c.FKId_ImpactaPlanilla_Concepto,
                              c.FKId_ClaseConcepto_Concepto,pp.Id_PeriodoDePago,pp.Periodo_PeriododDePago,ct.Id_Contrato,ct.SalarioBruto_Contrato,
-                             ct.FechaInicio_Contrato,ct.FechaFin_Contrato,ct.FKId_TipoContrato_Contrato,ct.FKId_Empleado_Contrato,ct.Activo_Contrato,
+                             ct.FechaInicio_Contrato,ct.FKId_Empleado_Contrato,ct.Activo_Contrato,
                              ct.SalarioBrutoPorDia_Contrato,ct.SalarioBrutoPorHora_Contrato,ct.SalarioBrutoQuincenal_Contrato,cc.Id_ClaseConcepto,cc.Detalle_ClaseConcepto,
                              tc.Id_TipoConcepto,tc.Detalle_TipoConcepto,ca.Fecha_ConceptoAplicado
                             from ConceptoAplicado ca 

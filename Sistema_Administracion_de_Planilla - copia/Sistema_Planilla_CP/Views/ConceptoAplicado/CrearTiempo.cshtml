@@ -72,7 +72,13 @@
             </div>
         </div>
 
+        <div class="form-group">
 
+            <div class="col-md-10">
+                <input type="hidden" class="form-control" id="Id_TipoConcepto" name="Id_TipoConcepto" value="3" />
+                @Html.ValidationMessageFor(model => model.Id_TipoConcepto, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         @*<div class="form-group">
             @Html.LabelFor(model => model.Id_ConceptoAplicado, htmlAttributes: new { @class = "control-label col-md-2" })

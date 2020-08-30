@@ -80,11 +80,19 @@ namespace Sistema_Planilla_CP.Controllers
 
                 var fechaperiodoposterior = periodoposterior.Periodo_PeriododDePago;
 
-                if (concepto.Fecha_ConceptoAplicado<fechaperiodoanterior || concepto.Fecha_ConceptoAplicado > fechaperiodoposterior)
-                    return Json(new { ok = false, msg = "La fecha elegida está fuera del periodo de pago actual" }, JsonRequestBehavior.AllowGet);
+                //if ((concepto.Fecha_ConceptoAplicado<fechaperiodoanterior || concepto.Fecha_ConceptoAplicado > fechaperiodoposterior) && concepto.Id_TipoConcepto >= 3)
+                //    return Json(new { ok = false, msg = "La fecha elegida está fuera del periodo de pago actual" }, JsonRequestBehavior.AllowGet);
 
 
-                //System.Threading.Thread.Sleep(5000);
+                ////System.Threading.Thread.Sleep(5000);
+                ///
+
+                if (concepto.Id_TipoConcepto <= 2)
+                {
+                    concepto.Fecha_ConceptoAplicado = DateTime.Today;
+
+                }
+
                 concepto.Procesado_ConceptoAplicado = false;
 
                 var periodopago = PeriodoDePagoCN.ObtenerPeriododePago().FirstOrDefault();
