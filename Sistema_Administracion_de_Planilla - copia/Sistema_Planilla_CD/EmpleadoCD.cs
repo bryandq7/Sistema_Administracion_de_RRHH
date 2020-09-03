@@ -45,6 +45,21 @@ namespace Sistema_Planilla_CD
             }
         }
 
+        public List<EmpleadoCE> ListarEmpleadosContratoVigentePlanilla()
+        {
+            string sql = @"select p.Id_Persona,p.Nombre_Persona+' '+p.Apellido1_Persona+' '+p.Apellido2_Persona as NombreCompletoPersona,
+				            c.Id_Contrato,c.FechaInicio_Contrato,c.Activo_Contrato,e.Id_Empleado
+                            from Empleado e  
+                            inner join Persona p on e.FKId_Persona_Empleado = p.Id_Persona
+				            inner join Contrato c on c.FKId_Empleado_Contrato = e.Id_Empleado
+                            where e.Activo_Empleado = 1 and c.Activo_Contrato =1 and c.FechaInicio_Contrato<=GetDate() and e.SinGoceSalarial_Empleado=0";
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                return db.Database.SqlQuery<EmpleadoCE>(sql).ToList();
+            }
+        }
+
         public bool ExisteEmpleado(int personaID)
         {
             using (var db = new RecursosHumanosDBContext())
@@ -95,7 +110,7 @@ namespace Sistema_Planilla_CD
                 SalarioBrutoPorDia_Contrato = empleado.SalarioBruto_Contrato/30,
                 SalarioBrutoPorHora_Contrato = (empleado.SalarioBruto_Contrato / 30)/8,
                 SalarioBrutoQuincenal_Contrato = empleado.SalarioBruto_Contrato /2,
-                Activo_Contrato = true
+                Activo_Contrato = false
 
             };
 

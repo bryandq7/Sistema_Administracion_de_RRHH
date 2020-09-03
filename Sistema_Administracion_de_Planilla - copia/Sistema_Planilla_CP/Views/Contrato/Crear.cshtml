@@ -298,7 +298,7 @@
                 return false;
             }
 
-            if (!confirm("Esta acción desactivará el actual contrato; creará y asignará un contrato nuevo a este empleado")) {
+            if (!confirm("Está seguro de crear un nuevo contrato para este empleado?")) {
                 alert("Acción Cancelada");
                 return false;
             } 
@@ -320,7 +320,7 @@
                 console.log(response);
                 LoadingOverlayHide("#frmContrato");
                 if (response.ok) {
-                    alert("Contrato creado correctamente.");
+                    alert("Contrato creado correctamente. Recuerde que los contratos serán activados hasta el día que entren en vigencia según su fecha de inicio");
                     window.location = response.toRedirect;
                 }
                 else {

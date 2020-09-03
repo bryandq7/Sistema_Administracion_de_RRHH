@@ -64,6 +64,7 @@
     <Compile Include="MonedaCN.cs" />
     <Compile Include="PeriodoDePagoCN.cs" />
     <Compile Include="PersonaCN.cs" />
+    <Compile Include="PlanillaCN.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProvinciaCN.cs" />
     <Compile Include="TelefonoCN.cs" />

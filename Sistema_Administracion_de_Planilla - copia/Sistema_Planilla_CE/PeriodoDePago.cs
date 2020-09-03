@@ -25,6 +25,7 @@ namespace Sistema_Planilla_CE
         public int Id_PeriodoDePago { get; set; }
         public System.DateTime Periodo_PeriododDePago { get; set; }
         public bool ActivoPeriodo_PeriododDePago { get; set; }
+        public bool Procesado_PeriododDePago { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ConceptoAplicado> ConceptoAplicado { get; set; }

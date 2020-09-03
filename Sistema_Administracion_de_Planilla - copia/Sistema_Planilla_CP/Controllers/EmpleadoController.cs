@@ -49,6 +49,27 @@ namespace Sistema_Planilla_CP.Controllers
                 ////System.Threading.Thread.Sleep(5000);
                 //cargo.FechaActualizacion_Cargo = DateTime.Now;
                 EmpleadoCN.Crear(empleado);
+
+                var listacontratos = ContratoCN.CargarContratos();
+
+                if (listacontratos.Any())
+                {
+                    foreach (var contrato in listacontratos)
+                    {
+
+                        var contratoactivoexiste = ContratoCN.ObtenerContratoActivo(contrato.FKId_Empleado_Contrato);
+
+                        if (contratoactivoexiste == true)
+                        {
+                            var contratoactivo = ContratoCN.ObtenerObjetoContratoActivo(contrato.FKId_Empleado_Contrato);
+                            ContratoCN.EditarDesactivar(contratoactivo);
+
+                        }
+
+                        ContratoCN.EditarActivar(contrato);
+                    }
+                }
+
                 return Json(new { ok = true, toRedirect = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
                 //return RedirectToAction("Index");
             }

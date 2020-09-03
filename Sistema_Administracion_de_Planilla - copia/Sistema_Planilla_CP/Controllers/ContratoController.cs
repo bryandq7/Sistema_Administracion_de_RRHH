@@ -13,6 +13,7 @@ namespace Sistema_Planilla_CP.Controllers
         // GET: Contrato
         public ActionResult Index()
         {
+            CargarContratos();
             var contratos = ContratoCN.ListarContratos();
             return View(contratos);
         }
@@ -28,11 +29,14 @@ namespace Sistema_Planilla_CP.Controllers
         {
             try
             {
-                //if (ContratoCN.ExisteEmpleado(contrato.Id_Persona) > 0 && ContratoCN.ObtenerEmpleadoActivo(contrato.Id_Persona) ==false)
-                //    return Json(new { ok = false, msg = "Debe cambiar el status de empleado a Activo para hacer cambio de contrato en este empleado" }, JsonRequestBehavior.AllowGet);
+                if (contrato.FechaInicio_Contrato < DateTime.Today)
+                    return Json(new { ok = false, msg = "La fecha de inicio del contrato no puede estar en el pasado" }, JsonRequestBehavior.AllowGet);
 
-                ////System.Threading.Thread.Sleep(5000);
-                //cargo.FechaActualizacion_Cargo = DateTime.Now;
+
+                var idempleado = ContratoCN.ObtenerIdEmpleado(contrato.Id_Persona);
+                if (ContratoCN.ExisteContratoFecha(idempleado, contrato.FechaInicio_Contrato) == true)
+                    return Json(new { ok = false, msg = "Ya existe un contrato asignado para este empleado con esta fecha de inicio" }, JsonRequestBehavior.AllowGet);
+
                 ContratoCN.Crear(contrato);
                 return Json(new { ok = true, toRedirect = Url.Action("Index") }, JsonRequestBehavior.AllowGet);
 
@@ -78,5 +82,42 @@ namespace Sistema_Planilla_CP.Controllers
                 return Json(new { ok = false, msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult CargarContratos()
+        {
+            try
+            {
+                var listacontratos = ContratoCN.CargarContratos();
+
+                if (listacontratos.Any())
+                {
+                    foreach (var contrato in listacontratos)
+                    {
+
+                        var contratoactivoexiste = ContratoCN.ObtenerContratoActivo(contrato.FKId_Empleado_Contrato);
+
+                        if (contratoactivoexiste == true)
+                        {
+                            var contratoactivo = ContratoCN.ObtenerObjetoContratoActivo(contrato.FKId_Empleado_Contrato);
+                            ContratoCN.EditarDesactivar(contratoactivo);
+       
+                        }
+
+                        ContratoCN.EditarActivar(contrato);
+                    }
+                }
+
+                //return RedirectToAction("Iniciar sesión", "Login", "Account");
+
+                return Json(new { ok = true, toRedirect = Url.Action("Index", "Home") }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ok = false, msg = ex.Message }, JsonRequestBehavior.AllowGet);
+                //return Json(new { ok = false, msg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
     }
 }

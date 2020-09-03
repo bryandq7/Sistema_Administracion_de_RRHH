@@ -52,7 +52,6 @@ namespace Sistema_Planilla_CE
         public virtual DbSet<Liquidacion> Liquidacion { get; set; }
         public virtual DbSet<LogSolicitud> LogSolicitud { get; set; }
         public virtual DbSet<Moneda> Moneda { get; set; }
-        public virtual DbSet<PeriodoDePago> PeriodoDePago { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
         public virtual DbSet<Planilla> Planilla { get; set; }
         public virtual DbSet<PlanillaDetalle> PlanillaDetalle { get; set; }
@@ -68,5 +67,6 @@ namespace Sistema_Planilla_CE
         public virtual DbSet<TipoSolicitud> TipoSolicitud { get; set; }
         public virtual DbSet<Turnos> Turnos { get; set; }
         public virtual DbSet<Vacaciones> Vacaciones { get; set; }
+        public virtual DbSet<PeriodoDePago> PeriodoDePago { get; set; }
     }
 }

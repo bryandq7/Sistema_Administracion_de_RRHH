@@ -42,17 +42,26 @@ namespace Sistema_Planilla_CD
             }
         }
 
-        //public bool ObtenerEmpleadoActivo(int personaID)
-        //{
-        //    using (var db = new RecursosHumanosDBContext())
-        //    {
-        //        var empleado = db.Empleado
-        //            .Any(p => p.FKId_Persona_Empleado == personaID && p.Activo_Empleado == true && p.FKId_StatusEmpleado== 1);
+        public bool ObtenerContratoActivo(int empleadoID)
+        {
+            using (var db = new RecursosHumanosDBContext())
+            {
+                var activo = db.Contrato
+                    .Any(p => p.FKId_Empleado_Contrato== empleadoID && p.Activo_Contrato == true);
+                return activo;
+            }
+        }
 
 
-        //        return empleado;
-        //    }
-        //}
+        public bool ExisteContratoFecha(int empleadoID, DateTime fechacontrato)
+        {
+            using (var db = new RecursosHumanosDBContext())
+            {
+                var activo = db.Contrato
+                    .Any(p => p.FKId_Empleado_Contrato == empleadoID && p.FechaInicio_Contrato == fechacontrato);
+                return activo;
+            }
+        }
 
         //public int ExisteEmpleado(int personaID)
         //{
@@ -83,7 +92,7 @@ namespace Sistema_Planilla_CD
                 SalarioBrutoPorDia_Contrato = contrato1.SalarioBruto_Contrato / 30,
                 SalarioBrutoPorHora_Contrato = (contrato1.SalarioBruto_Contrato / 30)/ 8,
                 SalarioBrutoQuincenal_Contrato = contrato1.SalarioBruto_Contrato / 2,
-                Activo_Contrato = true
+                Activo_Contrato = false
             };
 
             using (var db = new RecursosHumanosDBContext())
@@ -92,13 +101,13 @@ namespace Sistema_Planilla_CD
                 db.SaveChanges();
             }
 
-            using (var db = new RecursosHumanosDBContext())
-            {
-                var origen = db.Contrato
-                .First(p => p.FKId_Empleado_Contrato == idempleado && p.Activo_Contrato == true );
-                origen.Activo_Contrato = false;
-                db.SaveChanges();
-            }
+            //using (var db = new RecursosHumanosDBContext())
+            //{
+            //    var origen = db.Contrato
+            //    .First(p => p.FKId_Empleado_Contrato == idempleado && p.Activo_Contrato == true );
+            //    origen.Activo_Contrato = false;
+            //    db.SaveChanges();
+            //}
 
 
         }
@@ -125,6 +134,45 @@ namespace Sistema_Planilla_CD
         }
 
 
+        public ContratoCE ObtenerObjetoContratoActivo(int idempleado)
+        {
+
+            string sql = @"select c.Id_Contrato,c.SalarioBruto_Contrato,c.FechaInicio_Contrato,c.FKId_Empleado_Contrato,
+				                c.FKId_Cargo_Contrato,c.Activo_Contrato,c.FKId_Turno_Contrato,c.SalarioBrutoPorDia_Contrato,
+				                c.SalarioBrutoPorHora_Contrato,c.SalarioBrutoQuincenal_Contrato
+                                from Contrato c  
+                                inner join Empleado e on c.FKId_Empleado_Contrato = e.Id_Empleado
+                                where c.Activo_Contrato = 1 and c.FKId_Empleado_Contrato =@Cod_Empleado";
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                return db.Database.SqlQuery<ContratoCE>(sql, new SqlParameter("@Cod_Empleado", idempleado)).FirstOrDefault();
+            }
+
+        }
+
+
+        public void EditarDesactivar(ContratoCE contrato)
+        {
+            using (var db = new RecursosHumanosDBContext())
+            {
+                var origen = db.Contrato.Find(contrato.Id_Contrato);
+                origen.Activo_Contrato = false;
+                db.SaveChanges();
+            }
+        }
+
+        public void EditarActivar(ContratoCE contrato)
+        {
+            using (var db = new RecursosHumanosDBContext())
+            {
+                var origen = db.Contrato.Find(contrato.Id_Contrato);
+                origen.Activo_Contrato = true;
+                db.SaveChanges();
+            }
+        }
+
+
         public void Editar(ContratoCE contrato)
         {
             using (var db = new RecursosHumanosDBContext())
@@ -137,6 +185,22 @@ namespace Sistema_Planilla_CD
                 origen.SalarioBrutoPorHora_Contrato = (contrato.SalarioBruto_Contrato / 30)/ 8;
                 origen.SalarioBrutoQuincenal_Contrato = contrato.SalarioBruto_Contrato / 2;
                 db.SaveChanges();
+            }
+        }
+
+
+        public List<ContratoCE> CargarContratosporActivarHoy()
+        {
+            string sql = @"select c.Id_Contrato,c.SalarioBruto_Contrato,c.FechaInicio_Contrato,c.FKId_Empleado_Contrato,
+				                c.FKId_Cargo_Contrato,c.Activo_Contrato,c.FKId_Turno_Contrato,c.SalarioBrutoPorDia_Contrato,
+				                c.SalarioBrutoPorHora_Contrato,c.SalarioBrutoQuincenal_Contrato
+                                from Contrato c  
+                                inner join Empleado e on c.FKId_Empleado_Contrato = e.Id_Empleado
+                                where c.Activo_Contrato = 0 and e.Activo_Empleado = 1 and  FORMAT(c.FechaInicio_Contrato, 'yyyy-MM-dd') = FORMAT(GetDate(), 'yyyy-MM-dd')";
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                return db.Database.SqlQuery<ContratoCE>(sql).ToList();
             }
         }
 

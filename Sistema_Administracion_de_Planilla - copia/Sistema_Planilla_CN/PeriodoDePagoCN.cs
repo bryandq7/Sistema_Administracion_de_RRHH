@@ -26,5 +26,21 @@ namespace Sistema_Planilla_CN
             return obj.ObtenerPeriodoAnterior();
         }
 
-    }
+        public static PeriodoDePagoCE ObtenerPeriododePagoObj()
+        {
+            return obj.ObtenerPeriododePagoObj();
+        }
+
+            public static bool ObtenerPeriodoActivoYNOProcesado(int periodoID)
+        {
+            return obj.ObtenerPeriodoActivoYNOProcesado(periodoID);
+        }
+
+        public static bool AbiertoPeriodoNomina(int periodoID)
+        {
+            return obj.AbiertoPeriodoNomina(periodoID);
+        }
+
+
+        }
 }

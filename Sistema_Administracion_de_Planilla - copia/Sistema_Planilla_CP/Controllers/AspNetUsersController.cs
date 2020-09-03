@@ -32,10 +32,7 @@ namespace Sistema_Planilla_CP.Controllers
         public ActionResult ListarAsignacionesrolusuario()
         {
             return View(AspNetUsersCN.ListarAsignacionesrolusuario());
-
         }
-
-
 
 
         public ActionResult ListarUsuarios()

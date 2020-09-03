@@ -17,12 +17,19 @@ namespace Sistema_Planilla_CN
             return obj.ListarEmpleados();
         }
 
+
+
         public static List<EmpleadoCE> ListarEmpleadosContratoVigente()
         {
             return obj.ListarEmpleadosContratoVigente();
         }
 
-        public static void Crear(EmpleadoCE empleado)
+        public static List<EmpleadoCE> ListarEmpleadosContratoVigentePlanilla()
+        {
+            return obj.ListarEmpleadosContratoVigentePlanilla();
+        }
+
+            public static void Crear(EmpleadoCE empleado)
         {
             obj.Crear(empleado);
 

@@ -1,6 +1,7 @@
 ﻿using Sistema_Planilla_CE;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,43 @@ namespace Sistema_Planilla_CD
             using (var db = new RecursosHumanosDBContext())
             {
                 return db.Database.SqlQuery<ConceptoAplicadoCE>(sql).ToList();
+            }
+        }
+
+
+        public List<ConceptoAplicadoCE> ListarConceptosAplicadosPlanilla(int idEmpleado)
+        {
+            string sql = @"select ca.Id_ConceptoAplicado,ca.Cantidad_ConceptoAplicado,ca.Monto_ConceptoAplicado,
+							 e.Id_Empleado,p.Id_Persona,p.Apellido1_Persona+' '+p.Apellido2_Persona+' ,'+ p.Nombre_Persona As NombreCompleto_Persona,c.Id_Concepto,c.Nombre_Concepto,
+                             c.Editable_Concepto,pp.Id_PeriodoDePago,pp.Periodo_PeriododDePago,ct.Id_Contrato,ct.SalarioBruto_Contrato,
+                             ct.FechaInicio_Contrato,ct.Activo_Contrato,cc.Id_ClaseConcepto,cc.Detalle_ClaseConcepto,tc.Id_TipoConcepto,tc.Detalle_TipoConcepto,ca.Fecha_ConceptoAplicado
+                            from ConceptoAplicado ca 
+                            inner join Empleado e on ca.FKId_Empleado_ConceptoAplicado = e.Id_Empleado
+                            inner join Persona p on e.FKId_Persona_Empleado = p.Id_Persona
+                            inner join Concepto c on ca.FKId_Concepto_ConceptoAplicado = c.Id_Concepto
+                            inner join PeriodoDePago pp on ca.FKId_PeriodoDePago_ConceptoAplicado = pp.Id_PeriodoDePago
+                            inner join Contrato ct on e.Id_Empleado = ct.FKId_Empleado_Contrato
+                            inner join ClaseConcepto cc on c.FKId_ClaseConcepto_Concepto = cc.Id_ClaseConcepto
+                            inner join TipoConcepto tc on c.FKId_TipoConcepto_Concepto = tc.Id_TipoConcepto
+                            where pp.Periodo_PeriododDePago <=DATEADD(day, 17, GetDate()) and pp.Periodo_PeriododDePago>GetDate() 
+							and ca.Procesado_ConceptoAplicado=0 and ct.Activo_Contrato=1 and e.Id_Empleado = @Cod_Empleado";
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                db.Configuration.LazyLoadingEnabled = false;
+                return db.Database.SqlQuery<ConceptoAplicadoCE>(sql, new SqlParameter("@Cod_Empleado", idEmpleado)).ToList();
+            }
+        }
+
+
+        public bool ConceptoAplicadoExisteEmpleado(int empleadoID, int idperiodo)
+        {
+            using (var db = new RecursosHumanosDBContext())
+            {
+                var existeconcepto = db.ConceptoAplicado
+                    .Any(p => p.FKId_Empleado_ConceptoAplicado == empleadoID && p.FKId_PeriodoDePago_ConceptoAplicado == idperiodo && p.Procesado_ConceptoAplicado == false);
+
+                return existeconcepto;
             }
         }
 

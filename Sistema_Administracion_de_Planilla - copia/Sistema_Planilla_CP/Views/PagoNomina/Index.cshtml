@@ -1,0 +1,116 @@
+﻿
+@model IEnumerable<Sistema_Planilla_CE.PeriodoDePago>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+
+
+@section styles{
+
+    <style>
+        .tituloCss {
+            color: #3d3d29;
+        }
+    </style>
+}
+
+    <h2>Cálculo de Nómina</h2>
+
+<h2 class="tituloCss">Realizar Corrida del Cálculo de Nómina</h2>
+<hr />
+<div class="form-horizontal" id="divHabilitar">
+    <div class="form-group">
+        <label class="control-label col-md-2">Periodo Habilitado</label>
+        <div class="col-md-4">
+            <select class="form-control" id="Id_PeriodoDePago" name="Id_PeriodoDePago">
+                <option value="">Seleccione</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-4">
+            <br />
+            <button type="button" class="btn btn-primary btn-block" onclick="CalcularNomina()">
+                <i class="glyphicon glyphicon-plus"></i>    Realizar Cálculo de Nómina
+            </button>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        ObtenerPeriododePago();
+
+
+        function ObtenerPeriododePago(myCallback) {
+            $.ajax({
+                type: "GET",
+                url: '/periododepago/ObtenerPeriododePago',
+                dataType: "json",
+                success: function (result) {
+                    $.each(result.data, function (key, item) {
+                        var parsedDate = new Date(parseInt(item.Periodo_PeriododDePago.substr(6)));
+                        var jsDate = new Date(parsedDate);
+                        var dia = jsDate.getDate();
+                        var mes = jsDate.getMonth() + 1;
+                        var año = jsDate.getFullYear();
+                        var fecha = dia + "/" + mes + "/" + año
+                        $("#Id_PeriodoDePago").append('<option value=' + item.Id_PeriodoDePago + ',formattedDate>' + fecha + '</option>');
+                    });
+
+                    if (myCallback !== undefined)
+                        return myCallback(result.data);
+                },
+                error: function (data) {
+                    alert('error');
+                }
+            });
+        }
+
+
+        function CalcularNomina() {
+            var periodoId = $("#Id_PeriodoDePago").val();
+
+            if (periodoId == "") {
+                alert("Debe escoger el periodo");
+                return;
+            }
+            $.confirm({
+                title: 'Corrida de Cálculo de Nómina!',
+                content: '¿Está seguro que desea realizar la corrida del cálculo de nómina?',
+                buttons: {
+                    Confirmar: function () {
+                        LoadingOverlayShow("#divHabilitar");
+                        $.ajax({
+                            url: "/PagoNomina/CalcularNomina",
+                            type: "post",
+                            data: { Id_PeriodoDePago }
+                        }).done(function (response) {
+                            LoadingOverlayHide("#divHabilitar");
+                            if (response.ok) {
+                                alert("Corrida de Cálculo Ejecutada Correctamente");
+                                window.location = response.toRedirect;
+                            }
+                            else {
+                                alert(response.msg);
+                            }
+                        }).fail(function (jqXHR, textStatus, errorThrown) {
+                            LoadingOverlayHide("#divHabilitar");
+                        });
+                    },
+                    Cancelar: function () {
+                    },
+                }
+            });
+        };
+
+    </script>
+}
+
+

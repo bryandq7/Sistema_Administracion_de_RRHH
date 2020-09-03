@@ -17,7 +17,17 @@ namespace Sistema_Planilla_CN
             return obj.ListarConceptosAplicados();
         }
 
-        public static void Crear(ConceptoAplicadoCE concepto)
+        public static List<ConceptoAplicadoCE> ListarConceptosAplicadosPlanilla(int idEmpleado)
+        {
+            return obj.ListarConceptosAplicadosPlanilla(idEmpleado);
+        }
+
+        public static bool ConceptoAplicadoExisteEmpleado(int empleadoID, int idperiodo)
+        {
+            return obj.ConceptoAplicadoExisteEmpleado(empleadoID, idperiodo);
+        }
+
+            public static void Crear(ConceptoAplicadoCE concepto)
         {
             obj.Crear(concepto);
 

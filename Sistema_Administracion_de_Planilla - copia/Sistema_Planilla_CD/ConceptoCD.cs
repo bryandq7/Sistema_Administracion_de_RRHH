@@ -89,6 +89,46 @@ namespace Sistema_Planilla_CD
             }
         }
 
+
+        public List<ConceptoCE> ListarConceptosPlanilla(Nullable<int> impacta)
+        {
+            string sql = "";
+
+            if (impacta == 1)
+            {
+                sql = @"select c.Id_Concepto,c.Nombre_Concepto,c.Editable_Concepto,c.FKId_TipoConcepto_Concepto,c.FKId_DestinatarioConcepto_Concepto,
+				c.FKId_ImpactaPlanilla_Concepto,c.FKId_ClaseConcepto_Concepto,c.Porcentaje_Concepto,c.MontoFijo_Concepto,
+				c.DirectoPlanilla_Concepto,tc.Id_TipoConcepto,tc.Detalle_TipoConcepto,dc.Id_DestinatarioConcepto,
+				dc.Nombre_DestinatarioConcepto,imp.Id_ImpactaPlanilla,imp.Detalle_ImpactaPlanilla,cc.Id_ClaseConcepto,cc.Detalle_ClaseConcepto,c.FactorTiempo_Concepto            
+                from Concepto c 
+                inner join ClaseConcepto cc on c.FKId_ClaseConcepto_Concepto = cc.Id_ClaseConcepto
+                inner join TipoConcepto tc on c.FKId_TipoConcepto_Concepto = tc.Id_TipoConcepto
+				inner join DestinatarioConcepto dc on c.FKId_DestinatarioConcepto_Concepto = dc.Id_DestinatarioConcepto
+				inner join ImpactaPlanilla imp on c.FKId_ImpactaPlanilla_Concepto = imp.Id_ImpactaPlanilla
+				where imp.Id_ImpactaPlanilla = 1 and c.DirectoPlanilla_Concepto = 1";
+            }
+
+            if (impacta == 2)
+            {
+                sql = @"select c.Id_Concepto,c.Nombre_Concepto,c.Editable_Concepto,c.FKId_TipoConcepto_Concepto,c.FKId_DestinatarioConcepto_Concepto,
+				c.FKId_ImpactaPlanilla_Concepto,c.FKId_ClaseConcepto_Concepto,c.Porcentaje_Concepto,c.MontoFijo_Concepto,
+				c.DirectoPlanilla_Concepto,tc.Id_TipoConcepto,tc.Detalle_TipoConcepto,dc.Id_DestinatarioConcepto,
+				dc.Nombre_DestinatarioConcepto,imp.Id_ImpactaPlanilla,imp.Detalle_ImpactaPlanilla,cc.Id_ClaseConcepto,cc.Detalle_ClaseConcepto,c.FactorTiempo_Concepto             
+                from Concepto c 
+                inner join ClaseConcepto cc on c.FKId_ClaseConcepto_Concepto = cc.Id_ClaseConcepto
+                inner join TipoConcepto tc on c.FKId_TipoConcepto_Concepto = tc.Id_TipoConcepto
+				inner join DestinatarioConcepto dc on c.FKId_DestinatarioConcepto_Concepto = dc.Id_DestinatarioConcepto
+				inner join ImpactaPlanilla imp on c.FKId_ImpactaPlanilla_Concepto = imp.Id_ImpactaPlanilla
+				where imp.Id_ImpactaPlanilla = 2 and c.DirectoPlanilla_Concepto = 1";
+            }
+
+
+            using (var db = new RecursosHumanosDBContext())
+            {
+                return db.Database.SqlQuery<ConceptoCE>(sql).ToList();
+            }
+        }
+
         public void Crear(ConceptoCE concepto)
         {
 

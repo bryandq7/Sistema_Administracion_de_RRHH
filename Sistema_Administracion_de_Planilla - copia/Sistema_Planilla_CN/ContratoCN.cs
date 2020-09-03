@@ -32,16 +32,52 @@ namespace Sistema_Planilla_CN
             obj.Editar(contrato);
         }
 
+        public static List<ContratoCE> CargarContratos()
+        {
+            return obj.CargarContratosporActivarHoy();
+        }
 
-        //public static bool ObtenerEmpleadoActivo(int personaID)
-        //{
-        //    return obj.ObtenerEmpleadoActivo(personaID);
-        //}
+        public static bool ObtenerContratoActivo(int empleadoID)
+        {
+            return obj.ObtenerContratoActivo(empleadoID);
+        }
 
-        //public static int ExisteEmpleado(int personaID)
-        //{
-        //    return obj.ExisteEmpleado(personaID);
-        //}
+
+        public static void EditarDesactivar(ContratoCE contrato)
+        {
+            obj.EditarDesactivar(contrato);
+        }
+
+        public static void EditarActivar(ContratoCE contrato)
+        {
+            obj.EditarActivar(contrato);
+        }
+
+
+        public static ContratoCE ObtenerObjetoContratoActivo(int idempleado)
+        {
+            return obj.ObtenerObjetoContratoActivo(idempleado);
+        }
+
+        public static int ObtenerIdEmpleado(int personaID)
+        {
+            return obj.ObtenerIdEmpleado(personaID);
+        }
+
+        public static bool ExisteContratoFecha(int empleadoID, DateTime fechacontrato)
+        {
+            return obj.ExisteContratoFecha(empleadoID, fechacontrato);
+        }
+
+            //public static bool ObtenerEmpleadoActivo(int personaID)
+            //{
+            //    return obj.ObtenerEmpleadoActivo(personaID);
+            //}
+
+            //public static int ExisteEmpleado(int personaID)
+            //{
+            //    return obj.ExisteEmpleado(personaID);
+            //}
 
 
             //public static void EditarActivo(ContratoCE contrato)

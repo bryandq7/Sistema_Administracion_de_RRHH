@@ -21,8 +21,13 @@ namespace Sistema_Planilla_CN
             return obj.ListarConceptos(impacta);
         }
 
+        public static List<ConceptoCE> ListarConceptosPlanilla(Nullable<int> impacta)
+        {
+            return obj.ListarConceptosPlanilla(impacta);
+        }
 
-        public static void Crear(ConceptoCE concepto)
+
+            public static void Crear(ConceptoCE concepto)
         {
             obj.Crear(concepto);
 

@@ -13,15 +13,15 @@
         }
     </style>
 
-
 }
 
-<h2 class="tituloCss">Lista de Contratos</h2>
+<h2 class="tituloCss">Lista de Contratos Activos</h2>
 
 <p>
     <a class="btn btn-info" href="@Url.Action("Crear", "Contrato")"><i class="glyphicon glyphicon-plus"></i> Crear Nuevo</a>
 </p>
 <table class="table" id="tablaContrato">
+
     <thead>
         <tr>
             <th>
@@ -146,6 +146,7 @@
 
     <script>
 
+
         $('#tablaContrato').DataTable({
             "pageLength": 5,
             lengthMenu: [5, 10, 20, 50, 100, 200, 500],
@@ -169,6 +170,34 @@
             }
 
         });
+
+
+        //window.onload = cargarcontratos();
+
+        //function cargarcontratos() {
+
+        //    $.ajax({
+        //        type: "GET",
+        //        url: "/contrato/cargarcontratos",
+        //        data: {},
+        //        dataType: "json",
+
+        //    }).done(function (response) {
+        //        console.log(response);//
+        //        //LoadingOverlayHide("#tablaEmpleado");
+        //        if (response.ok) {
+        //            //alert("Campos actualizados correctamente.");
+        //            //window.location = response.toRedirect;
+        //        }
+        //        else {
+        //            alert(response.msg);
+        //            //window.location = response.toRedirect;
+        //        }
+        //    }).fail(function (jqXHR, textStatus, errorThrown) {
+        //        //LoadingOverlayHide("#tablaEmpleado");
+        //        alert(textStatus);
+        //    });
+        //}
 
     </script>
 }

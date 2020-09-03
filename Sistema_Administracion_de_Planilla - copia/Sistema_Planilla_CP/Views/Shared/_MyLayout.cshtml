@@ -28,11 +28,11 @@
         }
 
         h4 {
-            font-size: 19px;
+            font-size: 15px;
             line-height: 1.375em;
             color: #303030;
-            font-weight: 400;
-            margin-bottom: 30px;
+            font-weight: 200;
+            margin-bottom: 10px;
         }
 
         h5 {
@@ -46,7 +46,7 @@
         .jumbotron {
             background-color: #002b80;
             color: #fff;
-            padding: 50px 20px;
+            padding: 30px 10px;
             font-family: Montserrat, sans-serif;
         }
 
@@ -304,21 +304,31 @@
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @*<a class="navbar-brand">Saint Spirit School </a>*@
-                <h2>Sistema de R.R.H.H. </h2>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
 
-                <h5>@Html.Partial("_LoginPartial") </h5>
-                <ul class="nav navbar-nav navbar-right">
+    <nav class="navbar navbar-default navbar-fixed-top">
+
+
+
+        <div class="container">
+
+            <div>
+                <h4>@Html.Partial("_LoginPartial") </h4>
+            </div>
+
+
+
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <div>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"></button>
+                    @*<a class="navbar-brand">Saint Spirit School </a>*@
+                    <img src="~/Content/saintspirit.png" width="75" height="50" />
+                    @*<h2>Sistema de R.R.H.H. </h2>*@
+
+                </div>
+            </div>
+
+                <ul class="nav navbar-nav navbar-static-top">
+
                     @if (HttpContext.Current.User.Identity.IsAuthenticated)
                     {
                         if (HttpContext.Current.User.IsInRole("Administrador"))
@@ -395,36 +405,36 @@
 
                             @*<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
 
-                                <li class="divider"></li>
-                                <li class="dropdown-submenu">
-                                    <a tabindex="-2" href="#">Conceptos</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">@Html.ActionLink("Conceptos", "Index", "Concepto")</a></li>
-                                    </ul>
-                            </ul>*@
+                                    <li class="divider"></li>
+                                    <li class="dropdown-submenu">
+                                        <a tabindex="-2" href="#">Conceptos</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">@Html.ActionLink("Conceptos", "Index", "Concepto")</a></li>
+                                        </ul>
+                                </ul>*@
 
 
                             @*<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
 
-                                <li class="divider"></li>
-                                <li class="dropdown-submenu">
-                                    <a tabindex="-3" href="#">Tipos de Solicitud</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">@Html.ActionLink("Tipos de Solicitud", "Index", "TipoSolicitud")</a></li>
-                                    </ul>
-                            </ul>*@
+                                    <li class="divider"></li>
+                                    <li class="dropdown-submenu">
+                                        <a tabindex="-3" href="#">Tipos de Solicitud</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">@Html.ActionLink("Tipos de Solicitud", "Index", "TipoSolicitud")</a></li>
+                                        </ul>
+                                </ul>*@
 
 
                             @*<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
 
-                                <li class="divider"></li>
-                                <li class="dropdown-submenu">
-                                    <a tabindex="-4" href="#">Contratos</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">@Html.ActionLink("Contratos", "Index", "Contrato")</a></li>
-                                        <li><a href="#">@Html.ActionLink("Cargos", "Index", "Cargo")</a></li>
-                                    </ul>
-                            </ul>*@
+                                    <li class="divider"></li>
+                                    <li class="dropdown-submenu">
+                                        <a tabindex="-4" href="#">Contratos</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">@Html.ActionLink("Contratos", "Index", "Contrato")</a></li>
+                                            <li><a href="#">@Html.ActionLink("Cargos", "Index", "Cargo")</a></li>
+                                        </ul>
+                                </ul>*@
 
 
 
@@ -471,9 +481,7 @@
 
 
                                 <li><a href="#">@Html.ActionLink("Agregar Conceptos a Empleados", "Index", "ConceptoAplicado")</a></li>
-
-
-
+                                <li><a href="#">@Html.ActionLink("Ejecutar Corrida de Nómina", "Index", "PagoNomina")</a></li>
                             </ul>
 
 
@@ -489,23 +497,27 @@
 
             </div>
 
-        </div>
+
+
+
     </nav>
 
     <div class="jumbotron text-center">
-        @*<h1>Company</h1>*@
-        <p>We specialize in blablabla</p>
-        <form>
-            @*<div class="input-group">
-                    <input type="email" class="form-control" size="50" placeholder="Email Address" required>
-                    <div class="input-group-btn">
-                        <button type="button" class="btn btn-danger">Subscribe</button>
+        @*<h1>Company</h1>
+            <form>
+                    <div class="input-group">
+                        <input type="email" class="form-control" size="50" placeholder="Email Address" required>
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-danger">Subscribe</button>
+                        </div>
                     </div>
-                </div>*@
-        </form>
+                </form>
+            <p>We specialize in blablabla</p>*@
     </div>
 
     <div class="container body-content">
+        <br />
+        <br />
         @RenderBody()
     </div>
 
@@ -519,6 +531,10 @@
     </footer>
 
     <script>
+
+
+
+
         $(document).ready(function () {
             // Add smooth scrolling to all links in navbar + footer link
             $(".navbar a, footer a[href='#myPage']").on('click', function (event) {
@@ -537,7 +553,9 @@
                     }, 900, function () {
 
                         // Add hash (#) to URL when done scrolling (default click behavior)
+
                         window.location.hash = hash;
+
                     });
                 } // End if
             });
@@ -553,6 +571,8 @@
                 });
             });
         })
+
+
     </script>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
