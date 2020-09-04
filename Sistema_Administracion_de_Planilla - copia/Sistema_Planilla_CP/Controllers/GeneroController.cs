@@ -13,7 +13,8 @@ namespace Sistema_Planilla_CP.Controllers
         // GET: Genero
         public ActionResult Index()
         {
-            return View();
+            var lista = GeneroCN.ListarGeneros();
+            return View(lista);
         }
 
         public JsonResult GetGeneros()

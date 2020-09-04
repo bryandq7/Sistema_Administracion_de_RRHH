@@ -364,6 +364,9 @@
     <Content Include="Views\FotoPersona\DetallesFoto.cshtml" />
     <Content Include="Views\FotoPersona\Editar.cshtml" />
     <Content Include="Views\PagoNomina\Index.cshtml" />
+    <Content Include="Views\PagoNomina\Editar.cshtml" />
+    <Content Include="Views\Planilla\Index.cshtml" />
+    <Content Include="Views\Genero\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -373,11 +376,9 @@
     <Folder Include="Views\ClaseConcepto\" />
     <Folder Include="Views\Direccion\" />
     <Folder Include="Views\Distrito\" />
-    <Folder Include="Views\Genero\" />
     <Folder Include="Views\ImpactaPlanilla\" />
     <Folder Include="Views\Moneda\" />
     <Folder Include="Views\PeriodoDePago\" />
-    <Folder Include="Views\Planilla\" />
     <Folder Include="Views\Provincia\" />
     <Folder Include="Views\Roles\" />
     <Folder Include="Views\TipoConcepto\" />

@@ -15,8 +15,7 @@ namespace Sistema_Planilla_CD
         {         
             using (var db = new RecursosHumanosDBContext())
             {
-                db.Database.SqlQuery<Planilla>("spCrearPlanillaMaestro, @FechaActualizacion_Planilla, @FKId_Empleado_Planilla, @FKId_PeriodoDePago_Planilla , " +
-                   "@TotalDeducciones_Planilla, @TotalAsignaciones_Planilla,@TotalMontoaPagar_Planilla , @PagoProcesado_Planilla",
+                db.Database.SqlQuery<Planilla>("exec spCrearPlanillaMaestros @FechaActualizacion_Planilla, @FKId_Empleado_Planilla, @FKId_PeriodoDePago_Planilla ,@TotalDeducciones_Planilla, @TotalAsignaciones_Planilla,@TotalMontoaPagar_Planilla , @PagoProcesado_Planilla",
                     new SqlParameter("@FechaActualizacion_Planilla", planilla.FechaActualizacion_Planilla),
                     new SqlParameter("@FKId_Empleado_Planilla", planilla.FKId_Empleado_Planilla),
                     new SqlParameter("@FKId_PeriodoDePago_Planilla", planilla.FKId_PeriodoDePago_Planilla),

@@ -27,8 +27,8 @@ namespace Sistema_Planilla_CE
         public decimal TotalMontoaPagar_PlanillaPatrono { get; set; }
     
         public virtual Empleado Empleado { get; set; }
+        public virtual PeriodoDePago PeriodoDePago { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlanillaPatronoDetalle> PlanillaPatronoDetalle { get; set; }
-        public virtual PeriodoDePago PeriodoDePago { get; set; }
     }
 }

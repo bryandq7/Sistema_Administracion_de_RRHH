@@ -16,29 +16,35 @@ namespace Sistema_Planilla_CP.Controllers
             return View();
         }
 
+        public ActionResult Editar()
+        {
+            var periodo = PeriodoDePagoCN.ObtenerPeriododePagoObj();
+            return View(periodo);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CalcularNomina(string Id_PeriodoDePago)
+        public ActionResult CalcularNomina( PeriodoDePago periodo)
         {
 
-            int Id_PeriodoDePago2 = 0;
+            int Id_PeriodoDePago = periodo.Id_PeriodoDePago;
             try
             {
-                if (PeriodoDePagoCN.ObtenerPeriodoActivoYNOProcesado(Id_PeriodoDePago2) == false)
+                if (PeriodoDePagoCN.ObtenerPeriodoActivoYNOProcesado(Id_PeriodoDePago) == false)
                     return Json(new { ok = false, msg = "Este periodo no se encuentra activo o bien ya fue calculado" });
-                if (PeriodoDePagoCN.AbiertoPeriodoNomina(Id_PeriodoDePago2) == false)
+                if (PeriodoDePagoCN.AbiertoPeriodoNomina(Id_PeriodoDePago) == false)
                     return Json(new { ok = false, msg = "El periodo de cálculo de nómina aún no se encuentra abierto o ya se realizó para este periodo" });
 
                 List<EmpleadoCE> listaempleadosplanilla = EmpleadoCN.ListarEmpleadosContratoVigentePlanilla();
 
-                PeriodoDePagoCE periodopago =  PeriodoDePagoCN.ObtenerPeriododePagoObj();
+                PeriodoDePagoCE periodopago = PeriodoDePagoCN.ObtenerPeriododePagoObj();
 
                 if (!listaempleadosplanilla.Any())
                     return Json(new { ok = false, msg = "No existen empleados activos para procesar planilla" });
 
                 if (listaempleadosplanilla.Any())
                 {
-                   
+
                     List<ConceptoCE> listaconceptosautomaticosplanillatrabajador = ConceptoCN.ListarConceptosPlanilla(2);
                     List<ConceptoCE> listaconceptosautomaticosplanillapatrono = ConceptoCN.ListarConceptosPlanilla(1);
 
@@ -75,13 +81,13 @@ namespace Sistema_Planilla_CP.Controllers
 
                 }
 
-                
 
-                
 
-               
 
-                
+
+
+
+
 
 
 
@@ -93,5 +99,9 @@ namespace Sistema_Planilla_CP.Controllers
                 return Json(new { ok = false, msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+
+
+
     }
 }

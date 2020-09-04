@@ -1,0 +1,107 @@
+﻿@model Sistema_Planilla_CE.PeriodoDePagoCE
+
+@{
+    ViewBag.Title = "Editar";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@section styles{
+
+    <style>
+        .tituloCss {
+            color: #3d3d29;
+        }
+    </style>
+}
+
+    <h2>Cálculo de Nómina</h2>
+
+
+<form id="frmPeriodo" action="@Url.Action("CalcularNomina", "PagoNomina")" method="post">
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h2 class="tituloCss">Realizar Corrida del Cálculo de Nómina</h2>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id_PeriodoDePago)
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Id_PeriodoDePago, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Id_PeriodoDePago, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Id_PeriodoDePago, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Periodo Pendiente</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="Periodo_PeriododDePago" id="Periodo_PeriododDePago"
+                       value="@Model.Periodo_PeriododDePago" disabled />
+                @Html.ValidationMessageFor(model => model.Periodo_PeriododDePago, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.ActivoPeriodo_PeriododDePago, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.ActivoPeriodo_PeriododDePago)
+                        @Html.ValidationMessageFor(model => model.ActivoPeriodo_PeriododDePago, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Realizar Cálculo de Nómina" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@*<div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+        $("#frmPeriodo").submit(function (event) {
+            event.preventDefault(); //prevent default action
+            //var dptoId = $("#Id_Departamento").val();
+            //if (dptoId == "") {
+            //    alert("Debe escoger un Departamento");
+            //    return;
+            //}
+            var post_url = $(this).attr("action"); //get form action url
+            var request_method = $(this).attr("method"); //get form GET/POST method
+            var form_data = $(this).serializeArray(); //Encode form elements for submission
+            console.log(form_data);
+
+            LoadingOverlayShow("#frmPeriodo");
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) { //
+                console.log(response);
+                LoadingOverlayHide("#frmPeriodo");
+                if (response.ok) {
+                    alert("Empleado editado correctamente.");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    alert(response.msg);
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmPeriodo");
+            });
+        });
+
+    </script>
+}

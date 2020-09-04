@@ -89,8 +89,8 @@
                         LoadingOverlayShow("#divHabilitar");
                         $.ajax({
                             url: "/PagoNomina/CalcularNomina",
-                            type: "post",
-                            data: { Id_PeriodoDePago }
+                            type: "get",
+                            data: { }
                         }).done(function (response) {
                             LoadingOverlayHide("#divHabilitar");
                             if (response.ok) {

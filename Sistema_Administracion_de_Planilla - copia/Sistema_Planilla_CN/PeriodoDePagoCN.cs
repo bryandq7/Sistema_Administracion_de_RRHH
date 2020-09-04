@@ -31,9 +31,9 @@ namespace Sistema_Planilla_CN
             return obj.ObtenerPeriododePagoObj();
         }
 
-            public static bool ObtenerPeriodoActivoYNOProcesado(int periodoID)
+        public static bool ObtenerPeriodoActivoYNOProcesado(int periodoId)
         {
-            return obj.ObtenerPeriodoActivoYNOProcesado(periodoID);
+            return obj.ObtenerPeriodoActivoYNOProcesado(periodoId);
         }
 
         public static bool AbiertoPeriodoNomina(int periodoID)
